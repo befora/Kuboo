@@ -42,7 +42,8 @@
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
             android:text="@string/changelog_row_bulletpoint"
-            android:textAppearance="@android:style/TextAppearance.Small"/>
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/md_black_1000"/>
 
         <!-- ChangeLog Row [Text] You have to use the id="chg_text" -->
         <TextView
@@ -52,7 +53,8 @@
             android:layout_marginStart="12dp"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
-            android:textAppearance="@android:style/TextAppearance.Small"/>
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/md_black_1000"/>
     </LinearLayout>
 
 </LinearLayout>

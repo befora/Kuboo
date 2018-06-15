@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.disableShiftMode
@@ -33,6 +34,8 @@ class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigat
         setTitle(R.string.main_read_now)
         setSupportActionBar(main_layout_base_toolBar)
 
+        showChangeLog()
+
         bottomNav.setOnNavigationItemSelectedListener(this)
         bottomNav.setOnNavigationItemReselectedListener(this)
         bottomNav.disableShiftMode()
@@ -45,6 +48,14 @@ class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigat
         }
 
         setStateLoading()
+    }
+
+    private fun showChangeLog() {
+        if (systemUtil.isFirstRunOfThisVersion()) dialogUtil.getDialogChangeLog(this).apply {
+            show()
+            val height = Math.max(systemUtil.getSystemWidth(), systemUtil.getSystemHeight()) / 2
+            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

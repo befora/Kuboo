@@ -76,6 +76,11 @@ class DialogUtil(val context: Context) {
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_text_zoom, null))
     }.create()
 
+    internal fun getDialogChangeLog(context: Context) = getAlertDialogBuilder(context, appTheme = 1).apply {
+        setPositiveButton(R.string.dialog_dismiss) { dialog, _ -> dialog.dismiss() }
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_changelog, null))
+    }.create()
+
     internal fun getDialogDownload(context: Context, downloadList: List<Book>) = getAlertDialogBuilder(context).apply {
         setTitle(context.getString(R.string.dialog_download))
 
@@ -126,8 +131,8 @@ class DialogUtil(val context: Context) {
         }
     }.create()
 
-    private fun getAlertDialogBuilder(context: Context): AlertDialog.Builder {
-        when (APP_THEME) {
+    private fun getAlertDialogBuilder(context: Context, appTheme: Int = APP_THEME): AlertDialog.Builder {
+        when (appTheme) {
             0 -> return AlertDialog.Builder(context, R.style.DialogThemeLight)
             1 -> return AlertDialog.Builder(context, R.style.DialogThemeDark)
             2 -> return AlertDialog.Builder(context, R.style.DialogThemeOled)

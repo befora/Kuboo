@@ -33,7 +33,7 @@ class SystemUtil(private val context: Context) {
     val robotoCondensedItalic: Typeface by lazy { Typeface.createFromAsset(context.assets, "roboto_condensed_italic.ttf") }
     val robotoCondensedRegular: Typeface by lazy { Typeface.createFromAsset(context.assets, "roboto_condensed_regular.ttf") }
 
-    fun isFirstRun(): Boolean {
+    fun isFirstRunOfThisVersion(): Boolean {
         val sharedPreferences = context.defaultSharedPreferences
         val versionCode = getVersionCode()
         if (sharedPreferences.getBoolean(versionCode, true)) {

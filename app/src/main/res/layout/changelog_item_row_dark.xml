@@ -54,8 +54,7 @@
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
             android:textAppearance="@android:style/TextAppearance.Small"
-            android:textColor="@color/md_white_1000"
-            />
+            android:textColor="@color/md_white_1000"/>
     </LinearLayout>
 
 </LinearLayout>

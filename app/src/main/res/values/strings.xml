@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="app_label">Kuboo</string>
-
     <string name="about_answer1">The Ubooquity server MUST enable OPDS feed.
     \n \nThe Ubooquity server MUST open the appropriate network port.
     \n \nThe Ubooquity server MUST be allowed through any firewalls.
@@ -37,6 +35,8 @@
     <string name="about_question3">How does dual pane work?</string>
     <string name="about_question4">Why are my thumbnails pixelated?</string>
 
+    <string name="app_label">Kuboo</string>
+
     <string name="bookmark_of">of</string>
 
     <string name="browser_favorite">Favorite</string>
@@ -52,6 +52,7 @@
     <string name="dialog_connecting_to_server">Connecting to Server</string>
     <string name="dialog_connection_is_encrypted">Connection is encrypted</string>
     <string name="dialog_decline_bookmark">Decline bookmark</string>
+    <string name="dialog_dismiss">Dismiss</string>
     <string name="dialog_download">Download</string>
     <string name="dialog_file_does_not_exist">File does not exist!</string>
     <string name="dialog_font">Font</string>
