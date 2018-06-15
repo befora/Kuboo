@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/state_error_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/state_error_imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="false"
+        android:src="@drawable/ic_error_outline_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/state_error_guideLine4"
+        app:layout_constraintEnd_toStartOf="@+id/state_error_guideLine2"
+        app:layout_constraintStart_toStartOf="@+id/state_error_guideLine1"
+        app:layout_constraintTop_toTopOf="@+id/state_error_guideLine3"/>
+
+    <TextView
+        android:id="@+id/state_error_textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/main_server_not_available"
+        android:textAppearance="?android:textAppearanceMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/state_error_imageView"/>
+
+    <TextView
+        android:id="@+id/home_layout_fail_textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:lines="1"
+        android:textColor="@color/lightColorAccent"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/state_error_textView1"/>
+
+    <TextView
+        android:id="@+id/home_layout_fail_textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/lightColorAccent"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_layout_fail_textView2"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/state_error_guideLine3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.01"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/state_error_guideLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.2"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/state_error_guideLine2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.8"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/state_error_guideLine4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.6"/>
+
+</android.support.constraint.ConstraintLayout>

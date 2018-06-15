@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_layout_browser_relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/login_layout_browser_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+    <include layout="@layout/state_empty"/>
+
+    <include layout="@layout/state_error"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/login_layout_browser_floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="32dp"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/lightColorAccent"/>
+
+</RelativeLayout>

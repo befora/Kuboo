@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <!--  Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_layout_edit_textInputEditText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_server_name"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Ip Address Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_layout_edit_textInputEditText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_ip_address"
+                android:inputType="textVisiblePassword"
+                android:textSize="12sp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Username Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_layout_edit_textInputEditText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_username"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:passwordToggleContentDescription="@string/login_show"
+            app:passwordToggleDrawable="@drawable/asl_password_visibility"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="?colorControlNormal">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_layout_edit_textInputEditText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_password"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/login_layout_edit_button1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:text="@string/login_delete_server"
+            android:visibility="gone"/>
+
+        <!-- Signup Button -->
+        <Button
+            android:id="@+id/login_layout_edit_button2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:text="@string/login_add_server"/>
+
+    </LinearLayout>
+
+</ScrollView>

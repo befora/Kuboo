@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:ignore="AlwaysShowAction">
+    <group>
+        <item
+            android:id="@+id/main_overflow_about"
+            android:title="@string/main_about"
+            app:showAsAction="never"/>
+    </group>
+
+    <item
+        android:id="@+id/main_action_https"
+        android:icon="@drawable/ic_https_white_24dp"
+        android:title="@string/main_https"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/main_action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="@string/main_search"
+        android:visible="false"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView"/>
+
+    <item
+        android:id="@+id/main_action_mark_finished_add"
+        android:icon="@drawable/ic_visibility_white_24dp"
+        android:title="@string/main_downloads"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/main_action_mark_finish_delete"
+        android:icon="@drawable/ic_visibility_off_white_24dp"
+        android:title="@string/main_downloads"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/main_action_download"
+        android:icon="@drawable/ic_file_download_white_24dp"
+        android:title="@string/main_downloads"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+</menu>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DarkDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#FFFFFF</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:background">#424242</item>
+        <item name="editTextColor">#FFFFFF</item>
+        <item name="titleTextColor">#FFFFFF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="textColorAlertDialogListItem">#FFFFFF</item>
+        <item name="android:textColorAlertDialogListItem">#FFFFFF</item>
+    </style>
+
+    <style name="LightDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#000000</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#000000</item>
+        <!-- Used for the background -->
+        <item name="android:background">#eeeeee</item>
+    </style>
+</resources>

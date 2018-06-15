@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppThemeDark" parent="BaseTheme">
+        <item name="colorPrimary">@color/darkColorPrimary</item>
+        <item name="colorPrimaryDark">@color/darkColorPrimaryDark</item>
+        <item name="colorAccent">@color/darkColorAccent</item>
+        <item name="android:statusBarColor">@color/darkColorPrimary</item>
+        <item name="android:windowBackground">@color/darkWindowBackground</item>
+        <item name="android:colorBackground">@color/darkWindowBackground</item>
+        <item name="android:colorBackgroundCacheHint">@color/darkWindowBackground</item>
+        <item name="android:itemBackground">@color/darkWindowBackground</item>
+        <item name="android:textColor">@color/primaryTextDark</item>
+        <item name="android:textColorPrimary">@color/primaryTextDark</item>
+        <item name="android:textColorSecondary">@color/primaryTextDark</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:alertDialogTheme">@style/DialogThemeDark</item>
+        <item name="android:alertDialogStyle">@style/DialogThemeDark</item>
+        <item name="android:dialogPreferenceStyle">@style/DialogThemeDark</item>
+        <item name="android:dialogTheme">@style/DialogThemeDark</item>
+    </style>
+
+    <style name="DialogThemeDark" parent="BaseAlertDialogTheme">
+        <item name="android:colorBackground">@color/darkColorPrimary</item>
+        <item name="android:windowBackground">@color/darkColorPrimary</item>
+        <item name="android:colorAccent">@color/lightColorAccent</item>
+        <item name="android:textColorPrimary">@color/primaryTextDark</item>
+        <item name="android:textColorSecondary">@color/primaryTextDark</item>
+        <item name="textColorAlertDialogListItem">@color/primaryTextDark</item>
+    </style>
+
+    <style name="InputLayoutDark" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textColorHint">@color/secondaryText</item>
+    </style>
+
+</resources>

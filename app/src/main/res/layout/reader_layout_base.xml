@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_black_1000">
+
+    <include layout="@layout/reader_layout_base_content"/>
+
+    <include layout="@layout/reader_layout_base_preview"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/reader_layout_base_constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/reader_layout_base_appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/reader_layout_base_toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:visibility="gone"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/reader_layout_base_overlay"/>
+
+        <include layout="@layout/reader_layout_base_navigation"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+

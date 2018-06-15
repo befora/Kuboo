@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="AppThemeOled" parent="BaseTheme">
+        <item name="colorPrimary">@color/oledColorPrimary</item>
+        <item name="colorPrimaryDark">@color/oledColorPrimaryDark</item>
+        <item name="colorAccent">@color/oledColorAccent</item>
+        <item name="android:statusBarColor">@color/oledColorPrimary</item>
+        <item name="android:windowBackground">@color/md_black_1000</item>
+        <item name="android:colorBackground">@color/md_black_1000</item>
+        <item name="android:colorBackgroundCacheHint">@color/md_black_1000</item>
+        <item name="android:itemBackground">@color/md_black_1000</item>
+        <item name="android:textColor">@color/primaryTextDark</item>
+        <item name="android:textColorPrimary">@color/primaryTextDark</item>
+        <item name="android:textColorSecondary">@color/primaryTextDark</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:alertDialogTheme">@style/DialogThemeOled</item>
+        <item name="android:alertDialogStyle">@style/DialogThemeOled</item>
+        <item name="android:dialogPreferenceStyle">@style/DialogThemeOled</item>
+        <item name="android:dialogTheme">@style/DialogThemeOled</item>
+    </style>
+
+    <style name="DialogThemeOled" parent="BaseAlertDialogTheme">
+        <item name="android:colorBackground">@color/md_black_1000</item>
+        <item name="android:textColor">@color/primaryTextDark</item>
+        <item name="android:textColorPrimary">@color/primaryTextDark</item>
+        <item name="android:textColorSecondary">@color/primaryTextDark</item>
+        <item name="textColorAlertDialogListItem">@color/primaryTextDark</item>
+        <item name="android:windowBackground">@drawable/dialog_border</item>
+    </style>
+</resources>

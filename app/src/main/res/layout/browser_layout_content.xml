@@ -1,0 +1,38 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/browser_layout_content_swipeRefreshLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/browser_layout_pagination_linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/browser_layout_path_horizontalScrollView">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentRecyclerView
+                android:id="@+id/browser_layout_content_browserContentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:visibility="invisible"/>
+            <include layout="@layout/state_empty"/>
+            <include layout="@layout/state_error"/>
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/browser_layout_content_spinKitView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Style="ThreeBounce"
+        app:layout_constraintBottom_toTopOf="@id/browser_layout_pagination_linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/browser_layout_path_horizontalScrollView"/>
+
+</merge>

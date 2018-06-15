@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="item"
+            type="com.sethchhim.kuboo_remote.model.Login"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/login_item_constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:padding="1dp">
+
+        <ImageView
+            android:id="@+id/login_item_imageView"
+            android:layout_width="76dp"
+            android:layout_height="0dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/login_item_linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/login_item_likeButton"
+            app:layout_constraintStart_toEndOf="@id/login_item_imageView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/login_item_textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:text="@{item.nickname.isEmpty ? item.server : item.nickname}"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/login_item_textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lines="1"
+                android:text="@{item.nickname.isEmpty ? null :item.server }"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+        <com.like.LikeButton
+            android:id="@+id/login_item_likeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:icon_size="17dp"
+            app:icon_type="star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

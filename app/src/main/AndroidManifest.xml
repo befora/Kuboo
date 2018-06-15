@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.sethchhim.kuboo_client">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_label"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/BaseTheme"
+        tools:replace="android:label">
+
+        <!--splash-->
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!--main-->
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+
+        <!--preview-->
+        <activity android:name=".ui.preview.PreviewActivity"/>
+
+        <!--reader-->
+        <activity
+            android:name=".ui.reader.comic.ReaderComicActivity"
+            android:launchMode="singleTop"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
+        <activity
+            android:name=".ui.reader.book.ReaderEpubActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
+        <activity
+            android:name=".ui.reader.pdf.ReaderPdfActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
+        <!--about-->
+        <activity android:name=".ui.about.AboutActivity"/>
+
+        <!--service-->
+        <service
+            android:name=".service.IntentService"
+            android:exported="false"/>
+
+        <service
+            android:name=".service.OnClearFromRecentService"
+            android:stopWithTask="false"/>
+
+    </application>
+</manifest>

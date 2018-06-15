@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/browser_layout_path"/>
+    <include layout="@layout/browser_layout_content"/>
+    <include layout="@layout/browser_layout_downloads"/>
+    <include layout="@layout/browser_layout_pagination"/>
+</android.support.constraint.ConstraintLayout>

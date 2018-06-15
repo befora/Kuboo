@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reader_layout_comic_dual_content_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_black_1000">
+
+    <include layout="@layout/reader_item_comic_dual_panel1"/>
+
+    <include layout="@layout/reader_item_comic_dual_panel2"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/reader_layout_comic_dual_content_guideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+</android.support.constraint.ConstraintLayout>

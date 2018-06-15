@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="item"
+            type="com.sethchhim.kuboo_remote.model.Book"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/browser_item_path_linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/browser_item_path_appCompatImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/browser_item_path_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@{item.title}"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:typeface="normal"/>
+
+    </LinearLayout>
+
+</layout>

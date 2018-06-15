@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    dataBinding { enabled = true }
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+androidExtensions { experimental = true }
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'com.jakewharton.timber:timber:4.6.1'
+    implementation 'org.tukaani:xz:1.8'
+    implementation 'org.apache.commons:commons-compress:1.16.1'
+    implementation project(path: ':junrar')
+}
+
+repositories {
+    mavenCentral()
+}

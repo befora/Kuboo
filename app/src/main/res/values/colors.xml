@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lightColorPrimary">#3F51B5</color>
+    <color name="lightColorPrimaryDark">#303F9F</color>
+    <color name="lightColorPrimaryLight">#C5CAE9</color>
+    <color name="lightColorAccent">#FF5252</color>
+
+    <color name="dividerColor">#BDBDBD</color>
+    <color name="primaryTextLight">#424242</color>
+    <color name="primaryTextDark">#EEEEEE</color>
+    <color name="textColorHint">#9E9E9E</color>
+    <color name="secondaryText">#757575</color>
+
+    <color name="darkColorPrimary">#212121</color>
+    <color name="darkColorPrimaryDark">#212121</color>
+    <color name="darkColorAccent">#FF5252</color>
+    <color name="darkWindowBackground">#303030</color>
+
+    <color name="oledColorPrimary">#000000</color>
+    <color name="oledColorPrimaryDark">#000000</color>
+    <color name="oledColorAccent">#FF5252</color>
+    <color name="oledWindowBackground">#303030</color>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog bulletedList="true">
+
+    <changelogversion
+        changeDate="Jun 13, 2018"
+        versionName="1.0">
+        <changelogtext>Initial release.</changelogtext>
+    </changelogversion>
+
+</changelog>

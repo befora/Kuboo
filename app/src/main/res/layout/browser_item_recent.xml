@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="item"
+            type="com.sethchhim.kuboo_remote.model.Book"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/browser_item_recent_constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp">
+
+        <ImageView
+            android:id="@+id/browser_item_recent_imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toTopOf="@+id/browser_item_recent_progressBar1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/browser_item_recent_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/main_remove"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/browser_item_recent_progressBar1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/browser_item_recent_progressBar1"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:max="@{item.totalPages}"
+            android:progress="@{item.currentPage + 1}"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/browser_item_recent_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/browser_item_recent_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/main_recent_item_open_series_border"
+            android:textColor="@color/md_white_1000"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/browser_item_recent_progressBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

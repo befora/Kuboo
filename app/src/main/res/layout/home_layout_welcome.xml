@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:ignore="SmallSp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_layout_welcome_textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/md_white_1000"
+                android:textSize="8sp"/>
+
+            <TextView
+                android:id="@+id/home_layout_welcome_textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/md_white_1000"
+                android:textSize="8sp"/>
+
+            <ImageView
+                android:id="@+id/home_layout_welcome_imageView1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="-40dp"
+                android:layout_marginTop="-40dp"/>
+
+            <TextView
+                android:id="@+id/home_layout_welcome_textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textColor="@color/md_white_1000"/>
+
+            <TextView
+                android:id="@+id/home_layout_welcome_textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textColor="@color/md_white_1000"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/home_layout_welcome_floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="32dp"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/lightColorAccent"/>
+
+    </RelativeLayout>
+
+</ScrollView>

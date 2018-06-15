@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reader_layout_base_overlay_constraintLayout"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:soundEffectsEnabled="false"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/reader_layout_base_appBarLayout">
+
+    <View
+        android:id="@+id/reader_layout_base_overlay_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.9"
+        android:background="@color/md_black_1000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/reader_layout_base_overlay_imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="start"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@id/reader_layout_base_overlay_guideLine1"
+        app:layout_constraintEnd_toEndOf="@id/reader_layout_comic_dual_content_guideLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/reader_layout_base_overlay_guideLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/reader_layout_comic_dual_content_guideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/reader_layout_base_overlay_nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_seekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/reader_layout_base_overlay_imageView"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/reader_layout_base_overlay_textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:soundEffectsEnabled="false"
+            android:textSize="15sp"/>
+    </android.support.v4.widget.NestedScrollView>
+
+    <SeekBar
+        android:id="@+id/reader_layout_base_overlay_seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:mirrorForRtl="true"
+        android:paddingEnd="64dp"
+        android:paddingStart="64dp"
+        android:progressTint="@color/md_blue_400"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/reader_layout_base_overlay_linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/reader_layout_base_overlay_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/reader_page"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/reader_layout_base_overlay_textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/md_white_1000"/>
+
+        <TextView
+            android:id="@+id/reader_layout_base_overlay_textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/reader_of"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/reader_layout_base_overlay_textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

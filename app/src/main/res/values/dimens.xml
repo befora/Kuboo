@@ -1,0 +1,31 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!--portrait 75dp-->
+    <dimen name="card_padding">90dp</dimen>
+    <dimen name="card_padding_viewpager_portrait">85dp</dimen>
+    <dimen name="card_padding_viewpager_landscape">150dp</dimen>
+    <dimen name="previewseekbar_bottom_margin">100dp</dimen>
+    <dimen name="app_bar_elevation">4dp</dimen>
+
+    <dimen name="fastscroll_bubble_radius">44dp</dimen>
+    <dimen name="fastscroll_bubble_size">88dp</dimen>
+    <dimen name="fastscroll_bubble_textsize">48sp</dimen>
+
+    <dimen name="fastscroll_handle_height">40dp</dimen>
+    <dimen name="fastscroll_handle_width">4dp</dimen>
+    <dimen name="fastscroll_handle_radius">2dp</dimen>
+
+    <dimen name="fastscroll_track_width">1dp</dimen>
+
+    <dimen name="fastscroll_scrollbar_margin_top">8dp</dimen>
+    <dimen name="fastscroll_scrollbar_margin_bottom">8dp</dimen>
+    <dimen name="fastscroll_scrollbar_padding_start">8dp</dimen>
+    <dimen name="fastscroll_scrollbar_padding_end">8dp</dimen>
+</resources>

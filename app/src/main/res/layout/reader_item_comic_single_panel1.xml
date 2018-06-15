@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPageImageView
+        android:id="@+id/reader_item_comic_single_panel1_readerPageImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/reader_item_comic_single_panel1_spinKitView"
+        style="@style/SpinKitView.Large.FadingCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/lightColorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include layout="@layout/reader_item_fail1"/>
+
+</merge>

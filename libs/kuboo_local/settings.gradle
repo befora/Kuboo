@@ -1,0 +1,2 @@
+include ':junrar'
+project(':junrar').projectDir = new File('libs/junrar')

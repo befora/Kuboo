@@ -1,0 +1,122 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+androidExtensions { experimental = true }
+kapt { generateStubs = true }
+
+android {
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    compileSdkVersion 27
+    dataBinding.enabled true
+    defaultConfig {
+        applicationId "com.sethchhim.kuboo"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
+        buildConfigField 'long', 'TIMESTAMP', System.currentTimeMillis() + 'L'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            crunchPngs false
+            splits.abi.enable false
+            splits.density.enable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+    repositories {
+        google()
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //google
+    final android_support_version = "27.1.1"
+    implementation "com.android.support:appcompat-v7:$android_support_version"
+    implementation "com.android.support:cardview-v7:$android_support_version"
+    implementation "com.android.support:design:$android_support_version"
+    implementation "com.android.support:preference-v7:$android_support_version"
+    implementation "com.android.support:recyclerview-v7:$android_support_version"
+    implementation "com.android.support:support-v4:$android_support_version"
+
+    final android_architecture_version = "1.1.0"
+    kapt "android.arch.persistence.room:compiler:$android_architecture_version"
+    kapt "android.arch.lifecycle:compiler:$android_architecture_version"
+    implementation "android.arch.persistence.room:runtime:$android_architecture_version"
+
+    final android_lifecycle_version = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$android_lifecycle_version"
+    implementation "android.arch.lifecycle:runtime:$android_lifecycle_version"
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    //dependency injection
+    final dagger_version = "2.13"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //butterknife
+    final butterknife_version = "8.8.1"
+    implementation "com.jakewharton:butterknife:$butterknife_version"
+    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+    //glide
+    final glide_version = "4.7.1"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
+
+    //fetch
+    final fetch_version = "2.0.0-RC22"
+    implementation "com.tonyodev.fetch2:fetch2:$fetch_version"
+    implementation "com.tonyodev.fetch2downloaders:fetch2downloaders:$fetch_version"
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.booking:rtlviewpager:1.0.1'
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    implementation 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation 'com.github.matrixxun:MaterialBadgeTextView:c5a27e8'
+    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.jakewharton.timber:timber:4.6.1'
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
+    implementation 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'org.jetbrains.anko:anko:0.10.5'
+
+    implementation project(path: ':epublibdroid-kotlin')
+    implementation project(path: ':kuboo_local')
+    implementation project(path: ':kuboo_remote')
+    implementation project(path: ':mupdf')
+
+}
