@@ -30,6 +30,8 @@ androidExtensions { experimental = true }
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //google
     final android_architecture_version = "1.1.0"
