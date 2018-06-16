@@ -18,7 +18,6 @@ class Task_DownloadDelete(download: Download) : Task_LocalBase() {
                 appDatabaseDao.deleteAllThatMatch(download)
                 val result = appDatabaseDao.getAllBookDownload()
                 executors.mainThread.execute { liveData.value = result.downloadListToBookList() }
-                Timber.d("Successfully deleted download: url[${download.url}]")
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] url[${download.url}]")
                 executors.mainThread.execute { liveData.value = null }
@@ -28,8 +27,11 @@ class Task_DownloadDelete(download: Download) : Task_LocalBase() {
 
     private fun AppDatabaseDao.deleteAllThatMatch(download: Download) {
         getAllBookDownload().forEach {
-            val isMatch = it.linkAcquisition == download.url
-            if (isMatch) appDatabaseDao.deleteDownload(it)
+            val isMatch = it.server + it.linkAcquisition == download.url
+            if (isMatch) {
+                appDatabaseDao.deleteDownload(it)
+                Timber.d("Successfully deleted download: url[${it.linkAcquisition}]")
+            }
         }
     }
 

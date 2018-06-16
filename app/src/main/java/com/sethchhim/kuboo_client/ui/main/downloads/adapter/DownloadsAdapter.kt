@@ -75,24 +75,26 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
     }
 
     inner class DownloadHolder(view: View) : BaseViewHolder(view) {
-        internal fun onItemSelected() = try {
-            val download = data[adapterPosition]
-            if (download.status == Status.COMPLETED) {
-                readBook(download)
-            } else {
-                //do nothing
+        internal fun onItemSelected() {
+            try {
+                val download = data[adapterPosition]
+                when (download.status == Status.COMPLETED) {
+                    true -> readBook(download)
+                    false -> {
+                        //do nothing
+                    }
+                }
+            } catch (e: Exception) {
+                Timber.e(e.message)
             }
-        } catch (e: Exception) {
-            Timber.e(e.message)
         }
 
         private fun readBook(download: Download) {
-            viewModel.getDownloadBookByUrl(download.url).observe(mainActivity, Observer { result1 ->
-                result1?.let {
-                    val book = result1.toBook()
+            viewModel.getDownloadBookByUrl(download.url).observe(mainActivity, Observer { result ->
+                result?.let {
+                    val book = result.toBook()
                     book.filePath = download.file
-                    mainActivity.startReader(ReadData(
-                            book = book))
+                    mainActivity.startReader(ReadData(book = book))
                 }
             })
         }

@@ -1,10 +1,7 @@
 package com.sethchhim.kuboo_client.data.repository
 
 import android.arch.lifecycle.MutableLiveData
-import com.sethchhim.kuboo_client.data.task.download.Task_DownloadDelete
-import com.sethchhim.kuboo_client.data.task.download.Task_DownloadFindByUrl
-import com.sethchhim.kuboo_client.data.task.download.Task_DownloadGetAll
-import com.sethchhim.kuboo_client.data.task.download.Task_DownloadNeighbors
+import com.sethchhim.kuboo_client.data.task.download.*
 import com.sethchhim.kuboo_client.service.NotificationService
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
@@ -36,7 +33,10 @@ class DownloadsRepository(private val kubooRemote: KubooRemote, val notification
 
     internal fun getDownloadsSize() = downloadsList.size
 
-    internal fun addDownloads(login: Login, list: List<Book>) = kubooRemote.download(login, list)
+    internal fun addDownloads(login: Login, list: List<Book>) {
+        list.forEach { Task_DownloadInsert(it) }
+        kubooRemote.download(login, list)
+    }
 
     internal fun deleteDownload(download: Download) {
         Task_DownloadDelete(download)

@@ -32,8 +32,8 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         Timber.d("onRequestQueueFail ${error.name}")
     }
 
-    private fun onRequestQueueSuccess(list: List<Download>) {
-        Timber.d("onRequestQueueSuccess size[${list.size}]")
+    private fun onRequestQueueSuccess(download: Download) {
+        Timber.d("onRequestQueueSuccess size[${download.url}]")
     }
 
     private fun getRequest(login: Login, stringUrl: String): Request {
@@ -74,9 +74,15 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         val requestList = mutableListOf<Request>().apply {
             list.forEach { add(getRequest(login, it.server + it.linkAcquisition)) }
         }
-        fetch.enqueue(requestList, object : Func<List<Download>> {
-            override fun call(t: List<Download>) = onRequestQueueSuccess(t)
-        })
+
+        requestList.forEach {
+            fetch.enqueue(it, object : Func<Download> {
+                override fun call(t: Download) = onRequestQueueSuccess(t)
+            }, object : Func<Error> {
+                override fun call(t: Error) = onRequestQueueFail(t)
+            })
+        }
+
     }
 
     internal fun addListener(listener: FetchListener) = fetch.addListener(listener)
@@ -95,7 +101,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         fetch.getDownloads(object : Func<List<Download>> {
             override fun call(t: List<Download>) {
                 mainThread.execute {
-                    liveData.value = t.apply { sortedBy { it.created } }
+                    liveData.value = t
                 }
             }
         })

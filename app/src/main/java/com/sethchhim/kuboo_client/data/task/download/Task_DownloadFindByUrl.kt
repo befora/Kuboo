@@ -20,6 +20,7 @@ class Task_DownloadFindByUrl(stringUrl: String) : Task_LocalBase() {
                         return@forEach
                     }
                 }
+                throw Exception("Could not find download!")
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] url[$stringUrl]")
                 executors.mainThread.execute { liveData.value = null }
