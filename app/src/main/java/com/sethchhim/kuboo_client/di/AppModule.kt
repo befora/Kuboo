@@ -12,7 +12,6 @@ import com.sethchhim.kuboo_client.ui.scope.AppScope
 import com.sethchhim.kuboo_client.util.*
 import com.sethchhim.kuboo_local.KubooLocal
 import com.sethchhim.kuboo_remote.KubooRemote
-import com.sethchhim.kuboo_remote.util.AppExecutors
 import dagger.Module
 import dagger.Provides
 
@@ -78,12 +77,12 @@ class AppModule {
     //<------ Local ------>
     @Provides
     @AppScope
-    fun provideKubooLocal() = KubooLocal()
+    fun provideKubooLocal(appExecutors: AppExecutors) = KubooLocal(appExecutors.diskIO, appExecutors.mainThread)
 
     //<------ Network ------>
     @Provides
     @AppScope
-    fun provideKubooApi(context: Context) = KubooRemote(context)
+    fun provideKubooApi(context: Context, appExecutors: AppExecutors) = KubooRemote(context, appExecutors.networkIO, appExecutors.mainThread)
 
     //<------ Service ------>
     @Provides

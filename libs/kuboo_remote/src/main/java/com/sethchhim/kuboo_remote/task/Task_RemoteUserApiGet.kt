@@ -15,7 +15,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
     private val startTime = System.currentTimeMillis()
 
     init {
-        executors.networkIO.execute {
+        kubooRemote.networkIO.execute {
             try {
                 val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
                 val response = call.execute()
@@ -27,14 +27,14 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
                         401 -> handleAuthentication(call)
                         else -> {
                             Timber.e("code[${response.code()}] message[${response.message()}] title[${book.title}] stringUrl[$stringUrl]")
-                            executors.mainThread.execute { liveData.value = null }
+                            kubooRemote.mainThread.execute { liveData.value = null }
                         }
                     }
                 }
                 response.close()
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] title[${book.title}] stringUrl[$stringUrl]")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             }
         }
     }
@@ -43,7 +43,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
         val result = responseBody.string()
         if (result.isEmpty()) {
             Timber.d("UserApiData has no data: title[${book.title}] stringUrl[$stringUrl]")
-            executors.mainThread.execute { liveData.value = null }
+            kubooRemote.mainThread.execute { liveData.value = null }
         } else {
             val jsonObject = JSONObject(result)
 
@@ -56,7 +56,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
 
             val elapsedTime = System.currentTimeMillis() - startTime
             Timber.d("UserApi get is successful: title[${book.title}] savedPage[${book.currentPage} of ${book.totalPages}] savedPosition[] isFinished[${book.isFinished}] stringUrl[$stringUrl] time[$elapsedTime milliseconds]")
-            executors.mainThread.execute { liveData.value = book }
+            kubooRemote.mainThread.execute { liveData.value = book }
         }
     }
 
@@ -67,7 +67,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
         }
     }
 
-    private fun Call.retry() = executors.networkIO.execute {
+    private fun Call.retry() = kubooRemote.networkIO.execute {
         try {
             val secondResponse = execute()
             val secondResponseBody = secondResponse.body()
@@ -75,7 +75,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
                 handleResult(secondResponseBody)
             } else {
                 Timber.e("code[${secondResponse.code()}] message[${secondResponse.message()}] title[${book.title}] stringUrl[$stringUrl] secondAttempt[true]")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             }
         } catch (e: Exception) {
             e.printStackTrace()

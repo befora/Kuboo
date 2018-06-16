@@ -15,26 +15,26 @@ class Task_RemoteUserApiPut(kubooRemote: KubooRemote, login: Login, book: Book) 
     internal val liveData = MutableLiveData<Boolean>()
 
     init {
-        executors.networkIO.execute {
+        kubooRemote.networkIO.execute {
             try {
                 val call = okHttpHelper.putCall(login, stringUrl, getRequestBody())
                 val response = call.execute()
                 if (response.isSuccessful) {
                     Timber.d("UserApi put is successful. title[${book.title}] page[${book.currentPage} of ${book.totalPages}] bookMark[${book.bookMark}] isFinished[${book.isFinished}] stringUrl[$stringUrl]")
-                    executors.mainThread.execute { liveData.value = true }
+                    kubooRemote.mainThread.execute { liveData.value = true }
                 } else {
                     when (response.code()) {
                         401 -> handleAuthentication(call)
                         else -> {
                             Timber.e("code[${response.code()}] message[${response.message()}] title[${book.title}] stringUrl[$stringUrl]")
-                            executors.mainThread.execute { liveData.value = false }
+                            kubooRemote.mainThread.execute { liveData.value = false }
                         }
                     }
                 }
                 response.close()
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] stringUrl[$stringUrl]")
-                executors.mainThread.execute { liveData.value = false }
+                kubooRemote.mainThread.execute { liveData.value = false }
             }
         }
     }
@@ -46,14 +46,14 @@ class Task_RemoteUserApiPut(kubooRemote: KubooRemote, login: Login, book: Book) 
         }
     }
 
-    private fun Call.retry() = executors.networkIO.execute {
+    private fun Call.retry() = kubooRemote.networkIO.execute {
         try {
             val secondResponse = execute()
             if (secondResponse.isSuccessful) {
                 Timber.i("UserApi put is successful. title[${book.title}] page[${book.currentPage} of ${book.totalPages}] bookMark[${book.bookMark}] isFinished[${book.isFinished}] stringUrl[$stringUrl]")
             } else {
                 Timber.e("code[${secondResponse.code()}] message[${secondResponse.message()}] title[${book.title}] stringUrl[$stringUrl] secondAttempt[true]")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             }
         } catch (e: Exception) {
             Timber.e("message[${e.message}] secondAttempt[true]")

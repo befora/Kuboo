@@ -6,17 +6,15 @@ import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import com.sethchhim.kuboo_remote.client.OkHttpClient
 import com.sethchhim.kuboo_remote.model.Login
-import com.sethchhim.kuboo_remote.util.AppExecutors
 import com.sethchhim.kuboo_remote.util.Authentication
 import com.tonyodev.fetch2.*
 import com.tonyodev.fetch2downloaders.OkHttpDownloader
 import timber.log.Timber
 import java.io.File
 import java.net.URL
+import java.util.concurrent.Executor
 
-class FetchService(val context: Context, okHttpClient: OkHttpClient) {
-
-    private val appExecutors = AppExecutors()
+class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThread: Executor) {
 
     private val CONCURRENT_LIMIT = 1
     private val NAMESPACE = "kuboo_fetch"
@@ -88,7 +86,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient) {
         val liveData = MutableLiveData<Download>()
         fetch.getDownloads(object : Func<List<Download>> {
             override fun call(t: List<Download>) {
-                appExecutors.mainThread.execute { liveData.value = t[position] }
+                mainThread.execute { liveData.value = t[position] }
             }
         })
         return liveData
@@ -97,7 +95,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient) {
     internal fun getDownloadsList(liveData: MutableLiveData<List<Download>>) {
         fetch.getDownloads(object : Func<List<Download>> {
             override fun call(t: List<Download>) {
-                appExecutors.mainThread.execute {
+                mainThread.execute {
                     liveData.value = t.apply { sortedBy { it.created } }
                 }
             }
@@ -140,7 +138,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient) {
                     val isDownloading = it.status == Status.DOWNLOADING
                     if (isQueued || isDownloading) listCount += 1
                 }
-                appExecutors.mainThread.execute { liveData.value = listCount == 0 }
+                mainThread.execute { liveData.value = listCount == 0 }
             }
         })
     }
@@ -155,7 +153,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient) {
                     val isPaused = it.status == Status.PAUSED
                     if (isQueued || isDownloading || isPaused) listCount += 1
                 }
-                appExecutors.mainThread.execute { liveData.value = listCount == 0 }
+                mainThread.execute { liveData.value = listCount == 0 }
             }
         })
     }

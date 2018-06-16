@@ -9,13 +9,12 @@ import java.io.InputStream
 
 class Task_RemoteIsImageWide(kubooRemote: KubooRemote, login: Login, stringUrl: String) {
 
-    private val executors = kubooRemote.appExecutors
     private val okHttpHelper = kubooRemote.okHttpHelper
 
     internal val liveData = MutableLiveData<Boolean>()
 
     init {
-        executors.networkIO.execute {
+        kubooRemote.networkIO.execute {
             try {
                 login.setTimeAccessed()
                 val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
@@ -25,14 +24,14 @@ class Task_RemoteIsImageWide(kubooRemote: KubooRemote, login: Login, stringUrl: 
                     val isWide = isBitmapWide(inputStream)
                     inputStream.close()
                     response.close()
-                    executors.mainThread.execute { liveData.value = isWide }
+                    kubooRemote.mainThread.execute { liveData.value = isWide }
                 } else {
                     Timber.w("code[${response.code()}] message[${response.message()}] url[$stringUrl]")
-                    executors.mainThread.execute { liveData.value = false }
+                    kubooRemote.mainThread.execute { liveData.value = false }
                 }
             } catch (e: Exception) {
                 Timber.w("message[${e.message}] url[$stringUrl]")
-                executors.mainThread.execute { liveData.value = false }
+                kubooRemote.mainThread.execute { liveData.value = false }
             }
         }
     }

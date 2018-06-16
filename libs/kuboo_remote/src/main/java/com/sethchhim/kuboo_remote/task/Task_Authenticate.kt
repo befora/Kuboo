@@ -14,13 +14,12 @@ import timber.log.Timber
 
 class Task_Authenticate(val kubooRemote: KubooRemote, login: Login) {
 
-    private val executors = kubooRemote.appExecutors
     private val okHttpHelper = kubooRemote.okHttpHelper
 
     internal val liveData = MutableLiveData<Boolean>()
 
     init {
-        executors.networkIO.execute {
+        kubooRemote.networkIO.execute {
             val stringUrl = getLoginPage(login)
             try {
                 val loginCall = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
@@ -44,14 +43,14 @@ class Task_Authenticate(val kubooRemote: KubooRemote, login: Login) {
                     if (hashResponse != null) {
                         val isSuccess = hashResponse.isSuccessful
                         if (isSuccess) {
-                            executors.mainThread.execute { liveData.value = true }
+                            kubooRemote.mainThread.execute { liveData.value = true }
                             if (isDebugOkHttp) {
                                 val hashInputStream = hashResponse.body()?.byteStream()
                                 val hashInputAsString = hashInputStream?.bufferedReader().use { it?.readText() }
                                 Timber.d("Authentication successful: $hashInputAsString $stringUrl")
                             }
                         } else {
-                            executors.mainThread.execute { liveData.value = false }
+                            kubooRemote.mainThread.execute { liveData.value = false }
                             if (isDebugOkHttp) {
                                 val reason = "${response.code()} ${response.message()}"
                                 Timber.e("Authentication failed! $reason $stringUrl")
@@ -63,7 +62,7 @@ class Task_Authenticate(val kubooRemote: KubooRemote, login: Login) {
                 response.close()
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] url[$stringUrl]")
-                executors.mainThread.execute { liveData.value = false }
+                kubooRemote.mainThread.execute { liveData.value = false }
             }
         }
     }

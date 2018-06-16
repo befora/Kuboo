@@ -7,7 +7,6 @@ import com.sethchhim.kuboo_remote.model.Login
 open class Task_RemoteUserApiBase(val kubooRemote: KubooRemote, val login: Login, val book: Book) {
 
     protected val okHttpHelper = kubooRemote.okHttpHelper
-    protected val executors = kubooRemote.appExecutors
     protected val stringUrl = getRemoteBookmarkUrl(book)
 
     private fun getRemoteBookmarkUrl(book: Book): String {

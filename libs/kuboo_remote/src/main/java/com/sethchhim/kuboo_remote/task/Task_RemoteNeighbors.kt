@@ -15,12 +15,11 @@ class Task_RemoteNeighbors(kubooRemote: KubooRemote, login: Login, book: Book, s
 
     internal val liveData = MutableLiveData<Neighbors>()
 
-    private val executors = kubooRemote.appExecutors
     private val okHttpHelper = kubooRemote.okHttpHelper
     private val parseService = okHttpHelper.parseService
 
     init {
-        executors.networkIO.execute {
+        kubooRemote.networkIO.execute {
             try {
                 val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
                 val response = call.execute()
@@ -29,7 +28,7 @@ class Task_RemoteNeighbors(kubooRemote: KubooRemote, login: Login, book: Book, s
                     val inputAsString = inputStream.bufferedReader().use { it.readText() }
                     val result = parseService.parseNeighbor(login, book, inputAsString)
 
-                    executors.mainThread.execute {
+                    kubooRemote.mainThread.execute {
                         liveData.value = result
                     }
                     inputStream.close()
@@ -39,13 +38,13 @@ class Task_RemoteNeighbors(kubooRemote: KubooRemote, login: Login, book: Book, s
                 response.close()
             } catch (e: SocketTimeoutException) {
                 if (isDebugOkHttp) Timber.w("Connection timed out! $stringUrl")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             } catch (e: MalformedURLException) {
                 if (isDebugOkHttp) Timber.e("URL is bad! $stringUrl")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             } catch (e: Exception) {
                 if (isDebugOkHttp) Timber.e("Something went wrong! $stringUrl")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             }
         }
     }

@@ -3,11 +3,9 @@ package com.sethchhim.kuboo_local
 import com.sethchhim.kuboo_local.parser.Parser
 import com.sethchhim.kuboo_local.task.Task_LocalFileParser
 import com.sethchhim.kuboo_local.task.Task_LocalImageInputStream
-import com.sethchhim.kuboo_local.util.AppExecutors
+import java.util.concurrent.Executor
 
-class KubooLocal {
-
-    val appExecutors = AppExecutors()
+class KubooLocal(val diskIO: Executor, val mainThread: Executor) {
 
     lateinit var parser: Parser
 

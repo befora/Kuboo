@@ -11,14 +11,13 @@ import timber.log.Timber
 
 class Task_RemoteFirstBook(val kubooRemote: KubooRemote, val login: Login, val book: Book, val stringUrl: String) {
 
-    private val executors = kubooRemote.appExecutors
     private val okHttpHelper = kubooRemote.okHttpHelper
     private val parseService = okHttpHelper.parseService
 
     internal val liveData = MutableLiveData<Book>()
 
     init {
-        executors.networkIO.execute {
+        kubooRemote.networkIO.execute {
             try {
                 val tag = "${javaClass.simpleName}.${book.id}"
                 val call = okHttpHelper.getCall(login, stringUrl, tag)
@@ -28,7 +27,7 @@ class Task_RemoteFirstBook(val kubooRemote: KubooRemote, val login: Login, val b
                     val boundInputStream = BoundedInputStream(inputStream, 8 * 1024)
                     val inputAsString = boundInputStream.bufferedReader().use { it.readText() }
                     val result = parseService.parseOpds(login, inputAsString, 1)
-                    executors.mainThread.execute {
+                    kubooRemote.mainThread.execute {
                         when (result.isEmpty()) {
                             true -> {
                                 liveData.value = null
@@ -47,7 +46,7 @@ class Task_RemoteFirstBook(val kubooRemote: KubooRemote, val login: Login, val b
                 response.close()
             } catch (e: Exception) {
                 if (isDebugOkHttp) Timber.e("message[${e.message}] url[$stringUrl]")
-                executors.mainThread.execute { liveData.value = null }
+                kubooRemote.mainThread.execute { liveData.value = null }
             }
         }
     }

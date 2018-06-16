@@ -8,18 +8,17 @@ import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.service.remote.FetchService
 import com.sethchhim.kuboo_remote.task.*
-import com.sethchhim.kuboo_remote.util.AppExecutors
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.FetchListener
 import java.io.File
+import java.util.concurrent.Executor
 
-class KubooRemote(context: Context) {
+class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Executor) {
 
-    internal val appExecutors = AppExecutors()
     private var okHttpClient = OkHttpClient(context)
 
     internal val okHttpHelper = OkHttpHelper(okHttpClient)
-    private val fetchService = FetchService(context, okHttpClient)
+    private val fetchService = FetchService(context, okHttpClient, mainThread)
 
     fun getOkHttpClient() = okHttpClient
 
