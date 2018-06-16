@@ -60,7 +60,7 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun retry(download: Download) = fetchService.retry(download)
 
-    fun download(login: Login, stringUrl: String) = fetchService.download(login, stringUrl)
+    fun download(login: Login, list: List<Book>) = fetchService.download(login, list)
 
     fun resumeAll() = fetchService.resumeAll()
 

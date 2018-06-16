@@ -10,7 +10,6 @@ import com.sethchhim.kuboo_remote.KubooRemote
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.FetchListener
 import timber.log.Timber
-import java.io.File
 import javax.inject.Inject
 
 open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
@@ -111,17 +110,8 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
     private fun onPopulateContentSuccess(result: List<Download>) {
         Timber.i("onPopulateDownloadsSuccess result: ${result.size}")
 
-        //remove download if it does not exist
-        val filteredResult = mutableListOf<Download>()
-        result.forEach {
-            when (File(it.file).exists()) {
-                true -> filteredResult.add(it)
-                false -> kubooRemote.remove(it)
-            }
-        }
-
         setStateConnected()
-        downloadsAdapter.update(filteredResult)
+        downloadsAdapter.update(result)
     }
 
 }

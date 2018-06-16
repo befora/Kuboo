@@ -5,6 +5,7 @@ import android.content.Context
 import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import com.sethchhim.kuboo_remote.client.OkHttpClient
+import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.util.Authentication
 import com.tonyodev.fetch2.*
@@ -31,8 +32,8 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         Timber.d("onRequestQueueFail ${error.name}")
     }
 
-    private fun onRequestQueueSuccess(download: Download) {
-        Timber.d("onRequestQueueSuccess ${download.print()}")
+    private fun onRequestQueueSuccess(list: List<Download>) {
+        Timber.d("onRequestQueueSuccess size[${list.size}]")
     }
 
     private fun getRequest(login: Login, stringUrl: String): Request {
@@ -69,15 +70,13 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
                     " progress[$progress]" +
                     " created[$created]"
 
-    internal fun download(login: Login, stringUrl: String) {
-        val request = getRequest(login, stringUrl)
-        fetch.enqueue(request,
-                object : Func<Download> {
-                    override fun call(t: Download) = onRequestQueueSuccess(t)
-                },
-                object : Func<Error> {
-                    override fun call(t: Error) = onRequestQueueFail(t)
-                })
+    internal fun download(login: Login, list: List<Book>) {
+        val requestList = mutableListOf<Request>().apply {
+            list.forEach { add(getRequest(login, it.server + it.linkAcquisition)) }
+        }
+        fetch.enqueue(requestList, object : Func<List<Download>> {
+            override fun call(t: List<Download>) = onRequestQueueSuccess(t)
+        })
     }
 
     internal fun addListener(listener: FetchListener) = fetch.addListener(listener)
