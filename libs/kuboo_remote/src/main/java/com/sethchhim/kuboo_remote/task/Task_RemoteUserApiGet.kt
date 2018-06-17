@@ -33,7 +33,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
                 }
                 response.close()
             } catch (e: Exception) {
-                Timber.e("message[${e.message}] title[${book.title}] stringUrl[$stringUrl]")
+                Timber.e("message[$e] title[${book.title}] stringUrl[$stringUrl]")
                 kubooRemote.mainThread.execute { liveData.value = null }
             }
         }
@@ -48,8 +48,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
             val jsonObject = JSONObject(result)
 
             val mark = jsonObject.getMark()
-            book.currentPage = mark[0].toInt()
-//            book.savedPositionY = mark[1].toDouble()
+            if (mark[0].isNotEmpty()) book.currentPage = mark[0].toInt()
 
             val isFinished = jsonObject.getIsFinished()
             book.isFinished = isFinished
@@ -79,7 +78,7 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            Timber.e("message[${e.message}] secondAttempt[true]")
+            Timber.e("message[$e] secondAttempt[true]")
         }
     }
 
