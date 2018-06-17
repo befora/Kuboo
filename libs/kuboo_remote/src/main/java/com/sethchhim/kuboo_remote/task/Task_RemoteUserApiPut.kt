@@ -63,7 +63,15 @@ class Task_RemoteUserApiPut(kubooRemote: KubooRemote, login: Login, book: Book) 
     private fun getRequestBody(): RequestBody {
         val JSON = MediaType.parse("application/json; charset=utf-8")
         val params = HashMap<String, String>().apply {
-            put("mark", book.bookMark)
+            val mark = when (book.isEpub()) {
+                true -> book.bookMark
+                false -> try {
+                    book.currentPage.toString()
+                } catch (e: Exception) {
+                    "0"
+                }
+            }
+            put("mark", mark)
             put("isFinished", book.isFinished.toString())
         }
         val jsonObject = JSONObject(params)

@@ -13,9 +13,9 @@ class RecentFragment : RecentFragmentImpl1_Content() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        recentAdapter = RecentAdapter(this, viewModel)
-        recentRecyclerView.setHasFixedSize(true)
         recentRecyclerView.layoutManager = RecentLinearLayoutManager(activity!!)
+        recentRecyclerView.setHasFixedSize(true)
+        recentAdapter = RecentAdapter(this, viewModel)
         return view
     }
 

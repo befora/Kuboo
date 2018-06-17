@@ -27,12 +27,16 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.databinding.BrowserItemRecentBinding
 import com.sethchhim.kuboo_client.ui.main.recent.RecentFragmentImpl1_Content
+import com.sethchhim.kuboo_client.ui.main.recent.custom.RecentLinearLayoutManager
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.DiffUtilHelper
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.android.synthetic.main.browser_item_recent.view.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onLongClick
 import org.jetbrains.anko.toast
@@ -52,15 +56,14 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
     @Inject lateinit var systemUtil: SystemUtil
 
     private val mainActivity = recentFragmentImpl1Content.mainActivity
+    private val layoutManager = recentFragmentImpl1Content.recentRecyclerView.layoutManager as RecentLinearLayoutManager
     private var isPortrait = systemUtil.isOrientationPortrait()
     private var systemWidth = systemUtil.getSystemWidth()
 
     override fun convert(helper: RecentHolder, item: Book) {
         val binding = helper.binding
-        binding.setVariable(BR.item, item)
-
-        helper.loadImage(item.getPreviewUrl(THUMBNAIL_SIZE_RECENT))
-        helper.itemView.browser_item_recent_imageView.transitionName = item.getPreviewUrl(THUMBNAIL_SIZE_RECENT)
+        binding.updateBook(helper, item)
+        binding.remoteSync(helper, item)
     }
 
     override fun getItemId(position: Int) = data[position].id.toLong()
@@ -139,7 +142,34 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
                         }
                     })
         }
+    }
 
+    private fun BrowserItemRecentBinding.remoteSync(helper: RecentHolder, item: Book) {
+        launch(UI) {
+            //add delay to prevent remote request while fast scrolling
+            delay(600)
+            try {
+                val firstVisible = layoutManager.findFirstVisibleItemPosition()
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                val currentPosition = helper.adapterPosition
+                if (currentPosition in firstVisible..lastVisible) {
+                    viewModel.getRemoteUserApi(item).observe(recentFragmentImpl1Content, Observer { result ->
+                        result?.let {
+                            updateBook(helper, item)
+                            viewModel.addRecent(result)
+                        }
+                    })
+                }
+            } catch (e: Exception) {
+                //views could be destroyed during delay, do nothing
+            }
+        }
+    }
+
+    private fun BrowserItemRecentBinding.updateBook(helper: RecentAdapter.RecentHolder, item: Book) {
+        setVariable(BR.item, item)
+        helper.loadImage(item.getPreviewUrl(THUMBNAIL_SIZE_RECENT))
+        helper.itemView.browser_item_recent_imageView.transitionName = item.getPreviewUrl(THUMBNAIL_SIZE_RECENT)
     }
 
     private fun startReadAt(adapterPosition: Int, itemView: View) {

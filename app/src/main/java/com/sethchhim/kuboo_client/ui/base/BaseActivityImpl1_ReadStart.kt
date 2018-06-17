@@ -130,7 +130,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
         showLoadingDialog(loadingStage = LoadingStage.BOOKMARK)
 
         //Bookmark Stage 1: Search for local bookmark
-        when (readData.book.isRemote() && readData.book.isComic()) {
+        when (readData.book.isRemote() || readData.book.isComic()) {
             true ->
                 //search for recent item that is in the same series
                 viewModel.getRecentByXmlId(readData.book, filterByActiveServer = true).observe(this, Observer { result ->
@@ -145,15 +145,12 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
     }
 
     private fun handleLocalBookmark(readData: ReadData, localBookmark: Book?) {
-        //offline book items do not have to search for remote bookmarks or show dialog
-        when (localBookmark != null) {
-            true -> {
-                when (readData.book.isLocal()) {
-                    true -> startPreload(readData.copyProgress(localBookmark))
-                    false -> showBookmarkDialog(readData, localBookmark!!)
-                }
-            }
-            false -> startPreload(readData)
+        when (readData.book.isLocal()) {
+            true -> startPreload(when (localBookmark != null) {
+                true -> readData.copyProgress(localBookmark)
+                false -> readData
+            })
+            false -> searchForRemoteBookmark(readData, localBookmark)
         }
     }
 

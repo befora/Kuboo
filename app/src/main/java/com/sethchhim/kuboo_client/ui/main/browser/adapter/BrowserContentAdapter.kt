@@ -38,6 +38,7 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.model.Browser
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Content
+import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentGridLayoutManager
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentRecyclerView
 import com.sethchhim.kuboo_client.util.DiffUtilHelper
 import com.sethchhim.kuboo_client.util.SystemUtil
@@ -67,10 +68,12 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
     @Inject lateinit var systemUtil: SystemUtil
 
     private lateinit var browserContentRecyclerView: BrowserContentRecyclerView
+    private lateinit var layoutManager: BrowserContentGridLayoutManager
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.browserContentRecyclerView = recyclerView as BrowserContentRecyclerView
+        this.layoutManager = browserContentRecyclerView.layoutManager as BrowserContentGridLayoutManager
     }
 
     override fun convert(holder: BrowserHolder, item: Browser) {
@@ -321,12 +324,26 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                         loadColorState(holder, book)
 
                         //set color state remotely
-                        viewModel.getRemoteUserApi(book).observe(browserFragment, Observer { result ->
-                            if (result != null) {
-                                viewModel.updateBrowserItem(result)
-                                loadColorState(holder, result)
+                        launch(UI) {
+                            //add delay to prevent remote request while fast scrolling
+                            delay(600)
+                            try {
+                                val firstVisible = layoutManager.findFirstVisibleItemPosition()
+                                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                                val currentPosition = holder.adapterPosition
+                                if (currentPosition in firstVisible..lastVisible) {
+                                    viewModel.getRemoteUserApi(book).observe(browserFragment, Observer { result ->
+                                        if (result != null) {
+                                            viewModel.updateBrowserItem(result)
+                                            loadColorState(holder, result)
+                                        }
+                                    })
+                                }
+                            } catch (e: Exception) {
+                                //views could be destroyed during delay, do nothing
                             }
-                        })
+                        }
+
                     }
                 })
             }
