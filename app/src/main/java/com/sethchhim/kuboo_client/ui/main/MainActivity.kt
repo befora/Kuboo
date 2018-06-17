@@ -7,6 +7,7 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.view.WindowManager
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.disableShiftMode
@@ -22,7 +23,7 @@ import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
-import kotlinx.android.synthetic.main.main_layout_base.*
+
 
 class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
 
@@ -32,7 +33,7 @@ class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigat
         ButterKnife.bind(this)
 
         setTitle(R.string.main_read_now)
-        setSupportActionBar(main_layout_base_toolBar)
+        setSupportActionBar(toolbar)
 
         showChangeLog()
 
@@ -53,8 +54,13 @@ class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigat
     private fun showChangeLog() {
         if (systemUtil.isFirstRunOfThisVersion()) dialogUtil.getDialogChangeLog(this).apply {
             show()
-            val height = Math.max(systemUtil.getSystemWidth(), systemUtil.getSystemHeight()) / 2
-            window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+            window.attributes = WindowManager.LayoutParams().apply {
+                val systemWidth = systemUtil.getSystemWidth()
+                val systemHeight = systemUtil.getSystemHeight()
+                val newSize = (Math.min(systemWidth, systemHeight) * 0.9f).toInt()
+                width = newSize
+                height = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
         }
     }
 
