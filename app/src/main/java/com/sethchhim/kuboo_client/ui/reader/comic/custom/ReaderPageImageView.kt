@@ -17,6 +17,8 @@ import android.widget.ImageView
 import android.widget.OverScroller
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
+import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
+import timber.log.Timber
 
 class ReaderPageImageView : AppCompatImageView {
 
@@ -37,6 +39,9 @@ class ReaderPageImageView : AppCompatImageView {
     private var mOriginalScale: Float = 0.toFloat()
     private var mSkipScaling = false
     private var mTranslateRightEdge = false
+
+    //0 = Both, 1 = Left, 2 = Right
+    var navigationButtonType = 0
 
     private val currentScale: Float
         get() {
@@ -236,7 +241,28 @@ class ReaderPageImageView : AppCompatImageView {
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            (context as ReaderBaseActivity).showOverlay()
+            val leftValue = (width * 0.1).toInt()
+            val rightValue = (width * 0.9).toInt()
+            if (Settings.DUAL_PANE) when (navigationButtonType) {
+                0 -> when {
+                    e.x < leftValue -> (context as ReaderComicActivity).goToPreviousPage()
+                    e.x > rightValue -> (context as ReaderComicActivity).goToNextPage()
+                    else -> (context as ReaderBaseActivity).showOverlay()
+                }
+                1 -> when {
+                    e.x < leftValue -> (context as ReaderComicActivity).goToPreviousPage()
+                    else -> (context as ReaderBaseActivity).showOverlay()
+                }
+                2 -> when {
+                    e.x > rightValue -> (context as ReaderComicActivity).goToNextPage()
+                    else -> (context as ReaderBaseActivity).showOverlay()
+                }
+                else -> Timber.e("Failed to find navigationButtonType!")
+            } else when {
+                e.x < leftValue -> (context as ReaderComicActivity).goToPreviousPage()
+                e.x > rightValue -> (context as ReaderComicActivity).goToNextPage()
+                else -> (context as ReaderBaseActivity).showOverlay()
+            }
             return super.onSingleTapConfirmed(e)
         }
     }

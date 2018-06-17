@@ -29,8 +29,6 @@
 
         <include layout="@layout/reader_layout_base_overlay"/>
 
-        <include layout="@layout/reader_layout_base_navigation"/>
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

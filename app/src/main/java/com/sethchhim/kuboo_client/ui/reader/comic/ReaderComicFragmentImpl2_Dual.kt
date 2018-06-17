@@ -64,6 +64,8 @@ class ReaderComicFragmentImpl2_Dual : ReaderComicFragment() {
                     swipeRefreshLayout1.onRefresh { imageView1.loadImage(GlideLocal(book, getPage1ToInt()), getRequestListener1()) }
                 }
                 if (page2 != Constants.KEY_SINGLE) {
+                    imageView1.navigationButtonType = 1
+                    imageView2.navigationButtonType = 2
                     imageView2.loadImage(GlideLocal(book, getPage2ToInt()), getRequestListener2())
                     swipeRefreshLayout2.onRefresh { imageView2.loadImage(GlideLocal(book, getPage2ToInt()), getRequestListener2()) }
                 }
@@ -75,6 +77,8 @@ class ReaderComicFragmentImpl2_Dual : ReaderComicFragment() {
                 }
 
                 if (page2 != Constants.KEY_SINGLE) {
+                    imageView1.navigationButtonType = 1
+                    imageView2.navigationButtonType = 2
                     imageView2.loadImage(page2, getRequestListener2())
                     swipeRefreshLayout2.onRefresh { imageView2.loadImage(page2, getRequestListener2()) }
                 }

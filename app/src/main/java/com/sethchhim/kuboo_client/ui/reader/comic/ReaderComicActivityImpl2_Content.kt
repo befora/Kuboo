@@ -134,6 +134,18 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         hideLoadingDialog()
     }
 
+    internal fun goToPreviousPage() = when (viewPager.currentItem == 0) {
+        true -> onSwipeOutOfBoundsStart()
+        false -> viewPager.currentItem = viewPager.currentItem - 1
+    }
+
+    internal fun goToNextPage() = viewPager.adapter?.let {
+        when (viewPager.currentItem == it.count - 1) {
+            true -> onSwipeOutOfBoundsEnd()
+            false -> viewPager.currentItem = viewPager.currentItem + 1
+        }
+    }
+
     private fun showSnackBarEnd() {
         val snackBarEnd = dialogUtil.getSnackBarFinishBookEnd(constraintLayout)
         snackBarEnd.setAction(R.string.reader_menu, { finishBook() })
