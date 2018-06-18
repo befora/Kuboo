@@ -43,13 +43,11 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
 
         //If remote book, ping for response before starting reader activity.
         when (readData.book.isLocal()) {
-            true -> {
-                when (readData.book.isLocalValid()) {
-                    true -> startBookmarkSearch(readData)
-                    false -> {
-                        hideLoadingDialog()
-                        showToastFileDoesNotExist()
-                    }
+            true -> when (readData.book.isLocalValid()) {
+                true -> startPreload(readData)
+                false -> {
+                    hideLoadingDialog()
+                    showToastFileDoesNotExist()
                 }
             }
             false -> viewModel.pingServer(readData.book.server).observe(this, Observer { result ->
@@ -130,7 +128,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
         showLoadingDialog(loadingStage = LoadingStage.BOOKMARK)
 
         //Bookmark Stage 1: Search for local bookmark
-        when (readData.book.isRemote() || readData.book.isComic()) {
+        when (readData.book.isComic()) {
             true ->
                 //search for recent item that is in the same series
                 viewModel.getRecentByXmlId(readData.book, filterByActiveServer = true).observe(this, Observer { result ->

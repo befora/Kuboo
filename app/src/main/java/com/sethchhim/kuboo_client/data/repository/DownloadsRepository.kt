@@ -33,7 +33,7 @@ class DownloadsRepository(private val kubooRemote: KubooRemote, val notification
 
     internal fun getDownloadsSize() = downloadsList.size
 
-    internal fun addDownloads(login: Login, list: List<Book>) {
+    internal fun startDownloads(login: Login, list: List<Book>) {
         list.forEach { Task_DownloadInsert(it) }
         kubooRemote.download(login, list)
     }
@@ -42,6 +42,8 @@ class DownloadsRepository(private val kubooRemote: KubooRemote, val notification
         Task_DownloadDelete(download)
         kubooRemote.delete(download)
     }
+
+    internal fun addDownload(book: Book) = Task_DownloadInsert(book)
 
     internal fun removeDownloads(download: Download) = kubooRemote.cancel(download)
 

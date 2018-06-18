@@ -188,7 +188,9 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getDownloadBookByUrl(stringUrl: String) = downloadsRepository.getDownloadBookByUrl(stringUrl)
 
-    internal fun addDownloads(list: List<Book>) = downloadsRepository.addDownloads(getActiveLogin(), list)
+    internal fun startDownloads(list: List<Book>) = downloadsRepository.startDownloads(getActiveLogin(), list)
+
+    internal fun addDownload(book: Book) = downloadsRepository.addDownload(book)
 
     internal fun deleteDownload(download: Download) = downloadsRepository.deleteDownload(download)
 
