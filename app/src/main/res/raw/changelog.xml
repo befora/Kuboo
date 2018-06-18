@@ -2,6 +2,27 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Jun 17, 2018"
+        versionName="1.0.1">
+        <changelogtext>Fix round icon</changelogtext>
+        <changelogtext>Fix changelog dialog width and height</changelogtext>
+        <changelogtext>Fix remote bookmark search</changelogtext>
+        <changelogtext>Fix remote book api pull would fail on blank result</changelogtext>
+        <changelogtext>Fix comic swipe would not register if near edge. Add comic previous page and
+            next page single click action near edge.
+        </changelogtext>
+        <changelogtext>Fix not being able to select download item after order manipulation
+        </changelogtext>
+        <changelogtext>Fix multiple downloads enqueue only applying first request</changelogtext>
+        <changelogtext>Consolidate multiple app executors into single one provided by client
+        </changelogtext>
+        <changelogtext>Fix mock lengthy changelog</changelogtext>
+        <changelogtext>Fix changelog not showing on first startup of respected version
+        </changelogtext>
+        <changelogtext>Fix test dependencies and imports</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Jun 15, 2018"
         versionName="1.0.0">
         <changelogtext>Initial release.</changelogtext>
