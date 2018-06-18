@@ -18,7 +18,7 @@ import org.jetbrains.anko.collections.forEachWithIndex
 
 class DialogUtil(val context: Context) {
 
-    internal fun getSnackBarDeleteRecent(view: View, book: Book) = getSnackBar(view, "Deleted: " + book.title, 5000, isAlert = true)
+    internal fun getSnackBarDeleteRecent(view: View, book: Book) = getSnackBar(view, "Removed: " + book.title, 5000, isAlert = true)
 
     internal fun getSnackBarDisconnected(view: View, reason: String) = getSnackBar(view, reason, 7000, isAlert = true)
 
@@ -108,9 +108,9 @@ class DialogUtil(val context: Context) {
         setMessage(book.filePath)
     }.create()
 
-    internal fun getDialogRecent(context: Context, book: Book) = getAlertDialogBuilder(context).apply {
-        setTitle(book.title)
-        setMessage(context.getString(R.string.dialog_would_you_like_to_remove))
+    internal fun getDialogRecentRemove(context: Context, book: Book) = getAlertDialogBuilder(context).apply {
+        setTitle(context.getString(R.string.dialog_remove_recently_viewed))
+        setMessage(book.title)
     }.create()
 
     internal fun getDialogRequestRestart(context: Context, onDialogSelect0: OnDialogSelect0) = getAlertDialogBuilder(context).apply {

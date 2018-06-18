@@ -65,6 +65,7 @@
     <string name="dialog_please_restart_to_apply_changes">Please restart to apply changes.</string>
     <string name="dialog_please_wait">Please wait…</string>
     <string name="dialog_remove">REMOVE</string>
+    <string name="dialog_remove_recently_viewed">Remove recently viewed?</string>
     <string name="dialog_restart">Restart</string>
     <string name="dialog_restart_required">Restart required</string>
     <string name="dialog_resume_chapter">Resume chapter </string>
@@ -73,7 +74,6 @@
     <string name="dialog_single_pane">Single Pane</string>
     <string name="dialog_total">Total</string>
     <string name="dialog_undo">UNDO</string>
-    <string name="dialog_would_you_like_to_remove">Would you like to remove?</string>
 
     <string name="downloads_cancelled">Cancelled</string>
     <string name="downloads_connection_timed_out">CONNECTION TIMED OUT</string>

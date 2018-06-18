@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DecodeFormat
@@ -105,10 +106,14 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
 
         private fun showRemoveDialog(position: Int) {
             val book = viewModel.getRecentAt(position) ?: Book()
-            dialogUtil.getDialogRecent(mainActivity, book).apply {
+            dialogUtil.getDialogRecentRemove(mainActivity, book).apply {
                 setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.dialog_remove)) { _, _ -> deleteBookAt(position) }
                 setButton(AlertDialog.BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }
                 show()
+
+                findViewById<TextView>(android.R.id.message)?.apply {
+                    textSize = 11F
+                }
             }
         }
 
@@ -191,7 +196,7 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
                 recentFragmentImpl1Content.handleResult(result)
 
                 dialogUtil.getSnackBarDeleteRecent(mainActivity.frameLayout, it).apply {
-                    setAction(context.getString(R.string.dialog_undo), { onClickSnackBarUndoDeleteRecent(item) })
+                    setAction(context.getString(R.string.dialog_undo)) { onClickSnackBarUndoDeleteRecent(item) }
                     show()
                 }
             })
