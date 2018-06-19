@@ -174,7 +174,9 @@
     <string name="settings_browser">Browser</string>
     <string name="settings_comic">Comic</string>
     <string name="settings_content_starts_from_the_bottom_towards_top">Content starts from bottom towards top</string>
+    <string name="settings_default">Default</string>
     <string name="settings_do_not_ask_again">Do not ask again.</string>
+    <string name="settings_download">Download</string>
     <string name="settings_dual_pane_mode">Dual Pane Mode</string>
     <string name="settings_epub">Epub</string>
     <string name="settings_favorite">Favorite</string>
@@ -202,6 +204,7 @@
     <string name="settings_reader">Reader</string>
     <string name="settings_reverse_layout">Reverse Layout</string>
     <string name="settings_reverse_reading_order">Reverse reading order</string>
+    <string name="settings_save_path">Save Path</string>
     <string-array name="settings_scale_entries">
         <item>@string/settings_aspect_fill</item>
         <item>@string/settings_aspect_fit</item>
@@ -213,6 +216,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="settings_series_limit">Series Limit</string>
     <string name="settings_server">Server</string>
     <string name="settings_show_favorite_buttons">Show favorite buttons</string>
     <string name="settings_show_preview_page_before_reading">Show preview page before reading</string>

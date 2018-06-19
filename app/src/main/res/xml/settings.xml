@@ -75,6 +75,21 @@
             android:title="@string/settings_manga_mode"/>
     </android.support.v7.preference.PreferenceCategory>
 
+    <!-- DOWNLOAD -->
+    <android.support.v7.preference.PreferenceCategory
+        android:key="category_download"
+        android:layout="@layout/settings_item_category"
+        android:title="@string/settings_download">
+        <android.support.v7.preference.Preference
+            android:key="settings_download_save_path"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="@string/settings_save_path"/>
+        <!--<android.support.v7.preference.Preference-->
+        <!--android:key="settings_download_series_limit"-->
+        <!--android:layout="@layout/settings_item_preference_normal"-->
+        <!--android:title="@string/settings_series_limit"/>-->
+    </android.support.v7.preference.PreferenceCategory>
+
     <!-- SYSTEM -->
     <android.support.v7.preference.PreferenceCategory
         android:key="category_system"

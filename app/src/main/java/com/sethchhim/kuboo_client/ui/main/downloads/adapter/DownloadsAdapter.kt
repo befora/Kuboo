@@ -22,6 +22,7 @@ import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.Extensions.invisible
 import com.sethchhim.kuboo_client.Extensions.toBook
+import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.ViewModel
@@ -220,9 +221,9 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.visible()
         holder.itemView.browser_item_download_numberProgressBar.progress = download.progress
-        val downloaded = systemUtil.readableFileSize(download.downloaded)
+        val downloaded = download.downloaded.toReadable()
         val of = context.getString(R.string.downloads_of)
-        val total = systemUtil.readableFileSize(download.total)
+        val total = download.total.toReadable()
         holder.itemView.browser_item_download_textView2.text = "$downloaded $of $total"
     }
 
@@ -232,9 +233,9 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView5.visible()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
 
-        val downloaded = systemUtil.readableFileSize(download.downloaded)
+        val downloaded = download.downloaded.toReadable()
         val of = context.getString(R.string.downloads_of)
-        val total = systemUtil.readableFileSize(download.total)
+        val total = download.total.toReadable()
         holder.itemView.browser_item_download_textView2.text = "$downloaded $of $total"
     }
 

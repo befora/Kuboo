@@ -6,6 +6,7 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
+
 open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
     override fun onResume() {
@@ -25,7 +26,56 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setComicDualPanePreference()
         setComicRtlPreference()
         setComicScaleTypePreference()
+
+        setDownloadSavePath()
+//        setDownloadSeriesLimit()
     }
+
+    private fun setDownloadSavePath() = downloadSavePath.apply {
+        summary = Settings.DOWNLOAD_SAVE_PATH
+        setOnPreferenceClickListener {
+            val storageList = mainActivity.systemUtil.getStorageList()
+            val storageListFormatted = mainActivity.systemUtil.getStorageListFormatted()
+            dialogUtil.getDialogDownloadSavePath(mainActivity, storageList, storageListFormatted, object : DialogUtil.OnDialogSelectSingleChoice {
+                override fun onSelect(which: Int) {
+                    val path = storageList[which]
+                    Settings.DOWNLOAD_SAVE_PATH = path
+                    sharedPrefsHelper.saveDownloadSavePath()
+                    summary = Settings.DOWNLOAD_SAVE_PATH
+                }
+            }).show()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+//    private fun setDownloadSeriesLimit() = downloadSeriesLimit.apply {
+//        summary = "${Settings.DOWNLOAD_SERIES_LIMIT}"
+//        setOnPreferenceClickListener {
+//            dialogUtil.getDialogSeriesLimit(mainActivity).apply {
+//                show()
+//
+//                val textView = findViewById<TextView>(R.id.dialog_layout_settings_series_limit_textView0)!!
+//                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_series_limit_button0)!!
+//                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_series_limit_button1)!!
+//
+//                textView.text = "${Settings.DOWNLOAD_SERIES_LIMIT}"
+//                buttonDecrease.onClick {
+//                    Settings.DOWNLOAD_SERIES_LIMIT -= 1
+//                    if (Settings.DOWNLOAD_SERIES_LIMIT < 1) Settings.DOWNLOAD_SERIES_LIMIT = 1
+//                    sharedPrefsHelper.saveDownloadSeriesLimit()
+//                    textView.text = "${Settings.DOWNLOAD_SERIES_LIMIT}"
+//                    summary = "${Settings.DOWNLOAD_SERIES_LIMIT}"
+//                }
+//                buttonIncrease.onClick {
+//                    Settings.DOWNLOAD_SERIES_LIMIT += 1
+//                    sharedPrefsHelper.saveDownloadSeriesLimit()
+//                    textView.text = "${Settings.DOWNLOAD_SERIES_LIMIT}"
+//                    summary = "${Settings.DOWNLOAD_SERIES_LIMIT}"
+//                }
+//            }
+//            return@setOnPreferenceClickListener true
+//        }
+//    }
 
     private fun setEpubTextZoomPreference() = epubTextZoomPreference.apply {
         summary = "${Settings.EPUB_TEXT_ZOOM} %"

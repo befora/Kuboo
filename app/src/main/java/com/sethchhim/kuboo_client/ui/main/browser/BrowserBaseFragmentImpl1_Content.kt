@@ -75,7 +75,7 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         val selectedList = viewModel.getSelectedList()
         dialogUtil.getDialogDownload(mainActivity, selectedList).apply {
             setButton(AlertDialog.BUTTON_POSITIVE, "${context.getString(R.string.dialog_download)} (${selectedList.size})") { _, _ ->
-                viewModel.startDownloads(selectedList)
+                viewModel.startDownloads(selectedList, savePath = Settings.DOWNLOAD_SAVE_PATH)
                 contentAdapter.disableSelectionMode()
             }
             setButton(AlertDialog.BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }

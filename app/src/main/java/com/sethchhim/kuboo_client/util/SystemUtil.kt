@@ -16,14 +16,15 @@ import android.os.IBinder
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.io.File
-import java.text.DecimalFormat
 
 class SystemUtil(private val context: Context) {
 
@@ -161,14 +162,43 @@ class SystemUtil(private val context: Context) {
     private fun getCacheSize(): String {
         var size: Long = 0
         size += getDirSize(getCacheDir())
-        return readableFileSize(size)
+        return size.toReadable()
     }
 
-    fun readableFileSize(long: Long): String {
-        if (long <= 0) return "0 Bytes"
-        val units = arrayOf("Bytes", "kB", "MB", "GB", "TB")
-        val digitGroups = (Math.log10(long.toDouble()) / Math.log10(1024.0)).toInt()
-        return DecimalFormat("#,##0.##").format(long / Math.pow(1024.0, digitGroups.toDouble())) + " " + units[digitGroups]
+    internal fun getStorageList(): Array<String> {
+        try {
+            val volumeArray = context.getExternalFilesDirs(null)
+            val volumePathArray = Array(volumeArray.size) { i -> i.toString() }
+
+            volumeArray.forEachIndexed { index, file -> volumePathArray[index] = file.path }
+            return volumePathArray
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return arrayOf()
+    }
+
+    internal fun getStorageListFormatted(): Array<String> {
+        try {
+            val volumeArray = context.getExternalFilesDirs(null)
+            val volumePathArray = Array(volumeArray.size) { i -> i.toString() }
+
+            var externalCount = 0
+            volumeArray.forEachWithIndex { index, file ->
+                val freeSpace = file.freeSpace.toReadable()
+                volumePathArray[index] = when (file.path.contains("/storage/emulated/0")) {
+                    true -> "Internal Storage \n($freeSpace free)"
+                    false -> {
+                        externalCount += 1
+                        "External Storage $externalCount \n($freeSpace free)"
+                    }
+                }
+            }
+            return volumePathArray
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return arrayOf()
     }
 
     private fun getDirSize(directory: File): Long {

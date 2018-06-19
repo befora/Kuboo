@@ -32,6 +32,8 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var comicScaleTypePreference: Preference
     protected lateinit var comicDualPanePreference: SwitchPreferenceCompat
     protected lateinit var comicRtlPreference: SwitchPreferenceCompat
+    protected lateinit var downloadSavePath: Preference
+    //    protected lateinit var downloadSeriesLimit: Preference
     protected lateinit var epubTextZoomPreference: Preference
     protected lateinit var epubMarginPreference: Preference
     protected lateinit var serverLoginPreference: Preference
@@ -47,6 +49,8 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         comicDualPanePreference = findPreference("settings_comic_dual_pane") as SwitchPreferenceCompat
         comicRtlPreference = findPreference("settings_comic_rtl") as SwitchPreferenceCompat
         comicScaleTypePreference = findPreference("settings_comic_scale_type")
+        downloadSavePath = findPreference("settings_download_save_path")
+//        downloadSeriesLimit = findPreference("settings_download_series_limit")
         epubTextZoomPreference = findPreference("settings_epub_text_zoom")
         epubMarginPreference = findPreference("settings_epub_margin")
         serverLoginPreference = findPreference("settings_server_login")

@@ -280,7 +280,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
         }
     }
 
-    private fun preloadBook(readData: ReadData) = viewModel.getFile(readData.book.linkAcquisition, File(Settings.SAVE_PATH)).observe(this, Observer { result ->
+    private fun preloadBook(readData: ReadData) = viewModel.getFile(readData.book.linkAcquisition, File(Settings.DOWNLOAD_SAVE_PATH)).observe(this, Observer { result ->
         when (result != null) {
             true -> result?.let {
                 readData.book.filePath = it.path

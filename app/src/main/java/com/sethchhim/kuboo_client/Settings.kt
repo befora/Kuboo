@@ -12,6 +12,8 @@ object Settings {
     const val DEFAULT_EPUB_MARGIN_SIZE = 24
     const val DEFAULT_EPUB_TEXT_ZOOM = 120
 
+    const val DEFAULT_DOWNLOAD_SERIES_LIMIT = 5
+
     //----------------------------------------APP_THEME---------------------------------------------
 
     //0 = LIGHT, 1 = DARK, 2 = OLED
@@ -41,8 +43,12 @@ object Settings {
     var HTTPS_ENABLED = true
     var WIFI_ONLY = false
     val BUFFER_SIZE: Long = 4096
-    //-------------------------------------READER_PREFERENCES---------------------------------------
 
+    //-----------------------------------DOWNLOAD_PREFERENCES-------------------------------------
+    var DOWNLOAD_SAVE_PATH = ""
+    var DOWNLOAD_SERIES_LIMIT = DEFAULT_DOWNLOAD_SERIES_LIMIT
+
+    //-------------------------------------READER_PREFERENCES---------------------------------------
     var SCALE_TYPE = 1
     var DUAL_PANE = false
     var RTL = false
@@ -53,10 +59,6 @@ object Settings {
 
     var THUMBNAIL_SIZE_RECENT = 500 //auto generated in recentAdapter
 
-    var MAX_OFFLINE_ITEMS = 5
-    val MAX_OFFLINE_ITEMS_DEFAULT = 5
-
-    var SAVE_PATH = ""
 
     var EPUB_TEXT_ZOOM = 120
     val EPUB_LINE_HEIGHT = 24

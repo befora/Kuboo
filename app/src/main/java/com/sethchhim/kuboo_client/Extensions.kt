@@ -42,6 +42,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import timber.log.Timber
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -84,6 +85,8 @@ object Extensions {
                 " position[$progress]" +
                 " created[$created]"
     }
+
+    private fun Double.limitDecimalTwo() = DecimalFormat("#.00").format(this)
 
     internal fun FragmentManager.show(fragment: Fragment, containerViewId: Int) {
         fragment.retainInstance = true
@@ -197,6 +200,12 @@ object Extensions {
         val bookList = mutableListOf<Book>()
         forEach { bookList.add(it.toBook()) }
         return bookList
+    }
+
+    internal fun Long.toReadable() = when {
+        this >= 1024 * 1024 * 1024 -> "${(((this / 1024) / 1024) / 1024.00).limitDecimalTwo()} GB"
+        this >= 1024 * 1024 -> "${((this / 1024) / 1024.00).limitDecimalTwo()} MB"
+        else -> "${(this / 1024.00).limitDecimalTwo()} KB"
     }
 
     internal fun <T> LiveData<T>.removeAllObservers(lifecycleOwner: LifecycleOwner) {
@@ -505,6 +514,5 @@ object Extensions {
         book.timeAccessed = this.timeAccessed
         return book
     }
-
 
 }

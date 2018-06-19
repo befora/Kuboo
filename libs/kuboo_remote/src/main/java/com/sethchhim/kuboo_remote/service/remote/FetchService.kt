@@ -21,6 +21,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
     private val NAMESPACE = "kuboo_fetch"
     private val GROUP_ID = 12345
     private val REPORTING_INTERVAL = 1000.toLong()
+    var DOWNLOAD_SAVE_PATH = ""
 
     private val fetch: Fetch = Fetch.Builder(context, NAMESPACE)
             .setDownloader(OkHttpDownloader(okHttpClient))
@@ -36,9 +37,8 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         Timber.d("onRequestQueueSuccess size[${download.url}]")
     }
 
-    private fun getRequest(login: Login, stringUrl: String): Request {
-        val filePath = getFilePath(stringUrl)
-        return Request(stringUrl, filePath).apply {
+    private fun getRequest(login: Login, stringUrl: String, savePath: String): Request {
+        return Request(stringUrl, savePath).apply {
             addHeader(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
             groupId = GROUP_ID
         }
@@ -70,19 +70,24 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
                     " progress[$progress]" +
                     " created[$created]"
 
-    internal fun download(login: Login, list: List<Book>) {
+    internal fun download(login: Login, list: List<Book>, savePath: String) {
         val requestList = mutableListOf<Request>().apply {
-            list.forEach { add(getRequest(login, it.server + it.linkAcquisition)) }
+            list.forEach {
+                val stringUrl = it.server + it.linkAcquisition
+                val fileName = URL(stringUrl).guessFileName()
+                val saveFilePath = "$savePath${File.separator}$fileName"
+                add(getRequest(login, stringUrl, saveFilePath))
+            }
         }
 
         requestList.forEach {
+            Timber.d("Fetch enqueue ${it.url}")
             fetch.enqueue(it, object : Func<Download> {
                 override fun call(t: Download) = onRequestQueueSuccess(t)
             }, object : Func<Error> {
                 override fun call(t: Error) = onRequestQueueFail(t)
             })
         }
-
     }
 
     internal fun addListener(listener: FetchListener) = fetch.addListener(listener)

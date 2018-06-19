@@ -89,6 +89,13 @@ class DialogUtil(val context: Context) {
         setMessage(stringMessage)
     }.create()
 
+    internal fun getDialogDownloadSavePath(context: Context, storageList: Array<String>, storageListFormatted: Array<String>, onDialogSelectSingleChoice: OnDialogSelectSingleChoice) = getAlertDialogBuilder(context).apply {
+        val checkedItem = storageList.indexOf(Settings.DOWNLOAD_SAVE_PATH)
+        setSingleChoiceItems(storageListFormatted, checkedItem) { dialog, which ->
+            onDialogSelectSingleChoice.onSelect(which)
+        }
+    }.create()
+
     internal fun getDialogHttps(context: Context, tlsCipherSuite: String) = getAlertDialogBuilder(context).apply {
         setTitle(context.getString(R.string.dialog_connection_is_encrypted))
         setMessage(tlsCipherSuite)
@@ -118,6 +125,10 @@ class DialogUtil(val context: Context) {
         setMessage(context.getString(R.string.dialog_please_restart_to_apply_changes))
         setPositiveButton(context.getString(R.string.dialog_restart)) { _, _ -> onDialogSelect0.onSelect0() }
         setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }
+    }.create()
+
+    internal fun getDialogSeriesLimit(context: Context) = getAlertDialogBuilder(context).apply {
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_series_limit, null))
     }.create()
 
     internal fun getDialogScaleType(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {
@@ -172,6 +183,10 @@ class DialogUtil(val context: Context) {
         fun onSelect0()
         fun onSelect1()
         fun onSelect2()
+    }
+
+    interface OnDialogSelectSingleChoice {
+        fun onSelect(which: Int)
     }
 
 }

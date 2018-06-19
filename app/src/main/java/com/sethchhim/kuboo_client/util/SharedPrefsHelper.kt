@@ -6,6 +6,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
+import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SAVE_PATH
+import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SERIES_LIMIT
 import com.sethchhim.kuboo_client.Constants.KEY_DUAL_PANE
 import com.sethchhim.kuboo_client.Constants.KEY_EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Constants.KEY_EPUB_TEXT_ZOOM
@@ -13,34 +15,32 @@ import com.sethchhim.kuboo_client.Constants.KEY_FAVORITE
 import com.sethchhim.kuboo_client.Constants.KEY_FIRST_DOWNLOAD
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_LIST
 import com.sethchhim.kuboo_client.Constants.KEY_MARK_FINISHED
-import com.sethchhim.kuboo_client.Constants.KEY_MAX_OFFLINE_ITEMS
 import com.sethchhim.kuboo_client.Constants.KEY_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Constants.KEY_PREVIEW
 import com.sethchhim.kuboo_client.Constants.KEY_REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Constants.KEY_RTL
-import com.sethchhim.kuboo_client.Constants.KEY_SAVE_PATH
 import com.sethchhim.kuboo_client.Constants.KEY_SCALE_TYPE
 import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
+import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_SERIES_LIMIT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
+import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
+import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SERIES_LIMIT
 import com.sethchhim.kuboo_client.Settings.DUAL_PANE
 import com.sethchhim.kuboo_client.Settings.EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Settings.EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.FAVORITE
 import com.sethchhim.kuboo_client.Settings.IMMERSIVE_BROWSER
 import com.sethchhim.kuboo_client.Settings.MARK_FINISHED
-import com.sethchhim.kuboo_client.Settings.MAX_OFFLINE_ITEMS
-import com.sethchhim.kuboo_client.Settings.MAX_OFFLINE_ITEMS_DEFAULT
 import com.sethchhim.kuboo_client.Settings.MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.PREVIEW
 import com.sethchhim.kuboo_client.Settings.REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Settings.RTL
-import com.sethchhim.kuboo_client.Settings.SAVE_PATH
 import com.sethchhim.kuboo_client.Settings.SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Settings.WIFI_ONLY
@@ -56,22 +56,21 @@ class SharedPrefsHelper(val context: Context) {
 
     fun restoreSettings() {
         APP_THEME = sharedPreferences.getInt(KEY_APP_THEME, DEFAULT_APP_THEME)
+        DOWNLOAD_SERIES_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_SERIES_LIMIT, DEFAULT_DOWNLOAD_SERIES_LIMIT)
+        DOWNLOAD_SAVE_PATH = sharedPreferences.getString(KEY_DOWNLOAD_SAVE_PATH, context.getExternalFilesDir(null).path)
         DUAL_PANE = sharedPreferences.getBoolean(KEY_DUAL_PANE, false)
+        EPUB_TEXT_ZOOM = sharedPreferences.getInt(KEY_EPUB_TEXT_ZOOM, DEFAULT_EPUB_TEXT_ZOOM)
+        EPUB_MARGIN_SIZE = sharedPreferences.getInt(KEY_EPUB_MARGIN_SIZE, DEFAULT_EPUB_MARGIN_SIZE)
         FAVORITE = sharedPreferences.getBoolean(KEY_FAVORITE, true)
         IMMERSIVE_BROWSER = sharedPreferences.getBoolean(KEY_BROWSER_IMMERSIVE, false)
         MARK_FINISHED = sharedPreferences.getBoolean(KEY_MARK_FINISHED, true)
-        MAX_OFFLINE_ITEMS = sharedPreferences.getInt(KEY_MAX_OFFLINE_ITEMS, MAX_OFFLINE_ITEMS_DEFAULT)
         MAX_PAGE_WIDTH = sharedPreferences.getInt(KEY_MAX_PAGE_WIDTH, DEFAULT_MAX_PAGE_WIDTH)
         PREVIEW = sharedPreferences.getBoolean(KEY_PREVIEW, true)
         RTL = sharedPreferences.getBoolean(KEY_RTL, false)
         REVERSE_LAYOUT = sharedPreferences.getBoolean(KEY_REVERSE_LAYOUT, false)
-        SAVE_PATH = sharedPreferences.getString(KEY_SAVE_PATH, context.getExternalFilesDir(null).path)
         SCALE_TYPE = sharedPreferences.getInt(KEY_SCALE_TYPE, DEFAULT_SCALE_TYPE)
         SCREEN_ORIENTATION = sharedPreferences.getInt(KEY_SCREEN_ORIENTATION, SCREEN_ORIENTATION)
         WIFI_ONLY = sharedPreferences.getBoolean(KEY_WIFI_ONLY, false)
-
-        EPUB_TEXT_ZOOM = sharedPreferences.getInt(KEY_EPUB_TEXT_ZOOM, DEFAULT_EPUB_TEXT_ZOOM)
-        EPUB_MARGIN_SIZE = sharedPreferences.getInt(KEY_EPUB_MARGIN_SIZE, DEFAULT_EPUB_MARGIN_SIZE)
 
         if (isDebugSharedPreferencesHelper) {
             Timber.i("Loading APP_THEME: $APP_THEME")
@@ -86,8 +85,8 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading REVERSE_LAYOUT: $REVERSE_LAYOUT")
             Timber.i("Loading MAX_PAGE_WIDTH: $MAX_PAGE_WIDTH")
             Timber.i("Loading SCREEN_ORIENTATION: $SCREEN_ORIENTATION")
-            Timber.i("Loading SAVE_PATH: $SAVE_PATH")
-            Timber.i("Loading MAX_OFFLINE_ITEMS: $MAX_OFFLINE_ITEMS")
+            Timber.i("Loading DOWNLOAD_SAVE_PATH: $DOWNLOAD_SAVE_PATH")
+            Timber.i("Loading DOWNLOAD_SERIES_LIMIT: $DOWNLOAD_SERIES_LIMIT")
         }
     }
 
@@ -219,14 +218,14 @@ class SharedPrefsHelper(val context: Context) {
         sharedPreferences.edit().putString(KEY_LOGIN_LIST, serverList.toJson()).apply()
     }
 
-    fun saveSavePath() {
-        if (isDebugSharedPreferencesHelper) Timber.i("Saving SAVE_PATH: ${SAVE_PATH}")
-        sharedPreferences.edit().putString(KEY_SAVE_PATH, SAVE_PATH).apply()
+    fun saveDownloadSavePath() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving DOWNLOAD_SAVE_PATH: $DOWNLOAD_SAVE_PATH")
+        sharedPreferences.edit().putString(KEY_DOWNLOAD_SAVE_PATH, DOWNLOAD_SAVE_PATH).apply()
     }
 
-    fun saveMaxOfflineItems() {
-        if (isDebugSharedPreferencesHelper) Timber.i("Saving MAX_OFFLINE_ITEMS: $MAX_OFFLINE_ITEMS")
-        sharedPreferences.edit().putInt(KEY_MAX_OFFLINE_ITEMS, MAX_OFFLINE_ITEMS).apply()
+    fun saveDownloadSeriesLimit() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving DOWNLOAD_SERIES_LIMIT: $DOWNLOAD_SERIES_LIMIT")
+        sharedPreferences.edit().putInt(KEY_DOWNLOAD_SERIES_LIMIT, DOWNLOAD_SERIES_LIMIT).apply()
     }
 
     fun saveEpubTextZoom() {
