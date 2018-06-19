@@ -97,3 +97,6 @@
 
 #
 -dontwarn sun.misc.Unsafe
+
+#mupdf
+-keep class com.artifex.mupdf.** {*;}

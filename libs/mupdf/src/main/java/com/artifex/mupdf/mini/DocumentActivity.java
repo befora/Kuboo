@@ -107,8 +107,9 @@ public class DocumentActivity extends AppCompatActivity {
         navigationBar = findViewById(R.id.navigation_bar);
 
         currentBar = actionBar;
+    }
 
-        Uri uri = getIntent().getData();
+    protected void loadUri(Uri uri) {
         mimetype = getIntent().getType();
         key = uri.toString();
         if (uri.getScheme().equals("file")) {

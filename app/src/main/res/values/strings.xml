@@ -165,6 +165,7 @@
     <string name="reader_page">Page</string>
     <string name="reader_pip_requires_android_oreo_or_above">Pip requires Android Oreo or above!</string>
     <string name="reader_read">READ</string>
+    <string name="reader_something_went_wrong">Something went wrong!</string>
     <string name="reader_swipe_down_to_refresh">Swipe down to refresh.</string>
 
     <string name="settings_active_server">Active Server</string>
