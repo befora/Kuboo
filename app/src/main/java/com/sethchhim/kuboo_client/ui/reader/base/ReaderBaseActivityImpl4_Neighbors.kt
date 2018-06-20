@@ -41,17 +41,10 @@ open class ReaderBaseActivityImpl4_Neighbors : ReaderBaseActivityImpl3_Bookmark(
         val isNextBookEmpty = result.nextBook?.isEmpty() == true
         val isCurrentBookContainsLinkNext = currentBook.linkNext.isNotEmpty()
         if (isNextBookEmpty && isCurrentBookContainsLinkNext) {
-            populateNeighborsAtNextPage()
+            populateNeighborsRemoteAtNextPage()
         } else {
             handlePopulateNeighborResult(result)
         }
-    }
-
-    private fun populateNeighborsAtNextPage() {
-        val stringUrl = viewModel.getActiveServer() + currentBook.linkNext
-        viewModel.getNeighborsRemote(currentBook, stringUrl).observe(this, Observer { result ->
-            if (result != null) handlePopulateNeighborResult(result)
-        })
     }
 
     private fun populateNeighborsLocal() {
@@ -70,6 +63,13 @@ open class ReaderBaseActivityImpl4_Neighbors : ReaderBaseActivityImpl3_Bookmark(
                 true -> onPopulateNeighborsRemoteSuccess(result!!)
                 false -> onPopulateNeighborsFail()
             }
+        })
+    }
+
+    private fun populateNeighborsRemoteAtNextPage() {
+        val stringUrl = viewModel.getActiveServer() + currentBook.linkNext
+        viewModel.getNeighborsRemote(currentBook, stringUrl).observe(this, Observer { result ->
+            if (result != null) handlePopulateNeighborResult(result)
         })
     }
 
