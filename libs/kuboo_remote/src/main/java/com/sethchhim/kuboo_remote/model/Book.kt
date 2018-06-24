@@ -138,6 +138,13 @@ data class Book(
                 this.linkXmlPath.contains("all?search=true&displayFiles=true&index=", ignoreCase = true)
     }
 
+    fun getIdString() = try {
+        id.toString()
+    } catch (e: Exception) {
+        Timber.e("Failed to get id! ${e.message}")
+        "0"
+    }
+
     fun getXmlId(): Int {
         try {
             if (this.linkXmlPath.contains("/?displayFiles=true")) {
@@ -149,10 +156,17 @@ data class Book(
                 return Integer.parseInt(this.linkXmlPath.substring(0, index))
             }
         } catch (e: Exception) {
-            Timber.e("Failed to get xml id!")
+            Timber.e("Failed to get xml id! ${e.message}")
             e.printStackTrace()
         }
         return 0
+    }
+
+    fun getXmlIdString() = try {
+        getXmlId().toString()
+    } catch (e: Exception) {
+        Timber.e("Failed to get xml id! ${e.message}")
+        "0"
     }
 
     internal fun getFormattedContent(): String {
@@ -228,8 +242,12 @@ data class Book(
 //    }
 
     fun isMatch(book: Book) = this.id == book.id && this.getXmlId() == book.getXmlId() && this.server == book.server
+
     fun isMatchXmlId(book: Book) = this.getXmlId() == book.getXmlId()
+
     fun isMatchCurrentPage(book: Book) = currentPage == book.currentPage
+
+    fun getAcquisitionUrl() = server + linkAcquisition
 
     fun getPreviewUrl(maxWidth: Int) = server + getPseCover(maxWidth)
 

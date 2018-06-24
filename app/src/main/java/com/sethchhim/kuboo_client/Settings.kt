@@ -12,7 +12,8 @@ object Settings {
     const val DEFAULT_EPUB_MARGIN_SIZE = 24
     const val DEFAULT_EPUB_TEXT_ZOOM = 120
 
-    const val DEFAULT_DOWNLOAD_SERIES_LIMIT = 5
+    const val DEFAULT_DOWNLOAD_TRACKING_LIMIT = 3
+    const val DEFAULT_DOWNLOAD_TRACKING_INTERVAL = 180 //minutes
 
     //----------------------------------------APP_THEME---------------------------------------------
 
@@ -46,7 +47,8 @@ object Settings {
 
     //-----------------------------------DOWNLOAD_PREFERENCES-------------------------------------
     var DOWNLOAD_SAVE_PATH = ""
-    var DOWNLOAD_SERIES_LIMIT = DEFAULT_DOWNLOAD_SERIES_LIMIT
+    var DOWNLOAD_TRACKING_LIMIT = DEFAULT_DOWNLOAD_TRACKING_LIMIT
+    var DOWNLOAD_TRACKING_INTERVAL = DEFAULT_DOWNLOAD_TRACKING_INTERVAL
 
     //-------------------------------------READER_PREFERENCES---------------------------------------
     var SCALE_TYPE = 1

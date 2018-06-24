@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.Window
@@ -120,6 +121,11 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
         1 -> R.style.AppThemeDark
         2 -> R.style.AppThemeOled
         else -> R.style.AppThemeLight
+    }
+
+    internal fun getAppThemeTextColor() = when (Settings.APP_THEME) {
+        0 -> ContextCompat.getColor(this, R.color.primaryTextLight)
+        else -> ContextCompat.getColor(this, R.color.primaryTextDark)
     }
 
     protected fun setTransitionDuration() = window.sharedElementEnterTransition?.apply {

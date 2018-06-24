@@ -25,7 +25,7 @@ import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 
 
-class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
+class MainActivity : MainActivityImpl2_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,7 @@ class MainActivity : MainActivityImpl1_Content(), BottomNavigationView.OnNavigat
         }
 
         setStateLoading()
+        setDownloadTrackingService()
     }
 
     private fun showChangeLog() {

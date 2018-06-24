@@ -31,7 +31,6 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl4_Neighbors() {
 
         viewModel.clearReaderLists()
         populateNeighbors()
-
     }
 
     override fun onBackPressed() = when (systemUtil.isHardwareNavigation()) {

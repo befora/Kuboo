@@ -7,7 +7,8 @@ import com.google.gson.reflect.TypeToken
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SAVE_PATH
-import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SERIES_LIMIT
+import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_INTERVAL
+import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_LIMIT
 import com.sethchhim.kuboo_client.Constants.KEY_DUAL_PANE
 import com.sethchhim.kuboo_client.Constants.KEY_EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Constants.KEY_EPUB_TEXT_ZOOM
@@ -24,13 +25,15 @@ import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
-import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_SERIES_LIMIT
+import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_INTERVAL
+import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_LIMIT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
-import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SERIES_LIMIT
+import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_INTERVAL
+import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_LIMIT
 import com.sethchhim.kuboo_client.Settings.DUAL_PANE
 import com.sethchhim.kuboo_client.Settings.EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Settings.EPUB_TEXT_ZOOM
@@ -56,7 +59,8 @@ class SharedPrefsHelper(val context: Context) {
 
     fun restoreSettings() {
         APP_THEME = sharedPreferences.getInt(KEY_APP_THEME, DEFAULT_APP_THEME)
-        DOWNLOAD_SERIES_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_SERIES_LIMIT, DEFAULT_DOWNLOAD_SERIES_LIMIT)
+        DOWNLOAD_TRACKING_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_LIMIT, DEFAULT_DOWNLOAD_TRACKING_LIMIT)
+        DOWNLOAD_TRACKING_INTERVAL = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DEFAULT_DOWNLOAD_TRACKING_INTERVAL)
         DOWNLOAD_SAVE_PATH = sharedPreferences.getString(KEY_DOWNLOAD_SAVE_PATH, context.getExternalFilesDir(null).path)
         DUAL_PANE = sharedPreferences.getBoolean(KEY_DUAL_PANE, false)
         EPUB_TEXT_ZOOM = sharedPreferences.getInt(KEY_EPUB_TEXT_ZOOM, DEFAULT_EPUB_TEXT_ZOOM)
@@ -86,7 +90,8 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading MAX_PAGE_WIDTH: $MAX_PAGE_WIDTH")
             Timber.i("Loading SCREEN_ORIENTATION: $SCREEN_ORIENTATION")
             Timber.i("Loading DOWNLOAD_SAVE_PATH: $DOWNLOAD_SAVE_PATH")
-            Timber.i("Loading DOWNLOAD_SERIES_LIMIT: $DOWNLOAD_SERIES_LIMIT")
+            Timber.i("Loading DOWNLOAD_TRACKING_INTERVAL: $DOWNLOAD_TRACKING_INTERVAL")
+            Timber.i("Loading DOWNLOAD_TRACKING_LIMIT: $DOWNLOAD_TRACKING_LIMIT")
         }
     }
 
@@ -223,9 +228,14 @@ class SharedPrefsHelper(val context: Context) {
         sharedPreferences.edit().putString(KEY_DOWNLOAD_SAVE_PATH, DOWNLOAD_SAVE_PATH).apply()
     }
 
-    fun saveDownloadSeriesLimit() {
-        if (isDebugSharedPreferencesHelper) Timber.i("Saving DOWNLOAD_SERIES_LIMIT: $DOWNLOAD_SERIES_LIMIT")
-        sharedPreferences.edit().putInt(KEY_DOWNLOAD_SERIES_LIMIT, DOWNLOAD_SERIES_LIMIT).apply()
+    fun saveDownloadTrackingInterval() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving DOWNLOAD_TRACKING_INTERVAL: $DOWNLOAD_TRACKING_INTERVAL")
+        sharedPreferences.edit().putInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DOWNLOAD_TRACKING_INTERVAL).apply()
+    }
+
+    fun saveDownloadTrackingLimit() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving DOWNLOAD_TRACKING_LIMIT: $DOWNLOAD_TRACKING_LIMIT")
+        sharedPreferences.edit().putInt(KEY_DOWNLOAD_TRACKING_LIMIT, DOWNLOAD_TRACKING_LIMIT).apply()
     }
 
     fun saveEpubTextZoom() {

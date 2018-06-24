@@ -17,7 +17,7 @@ class Task_FavoriteDelete(book: Book) : Task_LocalBase() {
                 appDatabaseDao.deleteAllThatMatch(book)
                 val result = appDatabaseDao.getAllBookFavorite()
                 executors.mainThread.execute { liveData.value = result.favoriteListToBookList() }
-                Timber.d("Favorite delete: title[${book.title}] favoriteSize[${result.size}]")
+                Timber.d("Favorite deleteDownload: title[${book.title}] favoriteSize[${result.size}]")
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] title[${book.title}]")
                 executors.mainThread.execute { liveData.value = null }

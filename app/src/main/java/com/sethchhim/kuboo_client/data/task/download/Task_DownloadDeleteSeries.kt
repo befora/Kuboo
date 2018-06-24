@@ -7,7 +7,7 @@ import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
 
-class Task_DownloadDelete(book: Book) : Task_LocalBase() {
+class Task_DownloadDeleteSeries(book: Book, keepBook: Boolean) : Task_LocalBase() {
 
     internal val liveData = MutableLiveData<List<Book>>()
 
@@ -17,8 +17,15 @@ class Task_DownloadDelete(book: Book) : Task_LocalBase() {
         executors.diskIO.execute {
             try {
                 appDatabaseDao.getAllBookDownload()
-                        .filter { it.id == download.id }
-                        .forEach { appDatabaseDao.deleteDownload(it) }
+                        .filter { it.getXmlId() == book.getXmlId() }
+                        .sortedBy { it.id }
+                        .forEach {
+                            when (keepBook && it.id == book.id) {
+                                true -> { /*do nothing*/
+                                }
+                                false -> appDatabaseDao.deleteDownload(it)
+                            }
+                        }
                 val result = appDatabaseDao.getAllBookDownload().downloadListToBookList()
                 executors.mainThread.execute { liveData.value = result }
             } catch (e: Exception) {

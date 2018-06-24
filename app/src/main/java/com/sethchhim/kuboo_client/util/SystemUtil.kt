@@ -226,9 +226,9 @@ class SystemUtil(private val context: Context) {
             val newCacheSize = getCacheSize()
             val stopTime = System.currentTimeMillis()
             val elapsedTime = stopTime - startTime
-            Timber.i("[CACHE] Finished delete cache: oldSize[$oldCacheSize] newSize[$newCacheSize] [${elapsedTime}ms]")
+            Timber.i("[CACHE] Finished deleteDownload cache: oldSize[$oldCacheSize] newSize[$newCacheSize] [${elapsedTime}ms]")
         } catch (ignored: Exception) {
-            Timber.e("[CACHE] Failed to delete cache!")
+            Timber.e("[CACHE] Failed to deleteDownload cache!")
         }
     }
 

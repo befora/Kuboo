@@ -26,12 +26,18 @@
         <item name="android:colorAccent">@color/lightColorAccent</item>
         <item name="android:textColorPrimary">@color/primaryTextDark</item>
         <item name="android:textColorSecondary">@color/primaryTextDark</item>
+        <item name="android:textColor">@color/darkColorAccent</item>
         <item name="textColorAlertDialogListItem">@color/primaryTextDark</item>
+        <item name="android:windowTitleStyle">@style/WindowTitleStyleDark</item>
     </style>
 
     <style name="InputLayoutDark" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textColor">@color/primaryTextDark</item>
         <item name="android:textColorHint">@color/secondaryText</item>
+    </style>
+
+    <style name="WindowTitleStyleDark">
+        <item name="android:textColor">@color/primaryTextDark</item>
     </style>
 
 </resources>

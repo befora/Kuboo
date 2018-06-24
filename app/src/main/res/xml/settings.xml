@@ -84,10 +84,14 @@
             android:key="settings_download_save_path"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_save_path"/>
-        <!--<android.support.v7.preference.Preference-->
-        <!--android:key="settings_download_series_limit"-->
-        <!--android:layout="@layout/settings_item_preference_normal"-->
-        <!--android:title="@string/settings_series_limit"/>-->
+        <android.support.v7.preference.Preference
+            android:key="settings_download_tracking_limit"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="@string/settings_tracking_limit"/>
+        <android.support.v7.preference.Preference
+            android:key="settings_download_tracking_interval"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="@string/settings_tracking_interval"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- SYSTEM -->

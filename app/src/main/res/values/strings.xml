@@ -52,8 +52,11 @@
     <string name="dialog_connecting_to_server">Connecting to Server</string>
     <string name="dialog_connection_is_encrypted">Connection is encrypted</string>
     <string name="dialog_decline_bookmark">Decline bookmark</string>
+    <string name="dialog_delete">Delete</string>
     <string name="dialog_dismiss">Dismiss</string>
     <string name="dialog_download">Download</string>
+    <string name="dialog_download_tracking">Download Tracking</string>
+    <string name="dialog_download_tracking_message">Download tracking is a feature that automatically downloads books in a series for you. After you finish reading a book, it is deleted off your device and the next upcoming issues are queued for download. The number of items queued can be set in SETTINGS.\n</string>
     <string name="dialog_file_does_not_exist">File does not exist!</string>
     <string name="dialog_font">Font</string>
     <string name="dialog_loading_assets">Loading Assets</string>
@@ -79,7 +82,6 @@
     <string name="downloads_connection_timed_out">CONNECTION TIMED OUT</string>
     <string name="downloads_download_not_found">DOWNLOAD NOT FOUND</string>
     <string name="downloads_empty_response_from_server">EMPTY RESPONSE FROM SERVER</string>
-    <string name="downloads_fetch_already_exist">FETCH ALREADY EXIST</string>
     <string name="downloads_fetch_database_error">FETCH DATABASE ERROR</string>
     <string name="downloads_file_not_created">FILE NOT CREATED</string>
     <string name="downloads_finished">FINISHED</string>
@@ -144,8 +146,8 @@
     <string name="main_start_reading_to_add_items">Start reading to add items!</string>
 
     <string name="notification_cancel">CANCEL</string>
-    <string name="notification_download_in_progress">Download in currentPage…</string>
-    <string name="notification_download_in_progress_remaining">Download in currentPage… %1$s remaining</string>
+    <string name="notification_download_in_progress">Download in progress…</string>
+    <string name="notification_download_in_progress_remaining">Download in progress… %1$s remaining</string>
     <string name="notification_download_service_paused">Download service paused.</string>
     <string name="notification_loading">LOADING</string>
     <string name="notification_pause">PAUSE</string>
@@ -187,6 +189,7 @@
     <string name="settings_manga_mode">Manga Mode</string>
     <string name="settings_margin">Margin</string>
     <string name="settings_mark_finished">Mark Finished</string>
+    <string name="settings_minutes">minutes</string>
     <string name="settings_none">NONE</string>
     <string name="settings_orientation">Orientation</string>
     <string-array name="settings_orientation_entries">
@@ -203,6 +206,7 @@
     <string name="settings_preview">Preview</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">Read two pages simultaneously in landscape mode</string>
     <string name="settings_reader">Reader</string>
+    <string name="settings_remaining">remaining</string>
     <string name="settings_reverse_layout">Reverse Layout</string>
     <string name="settings_reverse_reading_order">Reverse reading order</string>
     <string name="settings_save_path">Save Path</string>
@@ -217,7 +221,6 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string name="settings_series_limit">Series Limit</string>
     <string name="settings_server">Server</string>
     <string name="settings_show_favorite_buttons">Show favorite buttons</string>
     <string name="settings_show_preview_page_before_reading">Show preview page before reading</string>
@@ -234,6 +237,8 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="settings_tracking_interval">Tracking Interval</string>
+    <string name="settings_tracking_limit">Tracking Limit</string>
 
     <string name="title_browse">Browse</string>
     <string name="title_downloads">Downloads</string>

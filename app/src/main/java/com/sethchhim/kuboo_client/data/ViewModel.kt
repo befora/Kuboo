@@ -15,6 +15,7 @@ import java.io.File
 class ViewModel(internal val browserRepository: BrowserRepository,
                 private val downloadsRepository: DownloadsRepository,
                 private val favoriteRepository: FavoriteRepository,
+                private val fetchRepository: FetchRepository,
                 private val localRepository: LocalRepository,
                 private val loginRepository: LoginRepository,
                 private val readerRepository: ReaderRepository,
@@ -159,59 +160,58 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun addPath(book: Book) = browserRepository.addPath(book)
 
-    internal fun removePath(book: Book) = browserRepository.removePathByBook(book)
-
     internal fun clearPathList() = browserRepository.clearPathList()
 
     internal fun updatePathLinkSubsection(book: Book) = browserRepository.updatePathLinkSubsection(book)
 
     internal fun decreasePathPosition() = browserRepository.decreasePathPosition()
 
-    internal fun increasePathPosition() = browserRepository.increasePathPosition()
-
     internal fun setPathPosition(position: Int) = browserRepository.setPathPosition(position)
 
-    internal fun trimPathAt(position: Int) = browserRepository.trimPathAt(position)
-
-    //menu_reader
-
-    internal fun getFile(stringUrl1: String, saveDir: File) = remoteRepository.getFile(getActiveLogin(), stringUrl1, saveDir)
-
     //downloads
-    internal fun getDownloadList() = downloadsRepository.getDownloadList()
+    internal fun getDownloadList() = downloadsRepository.downloadsList
+
+    internal fun getDownloadListFavoriteCompressed() = downloadsRepository.getDownloadListFavoriteCompressed()
 
     internal fun getDownloadsListFromAppDatabase() = downloadsRepository.getDownloadsListFromAppDatabase()
 
-    internal fun getDownloadListFromService(liveData: MutableLiveData<List<Download>>) = downloadsRepository.getDownloadListFromKubooService(liveData)
-
-    internal fun getDownloadAt(position: Int) = downloadsRepository.getDownloadAt(position)
-
-    internal fun getDownloadBookByUrl(stringUrl: String) = downloadsRepository.getDownloadBookByUrl(stringUrl)
-
-    internal fun startDownloads(list: List<Book>, savePath: String) = downloadsRepository.startDownloads(getActiveLogin(), list, savePath)
+    internal fun getFirstDownloadInSeries(book: Book) = downloadsRepository.getFirstDownloadInSeries(book)
 
     internal fun addDownload(book: Book) = downloadsRepository.addDownload(book)
 
-    internal fun deleteDownload(download: Download) = downloadsRepository.deleteDownload(download)
+    internal fun deleteDownload(book: Book, liveData: MutableLiveData<List<Book>>? = null) = downloadsRepository.deleteDownload(book, liveData)
 
-    internal fun setDownloadList(list: List<Download>) = downloadsRepository.setDownloadList(list)
+    internal fun deleteDownloadSeries(book: Book, keepBook: Boolean = false, liveData: MutableLiveData<List<Book>>) = downloadsRepository.deleteDownloadSeries(book, keepBook, liveData)
 
-    internal fun getDownloadByBook(book: Book) = downloadsRepository.getDownloadByBook(book)
+    internal fun setDownloadList(list: List<Book>) = downloadsRepository.setDownloadList(list)
 
-    internal fun isDownloadContains(book: Book) = downloadsRepository.isDownloadContains(book)
+    //fetch
+    internal fun startDownloads(list: List<Book>, savePath: String) {
+        fetchRepository.startDownloads(getActiveLogin(), list, savePath)
+        downloadsRepository.addDownloads(list, savePath)
+    }
 
-    internal fun isDownloadsQueuedEmpty() = downloadsRepository.isDownloadsQueuedEmpty()
+    internal fun deleteDownloadsBefore(book: Book) {
+        fetchRepository.deleteDownloadsBefore(book)
+        downloadsRepository.deleteDownloadsBefore(book)
+    }
 
-    internal fun isDownloadsPausedEmpty() = downloadsRepository.isDownloadsPausedEmpty()
+    internal fun getFetchDownload(book: Book) = fetchRepository.getDownload(book)
 
-    internal fun printPath() = browserRepository.printPath()
+    internal fun getFetchDownloads() = fetchRepository.getDownloads()
+
+    internal fun resumeFetchDownload(download: Download) = fetchRepository.resumeDownload(download)
+
+    internal fun retryFetchDownload(download: Download) = fetchRepository.retryDownload(download)
+
+    internal fun deleteFetchSeries(book: Book, keepBook: Boolean) = fetchRepository.deleteSeries(book, keepBook)
+
+    internal fun deleteFetchDownload(download: Download) = fetchRepository.deleteDownload(download)
 
     //reader licenseList
     internal fun createRemoteSinglePaneReaderList(book: Book) = readerRepository.createRemoteList(book)
 
     internal fun createLocalSinglePaneList(book: Book) = readerRepository.createLocalList(book)
-
-    internal fun getReaderList() = readerRepository.getReaderList()
 
     internal fun getReaderListSize() = readerRepository.getReaderListSize()
 
@@ -236,9 +236,15 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun printReaderList() = readerRepository.printReaderList()
 
     //reader content
+    internal fun getFile(stringUrl1: String, saveDir: File) = remoteRepository.getFile(getActiveLogin(), stringUrl1, saveDir)
+
     internal fun getNeighborsRemote(book: Book, stringUrl: String) = remoteRepository.getNeighbors(getActiveLogin(), book, stringUrl)
 
-    internal fun getNeighborsLocal(book: Book) = downloadsRepository.getNeighbors(book)
+    internal fun getNeighborsLocal(book: Book) = downloadsRepository.getDownloadNeighbors(book)
+
+    internal fun getSeriesNeighborsRemote(book: Book, stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsRemote(getActiveLogin(), book, stringUrl, seriesLimit)
+
+    internal fun getSeriesNeighborsNextPageRemote(stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsNextPageRemote(getActiveLogin(), stringUrl, seriesLimit)
 
     internal fun getPage(position: Int) = localRepository.getPage(position)
 

@@ -30,6 +30,34 @@ class ParseService {
         return neighbors
     }
 
+    internal fun parseSeriesNeighbors(login: Login, book: Book, stringXml: String, seriesLimit: Int, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
+        val neighbors = mutableListOf<Book>()
+        try {
+            val saxList = mutableListOf<Book>()
+            getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
+            saxList.searchForSeriesNeighbors(book, neighbors, seriesLimit)
+        } catch (e: SAXException) {
+//            Timber.i(e.message)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return neighbors
+    }
+
+    internal fun parseSeriesNeighborsNextPage(login: Login, stringXml: String, seriesLimit: Int, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
+        val neighbors = mutableListOf<Book>()
+        try {
+            val saxList = mutableListOf<Book>()
+            getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
+            saxList.searchForSeriesNeighborsNextPage(neighbors, seriesLimit)
+        } catch (e: SAXException) {
+//            Timber.i(e.message)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return neighbors
+    }
+
     internal fun parseOpds(login: Login, stringXml: String, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
         val saxList = mutableListOf<Book>()
         try {
@@ -90,7 +118,10 @@ class ParseService {
     private fun MutableList<Book>.searchForNeighbors(neighbors: Neighbors): Neighbors {
         var position = -2
         forEachIndexed { index, it ->
-            if (it.id == neighbors.currentBook?.id) position = index
+            if (it.id == neighbors.currentBook?.id) {
+                position = index
+                return@forEachIndexed
+            }
         }
 
         try {
@@ -108,6 +139,39 @@ class ParseService {
         }
 
         return neighbors
+    }
+
+    private fun MutableList<Book>.searchForSeriesNeighbors(currentBook: Book, seriesNeighborsList: MutableList<Book>, seriesLimit: Int): MutableList<Book> {
+        var position = -2
+
+        forEachIndexed { index, it ->
+            if (it.id == currentBook.id) {
+                position = index
+                return@forEachIndexed
+            }
+        }
+
+        for (index in position + 1..position + seriesLimit) {
+            try {
+                seriesNeighborsList.add(this[index])
+            } catch (e: IndexOutOfBoundsException) {
+            }
+        }
+
+        return seriesNeighborsList
+    }
+
+    private fun MutableList<Book>.searchForSeriesNeighborsNextPage(seriesNeighborsList: MutableList<Book>, seriesLimit: Int): MutableList<Book> {
+        val position = -1
+
+        for (index in position + 1..position + seriesLimit) {
+            try {
+                seriesNeighborsList.add(this[index])
+            } catch (e: IndexOutOfBoundsException) {
+            }
+        }
+
+        return seriesNeighborsList
     }
 }
 

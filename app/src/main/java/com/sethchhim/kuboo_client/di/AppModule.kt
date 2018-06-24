@@ -23,6 +23,7 @@ class AppModule {
     @AppScope
     fun provideAppDatabaseDao(context: Context) = Room
             .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            .fallbackToDestructiveMigration()
             .build()
             .appDatabaseDao()
 
@@ -36,11 +37,12 @@ class AppModule {
             browserRepository: BrowserRepository,
             downloadsRepository: DownloadsRepository,
             favoriteRepository: FavoriteRepository,
+            fetchRepository: FetchRepository,
             localRepository: LocalRepository,
             loginRepository: LoginRepository,
             readerRepository: ReaderRepository,
             recentRepository: RecentRepository,
-            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, localRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
+            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, localRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
 
     @Provides
     @AppScope
@@ -48,11 +50,15 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideDownloadsRepository(kubooRemote: KubooRemote, notificationService: NotificationService) = DownloadsRepository(kubooRemote, notificationService)
+    fun provideDownloadsRepository() = DownloadsRepository()
 
     @Provides
     @AppScope
     fun provideFavoriteRepository() = FavoriteRepository()
+
+    @Provides
+    @AppScope
+    fun provideFetchRepository(kubooRemote: KubooRemote, notificationService: NotificationService) = FetchRepository(kubooRemote, notificationService)
 
     @Provides
     @AppScope

@@ -1,11 +1,15 @@
 package com.sethchhim.kuboo_client.ui.main.downloads.adapter
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -15,32 +19,35 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.matrixxun.starry.badgetextview.MaterialBadgeTextView
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.fadeGone
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
+import com.sethchhim.kuboo_client.Extensions.filteredBySeries
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.Extensions.invisible
-import com.sethchhim.kuboo_client.Extensions.toBook
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragmentImpl1_Content
-import com.sethchhim.kuboo_client.util.DiffUtilDownloads
+import com.sethchhim.kuboo_client.util.DialogUtil
+import com.sethchhim.kuboo_client.util.DiffUtilHelper
 import com.sethchhim.kuboo_client.util.SystemUtil
-import com.sethchhim.kuboo_remote.KubooRemote
+import com.sethchhim.kuboo_remote.model.Book
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.Status
 import kotlinx.android.synthetic.main.browser_item_download.view.*
+import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onLongClick
-import timber.log.Timber
 import javax.inject.Inject
 
-class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Content, val viewModel: ViewModel) : BaseQuickAdapter<Download, DownloadsAdapter.DownloadHolder>(R.layout.browser_item_download, viewModel.getDownloadList()) {
+
+class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Content, val viewModel: ViewModel) : BaseQuickAdapter<Book, DownloadsAdapter.DownloadHolder>(R.layout.browser_item_download, viewModel.getDownloadListFavoriteCompressed()) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -48,7 +55,6 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
     }
 
     @Inject lateinit var context: Context
-    @Inject lateinit var kubooRemote: KubooRemote
     @Inject lateinit var systemUtil: SystemUtil
 
     private lateinit var recyclerview: RecyclerView
@@ -66,53 +72,105 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         this.recyclerview = recyclerView
     }
 
-    override fun convert(holder: DownloadHolder, item: Download) {
-        setStateStart(holder, item)
-        loadFolderThumbnail(holder, item)
+    override fun convert(holder: DownloadHolder, book: Book) {
+        viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
+            it?.let { setStateStart(holder, it, book.isFavorite) }
+        })
     }
 
-    override fun getItemId(position: Int): Long {
-        return data[position].id.toLong()
-    }
+    override fun getItemId(position: Int) = data[position].id.toLong()
 
     inner class DownloadHolder(view: View) : BaseViewHolder(view) {
         internal fun onItemSelected() {
-            try {
-                val download = data[adapterPosition]
-                when (download.status == Status.COMPLETED) {
-                    true -> readBook(download)
-                    false -> {
-                        //do nothing
-                    }
-                }
-            } catch (e: Exception) {
-                Timber.e(e.message)
-            }
-        }
-
-        private fun readBook(download: Download) {
-            viewModel.getDownloadBookByUrl(download.url).observe(mainActivity, Observer { result ->
-                result?.let {
-                    val book = result.toBook()
-                    book.filePath = download.file
-                    mainActivity.startReader(ReadData(book = book))
-                }
+            val book = data[adapterPosition]
+            viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
+                if (it?.status == Status.COMPLETED) mainActivity.startReader(ReadData(book))
             })
         }
 
         internal fun onItemLongSelected() {
-            //TODO selection mode
-            viewModel.deleteDownload(data[adapterPosition])
+            val book = data[adapterPosition]
+            val deleteDialog = mainActivity.dialogUtil.getDialogDownloadItemSettings(mainActivity, book, object : DialogUtil.OnDialogSelect0 {
+                override fun onSelect0() {
+                    when (book.isFavorite) {
+                        true -> onDeleteFavorite()
+                        false -> onDeleteSingle()
+                    }
+                }
+
+                private fun onDeleteSingle() {
+                    viewModel.getFetchDownload(book).observe(downloadsFragment, Observer { it?.let { viewModel.deleteFetchDownload(it) } })
+                    viewModel.deleteDownload(book = book, liveData = MutableLiveData<List<Book>>().apply {
+                        observe(downloadsFragment, Observer {
+                            it?.let { downloadsFragment.handleResult(it) }
+                        })
+                    })
+                }
+
+                private fun onDeleteFavorite() {
+                    viewModel.deleteFetchSeries(book = book, keepBook = false)
+                    viewModel.deleteDownloadSeries(book = book, keepBook = false, liveData = MutableLiveData<List<Book>>().apply {
+                        observe(downloadsFragment, Observer {
+                            it?.let { downloadsFragment.handleResult(it) }
+                        })
+                    })
+                }
+            })
+
+            deleteDialog.apply {
+                show()
+                findViewById<TextView>(android.R.id.message)?.apply { textSize = 10F }
+                findViewById<Switch>(R.id.dialog_layout_download_item_settings_switch1)?.apply {
+                    setTextColor(mainActivity.getAppThemeTextColor())
+                    isChecked = book.isFavorite
+                    onCheckedChange { _, isChecked ->
+                        book.isFavorite = isChecked
+                        viewModel.addDownload(book)
+                        when (isChecked) {
+                            true -> onStartDownloadTracking(book)
+                            false -> onStopDownloadTracking(book)
+                        }
+                    }
+                }
+            }
+        }
+
+        private fun onStartDownloadTracking(book: Book) {
+            viewModel.deleteFetchSeries(book = book, keepBook = true)
+            viewModel.deleteDownloadSeries(book = book, keepBook = true, liveData = MutableLiveData<List<Book>>().apply {
+                observe(downloadsFragment, Observer {
+                    it?.let {
+                        downloadsFragment.handleResult(it)
+                        mainActivity.startSeriesDownload(book)
+                    }
+                })
+            })
+        }
+
+        private fun onStopDownloadTracking(book: Book) {
+            viewModel.deleteDownloadSeries(book, keepBook = true, liveData = MutableLiveData<List<Book>>().apply {
+                observe(downloadsFragment, Observer {
+                    it?.let {
+                        val firstItem = viewModel.getFirstDownloadInSeries(book)
+                        viewModel.getFetchDownload(firstItem).observe(downloadsFragment, Observer { it?.let { updatePosition(firstItem, it) } })
+                    }
+                })
+            })
+            mainActivity.stopSeriesDownload(book)
         }
     }
 
-    private fun loadFolderThumbnail(holder: BaseViewHolder, download: Download) {
-        val thumbnailStringUrl = download.url.plus("?cover=true")
-
+    private fun ImageView.loadFolderThumbnail(holder: DownloadsAdapter.DownloadHolder, download: Download) {
+        val isMatchServer = download.url.contains(viewModel.getActiveServer())
         val requestOptions = RequestOptions()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .onlyRetrieveFromCache(when (isMatchServer) {
+                    true -> false
+                    false -> true
+                })
 
+        val thumbnailStringUrl = download.url.plus("?cover=true")
         Glide.with(downloadsFragment)
                 .load(thumbnailStringUrl)
                 .apply(requestOptions)
@@ -132,59 +190,62 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                         return false
                     }
                 })
-                .into(holder.itemView.browser_item_download_imageView4)
+                .into(this)
     }
 
-    private fun setStateStart(holder: BaseViewHolder, download: Download) {
+    private fun setStateStart(holder: DownloadsAdapter.DownloadHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
+        holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download)
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
-        val fileName = download.request.url.guessFilename()
+        val fileName = download.url.guessFilename()
         holder.itemView.browser_item_download_textView1.text = fileName
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_queued)
 
         setStateConditional(holder, download)
     }
 
-    private fun setStateConditional(holder: BaseViewHolder, download: Download) {
+    private fun setStateConditional(holder: DownloadsAdapter.DownloadHolder, download: Download, favorite: Boolean = false) {
         when (download.status) {
-            Status.QUEUED -> setStateLoading(holder)
+            Status.QUEUED -> setStateLoading(holder, download, favorite)
             Status.DOWNLOADING -> setStateDownloading(holder, download)
-            Status.COMPLETED -> setStateDone(holder, download)
-            Status.PAUSED -> setStatePaused(holder, download)
-            Status.CANCELLED -> setStateCancelled(holder, download)
-            else -> {
-                if (download.error != Error.NONE) setStateFail(holder, download)
-            }
+            Status.COMPLETED -> setStateCompleted(holder, download, favorite)
+            Status.PAUSED -> setStatePaused(holder, download, favorite)
+            Status.CANCELLED -> setStateCancelled(holder, download, favorite)
+            else -> if (download.error != com.tonyodev.fetch2.Error.NONE) setStateFail(holder, download, favorite)
         }
     }
 
-    private fun setStatePaused(holder: BaseViewHolder, download: Download) {
-        holder.itemView.browser_item_download_textView4.visible()
+    private fun setStatePaused(holder: DownloadHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
+        holder.itemView.browser_item_download_textView4.visible()
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_paused)
-        holder.itemView.browser_item_download_textView4.onClick { kubooRemote.resume(download) }
+        holder.itemView.browser_item_download_textView4.onClick { viewModel.resumeFetchDownload(download) }
     }
 
-    private fun setStateCancelled(holder: BaseViewHolder, download: Download) {
-        holder.itemView.browser_item_download_textView4.visible()
+    private fun setStateCancelled(holder: DownloadHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
+        holder.itemView.browser_item_download_textView4.visible()
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_cancelled)
-        holder.itemView.browser_item_download_textView4.onClick { kubooRemote.retry(download) }
+        holder.itemView.browser_item_download_textView4.onClick { viewModel.retryFetchDownload(download) }
     }
 
-    private fun setStateFail(holder: BaseViewHolder, download: Download) {
+    private fun setStateFail(holder: DownloadHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.visible()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         when (download.error) {
             Error.UNKNOWN -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_unknown)
@@ -199,23 +260,24 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
             Error.REQUEST_ALREADY_EXIST -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_request_already_exist)
             Error.DOWNLOAD_NOT_FOUND -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_download_not_found)
             Error.FETCH_DATABASE_ERROR -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_fetch_database_error)
-            Error.FETCH_ALREADY_EXIST -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_fetch_already_exist)
             else -> {
                 //ayyy lmao
             }
         }
-        holder.itemView.browser_item_download_textView3.onClick { kubooRemote.retry(download) }
+        holder.itemView.browser_item_download_textView3.onClick { viewModel.retryFetchDownload(download) }
     }
 
-    private fun setStateLoading(holder: BaseViewHolder) {
+    private fun setStateLoading(holder: DownloadHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_queued)
+        holder.itemView.browser_item_download_materialBadgeTextView.gone()
     }
 
-    private fun setStateDownloading(holder: BaseViewHolder, download: Download) {
+    private fun setStateDownloading(holder: DownloadHolder, download: Download) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
@@ -227,44 +289,60 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView2.text = "$downloaded $of $total"
     }
 
-    private fun setStateDone(holder: BaseViewHolder, download: Download) {
+    private fun setStateCompleted(holder: DownloadHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.visible()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
-
+        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
         val downloaded = download.downloaded.toReadable()
         val of = context.getString(R.string.downloads_of)
         val total = download.total.toReadable()
         holder.itemView.browser_item_download_textView2.text = "$downloaded $of $total"
     }
 
-    private fun updatePosition(index: Int, download: Download) {
+    internal fun updatePosition(book: Book, download: Download) {
+        val index = data.indexOf(book)
         val viewHolder = recyclerview.findViewHolderForAdapterPosition(index)
-        if (viewHolder != null) setStateConditional(viewHolder as BaseViewHolder, download)
+        if (viewHolder != null) setStateConditional(viewHolder as DownloadHolder, download, book.isFavorite)
     }
 
-    private fun onDiffUtilUpdateFinished(result: List<Download>) = viewModel.setDownloadList(result)
-
-    internal fun update(result: List<Download>) {
-        val sortedResult = mutableListOf<Download>().apply {
-            addAll(result)
-            sortBy { it.url.guessFilename() }
-        }
-
-        val diffUtilHelper = DiffUtilDownloads(this)
-        diffUtilHelper.liveData.observe(downloadsFragment, Observer { if (it == true) onDiffUtilUpdateFinished(sortedResult) })
-        diffUtilHelper.updateDownloadList(data, sortedResult)
-
-
-        if (sortedResult.isEmpty()) downloadsFragment.onPopulateContentEmpty()
+    internal fun updateData(result: List<Book>) {
+        val diffUtilHelper = DiffUtilHelper(this)
+        diffUtilHelper.liveData.observe(downloadsFragment, Observer {
+            if (it == true) onDiffUtilUpdateFinished(result)
+        })
+        diffUtilHelper.updateBookList(data, result)
     }
 
-    internal fun update(download: Download) {
-        data.forEachIndexed { index, it ->
-            if (it.id == download.id) {
-                updatePosition(index, download)
-            }
+    private fun onDiffUtilUpdateFinished(result: List<Book>) {
+        data.clear()
+        data.addAll(result)
+    }
+
+    private fun MaterialBadgeTextView.loadCount(download: Download, favorite: Boolean) {
+        when (favorite) {
+            true -> viewModel.getFetchDownloads().observe(downloadsFragment, Observer {
+                it?.let {
+                    val count = it
+                            .filteredBySeries(download)
+                            .filterIndexed { index, download ->
+                                val isNotParent = index != 0
+                                val isCompleted = download.status == Status.COMPLETED
+                                isNotParent && isCompleted
+                            }
+                            .count()
+
+                    when (count > 0) {
+                        true -> {
+                            text = "+$count"
+                            fadeVisible()
+                        }
+                        false -> fadeGone()
+                    }
+                }
+            })
+            false -> fadeGone()
         }
     }
 

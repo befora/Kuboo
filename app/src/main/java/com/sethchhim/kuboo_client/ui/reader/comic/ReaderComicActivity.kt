@@ -13,11 +13,10 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         initContentUi()
         initListeners()
         populateContent()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isLocal) viewModel.cleanupParser()
+        if (isLocal && currentBook.isFavorite) {
+            viewModel.deleteDownloadsBefore(currentBook)
+            startSeriesDownload(currentBook)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,6 +57,5 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 }

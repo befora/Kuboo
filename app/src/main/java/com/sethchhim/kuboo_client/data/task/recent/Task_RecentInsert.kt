@@ -36,20 +36,20 @@ class Task_RecentInsert(login: Login, book: Book) : Task_LocalBase() {
     }
 
     private fun AppDatabaseDao.deleteAllThatMatchSeries(book: Book) {
-        //delete all that match same series
+        //deleteDownload all that match same series
         getAllBookRecent().forEach {
             if (book.isMatchXmlId(it.toBook())) {
-                Timber.d("Recent delete from same series: title[${it.title}] page[${it.currentPage}] bookMark[${it.bookMark}]")
+                Timber.d("Recent deleteDownload from same series: title[${it.title}] page[${it.currentPage}] bookMark[${it.bookMark}]")
                 appDatabaseDao.deleteRecent(it)
             }
         }
     }
 
     private fun AppDatabaseDao.deleteAllThatMatchBook(book: Book) {
-        //delete all that match same series
+        //deleteDownload all that match same series
         getAllBookRecent().forEach {
             if (book.isMatch(it.toBook())) {
-                Timber.d("Recent delete from same book: title[${it.title}] page[${it.currentPage}] bookMark[${it.bookMark}]")
+                Timber.d("Recent deleteDownload from same book: title[${it.title}] page[${it.currentPage}] bookMark[${it.bookMark}]")
                 appDatabaseDao.deleteRecent(it)
             }
         }

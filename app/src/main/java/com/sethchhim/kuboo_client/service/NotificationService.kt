@@ -106,13 +106,13 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
 
     internal fun startNotification(download: Download, downloadsCount: Int) {
         val notification = getStartNotification(download, downloadsCount)
-        notification.flags = NotificationCompat.FLAG_NO_CLEAR or NotificationCompat.FLAG_ONGOING_EVENT
+        notification.flags = NotificationCompat.FLAG_NO_CLEAR and NotificationCompat.FLAG_LOCAL_ONLY
         notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notification)
     }
 
     internal fun pauseNotification() {
         val notification = getPauseNotification()
-        notification.flags = NotificationCompat.FLAG_NO_CLEAR or NotificationCompat.FLAG_ONGOING_EVENT
+        notification.flags = NotificationCompat.FLAG_NO_CLEAR and NotificationCompat.FLAG_LOCAL_ONLY
         notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notification)
     }
 

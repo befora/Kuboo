@@ -73,7 +73,7 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
 
     protected fun onDownloadMenuItemClicked(): Boolean {
         val selectedList = viewModel.getSelectedList()
-        dialogUtil.getDialogDownload(mainActivity, selectedList).apply {
+        dialogUtil.getDialogDownloadStart(mainActivity, selectedList).apply {
             setButton(AlertDialog.BUTTON_POSITIVE, "${context.getString(R.string.dialog_download)} (${selectedList.size})") { _, _ ->
                 viewModel.startDownloads(selectedList, savePath = Settings.DOWNLOAD_SAVE_PATH)
                 contentAdapter.disableSelectionMode()

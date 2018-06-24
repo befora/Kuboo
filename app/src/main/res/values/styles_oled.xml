@@ -21,10 +21,12 @@
 
     <style name="DialogThemeOled" parent="BaseAlertDialogTheme">
         <item name="android:colorBackground">@color/md_black_1000</item>
-        <item name="android:textColor">@color/primaryTextDark</item>
         <item name="android:textColorPrimary">@color/primaryTextDark</item>
         <item name="android:textColorSecondary">@color/primaryTextDark</item>
+        <item name="android:textColor">@color/oledColorAccent</item>
         <item name="textColorAlertDialogListItem">@color/primaryTextDark</item>
         <item name="android:windowBackground">@drawable/dialog_border</item>
+        <item name="android:windowTitleStyle">@style/WindowTitleStyleDark</item>
     </style>
+
 </resources>

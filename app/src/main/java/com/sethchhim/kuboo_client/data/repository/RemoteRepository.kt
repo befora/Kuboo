@@ -41,6 +41,10 @@ class RemoteRepository(private val kubooRemote: KubooRemote) {
 
     internal fun getNeighbors(login: Login, book: Book, stringUrl: String) = kubooRemote.getNeighbors(login, book, stringUrl)
 
+    internal fun getSeriesNeighborsRemote(login: Login, book: Book, stringUrl: String, seriesLimit: Int) = kubooRemote.getSeriesNeighborsRemote(login, book, stringUrl, seriesLimit)
+
+    internal fun getSeriesNeighborsNextPageRemote(login: Login, stringUrl: String, seriesLimit: Int) = kubooRemote.getSeriesNeighborsNextPageRemote(login, stringUrl, seriesLimit)
+
     internal fun getFile(login: Login, stringUrl: String, saveDir: File) = kubooRemote.getFile(login, login.server + stringUrl, saveDir)
 
 

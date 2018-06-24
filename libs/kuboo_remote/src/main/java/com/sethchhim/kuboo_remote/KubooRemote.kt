@@ -42,13 +42,17 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun getNeighbors(login: Login, book: Book, stringUrl: String) = Task_RemoteNeighbors(this, login, book, stringUrl).liveData
 
+    fun getSeriesNeighborsRemote(login: Login, book: Book, stringUrl: String, seriesLimit: Int) = Task_RemoteSeriesNeighbors(this, login, book, stringUrl, seriesLimit).liveData
+
+    fun getSeriesNeighborsNextPageRemote(login: Login, stringUrl: String, seriesLimit: Int) = Task_RemoteSeriesNeighborsNextPage(this, login, stringUrl, seriesLimit).liveData
+
     fun getFile(login: Login, stringUrl: String, saveDir: File) = Task_RemoteDownloadFile(this, login, stringUrl, saveDir).liveData
 
     fun getTlsCipherSuite() = Task_RemoteTlsCipherSuite(okHttpHelper).getTlsCipherSuite()
 
     fun isConnectedEncrypted() = Task_RemoteIsConnectionEncrypted(okHttpHelper).isConnectionEncrypted()
 
-    fun getDownloadsList(liveData: MutableLiveData<List<Download>>) = fetchService.getDownloadsList(liveData)
+    fun getDownloadsList() = fetchService.getDownloads()
 
     fun cancel(download: Download) = fetchService.cancel(download)
 
@@ -74,7 +78,29 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun remove(download: Download) = fetchService.remove(download)
 
+    fun pause(download: Download) = fetchService.pause(download)
+
+    fun pauseGroup(group: Int) = fetchService.pauseGroup(group)
+
     fun delete(download: Download) = fetchService.delete(download)
+
+    fun deleteSeries(download: Download) = fetchService.deleteGroup(download.group)
+
+    fun deleteSeries(book: Book, keepBook: Boolean) =
+            when (keepBook) {
+                true -> fetchService.getDownloads().observeForever {
+                    it?.let {
+                        it
+                                .filter { it.group == book.getXmlId() }
+                                .sortedBy { it.tag }
+                                .forEach {
+                                    val isMatchBook = it.tag?.toInt() == book.id
+                                    if (!isMatchBook) fetchService.delete(it)
+                                }
+                    }
+                }
+                false -> fetchService.deleteGroup(book.getXmlId())
+            }
 
     fun getRemoteUserApi(login: Login, book: Book) = Task_RemoteUserApiGet(this, login, book).liveData
 
@@ -97,5 +123,14 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
     }
 
     fun isImageWide(loginItem: Login, stringUrl: String) = Task_RemoteIsImageWide(this, loginItem, stringUrl).liveData
+
+    fun getFetchDownload(book: Book) = fetchService.getDownload(book)
+    fun getFetchDownload(download: Download) = fetchService.getDownload(download)
+    fun getFetchDownloads() = fetchService.getDownloads()
+    fun deleteDownload(download: Download) = fetchService.delete(download)
+    fun startDownloads(login: Login, list: List<Book>, savePath: String) = fetchService.download(login, list, savePath)
+    fun deleteDownloadsBefore(book: Book) = fetchService.deleteBefore(book)
+
+//    fun getDownload(book: Book, func2: Func2<Download?>) = fetchService.getDownload(book, func2)
 
 }

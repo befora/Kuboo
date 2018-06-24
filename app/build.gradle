@@ -68,7 +68,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$android_support_version"
     implementation "com.android.support:support-v4:$android_support_version"
 
-    final android_architecture_version = "1.1.0"
+    final android_architecture_version = "1.1.1"
     kapt "android.arch.persistence.room:compiler:$android_architecture_version"
     kapt "android.arch.lifecycle:compiler:$android_architecture_version"
     implementation "android.arch.persistence.room:runtime:$android_architecture_version"
@@ -100,8 +100,10 @@ dependencies {
 
     //fetch
     final fetch_version = "2.0.0-RC22"
+//    final fetch_version = "2.1.0-RC7"
     implementation "com.tonyodev.fetch2:fetch2:$fetch_version"
     implementation "com.tonyodev.fetch2downloaders:fetch2downloaders:$fetch_version"
+//    implementation "com.tonyodev.fetch2okhttp:fetch2okhttp:$fetch_version"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.booking:rtlviewpager:1.0.1'

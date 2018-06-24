@@ -14,7 +14,7 @@ class Task_RecentDeleteAll : Task_LocalBase() {
                 val sizeBefore = viewModel.getRecentSize()
                 appDatabaseDao.deleteRecentAll()
                 executors.mainThread.execute { liveData.value = true }
-                Timber.d("Recent delete all: sizeBefore[$sizeBefore] sizeAfter[${viewModel.getRecentSize()}]")
+                Timber.d("Recent deleteDownload all: sizeBefore[$sizeBefore] sizeAfter[${viewModel.getRecentSize()}]")
             } catch (e: Exception) {
                 executors.mainThread.execute { liveData.value = false }
                 Timber.e("message[${e.message}]")

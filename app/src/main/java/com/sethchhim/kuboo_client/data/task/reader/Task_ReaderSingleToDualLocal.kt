@@ -15,8 +15,11 @@ class Task_ReaderSingleToDualLocal(list: List<PageUrl>) : Task_ReaderSingleToDua
             executors.diskIO.execute {
                 val isFirst = index == 0
                 val inputStream = viewModel.getPage(index)
-                val isWide = isBitmapWide(inputStream)
-                inputStream.close()
+                val isWide = inputStream?.let {
+                    val isBitmapWide = isBitmapWide(it)
+                    it.close()
+                    isBitmapWide
+                } ?: false
                 if (isFirst || isWide) pageUrl.page1 = Constants.KEY_SINGLE
                 resultList.add(pageUrl)
 

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.sethchhim.kuboo_client.Extensions.isFileType
 import com.sethchhim.kuboo_client.data.model.Browser
 import com.sethchhim.kuboo_remote.model.Book
-import org.jetbrains.anko.collections.forEachWithIndex
 import timber.log.Timber
 
 class BrowserRepository {
@@ -75,15 +74,11 @@ class BrowserRepository {
         pathList.clear()
     }
 
-    internal fun removePathByBook(book: Book) = pathList.remove(book)
-
-    internal fun trimPathAt(position: Int) = pathList.subList(position, pathList.size).clear()
-
     internal fun decreasePathPosition() {
         pathPosition -= 1
     }
 
-    internal fun increasePathPosition() {
+    private fun increasePathPosition() {
         pathPosition += 1
     }
 
@@ -97,11 +92,7 @@ class BrowserRepository {
 
     internal fun isPathListEmpty() = pathList.isEmpty()
 
-    internal fun printPath() {
-        pathList.forEachWithIndex { index, book ->
-            Timber.d("Path position[$index of ${getPathSize()}] title[${book.title}]")
-        }
-    }
+    private fun trimPathAt(position: Int) = pathList.subList(position, pathList.size).clear()
 
     //selected
     private val selectedList = mutableListOf<Book>()

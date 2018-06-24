@@ -37,11 +37,13 @@ import com.sethchhim.kuboo_client.data.model.Recent
 import com.sethchhim.kuboo_client.ui.state.LoadingFragment
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
+import com.sethchhim.kuboo_remote.model.Neighbors
 import com.tonyodev.fetch2.Download
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import timber.log.Timber
+import java.net.URL
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -87,6 +89,10 @@ object Extensions {
     }
 
     private fun Double.limitDecimalTwo() = DecimalFormat("#.00").format(this)
+
+    internal fun Download.isMatch(download: Download) = this.id == download.id
+
+    internal fun Download.isMatchSeries(download: Download) = this.group == download.group
 
     internal fun FragmentManager.show(fragment: Fragment, containerViewId: Int) {
         fragment.retainInstance = true
@@ -156,6 +162,8 @@ object Extensions {
 
     internal fun ImageView.colorFilterBlack() = setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY)
 
+    internal fun Int.minutesToMilliseconds() = TimeUnit.MINUTES.toMillis(this.toLong())
+
     internal fun Int.toMinimumTwoDigits(): String {
         val numberFormat = NumberFormat.getInstance(Locale.US)
         numberFormat.minimumIntegerDigits = 2
@@ -169,13 +177,23 @@ object Extensions {
                 && password == login.password
     }
 
+    internal fun Long.toHourMinuteSecond() = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(this),
+            TimeUnit.MILLISECONDS.toMinutes(this) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(this)),
+            TimeUnit.MILLISECONDS.toSeconds(this) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(this)))
+
+    internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }.sortedBy { it.tag }
+
     internal fun List<com.sethchhim.kuboo_client.data.model.Download>.downloadListToBookList(): List<Book>? {
         val bookList = mutableListOf<Book>()
         forEach { bookList.add(it.toBook()) }
         return bookList
     }
 
-    internal fun List<PageUrl>.print() = forEach {
+    internal fun List<Neighbors>.printNeighbors() = forEachIndexed { index, neighbors ->
+        Timber.d("index[$index] previous[${neighbors.previousBook}}] current[${neighbors.currentBook}}] next[${neighbors.nextBook}]")
+    }
+
+    internal fun List<PageUrl>.printPageUrls() = forEach {
         Timber.d("index[${it.index}] page0[${it.page0}] page1[${it.page1}]")
     }
 
@@ -201,6 +219,8 @@ object Extensions {
         forEach { bookList.add(it.toBook()) }
         return bookList
     }
+
+    internal fun Long.millisecondsToSeconds() = TimeUnit.MILLISECONDS.toSeconds(this)
 
     internal fun Long.toReadable() = when {
         this >= 1024 * 1024 * 1024 -> "${(((this / 1024) / 1024) / 1024.00).limitDecimalTwo()} GB"
@@ -238,6 +258,40 @@ object Extensions {
         }
     }
 
+    internal fun MutableList<Book>.containsSeries(xmlId: Int): Boolean {
+        forEach {
+            if (it.getXmlId() == xmlId) return true
+        }
+        return false
+    }
+
+    internal fun MutableList<Book>.filteredBySeries(book: Book): MutableList<Book> {
+        val xmlId = book.getXmlIdString()
+        val filteredList = mutableListOf<Book>()
+        forEach {
+            val eachXmlId = it.getXmlIdString()
+            if (eachXmlId == xmlId) filteredList.add(it)
+        }
+        filteredList.sortBy { it.id }
+        return filteredList
+    }
+
+
+    internal fun MutableList<Download>.getFirstInSeries(download: Download): Download {
+        filteredBySeries(download).apply {
+            if (isNotEmpty()) return get(0)
+        }
+        return download
+    }
+
+    internal fun MutableList<Download>.isFirstInSeries(download: Download): Boolean {
+        filteredBySeries(download).apply {
+            val firstItem = get(0)
+            if (isNotEmpty() && download == firstItem) return true
+        }
+        return false
+    }
+
     internal fun String.guessFilename(): String {
         val fileExtension = MimeTypeMap.getFileExtensionFromUrl(this)
         return URLUtil.guessFileName(this, null, fileExtension)
@@ -270,6 +324,11 @@ object Extensions {
                 }
             }
         }
+    }
+
+    internal fun URL.guessFileName(): String {
+        val fileExtension = MimeTypeMap.getFileExtensionFromUrl(this.toString())
+        return URLUtil.guessFileName(this.toString(), null, fileExtension)
     }
 
     internal fun View.fadeInvisible() {
@@ -389,9 +448,10 @@ object Extensions {
         favorite.totalPages = this.totalPages
         favorite.server = this.server
         favorite.bookMark = this.bookMark
-        favorite.isFavorite = true
+        favorite.isFavorite = this.isFavorite
         favorite.isFinished = this.isFinished
         favorite.timeAccessed = this.timeAccessed
+        favorite.filePath = this.filePath
         return favorite
     }
 
@@ -413,9 +473,10 @@ object Extensions {
         download.totalPages = this.totalPages
         download.server = this.server
         download.bookMark = this.bookMark
-        download.isFavorite = true
+        download.isFavorite = this.isFavorite
         download.isFinished = this.isFinished
         download.timeAccessed = this.timeAccessed
+        download.filePath = this.filePath
         return download
     }
 
@@ -440,6 +501,7 @@ object Extensions {
         recent.isFavorite = this.isFavorite
         recent.isFinished = this.isFinished
         recent.timeAccessed = this.timeAccessed
+        recent.filePath = this.filePath
         return recent
     }
 
@@ -464,6 +526,7 @@ object Extensions {
         book.isFavorite = this.isFavorite
         book.isFinished = this.isFinished
         book.timeAccessed = this.timeAccessed
+        book.filePath = this.filePath
         return book
     }
 
@@ -488,6 +551,7 @@ object Extensions {
         book.isFavorite = this.isFavorite
         book.isFinished = this.isFinished
         book.timeAccessed = this.timeAccessed
+        book.filePath = this.filePath
         return book
     }
 
@@ -512,6 +576,7 @@ object Extensions {
         book.isFavorite = this.isFavorite
         book.isFinished = this.isFinished
         book.timeAccessed = this.timeAccessed
+        book.filePath = this.filePath
         return book
     }
 

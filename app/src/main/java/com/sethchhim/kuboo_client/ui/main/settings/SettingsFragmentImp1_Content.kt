@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.settings
 
 import android.widget.TextView
+import com.sethchhim.kuboo_client.Extensions.toHourMinuteSecond
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
@@ -28,7 +29,8 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setComicScaleTypePreference()
 
         setDownloadSavePath()
-//        setDownloadSeriesLimit()
+        setDownloadTrackingLimit()
+        setDownloadTrackingInterval()
     }
 
     private fun setDownloadSavePath() = downloadSavePath.apply {
@@ -48,34 +50,80 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-//    private fun setDownloadSeriesLimit() = downloadSeriesLimit.apply {
-//        summary = "${Settings.DOWNLOAD_SERIES_LIMIT}"
-//        setOnPreferenceClickListener {
-//            dialogUtil.getDialogSeriesLimit(mainActivity).apply {
-//                show()
-//
-//                val textView = findViewById<TextView>(R.id.dialog_layout_settings_series_limit_textView0)!!
-//                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_series_limit_button0)!!
-//                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_series_limit_button1)!!
-//
-//                textView.text = "${Settings.DOWNLOAD_SERIES_LIMIT}"
-//                buttonDecrease.onClick {
-//                    Settings.DOWNLOAD_SERIES_LIMIT -= 1
-//                    if (Settings.DOWNLOAD_SERIES_LIMIT < 1) Settings.DOWNLOAD_SERIES_LIMIT = 1
-//                    sharedPrefsHelper.saveDownloadSeriesLimit()
-//                    textView.text = "${Settings.DOWNLOAD_SERIES_LIMIT}"
-//                    summary = "${Settings.DOWNLOAD_SERIES_LIMIT}"
-//                }
-//                buttonIncrease.onClick {
-//                    Settings.DOWNLOAD_SERIES_LIMIT += 1
-//                    sharedPrefsHelper.saveDownloadSeriesLimit()
-//                    textView.text = "${Settings.DOWNLOAD_SERIES_LIMIT}"
-//                    summary = "${Settings.DOWNLOAD_SERIES_LIMIT}"
-//                }
-//            }
-//            return@setOnPreferenceClickListener true
-//        }
-//    }
+    private fun setDownloadTrackingLimit() = downloadTrackingLimit.apply {
+        summary = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
+        setOnPreferenceClickListener {
+            dialogUtil.getDialogTrackingLimit(mainActivity).apply {
+                show()
+
+                val textView = findViewById<TextView>(R.id.dialog_layout_settings_tracking_limit_textView0)!!
+                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_limit_button0)!!
+                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_limit_button1)!!
+
+                textView.text = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
+                buttonDecrease.onClick {
+                    Settings.DOWNLOAD_TRACKING_LIMIT -= 1
+                    if (Settings.DOWNLOAD_TRACKING_LIMIT < 1) Settings.DOWNLOAD_TRACKING_LIMIT = 1
+                    sharedPrefsHelper.saveDownloadTrackingLimit()
+                    textView.text = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
+                    summary = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
+                }
+                buttonIncrease.onClick {
+                    Settings.DOWNLOAD_TRACKING_LIMIT += 1
+                    sharedPrefsHelper.saveDownloadTrackingLimit()
+                    textView.text = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
+                    summary = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
+                }
+            }
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setDownloadTrackingInterval() = downloadTrackingInterval.apply {
+        setOnPreferenceClickListener {
+            dialogUtil.getDialogTrackingInterval(mainActivity).apply {
+                setOnDismissListener { mainActivity.setDownloadTrackingService() }
+
+                show()
+                val textView = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_textView0)!!
+                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_button0)!!
+                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_button1)!!
+
+                textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)}"
+                buttonDecrease.onClick {
+                    when (Settings.DOWNLOAD_TRACKING_INTERVAL <= 10) {
+                        true -> {
+                            Settings.DOWNLOAD_TRACKING_INTERVAL -= 1
+                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 1) Settings.DOWNLOAD_TRACKING_INTERVAL = 1
+                        }
+                        false -> {
+                            Settings.DOWNLOAD_TRACKING_INTERVAL -= 10
+                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 10) Settings.DOWNLOAD_TRACKING_INTERVAL = 10
+                        }
+                    }
+                    sharedPrefsHelper.saveDownloadTrackingInterval()
+                    textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)}"
+                    summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)} (${mainActivity.timeUntilLiveData.value?.toHourMinuteSecond()} ${getString(R.string.settings_remaining)})"
+                }
+                buttonIncrease.onClick {
+                    when (Settings.DOWNLOAD_TRACKING_INTERVAL < 10) {
+                        true -> {
+                            Settings.DOWNLOAD_TRACKING_INTERVAL += 1
+                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 1) Settings.DOWNLOAD_TRACKING_INTERVAL = 1
+                        }
+                        false -> {
+                            Settings.DOWNLOAD_TRACKING_INTERVAL += 10
+                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 10) Settings.DOWNLOAD_TRACKING_INTERVAL = 10
+                        }
+                    }
+                    sharedPrefsHelper.saveDownloadTrackingInterval()
+                    textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)}"
+                    summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)} (${mainActivity.timeUntilLiveData.value?.toHourMinuteSecond()} ${getString(R.string.settings_remaining)})"
+                }
+            }
+            return@setOnPreferenceClickListener true
+        }
+    }
 
     private fun setEpubTextZoomPreference() = epubTextZoomPreference.apply {
         summary = "${Settings.EPUB_TEXT_ZOOM} %"

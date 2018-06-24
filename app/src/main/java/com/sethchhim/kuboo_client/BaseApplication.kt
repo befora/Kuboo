@@ -1,6 +1,5 @@
 package com.sethchhim.kuboo_client
 
-import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.di.AppComponent
@@ -9,7 +8,6 @@ import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import com.sethchhim.kuboo_client.util.SharedPrefsHelper
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Login
-import com.tonyodev.fetch2.Download
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -62,14 +60,12 @@ class BaseApplication : DaggerApplication() {
         }
 
         //restore downloaded items
-        viewModel.getDownloadListFromService(MutableLiveData<List<Download>>().apply {
-            observeForever { result ->
-                result?.let {
-                    Timber.i("Loading downloaded items: size[${it.size}]")
-                    viewModel.setDownloadList(it)
-                }
+        viewModel.getDownloadsListFromAppDatabase().observeForever { result ->
+            result?.let {
+                Timber.i("Loading downloaded items: size[${it.size}]")
+                viewModel.setDownloadList(it)
             }
-        })
+        }
     }
 
     companion object {

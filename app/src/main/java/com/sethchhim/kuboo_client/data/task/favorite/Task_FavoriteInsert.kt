@@ -30,10 +30,10 @@ class Task_FavoriteInsert(book: Book) : Task_LocalBase() {
     }
 
     private fun AppDatabaseDao.deleteAllThatMatch(book: Book) {
-        //delete all that match same series
+        //deleteDownload all that match same series
         getAllBookFavorite().forEach {
             if (book.isMatch(it.toBook())) {
-                Timber.d("Favorite delete duplicate item: title[${it.title}]")
+                Timber.d("Favorite deleteDownload duplicate item: title[${it.title}]")
                 appDatabaseDao.deleteFavorite(it)
             }
         }

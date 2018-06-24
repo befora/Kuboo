@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.service.remote.ParseService
 import com.sethchhim.kuboo_remote.util.Authentication
+import okhttp3.CacheControl
 import okhttp3.Call
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -16,14 +17,23 @@ class OkHttpHelper(private val okHttpClient: OkHttpClient) {
     internal val parseService = ParseService()
 
     @Throws(NetworkErrorException::class, MalformedURLException::class)
-    fun getCall(login: Login, stringUrl: String, tag: String): Call {
+    fun getCall(login: Login, stringUrl: String, tag: String, cacheControl: CacheControl? = null): Call {
         val url = URL(stringUrl)
-        val request = Request.Builder()
-                .url(url)
-                .get()
-                .header(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
-                .tag(tag)
-                .build()
+        val request = when (cacheControl == null) {
+            true -> Request.Builder()
+                    .url(url)
+                    .get()
+                    .header(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
+                    .tag(tag)
+                    .build()
+            false -> Request.Builder()
+                    .url(url)
+                    .get()
+                    .cacheControl(cacheControl!!)
+                    .header(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
+                    .tag(tag)
+                    .build()
+        }
         return okHttpClient.newCall(request)
     }
 

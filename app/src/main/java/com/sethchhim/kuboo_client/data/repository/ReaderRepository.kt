@@ -2,7 +2,7 @@ package com.sethchhim.kuboo_client.data.repository
 
 import android.arch.lifecycle.LifecycleOwner
 import com.sethchhim.kuboo_client.Constants.KEY_SINGLE
-import com.sethchhim.kuboo_client.Extensions.print
+import com.sethchhim.kuboo_client.Extensions.printPageUrls
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.task.reader.Task_ReaderSingleToDualLocal
@@ -16,9 +16,7 @@ class ReaderRepository(private val kubooLocal: KubooLocal, private val kubooRemo
 
     private val readerList = mutableListOf<PageUrl>()
 
-    internal fun getReaderList() = readerList
-
-    internal fun printReaderList() = readerList.print()
+    internal fun printReaderList() = readerList.printPageUrls()
 
     internal fun getReaderItemAt(position: Int): PageUrl? {
         try {

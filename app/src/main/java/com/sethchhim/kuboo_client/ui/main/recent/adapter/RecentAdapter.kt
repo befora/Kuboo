@@ -230,14 +230,14 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
     }
 
     private fun onDiffUtilUpdateFinished(result: List<Book>) {
-        Timber.i("DiffUtil update successful. oldDataSize[${data.size}] newDataSize[${result.size}]")
+        Timber.i("DiffUtil updateDownload successful. oldDataSize[${data.size}] newDataSize[${result.size}]")
 
         //scroll to beginning if first item has changed
         if (data.isNotEmpty()) {
             val oldFirstRecent = viewModel.getRecentAt(0)
             val newFirstRecent = result[0]
             val isFirstChanged = oldFirstRecent != null && !oldFirstRecent.isMatch(newFirstRecent)
-            Timber.d("update: $isFirstChanged  oldFirst[${oldFirstRecent?.title}] newFirst[${newFirstRecent.title}]")
+            Timber.d("updateDownload: $isFirstChanged  oldFirst[${oldFirstRecent?.title}] newFirst[${newFirstRecent.title}]")
             if (isFirstChanged) recentFragmentImpl1Content.scrollToFirstRecent()
         }
 

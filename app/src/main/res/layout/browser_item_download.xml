@@ -50,6 +50,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <com.matrixxun.starry.badgetextview.MaterialBadgeTextView
+        android:id="@+id/browser_item_download_materialBadgeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/md_green_500"
+        android:textColor="@color/md_white_1000"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/browser_item_download_imageView4"
+        app:layout_constraintEnd_toEndOf="@id/browser_item_download_imageView4"/>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"

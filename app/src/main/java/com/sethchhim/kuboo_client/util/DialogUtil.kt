@@ -9,12 +9,15 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.sethchhim.kuboo_client.Extensions.guessFilename
+import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Response
 import org.jetbrains.anko.collections.forEachWithIndex
+import java.io.File
 
 class DialogUtil(val context: Context) {
 
@@ -81,12 +84,23 @@ class DialogUtil(val context: Context) {
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_changelog, null))
     }.create()
 
-    internal fun getDialogDownload(context: Context, downloadList: List<Book>) = getAlertDialogBuilder(context).apply {
+    internal fun getDialogDownloadStart(context: Context, downloadList: List<Book>) = getAlertDialogBuilder(context).apply {
         setTitle(context.getString(R.string.dialog_download))
 
         var stringMessage = ""
         downloadList.forEachWithIndex { index, book -> stringMessage = "$stringMessage \n${index + 1}. ${book.title}" }
         setMessage(stringMessage)
+    }.create()
+
+    internal fun getDialogDownloadItemSettings(context: Context, book: Book, onDialogSelect0: OnDialogSelect0) = getAlertDialogBuilder(context).apply {
+        val fileName = book.getAcquisitionUrl().guessFilename()
+        val filePath = book.filePath
+        val fileSize = File(filePath).length().toReadable()
+        val message = "File Size: $fileSize\nLocation: $filePath\n"
+        setTitle(fileName)
+        setMessage(message)
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_download_item_settings, null))
+        setNeutralButton(context.getString(R.string.dialog_delete)) { dialog, which -> onDialogSelect0.onSelect0() }
     }.create()
 
     internal fun getDialogDownloadSavePath(context: Context, storageList: Array<String>, storageListFormatted: Array<String>, onDialogSelectSingleChoice: OnDialogSelectSingleChoice) = getAlertDialogBuilder(context).apply {
@@ -127,8 +141,12 @@ class DialogUtil(val context: Context) {
         setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }
     }.create()
 
-    internal fun getDialogSeriesLimit(context: Context) = getAlertDialogBuilder(context).apply {
-        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_series_limit, null))
+    internal fun getDialogTrackingInterval(context: Context) = getAlertDialogBuilder(context).apply {
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_tracking_interval, null))
+    }.create()
+
+    internal fun getDialogTrackingLimit(context: Context) = getAlertDialogBuilder(context).apply {
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_tracking_limit, null))
     }.create()
 
     internal fun getDialogScaleType(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {

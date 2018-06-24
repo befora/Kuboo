@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
 import com.sethchhim.kuboo_remote.model.BookData
 import kotlinx.android.parcel.Parcelize
+import timber.log.Timber
 
 @Entity
 @Parcelize
@@ -32,4 +33,23 @@ data class Download(
         override var isFavorite: Boolean = false,
         override var isFinished: Boolean = false,
         override var timeAccessed: Int = 0,
-        @Ignore var ignored: String? = null) : BookData(), Parcelable
+        @Ignore var ignored: String? = null) : BookData(), Parcelable {
+
+    fun getXmlId(): Int {
+        try {
+            if (this.linkXmlPath.contains("/?displayFiles=true")) {
+                val index = this.linkXmlPath.lastIndexOf("/?displayFiles=true")
+                return Integer.parseInt(this.linkXmlPath.substring(0, index))
+            } else {
+                val index = this.linkXmlPath.lastIndexOf("/")
+                Timber.d("AAA linkXmlPath ${Integer.parseInt(this.linkXmlPath.substring(0, index))}")
+                return Integer.parseInt(this.linkXmlPath.substring(0, index))
+            }
+        } catch (e: Exception) {
+            Timber.e("Failed to get xml id! ${e.message}")
+            e.printStackTrace()
+        }
+        return 0
+    }
+
+}

@@ -1,152 +1,87 @@
 package com.sethchhim.kuboo_client.data.repository
 
 import android.arch.lifecycle.MutableLiveData
+import com.sethchhim.kuboo_client.Extensions.containsSeries
+import com.sethchhim.kuboo_client.Extensions.guessFileName
 import com.sethchhim.kuboo_client.data.task.download.*
-import com.sethchhim.kuboo_client.service.NotificationService
-import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
-import com.sethchhim.kuboo_remote.model.Login
-import com.tonyodev.fetch2.Download
-import com.tonyodev.fetch2.FetchListener
-import com.tonyodev.fetch2.Status
-import timber.log.Timber
+import java.io.File
+import java.net.URL
 
-class DownloadsRepository(private val kubooRemote: KubooRemote, val notificationService: NotificationService) {
+class DownloadsRepository {
 
-    init {
-        kubooRemote.addFetchListener(getFetchListener())
+    internal val downloadsList = mutableListOf<Book>()
+
+    internal fun setDownloadList(newData: List<Book>) {
+        downloadsList.clear()
+        downloadsList.addAll(newData.sortedBy { it.id })
     }
 
-    private val downloadsList = mutableListOf<Download>()
-
-    internal fun getNeighbors(book: Book) = Task_DownloadNeighbors(book).liveData
-
-    internal fun getDownloadList() = downloadsList
-
-    internal fun getDownloadListFromKubooService(liveData: MutableLiveData<List<Download>>) = kubooRemote.getDownloadsList(liveData)
+    internal fun getDownloadNeighbors(book: Book) = Task_DownloadNeighbors(book).neighbors
 
     internal fun getDownloadsListFromAppDatabase() = Task_DownloadGetAll().liveData
 
-    internal fun getDownloadAt(position: Int) = downloadsList[position]
-
-    internal fun getDownloadBookByUrl(stringUrl: String) = Task_DownloadFindByUrl(stringUrl).liveData
-
-    internal fun getDownloadsSize() = downloadsList.size
-
-    internal fun startDownloads(login: Login, list: List<Book>, savePath: String) {
-        list.forEach { Task_DownloadInsert(it) }
-        kubooRemote.download(login, list, savePath)
-    }
-
-    internal fun deleteDownload(download: Download) {
-        Task_DownloadDelete(download)
-        kubooRemote.delete(download)
-    }
-
-    internal fun addDownload(book: Book) = Task_DownloadInsert(book)
-
-    internal fun removeDownloads(download: Download) = kubooRemote.cancel(download)
-
-    internal fun setDownloadList(list: List<Download>) {
-        downloadsList.clear()
-        downloadsList.addAll(list)
-    }
-
-    internal fun isDownloadsQueuedEmpty(): Boolean {
-        var listCount = 0
-        downloadsList.forEach {
-            val isQueued = it.status == Status.QUEUED
-            val isDownloading = it.status == Status.DOWNLOADING
-            if (isQueued || isDownloading) listCount += 1
-        }
-        Timber.d("Queued Count: $listCount")
-        return listCount > 0
-    }
-
-    internal fun isDownloadsPausedEmpty(): Boolean {
-        var listCount = 0
-        downloadsList.forEach {
-            val isQueued = it.status == Status.QUEUED
-            val isDownloading = it.status == Status.DOWNLOADING
-            val isPaused = it.status == Status.PAUSED
-            if (isQueued || isDownloading || isPaused) listCount += 1
-        }
-        return listCount > 0
-    }
-
-    private fun getFetchListener() = object : FetchListener {
-        override fun onCancelled(download: Download) {
-            Timber.i("onCancelled $download")
-            notificationService.stopNotification()
-        }
-
-        override fun onCompleted(download: Download) {
-            Timber.i("onCompleted $download")
-            kubooRemote.isQueueEmpty(MutableLiveData<Boolean>().apply {
-                observeForever { result ->
-                    if (result == true) notificationService.stopNotification()
+    internal fun getDownloadListFavoriteCompressed(): MutableList<Book> {
+        val favoriteCompressedList = mutableListOf<Book>()
+        downloadsList
+                .sortedBy { it.id }
+                .forEach {
+                    val isFavorite = it.isFavorite
+                    val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
+                    when (isFavorite) {
+                        true -> if (isNotContainsSeries) favoriteCompressedList.add(it)
+                        false -> favoriteCompressedList.add(it)
+                    }
                 }
-            })
-        }
+        return favoriteCompressedList
+    }
 
-        override fun onDeleted(download: Download) {
-            Timber.i("onDeleted $download")
-            notificationService.stopNotification()
-        }
+    internal fun addDownloads(list: List<Book>, savePath: String) = list.forEach {
+        val stringUrl = it.server + it.linkAcquisition
+        val fileName = URL(stringUrl).guessFileName()
+        it.filePath = "$savePath${File.separator}$fileName"
+        addDownload(it)
+    }
 
-        override fun onError(download: Download) {
-            Timber.i("onError $download")
-            //TODO notification.showError
+    internal fun addDownload(book: Book): MutableLiveData<List<Book>> {
+        val liveData = MutableLiveData<List<Book>>()
+        Task_DownloadInsert(book).liveData.observeForever {
+            it?.let {
+                setDownloadList(it)
+                liveData.value = getDownloadListFavoriteCompressed()
+            }
         }
+        return liveData
+    }
 
-        override fun onPaused(download: Download) {
-            Timber.i("onPaused $download")
-            kubooRemote.isPauseEmpty(MutableLiveData<Boolean>().apply {
-                observeForever { result ->
-                    if (result == false) notificationService.pauseNotification()
-                }
-            })
-        }
-
-        override fun onProgress(download: Download, etaInMilliSeconds: Long, downloadedBytesPerSecond: Long) {
-            Timber.i("onProgress $download")
-            kubooRemote.getDownloadsList(MutableLiveData<List<Download>>().apply {
-                observeForever { result ->
-                    var downloadsCount = 0
-                    result?.forEach { if (it.status == Status.QUEUED) downloadsCount++ }
-                    notificationService.startNotification(download, downloadsCount)
-                }
-            })
-        }
-
-        override fun onQueued(download: Download) {
-            Timber.i("onQueued $download")
-            //no notification required
-        }
-
-        override fun onRemoved(download: Download) {
-            Timber.i("onRemoved $download")
-            notificationService.stopNotification()
-        }
-
-        override fun onResumed(download: Download) {
-            Timber.i("onResumed $download")
-            //no notification required
+    internal fun deleteDownload(book: Book, liveData: MutableLiveData<List<Book>>? = null) {
+        Task_DownloadDelete(book).liveData.observeForever {
+            it?.let {
+                setDownloadList(it)
+                liveData?.value = getDownloadListFavoriteCompressed()
+            }
         }
     }
 
-    fun getDownloadByBook(book: Book): Download? {
-        downloadsList.forEach {
-            if (it.url == book.server + book.linkAcquisition) return it
+    internal fun deleteDownloadSeries(book: Book, keepBook: Boolean, liveData: MutableLiveData<List<Book>>) {
+        Task_DownloadDeleteSeries(book, keepBook).liveData.observeForever {
+            it?.let {
+                setDownloadList(it)
+                liveData.value = getDownloadListFavoriteCompressed()
+            }
         }
-        return null
     }
 
-    fun isDownloadContains(book: Book): Boolean {
-        downloadsList.forEach {
-            if (it.url == book.server + book.linkAcquisition) return true
-        }
-        return false
-    }
+    internal fun deleteDownloadsBefore(book: Book) = downloadsList
+            .filter {
+                val isMatchSeries = it.getXmlId() == book.getXmlId()
+                val isBefore = it.id < book.id
+                isMatchSeries && isBefore
+            }
+            .forEach { deleteDownload(it) }
+
+    internal fun getFirstDownloadInSeries(book: Book) = downloadsList
+            .filter { it.getXmlId() == book.getXmlId() }
+            .sortedBy { it.id }[0]
 
 }

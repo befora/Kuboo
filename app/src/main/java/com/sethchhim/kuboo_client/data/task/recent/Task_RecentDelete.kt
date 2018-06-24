@@ -17,7 +17,7 @@ class Task_RecentDelete(login: Login, book: Book) : Task_LocalBase() {
         executors.diskIO.execute {
             try {
                 appDatabaseDao.deleteAllThatMatch(book)
-                Timber.d("Recent delete: ${book.title}")
+                Timber.d("Recent deleteDownload: ${book.title}")
                 val result = appDatabaseDao.getAllBookRecent()
                 val resultFilteredByActiveServer = mutableListOf<Recent>().apply {
                     result.forEach { if (it.server == login.server) add(it) }

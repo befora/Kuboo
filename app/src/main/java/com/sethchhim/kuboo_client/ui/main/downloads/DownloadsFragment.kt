@@ -19,7 +19,6 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         contentSwipeRefreshLayout.setConstraintBottomToTop(downloadsTabLayout.id)
         paginationLayout.gone()
-        downloadsAdapter = DownloadsAdapter(this, viewModel)
         return view
     }
 
@@ -27,9 +26,15 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         super.onActivityCreated(savedInstanceState)
         setBottomNavigation()
         contentSwipeRefreshLayout.setOnRefreshListener {
-            resetRecyclerView()
+            downloadsAdapter = DownloadsAdapter(this, viewModel)
+            contentRecyclerView.adapter = downloadsAdapter
             populateDownloads()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        downloadsAdapter = DownloadsAdapter(this, viewModel)
         contentRecyclerView.adapter = downloadsAdapter
         populateDownloads()
     }

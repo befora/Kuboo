@@ -22,7 +22,8 @@ object Constants {
     internal const val KEY_APP_THEME = "KEY_APP_THEME"
     internal const val KEY_BROWSER_IMMERSIVE = "KEY_BROWSER_IMMERSIVE"
     internal const val KEY_DOWNLOAD_SAVE_PATH = "KEY_DOWNLOAD_SAVE_PATH"
-    internal const val KEY_DOWNLOAD_SERIES_LIMIT = "KEY_DOWNLOAD_SERIES_LIMIT"
+    internal const val KEY_DOWNLOAD_TRACKING_INTERVAL = "KEY_DOWNLOAD_TRACKING_INTERVAL"
+    internal const val KEY_DOWNLOAD_TRACKING_LIMIT = "KEY_DOWNLOAD_TRACKING_LIMIT"
     internal const val KEY_DUAL_PANE = "KEY_DUAL_PANE"
     internal const val KEY_EPUB_TEXT_ZOOM = "KEY_EPUB_TEXT_ZOOM"
     internal const val KEY_EPUB_MARGIN_SIZE = "KEY_EPUB_MARGIN_SIZE"
@@ -39,6 +40,7 @@ object Constants {
     internal const val KEY_SINGLE = "KEY_SINGLE"
     internal const val KEY_TASK_PING = "KEY_TASK_PING"
     internal const val KEY_WIFI_ONLY = "KEY_SHAREDPREFS_WIFI_ONLY"
+    internal const val KEY_XML_ID_COUNT = "KEY_XML_ID_COUNT"
 
     internal const val REQUEST_CODE_FOLDER_PICKER = 100
 

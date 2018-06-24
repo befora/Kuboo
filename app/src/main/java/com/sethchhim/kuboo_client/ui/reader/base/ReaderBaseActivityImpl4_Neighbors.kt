@@ -48,12 +48,8 @@ open class ReaderBaseActivityImpl4_Neighbors : ReaderBaseActivityImpl3_Bookmark(
     }
 
     private fun populateNeighborsLocal() {
-        viewModel.getNeighborsLocal(currentBook).observe(this, Observer { result ->
-            when (result != null) {
-                true -> handlePopulateNeighborResult(result!!)
-                false -> onPopulateNeighborsFail()
-            }
-        })
+        val result = viewModel.getNeighborsLocal(currentBook)
+        handlePopulateNeighborResult(result)
     }
 
     private fun populateNeighborsRemote() {
