@@ -83,6 +83,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         val nextPreviewUrl = nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
         previewImageView.transitionName = nextPreviewUrl
 
+        startDownloadTracking()
         startReader(ReadData(
                 book = nextBook,
                 bookmarksEnabled = false,
@@ -92,7 +93,16 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
 
     private fun finishBook() {
         viewModel.addFinish(currentBook)
+
+        startDownloadTracking()
         finish()
+    }
+
+    private fun startDownloadTracking() {
+        if (isLocal && currentBook.isFavorite) {
+            viewModel.deleteDownloadsBefore(currentBook)
+            startSeriesDownload(currentBook)
+        }
     }
 
     private fun startSinglePaneMode() {
@@ -148,13 +158,13 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
 
     private fun showSnackBarEnd() {
         val snackBarEnd = dialogUtil.getSnackBarFinishBookEnd(constraintLayout)
-        snackBarEnd.setAction(R.string.reader_menu, { finishBook() })
+        snackBarEnd.setAction(R.string.reader_menu) { finishBook() }
         snackBarEnd.show()
     }
 
     private fun showSnackBarNext() {
         val snackBarNext = dialogUtil.getSnackBarFinishBookNext(constraintLayout, nextBook)
-        snackBarNext.setAction(R.string.reader_read, { startNextBook() })
+        snackBarNext.setAction(R.string.reader_read) { startNextBook() }
         snackBarNext.show()
     }
 

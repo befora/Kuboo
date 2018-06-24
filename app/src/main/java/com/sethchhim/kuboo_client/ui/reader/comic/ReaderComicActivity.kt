@@ -13,10 +13,6 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         initContentUi()
         initListeners()
         populateContent()
-        if (isLocal && currentBook.isFavorite) {
-            viewModel.deleteDownloadsBefore(currentBook)
-            startSeriesDownload(currentBook)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
