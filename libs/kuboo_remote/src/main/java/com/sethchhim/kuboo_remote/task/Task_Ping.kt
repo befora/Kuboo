@@ -5,6 +5,7 @@ import com.sethchhim.kuboo_remote.Constants
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.model.Response
+import okhttp3.CacheControl
 import timber.log.Timber
 
 class Task_Ping(val kubooRemote: KubooRemote, val login: Login, val stringUrl: String) {
@@ -17,7 +18,7 @@ class Task_Ping(val kubooRemote: KubooRemote, val login: Login, val stringUrl: S
         kubooRemote.networkIO.execute {
             try {
                 login.setTimeAccessed()
-                val call = okHttpHelper.getCall(login, stringUrl, Constants.KEY_TASK_PING)
+                val call = okHttpHelper.getCall(login, stringUrl, Constants.KEY_TASK_PING, cacheControl = CacheControl.FORCE_NETWORK)
                 val response = call.execute()
                 handleResponse(response)
                 response.close()
