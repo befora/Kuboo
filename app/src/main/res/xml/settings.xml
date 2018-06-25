@@ -109,4 +109,15 @@
             android:title="@string/settings_orientation"/>
     </android.support.v7.preference.PreferenceCategory>
 
+    <!-- ABOUT -->
+    <android.support.v7.preference.PreferenceCategory
+        android:key="category_about"
+        android:layout="@layout/settings_item_category"
+        android:title="@string/settings_about">
+        <android.support.v7.preference.Preference
+            android:key="settings_about_version"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="@string/settings_version"/>
+    </android.support.v7.preference.PreferenceCategory>
+
 </android.support.v7.preference.PreferenceScreen>

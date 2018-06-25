@@ -21,6 +21,8 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setThemePreference()
         setOrientationPreference()
 
+        setAboutVersionPreference()
+
         setEpubTextZoomPreference()
         setEpubMarginPreference()
 
@@ -31,6 +33,10 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setDownloadSavePath()
         setDownloadTrackingLimit()
         setDownloadTrackingInterval()
+    }
+
+    private fun setAboutVersionPreference() = aboutVersionPreference.apply {
+        summary = systemUtil.getVersionName()
     }
 
     private fun setDownloadSavePath() = downloadSavePath.apply {

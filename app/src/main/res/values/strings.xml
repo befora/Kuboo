@@ -170,6 +170,7 @@
     <string name="reader_something_went_wrong">Something went wrong!</string>
     <string name="reader_swipe_down_to_refresh">Swipe down to refresh.</string>
 
+    <string name="settings_about">About</string>
     <string name="settings_active_server">Active Server</string>
     <string name="settings_aspect_fill">Aspect Fill</string>
     <string name="settings_aspect_fit">Aspect Fit</string>
@@ -239,6 +240,7 @@
     </string-array>
     <string name="settings_tracking_interval">Tracking Interval</string>
     <string name="settings_tracking_limit">Tracking Limit</string>
+    <string name="settings_version">Version</string>
 
     <string name="title_browse">Browse</string>
     <string name="title_downloads">Downloads</string>

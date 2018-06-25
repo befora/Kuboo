@@ -14,6 +14,7 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.SharedPrefsHelper
+import com.sethchhim.kuboo_client.util.SystemUtil
 import javax.inject.Inject
 
 
@@ -25,10 +26,12 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
 
     @Inject lateinit var dialogUtil: DialogUtil
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
+    @Inject lateinit var systemUtil: SystemUtil
     @Inject lateinit var viewModel: ViewModel
 
     protected lateinit var mainActivity: MainActivity
 
+    protected lateinit var aboutVersionPreference: Preference
     protected lateinit var browserFavoritePreference: SwitchPreferenceCompat
     protected lateinit var browserMarkFinishedPreference: SwitchPreferenceCompat
     protected lateinit var browserPreviewPreference: SwitchPreferenceCompat
@@ -47,6 +50,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
+        aboutVersionPreference = findPreference("settings_about_version")
         browserFavoritePreference = findPreference("settings_browser_favorite") as SwitchPreferenceCompat
         browserMarkFinishedPreference = findPreference("settings_browser_mark_finished") as SwitchPreferenceCompat
         browserPreviewPreference = findPreference("settings_browser_preview") as SwitchPreferenceCompat
