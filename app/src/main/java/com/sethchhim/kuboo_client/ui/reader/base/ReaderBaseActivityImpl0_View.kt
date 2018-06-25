@@ -20,6 +20,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.toast
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("Registered")
@@ -64,9 +65,9 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
                 delay(300)
                 previewImageView.slideIn()
                 delay(800, TimeUnit.MILLISECONDS)
-            } catch (e: RuntimeException) { //ignore
-            } finally {
                 super.onBackPressed()
+            } catch (e: Exception) {
+                Timber.e(e)
             }
         }
     }
