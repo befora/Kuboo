@@ -19,12 +19,12 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         when (viewModel.isSelected(book)) {
             true -> {
                 viewModel.removeSelected(book)
-                setMenuState()
+                enableSelectionMenuState()
                 loadColorState(holder, book)
             }
             false -> {
                 viewModel.addSelected(book)
-                setMenuState()
+                enableSelectionMenuState()
                 loadColorState(holder, book)
             }
         }
@@ -32,15 +32,21 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     internal fun disableSelectionMode() {
         viewModel.clearSelected()
-        setMenuState()
+        enableSelectionMenuState()
         resetAllColorState()
     }
 
-    internal fun setMenuState() {
+    internal fun enableSelectionMenuState() {
         when (viewModel.isSelectedListEmpty()) {
-            true -> setMenuStateUnselected()
-            false -> setMenuStateSelected()
+            true -> setSelectionMenuStateUnselected()
+            false -> setSelectionMenuStateSelected()
         }
+    }
+
+    internal fun disableSelectionMenuState() {
+        downloadMenuItem.gone()
+        markFinishedDeleteMenuItem.gone()
+        markFinishedAddMenuItem.gone()
     }
 
     protected fun startSelectionDownload(): Boolean {
@@ -83,7 +89,7 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     private fun resetAllColorState() = (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.resetAllColorState()
 
-    private fun setMenuStateSelected() {
+    private fun setSelectionMenuStateSelected() {
         title = getSelectedBrowserTitle()
         downloadMenuItem.visible()
         searchMenuItem.gone()
@@ -93,7 +99,7 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         hideMenuItemHttps()
     }
 
-    internal fun setMenuStateUnselected() {
+    private fun setSelectionMenuStateUnselected() {
         title = getString(R.string.main_browse)
         searchMenuItem.visible()
         downloadMenuItem.gone()

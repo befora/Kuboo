@@ -30,14 +30,14 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl1_Content() {
 
     override fun onPause() {
         super.onPause()
-        mainActivity.setMenuStateUnselected()
+        mainActivity.disableSelectionMenuState()
     }
 
     override fun onResume() {
         super.onResume()
         if (!isFirstInstance) {
             contentAdapter.resetAllColorState()
-            mainActivity.setMenuState()
+            mainActivity.enableSelectionMenuState()
         }
         isFirstInstance = false
     }
