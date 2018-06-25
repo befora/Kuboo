@@ -65,6 +65,10 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     internal fun getCurrentFragment() = supportFragmentManager.findFragmentById(R.id.main_layout_base_frameLayout)
 
+    internal fun selectHome() {
+        bottomNav.selectedItemId = R.id.navigation_home
+    }
+
     internal fun setStateConnected() {
         showMenuItemSearch()
         toggleMenuItemHttps()
@@ -125,7 +129,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         val previousBook = viewModel.getPreviousBook()
         when (previousBook != null) {
             true -> browserRemoteFragment.populatePrevious(previousBook!!)
-            false -> bottomNav.selectedItemId = R.id.navigation_home
+            false -> selectHome()
         }
     }
 
@@ -145,17 +149,16 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     protected fun showFragmentDownloads() = supportFragmentManager.show(downloadFragment, R.id.main_layout_base_frameLayout)
 
-    protected fun showFragmentLoading() = supportFragmentManager.show(loadingFragment, R.id.main_layout_base_frameLayout)
+    private fun showFragmentLoading() = supportFragmentManager.show(loadingFragment, R.id.main_layout_base_frameLayout)
 
     protected fun showFragmentHome() = when (viewModel.isLoginListEmpty() || viewModel.isActiveLoginEmpty()) {
         true -> supportFragmentManager.show(welcomeFragment, R.id.main_layout_base_frameLayout)
         false -> supportFragmentManager.show(recentFragment, R.id.main_layout_base_frameLayout)
     }
 
-    protected fun isBottomNavHomeSelected() = bottomNav.selectedItemId == R.id.navigation_home
+    protected fun isHomeSelected() = bottomNav.selectedItemId == R.id.navigation_home
 
-    protected fun isBottomNavBrowseSelected() = bottomNav.selectedItemId == R.id.navigation_browse
-
+    protected fun isBrowseSelected() = bottomNav.selectedItemId == R.id.navigation_browse
 
     private fun getFragmentTitle(currentFragment: Fragment) = when (currentFragment) {
         is BrowserRemoteFragment -> if (isMenuStateSelected()) getSelectedBrowserTitle() else getString(R.string.main_browse)

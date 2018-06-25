@@ -98,9 +98,9 @@ class MainActivity : MainActivityImpl2_Service(), BottomNavigationView.OnNavigat
             is LoginBrowserFragment -> supportFragmentManager.popBackStackImmediate()
             else -> when (bottomNav.selectedItemId) {
                 R.id.navigation_home -> systemUtil.requestExitApplication()
-                R.id.navigation_browse -> bottomNav.selectedItemId = R.id.navigation_home
-                R.id.navigation_settings -> bottomNav.selectedItemId = R.id.navigation_home
-                R.id.navigation_downloads -> bottomNav.selectedItemId = R.id.navigation_home
+                R.id.navigation_browse -> selectHome()
+                R.id.navigation_settings -> selectHome()
+                R.id.navigation_downloads -> selectHome()
             }
         }
 

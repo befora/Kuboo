@@ -33,7 +33,7 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
                 setStateConnected()
                 showFragmentHome()
             }
-            false -> if (isBottomNavHomeSelected()) setStateDisconnected(result)
+            false -> if (isHomeSelected()) setStateDisconnected(result)
         }
     })
 
@@ -43,7 +43,7 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
                 setStateConnected()
                 showFragmentBrowserRemote()
             }
-            false -> if (isBottomNavBrowseSelected()) setStateDisconnected(result)
+            false -> if (isBrowseSelected()) setStateDisconnected(result)
         }
     })
 
@@ -63,8 +63,7 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
     private fun onActiveLoginValid() {
         Timber.i("onActiveLoginValid")
         setStateLoading()
-        bottomNav.selectedItemId = R.id.navigation_home
-//        pingShowHomeFragment()
+        selectHome()
     }
 
 }
