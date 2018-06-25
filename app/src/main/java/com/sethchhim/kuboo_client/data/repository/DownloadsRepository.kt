@@ -24,7 +24,7 @@ class DownloadsRepository {
     internal fun getDownloadListFavoriteCompressed(): MutableList<Book> {
         val favoriteCompressedList = mutableListOf<Book>()
         downloadsList
-                .sortedBy { it.id }
+                .sortedWith(compareBy({ it.getXmlId() }, { it.id }))
                 .forEach {
                     val isFavorite = it.isFavorite
                     val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
