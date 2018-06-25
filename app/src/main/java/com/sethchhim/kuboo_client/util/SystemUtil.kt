@@ -55,6 +55,17 @@ class SystemUtil(private val context: Context) {
         return "ERROR"
     }
 
+    fun getVersionName(): String {
+        val pInfo: PackageInfo
+        try {
+            pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            return pInfo.versionName.toString()
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return "ERROR"
+    }
+
     fun hideKeyboard() {
         context.inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }

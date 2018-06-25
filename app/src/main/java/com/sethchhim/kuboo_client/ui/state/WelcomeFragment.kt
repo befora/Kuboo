@@ -50,7 +50,7 @@ class WelcomeFragment : DaggerFragment() {
         val isPortrait = systemUtil.isOrientationPortrait()
         val width = systemUtil.getSystemWidth()
 
-        val stringAppVersion = "App Version: " + systemUtil.getVersionCode()
+        val stringAppVersion = "App Version: " + systemUtil.getVersionName()
         view.home_layout_welcome_textView1.text = stringAppVersion
         val versionOffset = if (isPortrait) 50 else 70
         view.home_layout_welcome_textView1.setTextSize(TypedValue.COMPLEX_UNIT_PX, ((width / versionOffset).toFloat()))

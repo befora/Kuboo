@@ -60,7 +60,7 @@ class AboutPagerAdapter(val context: Context) : PagerAdapter() {
     private fun getPage0(container: ViewGroup): View {
         val itemView = context.layoutInflater.inflate(R.layout.about_info, container, false)
         val textVersion = itemView.findViewById<TextView>(R.id.textAboutVersion)!!
-        val mTextVersion = "App Version: " + systemUtil.getVersionCode()
+        val mTextVersion = "App Version: " + systemUtil.getVersionName()
         textVersion.text = mTextVersion
         if (systemUtil.isOrientationPortrait()) {
             textVersion.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 50).toFloat())
@@ -68,18 +68,15 @@ class AboutPagerAdapter(val context: Context) : PagerAdapter() {
             textVersion.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 70).toFloat())
         }
 
-        if (BuildConfig.DEBUG) {
-            val textBuildDate = itemView.findViewById<TextView>(R.id.textAboutBuildDate)!!
-            val dateFormat = SimpleDateFormat("MMM dd yyyy HH:mm:ss")
-            val mTextBuildDate = "Build Date: " + dateFormat.format(BuildConfig.TIMESTAMP)
-            textBuildDate.text = mTextBuildDate
-            if (systemUtil.isOrientationPortrait()) {
-                textBuildDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 50).toFloat())
-            } else {
-                textBuildDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 70).toFloat())
-            }
+        val textBuildDate = itemView.findViewById<TextView>(R.id.textAboutBuildDate)!!
+        val dateFormat = SimpleDateFormat("MMM dd yyyy HH:mm:ss")
+        val mTextBuildDate = "Build Date: " + dateFormat.format(BuildConfig.TIMESTAMP)
+        textBuildDate.text = mTextBuildDate
+        if (systemUtil.isOrientationPortrait()) {
+            textBuildDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 50).toFloat())
+        } else {
+            textBuildDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 70).toFloat())
         }
-
 
         val imageLogo = itemView.findViewById<ImageView>(R.id.image_logo)!!
         Glide.with(context)
@@ -163,7 +160,7 @@ class AboutPagerAdapter(val context: Context) : PagerAdapter() {
             val deviceOS = android.os.Build.VERSION.RELEASE
             val deviceSDK = android.os.Build.VERSION.SDK_INT
 
-            val deviceInfo = "| Kuboo " + systemUtil.getVersionCode() + "\n" +
+            val deviceInfo = "| Kuboo " + systemUtil.getVersionName() + "\n" +
                     "| " + deviceBrand + " " + deviceName + "\n" +
                     "| Android  " + deviceOS + " " + "SDK" + deviceSDK + "\n"
             val data = Uri.parse("mailto:sethchhim@gmail.com?subject=" + "Kuboo on Android" + "&body=" + deviceInfo)
