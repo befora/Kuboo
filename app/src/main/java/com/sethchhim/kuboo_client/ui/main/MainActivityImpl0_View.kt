@@ -34,7 +34,6 @@ import com.sethchhim.kuboo_client.ui.state.WelcomeFragment
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.model.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 @SuppressLint("Registered")
@@ -187,37 +186,21 @@ open class MainActivityImpl0_View : BaseActivity() {
     private fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
 
     private fun hideMenuItemHttps() {
-        try {
-            if (httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
-        } catch (e: UninitializedPropertyAccessException) {
-            Timber.e("HttpsMenuItem has not been initialized yet!")
-        }
+        if (::httpsMenuItem.isInitialized && httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
     }
 
     private fun hideMenuItemSearch() {
-        try {
-            if (searchMenuItem.isVisible) searchMenuItem.isVisible = false
-        } catch (e: UninitializedPropertyAccessException) {
-            Timber.e("SearchMenuItem has not been initialized yet!")
-        }
+        if (::searchMenuItem.isInitialized && searchMenuItem.isVisible) searchMenuItem.isVisible = false
     }
 
     private fun showFragmentFail(response: Response?) = supportFragmentManager.show(FailFragment.newInstance(response), R.id.main_layout_base_frameLayout)
 
     private fun showMenuItemHttps() {
-        try {
-            if (!httpsMenuItem.isVisible) httpsMenuItem.isVisible = true
-        } catch (e: UninitializedPropertyAccessException) {
-            Timber.e("HttpsMenuItem has not been initialized yet!")
-        }
+        if (::httpsMenuItem.isInitialized && !httpsMenuItem.isVisible) httpsMenuItem.isVisible = true
     }
 
     private fun showMenuItemSearch() {
-        try {
-            if (!searchMenuItem.isVisible) searchMenuItem.isVisible = true
-        } catch (e: UninitializedPropertyAccessException) {
-            Timber.e("SearchMenuItem has not been initialized yet!")
-        }
+        if (::searchMenuItem.isInitialized && !searchMenuItem.isVisible) searchMenuItem.isVisible = true
     }
 
     private fun toggleMenuItemHttps() = when (viewModel.isConnectedEncrypted()) {
@@ -226,4 +209,3 @@ open class MainActivityImpl0_View : BaseActivity() {
     }
 
 }
-
