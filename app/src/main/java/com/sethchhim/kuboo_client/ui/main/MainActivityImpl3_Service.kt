@@ -11,7 +11,7 @@ import kotlin.concurrent.timer
 import kotlin.math.absoluteValue
 
 @SuppressLint("Registered")
-open class MainActivityImpl2_Service : MainActivityImpl1_Content() {
+open class MainActivityImpl3_Service : MainActivityImpl2_Selection() {
 
     private var downloadTrackingTimer: Timer? = null
     private var nextUpdateTimer: Timer? = null

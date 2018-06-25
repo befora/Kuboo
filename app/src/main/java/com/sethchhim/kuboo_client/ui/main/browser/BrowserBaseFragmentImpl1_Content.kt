@@ -18,10 +18,8 @@ import timber.log.Timber
 
 open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
 
-    protected lateinit var contentAdapter: BrowserContentAdapter
+    internal lateinit var contentAdapter: BrowserContentAdapter
     protected lateinit var pathAdapter: BrowserPathAdapter
-
-    private var isFirstInstance = true
 
     private var contentLiveData = MutableLiveData<List<Book>>()
     private var paginationLiveData = MutableLiveData<Pagination>()
@@ -72,11 +70,6 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
     protected fun onPopulateContentFail() {
         Timber.e("onPopulateContentFail")
         setStateDisconnected()
-    }
-
-    protected fun resetAllColorState() {
-        if (!isFirstInstance) contentAdapter.resetAllColorState()
-        isFirstInstance = false
     }
 
     private fun getContentType() = when (viewModel.getCurrentBook()?.isBrowserMediaType() ?: true) {

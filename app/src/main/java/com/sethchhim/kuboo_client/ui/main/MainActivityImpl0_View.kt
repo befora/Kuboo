@@ -10,9 +10,7 @@ import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.TextView
 import butterknife.BindView
-import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.show
-import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.about.AboutActivity
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
@@ -84,26 +82,6 @@ open class MainActivityImpl0_View : BaseActivity() {
         hideMenuItemSearch()
         hideMenuItemHttps()
         showFragmentLoading()
-    }
-
-    internal fun setMenuStateSelected() {
-        title = getSelectedBrowserTitle()
-        downloadMenuItem.visible()
-        searchMenuItem.gone()
-        markFinishedDeleteMenuItem.visible()
-        markFinishedAddMenuItem.visible()
-
-        hideMenuItemHttps()
-    }
-
-    internal fun setMenuStateUnselected() {
-        title = getString(R.string.main_browse)
-        searchMenuItem.visible()
-        downloadMenuItem.gone()
-        markFinishedDeleteMenuItem.gone()
-        markFinishedAddMenuItem.gone()
-
-        toggleMenuItemHttps()
     }
 
     internal fun showFragmentBrowserRecent() = supportFragmentManager.show(browserRecentFragment, R.id.main_layout_base_frameLayout)
@@ -186,9 +164,9 @@ open class MainActivityImpl0_View : BaseActivity() {
         else -> R.id.navigation_home
     }
 
-    private fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
+    protected fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
 
-    private fun hideMenuItemHttps() {
+    protected fun hideMenuItemHttps() {
         if (::httpsMenuItem.isInitialized && httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
     }
 
@@ -206,7 +184,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         if (::searchMenuItem.isInitialized && !searchMenuItem.isVisible) searchMenuItem.isVisible = true
     }
 
-    private fun toggleMenuItemHttps() = when (viewModel.isConnectedEncrypted()) {
+    protected fun toggleMenuItemHttps() = when (viewModel.isConnectedEncrypted()) {
         true -> showMenuItemHttps()
         false -> hideMenuItemHttps()
     }

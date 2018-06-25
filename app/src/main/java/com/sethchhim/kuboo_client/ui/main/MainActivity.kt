@@ -25,7 +25,7 @@ import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 
 
-class MainActivity : MainActivityImpl2_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
+class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,6 +183,9 @@ class MainActivity : MainActivityImpl2_Service(), BottomNavigationView.OnNavigat
         when (item.itemId) {
             R.id.main_overflow_about -> showActivityAbout()
             R.id.main_action_https -> showDialogHttps()
+            R.id.main_action_download -> startSelectionDownload()
+            R.id.main_action_mark_finished_add -> startSelectionAddFinished()
+            R.id.main_action_mark_finish_delete -> startSelectionDeleteFinished()
         }
         return super.onOptionsItemSelected(item)
     }

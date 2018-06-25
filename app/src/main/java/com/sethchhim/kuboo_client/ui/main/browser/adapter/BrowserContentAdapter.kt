@@ -70,6 +70,8 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
     private lateinit var browserContentRecyclerView: BrowserContentRecyclerView
     private lateinit var layoutManager: BrowserContentGridLayoutManager
 
+    private val mainActivity = browserFragment.mainActivity
+
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.browserContentRecyclerView = recyclerView as BrowserContentRecyclerView
@@ -122,7 +124,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         private fun onItemSelectedMenuStateIsSelected() {
             val book = viewModel.getBrowserContentItemAt(adapterPosition)?.book
             if (book != null && book.isFileType()) {
-                itemView.browser_item_content_media_imageView.toggleSelectedState(this, book)
+                browserFragment.mainActivity.enableSelectionMode(this, book)
             }
         }
 
@@ -146,17 +148,17 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         private fun onItemLongSelectedMenuStateIsUnselected() {
             val book = data[adapterPosition].book
             if (book.isFileType()) {
-                itemView.browser_item_content_media_imageView.toggleSelectedState(this, book)
+                browserFragment.mainActivity.enableSelectionMode(this, book)
             }
         }
 
-        private fun onItemLongSelectedMenuStateIsSelected() = disableSelectionMode()
+        private fun onItemLongSelectedMenuStateIsSelected() = browserFragment.mainActivity.disableSelectionMode()
 
         private fun startPreview(book: Book) {
             val previewUrl = book.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
             val imageView = itemView.browser_item_content_media_imageView
             imageView.transitionName = previewUrl
-            browserFragment.mainActivity.startPreview(ReadData(
+            mainActivity.startPreview(ReadData(
                     book = book,
                     sharedElement = imageView
             ))
@@ -191,8 +193,8 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
             //load new data
             val isFavorite = viewModel.isFavorite(book)
 
-            val isStateSelected = browserFragment.mainActivity.isMenuStateSelected()
-            if (isStateSelected) disableSelectionMode(isFolderType = true)
+            val isStateSelected = mainActivity.isMenuStateSelected()
+            if (isStateSelected) mainActivity.disableSelectionMode()
 
             itemView.browser_item_content_folder_textView1.text = book.title
 
@@ -377,39 +379,9 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         diffUtilHelper.updateBrowserList(data, result)
     }
 
-    private fun onDiffUtilUpdateFinished(result: List<Book>) {
-        viewModel.setBrowserContentList(result)
-    }
+    private fun onDiffUtilUpdateFinished(result: List<Book>) = viewModel.setBrowserContentList(result)
 
-    private fun ImageView.toggleSelectedState(holder: BrowserHolder, book: Book) {
-        when (viewModel.isSelected(book)) {
-            true -> {
-                viewModel.removeSelected(book)
-                viewModel.getSelectedList().forEachWithIndex { index, it ->
-                    Timber.d("Selected $index ${it.title}")
-                }
-                setMenuState()
-                loadColorState(holder, book)
-            }
-            false -> {
-                viewModel.addSelected(book)
-                viewModel.getSelectedList().forEachWithIndex { index, it ->
-                    Timber.d("Selected $index ${it.title}")
-                }
-                setMenuState()
-                loadColorState(holder, book)
-            }
-        }
-    }
-
-    private fun setMenuState() {
-        when (viewModel.isSelectedListEmpty()) {
-            true -> browserFragment.mainActivity.setMenuStateUnselected()
-            false -> browserFragment.mainActivity.setMenuStateSelected()
-        }
-    }
-
-    private fun ImageView.loadColorState(holder: BrowserHolder, book: Book) {
+    internal fun loadColorState(holder: BrowserHolder, book: Book) = holder.itemView.browser_item_content_media_imageView.apply {
         when (viewModel.isSelected(book)) {
             true -> colorFilterRed()
             false ->
@@ -423,22 +395,16 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         }
     }
 
-    internal fun disableSelectionMode(isFolderType: Boolean = false) {
-        viewModel.clearSelected()
-        setMenuState()
-        if (!isFolderType) resetAllColorState()
-    }
-
     internal fun resetAllColorState() = (0 until browserContentRecyclerView.childCount)
             .mapNotNull { browserContentRecyclerView.getChildViewHolder(browserContentRecyclerView.getChildAt(it)) as BrowserContentAdapter.BrowserHolder }
             .forEachWithIndex { _, viewHolder ->
-                viewHolder.itemView.browser_item_content_media_imageView?.let {
-                    val data = (browserContentRecyclerView.adapter as BrowserContentAdapter).data
-                    val book = data[viewHolder.adapterPosition].book
-                    it.loadColorState(viewHolder, book)
+                if (viewHolder.itemViewType == Browser.MEDIA) {
+                    viewHolder.itemView.browser_item_content_media_imageView?.let {
+                        val data = (browserContentRecyclerView.adapter as BrowserContentAdapter).data
+                        val book = data[viewHolder.adapterPosition].book
+                        loadColorState(viewHolder, book)
+                    }
                 }
             }
 
 }
-
-
