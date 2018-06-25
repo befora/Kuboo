@@ -2,8 +2,6 @@ package com.sethchhim.kuboo_client.ui.main.browser
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
-import android.support.v7.app.AlertDialog
-import android.widget.TextView
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.isBrowserMediaType
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
@@ -69,42 +67,6 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
             true -> onPopulateContentEmpty()
             false -> onPopulateContentSuccess(result)
         }
-    }
-
-    protected fun onDownloadMenuItemClicked(): Boolean {
-        val selectedList = viewModel.getSelectedList()
-        dialogUtil.getDialogDownloadStart(mainActivity, selectedList).apply {
-            setButton(AlertDialog.BUTTON_POSITIVE, "${context.getString(R.string.dialog_download)} (${selectedList.size})") { _, _ ->
-                viewModel.startDownloads(selectedList, savePath = Settings.DOWNLOAD_SAVE_PATH)
-                contentAdapter.disableSelectionMode()
-            }
-            setButton(AlertDialog.BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }
-            show()
-
-            findViewById<TextView>(android.R.id.message)?.apply {
-                textSize = 11F
-            }
-        }
-        return true
-    }
-
-    protected fun onMarkFinishedAddMenuItemClicked(): Boolean {
-        viewModel.addFinishFromSelectedList().observe(this, Observer { result ->
-            result?.let { if (it) contentAdapter.disableSelectionMode() }
-        })
-
-        if (!Settings.MARK_FINISHED) dialogUtil.getSnackBarMarkFinished(contentSwipeRefreshLayout).apply {
-            setAction(R.string.main_settings) { mainActivity.showFragmentSettings() }
-            show()
-        }
-        return true
-    }
-
-    protected fun onMarkFinishedDeleteMenuItemClicked(): Boolean {
-        viewModel.removeFinishFromSelectedList().observe(this, Observer { result ->
-            result?.let { if (it) contentAdapter.disableSelectionMode() }
-        })
-        return true
     }
 
     protected fun onPopulateContentFail() {
@@ -177,5 +139,3 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
     }
 
 }
-
-
