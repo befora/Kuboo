@@ -83,26 +83,19 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         val nextPreviewUrl = nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
         previewImageView.transitionName = nextPreviewUrl
 
-        startDownloadTracking()
         startReader(ReadData(
                 book = nextBook,
                 bookmarksEnabled = false,
                 requestFinish = true,
                 sharedElement = previewImageView))
+
+        startDownloadTracking(nextBook)
     }
 
     private fun finishBook() {
         viewModel.addFinish(currentBook)
-
-        startDownloadTracking()
         finish()
-    }
-
-    private fun startDownloadTracking() {
-        if (isLocal && currentBook.isFavorite) {
-            viewModel.deleteDownloadsBefore(currentBook)
-            startSeriesDownload(currentBook)
-        }
+        startDownloadTracking(currentBook)
     }
 
     private fun startSinglePaneMode() {

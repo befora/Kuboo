@@ -9,7 +9,7 @@ import com.sethchhim.kuboo_client.Settings
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 @SuppressLint("Registered")
-open class ReaderBaseActivity : ReaderBaseActivityImpl4_Neighbors() {
+open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportPostponeEnterTransition()

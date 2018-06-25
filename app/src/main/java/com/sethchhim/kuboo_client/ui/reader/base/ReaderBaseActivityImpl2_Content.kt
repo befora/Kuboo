@@ -46,5 +46,3 @@ open class ReaderBaseActivityImpl2_Content : ReaderBaseActivityImpl1_Overlay() {
     }
 
 }
-
-
