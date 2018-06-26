@@ -8,8 +8,8 @@
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
-        android:label="@string/app_label"
         android:icon="@mipmap/icon"
+        android:label="@string/app_label"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/BaseTheme"
@@ -28,7 +28,8 @@
         <!--main-->
         <activity
             android:name=".ui.main.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask">
         </activity>
 
         <!--preview-->
@@ -37,7 +38,7 @@
         <!--reader-->
         <activity
             android:name=".ui.reader.comic.ReaderComicActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             tools:targetApi="n"/>
 

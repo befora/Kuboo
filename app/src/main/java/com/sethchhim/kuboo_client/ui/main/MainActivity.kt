@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.SearchView
@@ -23,6 +24,8 @@ import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
+import com.sethchhim.kuboo_remote.model.Book
+import timber.log.Timber
 
 
 class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
@@ -41,8 +44,6 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
         bottomNav.setOnNavigationItemReselectedListener(this)
         bottomNav.disableShiftMode()
 
-        isRequestDownloadFragment = intent.getBooleanExtra(Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT, false)
-
         loginLiveData.removeAllObservers(this)
         loginLiveData = viewModel.activeLoginLiveData.apply {
             observe(this@MainActivity, Observer { result -> onActiveLoginChanged(result) })
@@ -50,6 +51,28 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
 
         setStateLoading()
         setDownloadTrackingService()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        viewModel.clearPathList()
+
+        isRequestDownloadFragment = intent.getBooleanExtra(Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT, false)
+        isRequestRemoteBrowserFragment = intent.getBooleanExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, false)
+        when {
+            isRequestDownloadFragment -> {
+                Timber.i("Download fragment is requested from intent.")
+                showFragmentDownloads()
+            }
+            isRequestRemoteBrowserFragment -> {
+                Timber.i("Remote browser fragment is requested from intent.")
+                val payload = intent.getParcelableExtra<Book>(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD)
+                when (payload != null) {
+                    true -> showFragmentBrowserSeries(payload)
+                    false -> showToastError()
+                }
+            }
+        }
     }
 
     private fun showChangeLog() {

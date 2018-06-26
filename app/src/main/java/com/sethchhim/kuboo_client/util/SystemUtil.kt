@@ -1,9 +1,7 @@
 package com.sethchhim.kuboo_client.util
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -25,6 +23,7 @@ import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.io.File
+
 
 class SystemUtil(private val context: Context) {
 
@@ -164,6 +163,13 @@ class SystemUtil(private val context: Context) {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         context.startActivity(launchBrowser)
+    }
+
+    internal fun copyToClipboard(string: String) {
+        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).apply {
+            primaryClip = ClipData.newPlainText("", string)
+        }
+        context.toast(context.getString(R.string.main_text_copied_to_clipboard))
     }
 
     //==============================================================================================

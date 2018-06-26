@@ -12,18 +12,13 @@ import timber.log.Timber
 open class MainActivityImpl1_Content : MainActivityImpl0_View() {
 
     protected var isRequestDownloadFragment = false
+    protected var isRequestRemoteBrowserFragment = false
     protected var loginLiveData = MutableLiveData<Login>()
 
     protected fun onActiveLoginChanged(it: Login?) {
-        viewModel.clearPathList()
-        if (isRequestDownloadFragment) {
-            Timber.i("Download fragment is requested from intent.")
-            showFragmentDownloads()
-        } else {
-            when (it == null || it.isEmpty()) {
-                true -> onActiveLoginInvalid()
-                false -> onActiveLoginValid()
-            }
+        when (it == null || it.isEmpty()) {
+            true -> onActiveLoginInvalid()
+            false -> onActiveLoginValid()
         }
     }
 

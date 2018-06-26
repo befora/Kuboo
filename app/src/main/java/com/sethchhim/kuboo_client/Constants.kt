@@ -13,6 +13,8 @@ object Constants {
     internal const val ARG_LOCAL = "ARG_LOCAL"
     internal const val ARG_OVERLAY = "ARG_OVERLAY"
     internal const val ARG_REQUEST_DOWNLOAD_FRAGMENT = "ARG_REQUEST_DOWNLOAD_FRAGMENT"
+    internal const val ARG_REQUEST_REMOTE_BROWSER_FRAGMENT = "ARG_REQUEST_REMOTE_BROWSER_FRAGMENT"
+    internal const val ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD = "ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD"
     internal const val ARG_POSITION = "ARG_POSITION"
     internal const val ARG_LOGIN = "ARG_LOGIN"
     internal const val ARG_RESPONSE = "ARG_RESPONSE"

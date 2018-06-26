@@ -124,9 +124,7 @@ class DialogUtil(val context: Context) {
         setCancelable(false)
     }.create()
 
-    internal fun getDialogOffline(context: Context, book: Book) = getAlertDialogBuilder(context).apply {
-        setTitle(context.getString(R.string.dialog_local_file))
-        setMessage(book.filePath)
+    internal fun getDialogInfo(context: Context) = getAlertDialogBuilder(context).apply {
     }.create()
 
     internal fun getDialogRecentRemove(context: Context, book: Book) = getAlertDialogBuilder(context).apply {

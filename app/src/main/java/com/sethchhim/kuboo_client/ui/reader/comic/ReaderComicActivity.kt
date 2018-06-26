@@ -22,13 +22,8 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         aspectFitMenuItem = menu.findItem(R.id.reader_aspect_fit)
         fitWidthMenuItem = menu.findItem(R.id.reader_aspect_fit_width)
         dualPaneMenuItem = menu.findItem(R.id.reader_dual_pane_mode)
-        localMenuItem = menu.findItem(R.id.reader_local)
+        localMenuItem = menu.findItem(R.id.reader_info)
         mangaModeMenuItem = menu.findItem(R.id.reader_manga_mode)
-
-        when (isLocal) {
-            true -> localMenuItem.isVisible = true
-            false -> localMenuItem.isVisible = false
-        }
 
         when (Settings.SCALE_TYPE) {
             0 -> aspectFillMenuItem.isChecked = true
@@ -49,7 +44,7 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
             R.id.reader_aspect_fit_width -> setScaleType(item, 2)
             R.id.reader_dual_pane_mode -> onSelectDualPane()
             R.id.reader_manga_mode -> onSelectMangaMode()
-            R.id.reader_local -> showOfflineDialog(currentBook)
+            R.id.reader_info -> showDialogInfo(currentBook)
         }
         return super.onOptionsItemSelected(item)
     }

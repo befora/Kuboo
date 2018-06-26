@@ -2,18 +2,22 @@ package com.sethchhim.kuboo_client.ui.reader.base
 
 import android.annotation.SuppressLint
 import android.app.PictureInPictureParams
+import android.content.Intent
 import android.os.Build
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.Guideline
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.util.Rational
 import android.view.View
 import android.widget.*
 import butterknife.BindView
+import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.Progress
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
+import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPreviewImageView
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.coroutines.experimental.android.UI
@@ -22,6 +26,7 @@ import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+
 
 @SuppressLint("Registered")
 open class ReaderBaseActivityImpl0_View : BaseActivity() {
@@ -72,12 +77,36 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
         }
     }
 
-    protected fun showOfflineDialog(book: Book) {
-        dialogUtil.getDialogOffline(this, book).apply {
-            //            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_browse)) { _, _ ->
-//                systemUtil.launchExternalBrowser(book.filePath)
-//            }
+    protected fun showDialogInfo(book: Book) {
+        dialogUtil.getDialogInfo(this).apply {
+            val title = when (book.isRemote()) {
+                true -> context.getString(R.string.dialog_remote_file)
+                false -> context.getString(R.string.dialog_local_file)
+            }
+            setTitle(title)
+
+            val message = when (book.isRemote()) {
+                true -> book.getAcquisitionUrl()
+                false -> book.filePath
+            }
+            setMessage(message)
+
+            this.setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.dialog_copy_to_clipboard)) { _, _ ->
+                systemUtil.copyToClipboard(message)
+            }
+
+            val isShowOpenSeries = book.server == viewModel.getActiveServer()
+            if (isShowOpenSeries) this.setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_open_series)) { dialog, _ ->
+                dialog.dismiss()
+                Intent(this@ReaderBaseActivityImpl0_View, MainActivity::class.java).apply {
+                    putExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, true)
+                    putExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD, currentBook)
+                    this@ReaderBaseActivityImpl0_View.startActivity(this)
+                }
+            }
             show()
+
+            findViewById<TextView>(android.R.id.message)?.apply { textSize = 11F }
         }
     }
 
