@@ -106,11 +106,11 @@ class PaginationHandler(private val browserFragment: BrowserBaseFragmentImpl1_Co
         button.alpha = 1f
         button.isClickable = true
 
-        button.setOnClickListener {
+        button.setOnClickListener({
             val paginationBook = book.apply { linkSubsection = pageUrl }
             browserFragment.populatePaginationContent(paginationBook)
             contentRecyclerView.scrollToPosition(0)
-        }
+        })
     }
 
     private fun setButtonDisabled(button: Button) {

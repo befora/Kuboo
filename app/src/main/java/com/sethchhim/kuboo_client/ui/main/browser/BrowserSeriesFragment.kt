@@ -1,5 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.browser
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Constants.ARG_BOOK
@@ -28,7 +29,8 @@ class BrowserSeriesFragment : BrowserBaseFragment() {
         setStateLoading()
         resetRecyclerView()
         paginationHandler.reset()
-        populateContent(seriesBook.apply { linkSubsection = linkXmlPath }, false, false)
+        val stringUrl = viewModel.getActiveServer() + seriesBook.linkXmlPath
+        viewModel.getListByUrl(stringUrl).observe(this, Observer { result -> handleResult(result) })
     }
 
     companion object {
