@@ -10,14 +10,14 @@ import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import timber.log.Timber
 
-class Task_RecentInsert(login: Login, book: Book) : Task_LocalBase() {
+class Task_RecentInsert(login: Login, book: Book, setTimeAccessed: Boolean) : Task_LocalBase() {
 
     internal val liveData = MutableLiveData<List<Book>>()
 
     init {
         executors.diskIO.execute {
             try {
-                book.setTimeAccessed()
+                if (setTimeAccessed) book.setTimeAccessed()
                 when (book.isComic()) {
                     true -> appDatabaseDao.deleteAllThatMatchSeries(book)
                     false -> appDatabaseDao.deleteAllThatMatchBook(book)

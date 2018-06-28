@@ -92,7 +92,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
         false -> recentRepository.getRecentByBook(null, book)
     }
 
-    internal fun addRecent(book: Book) = recentRepository.addRecent(getActiveLogin(), book)
+    internal fun addRecent(book: Book, setTimeAccessed: Boolean = true) = recentRepository.addRecent(getActiveLogin(), book, setTimeAccessed)
 
     internal fun removeRecent(book: Book) = recentRepository.removeRecent(getActiveLogin(), book)
 

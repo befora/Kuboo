@@ -35,7 +35,7 @@ class RecentRepository {
         }
     }
 
-    internal fun addRecent(login: Login, book: Book) = Task_RecentInsert(login, book).liveData
+    internal fun addRecent(login: Login, book: Book, setTimeAccessed: Boolean) = Task_RecentInsert(login, book, setTimeAccessed).liveData
 
     internal fun removeRecent(login: Login, book: Book) = Task_RecentDelete(login, book).liveData
 

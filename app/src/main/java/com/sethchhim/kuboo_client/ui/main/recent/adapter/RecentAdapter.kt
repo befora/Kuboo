@@ -161,7 +161,7 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
                     viewModel.getRemoteUserApi(item).observe(recentFragmentImpl1Content, Observer { result ->
                         result?.let {
                             updateBook(helper, item)
-                            viewModel.addRecent(result)
+                            viewModel.addRecent(result, setTimeAccessed = false)
                         }
                     })
                 }
