@@ -30,7 +30,8 @@ class BrowserSeriesFragment : BrowserBaseFragment() {
         resetRecyclerView()
         paginationHandler.reset()
         val stringUrl = viewModel.getActiveServer() + seriesBook.linkXmlPath
-        viewModel.getListByUrl(stringUrl).observe(this, Observer { result -> handleResult(result) })
+        val book = Book().apply { linkSubsection = seriesBook.linkXmlPath }
+        viewModel.getListByUrl(stringUrl).observe(this, Observer { result -> handleMediaResult(book, result) })
     }
 
     companion object {

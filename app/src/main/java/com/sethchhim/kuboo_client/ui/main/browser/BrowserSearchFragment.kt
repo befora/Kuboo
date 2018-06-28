@@ -31,7 +31,7 @@ class BrowserSearchFragment : BrowserBaseFragment() {
         setStateLoading()
         resetRecyclerView()
         paginationHandler.reset()
-        viewModel.getListByQuery(stringQuery).observe(this, Observer { result -> handleResult(result) })
+        viewModel.getListByQuery(stringQuery).observe(this, Observer { result -> handleMediaResult(null, result) })
     }
 
     companion object {
