@@ -34,6 +34,7 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.sethchhim.kuboo_client.data.model.Favorite
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.model.Recent
+import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType
 import com.sethchhim.kuboo_client.ui.state.LoadingFragment
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
@@ -419,6 +420,12 @@ object Extensions {
         val interpolator = OvershootInterpolator()
         ViewCompat.animate(fab).rotation(135f).withLayer().setDuration(300).setInterpolator(interpolator).start()
     }
+
+    internal fun Book.getBrowserContentType() =
+            when (isBrowserMediaType()) {
+                true -> BrowserContentType.MEDIA
+                false -> BrowserContentType.FOLDER
+            }
 
     internal fun Book.isBrowserMediaType(): Boolean {
         return linkSubsection.endsWith(Constants.URL_PATH_ALL, ignoreCase = true)

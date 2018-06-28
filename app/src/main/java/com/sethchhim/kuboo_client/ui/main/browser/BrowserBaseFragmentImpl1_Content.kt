@@ -3,13 +3,12 @@ package com.sethchhim.kuboo_client.ui.main.browser
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.sethchhim.kuboo_client.Constants
-import com.sethchhim.kuboo_client.Extensions.isBrowserMediaType
+import com.sethchhim.kuboo_client.Extensions.getBrowserContentType
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
-import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.FOLDER
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA
 import com.sethchhim.kuboo_client.ui.main.browser.handler.PaginationHandler
 import com.sethchhim.kuboo_remote.model.Book
@@ -67,7 +66,7 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         }
 
         setStateConnected()
-        setContentSpanCount(resources.configuration.orientation, getContentType())
+        setContentSpanCount(resources.configuration.orientation, book.getBrowserContentType())
         populatePaginationLinks(book, newResult)
         contentAdapter.update(newResult)
         if (loadState) loadRecyclerViewState(book)
@@ -89,11 +88,6 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         content = Constants.TAG_ROOT_BOOK
         server = viewModel.getActiveServer()
         linkSubsection = Constants.URL_PATH_ROOT
-    }
-
-    private fun getContentType() = when (viewModel.getCurrentBook()?.isBrowserMediaType() ?: true) {
-        true -> MEDIA
-        false -> FOLDER
     }
 
     /** handle content but force media item type */
