@@ -17,12 +17,9 @@ class Task_RecentGetAll(login: Login) : Task_LocalBase() {
                 val result = appDatabaseDao
                         .getAllBookRecent()
                         .recentListToBookList()
-                val resultFilteredByActiveServer = mutableListOf<Book>().apply {
-                    result?.forEach { if (it.server == login.server) add(it) }
-                }
-                val resultSortedByTimeAccessed = resultFilteredByActiveServer.sortedByDescending { it.timeAccessed }
-
-                executors.mainThread.execute { liveData.value = resultSortedByTimeAccessed }
+                        ?.filter { it.server == login.server }
+                        ?.sortedByDescending { it.timeAccessed }
+                executors.mainThread.execute { liveData.value = result }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}]")
                 executors.mainThread.execute { liveData.value = null }
