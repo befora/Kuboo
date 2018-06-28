@@ -166,18 +166,24 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
         private fun populateContent(book: Book) {
             launch(UI) {
+                //prevent double click
+                itemView.isClickable = false
+
+                //load new data
+                delay(100, TimeUnit.MILLISECONDS)
                 try {
-                    //prevent double click
-                    itemView.isClickable = false
-
-                    //load new data
-                    delay(100, TimeUnit.MILLISECONDS)
                     browserFragment.populateContent(book, loadState = false)
+                } catch (e: Exception) {
+                    //views could be destroyed during delay, do nothing
+                }
 
-                    //restore click
-                    delay(500, TimeUnit.MILLISECONDS)
+                //restore click
+                delay(500, TimeUnit.MILLISECONDS)
+
+                try {
                     itemView.isClickable = true
-                } catch (e: RuntimeException) { //ignore
+                } catch (e: Exception) {
+                    //views could be destroyed during delay, do nothing
                 }
             }
         }
@@ -240,9 +246,13 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
             //slight delay to prevent loading while fast scrolling
             launch(UI) {
                 delay(Settings.RECYCLERVIEW_DELAY)
-                if (holder.bookId == book.id) {
-                    itemView.browser_item_content_folder_imageView3.loadFolderThumbnail(holder, book)
-                    itemView.browser_item_content_folder_materialBadgeTextView.loadItemCount(holder, book)
+                try {
+                    if (holder.bookId == book.id) {
+                        itemView.browser_item_content_folder_imageView3.loadFolderThumbnail(holder, book)
+                        itemView.browser_item_content_folder_materialBadgeTextView.loadItemCount(holder, book)
+                    }
+                } catch (e: Exception) {
+                    //views could be destroyed during delay, do nothing
                 }
             }
         }
@@ -328,7 +338,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                         //set color state remotely
                         launch(UI) {
                             //add delay to prevent remote request while fast scrolling
-                            delay(600)
+                            delay(Settings.RECYCLERVIEW_DELAY)
                             try {
                                 val firstVisible = layoutManager.findFirstVisibleItemPosition()
                                 val lastVisible = layoutManager.findLastVisibleItemPosition()
@@ -395,16 +405,20 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         }
     }
 
-    internal fun resetAllColorState() = (0 until browserContentRecyclerView.childCount)
-            .mapNotNull { browserContentRecyclerView.getChildViewHolder(browserContentRecyclerView.getChildAt(it)) as BrowserContentAdapter.BrowserHolder }
-            .forEachWithIndex { _, viewHolder ->
-                if (viewHolder.itemViewType == Browser.MEDIA) {
-                    viewHolder.itemView.browser_item_content_media_imageView?.let {
-                        val data = (browserContentRecyclerView.adapter as BrowserContentAdapter).data
-                        val book = data[viewHolder.adapterPosition].book
-                        loadColorState(viewHolder, book)
+    internal fun resetAllColorState() = try {
+        (0 until browserContentRecyclerView.childCount)
+                .mapNotNull { browserContentRecyclerView.getChildViewHolder(browserContentRecyclerView.getChildAt(it)) as BrowserContentAdapter.BrowserHolder }
+                .forEachWithIndex { _, viewHolder ->
+                    if (viewHolder.itemViewType == Browser.MEDIA) {
+                        viewHolder.itemView.browser_item_content_media_imageView?.let {
+                            val data = (browserContentRecyclerView.adapter as BrowserContentAdapter).data
+                            val book = data[viewHolder.adapterPosition].book
+                            loadColorState(viewHolder, book)
+                        }
                     }
                 }
-            }
+    } catch (e: Exception) {
+        Timber.e("${e.message}")
+    }
 
 }
