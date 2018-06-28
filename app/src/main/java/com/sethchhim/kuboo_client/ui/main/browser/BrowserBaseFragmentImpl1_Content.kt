@@ -42,12 +42,12 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         contentLiveData.removeAllObservers(this)
         contentLiveData = viewModel.getListByBook(book).apply {
             observe(this@BrowserBaseFragmentImpl1_Content, Observer { result ->
-                handleMediaResult(book, loadState, result)
+                handleResult(book, loadState, result)
             })
         }
     }
 
-    private fun handleMediaResult(book: Book, loadState: Boolean, result: List<Book>?) {
+    private fun handleResult(book: Book, loadState: Boolean, result: List<Book>?) {
         when (result == null) {
             true -> onPopulateContentFail()
             false -> when (result!!.isEmpty()) {
@@ -58,7 +58,7 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
     }
 
     private fun onPopulateContentSuccess(book: Book, result: List<Book>, loadState: Boolean) {
-        Timber.i("onPopulateContentSuccess result: ${result.size}")
+        Timber.i("onPopulateMediaSuccess result: ${result.size}")
         val newResult = mutableListOf<Book>().apply { addAll(result) }
 
         if (Settings.FAVORITE) {
@@ -101,19 +101,19 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         true -> onPopulateContentFail()
         false -> when (result!!.isEmpty()) {
             true -> onPopulateContentEmpty()
-            false -> onPopulateContentSuccess(book, result)
+            false -> onPopulateMediaSuccess(book, result)
         }
     }
 
-    private fun onPopulateContentSuccess(book: Book?, result: List<Book>) {
-        Timber.i("onPopulateContentSuccess result: ${result.size}")
+    private fun onPopulateMediaSuccess(book: Book?, result: List<Book>) {
+        Timber.i("onPopulateMediaSuccess result: ${result.size}")
         setStateConnected()
         setContentSpanCount(resources.configuration.orientation, MEDIA)
         book?.let { populatePaginationLinks(it, result) }
         contentAdapter.update(result)
     }
 
-    /** populate pagination */
+    /** populate pagination content*/
     internal fun populatePaginationContent(book: Book) {
         viewModel.updatePathLinkSubsection(book)
         populateContent(book, addPath = false)
