@@ -2,6 +2,29 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Jun 28, 2018"
+        versionName="1.0.3">
+        <changelogtext>add open series and copy to clipboard to reader info dialog</changelogtext>
+        <changelogtext>add version to settings</changelogtext>
+        <changelogtext>change download tracking trigger from reader start to reader end
+        </changelogtext>
+        <changelogtext>change settings title text format</changelogtext>
+        <changelogtext>fix browser use wrong content type</changelogtext>
+        <changelogtext>fix crash on browser view not available after async job</changelogtext>
+        <changelogtext>fix crash on menu item uninitialized</changelogtext>
+        <changelogtext>fix downloads sort method, first by series and then by book</changelogtext>
+        <changelogtext>fix menu item lateinit check</changelogtext>
+        <changelogtext>fix reader crash</changelogtext>
+        <changelogtext>fix recently viewed ordering bug</changelogtext>
+        <changelogtext>fix remote pull uses local cache instead of retrieving fresh data
+        </changelogtext>
+        <changelogtext>fix selection menu items unintended retention</changelogtext>
+        <changelogtext>fix series browser pagination failed to load</changelogtext>
+        <changelogtext>fix series browser pagination failed to load</changelogtext>
+        <changelogtext>fix show correct version</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Jun 24, 2018"
         versionName="1.0.2">
         <changelogtext>Add tracking limit and interval setting for download
