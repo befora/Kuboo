@@ -177,6 +177,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getFirstDownloadInSeries(book: Book) = downloadsRepository.getFirstDownloadInSeries(book)
 
+    internal fun isDownloadContains(book: Book) = downloadsRepository.isDownloadContains(book)
+
     internal fun addDownload(book: Book) = downloadsRepository.addDownload(book)
 
     internal fun deleteDownload(book: Book, liveData: MutableLiveData<List<Book>>? = null) = downloadsRepository.deleteDownload(book, liveData)

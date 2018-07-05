@@ -26,6 +26,7 @@ open class BaseActivity : BaseActivityImpl2_DownloadStart() {
             nextBook = Book()
             transitionUrl = getStringExtra(Constants.ARG_TRANSITION_URL) ?: ""
             isLocal = currentBook.isLocal()
+            isDownload = viewModel.isDownloadContains(currentBook)
         }
     }
 

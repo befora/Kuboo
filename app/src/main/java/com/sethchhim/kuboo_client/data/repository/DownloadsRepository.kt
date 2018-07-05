@@ -84,4 +84,11 @@ class DownloadsRepository {
             .filter { it.getXmlId() == book.getXmlId() }
             .sortedBy { it.id }[0]
 
+    internal fun isDownloadContains(book: Book): Boolean {
+        downloadsList.forEach {
+            if (it.isMatch(book)) return true
+        }
+        return false
+    }
+
 }

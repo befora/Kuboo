@@ -44,6 +44,7 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
 
     internal lateinit var transitionUrl: String
     internal var isLocal = false
+    internal var isDownload = false
 
     protected lateinit var bookmarkDialog: AlertDialog
     protected lateinit var loadingDialog: AlertDialog

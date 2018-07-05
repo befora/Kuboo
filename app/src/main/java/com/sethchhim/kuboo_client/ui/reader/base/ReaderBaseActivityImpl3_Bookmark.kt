@@ -9,7 +9,7 @@ open class ReaderBaseActivityImpl3_Bookmark : ReaderBaseActivityImpl2_Content() 
     protected fun saveEpubBookmark(chapterNumber: Int, progressStart: Float) {
         currentBook.bookMark = "$chapterNumber#$progressStart"
 
-        when (isLocal) {
+        when (isLocal && isDownload) {
             true -> viewModel.addDownload(currentBook)
             false -> {
                 viewModel.addRecent(currentBook)
@@ -22,7 +22,7 @@ open class ReaderBaseActivityImpl3_Bookmark : ReaderBaseActivityImpl2_Content() 
         currentBook.currentPage = viewModel.getReaderTrueIndexAt(position)
         intent.putExtra(Constants.ARG_BOOK, currentBook)
 
-        when (isLocal) {
+        when (isLocal && isDownload) {
             true -> viewModel.addDownload(currentBook)
             false -> {
                 viewModel.addRecent(currentBook)
