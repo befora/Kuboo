@@ -8,27 +8,13 @@ open class ReaderBaseActivityImpl3_Bookmark : ReaderBaseActivityImpl2_Content() 
 
     protected fun saveEpubBookmark(chapterNumber: Int, progressStart: Float) {
         currentBook.bookMark = "$chapterNumber#$progressStart"
-
-        when (isLocal && isDownload) {
-            true -> viewModel.addDownload(currentBook)
-            false -> {
-                viewModel.addRecent(currentBook)
-                viewModel.putRemoteUserApi(currentBook)
-            }
-        }
+        updateBookmark()
     }
 
     protected fun saveComicBookmark(position: Int) {
         currentBook.currentPage = viewModel.getReaderTrueIndexAt(position)
         intent.putExtra(Constants.ARG_BOOK, currentBook)
-
-        when (isLocal && isDownload) {
-            true -> viewModel.addDownload(currentBook)
-            false -> {
-                viewModel.addRecent(currentBook)
-                viewModel.putRemoteUserApi(currentBook)
-            }
-        }
+        updateBookmark()
     }
 
     protected fun getChapterFromEpubBookmark(bookmark: String): Int {
@@ -42,6 +28,16 @@ open class ReaderBaseActivityImpl3_Bookmark : ReaderBaseActivityImpl2_Content() 
         return when (bookmark.contains("#")) {
             true -> bookmark.substringAfterLast("#").toFloat()
             false -> 0.0F
+        }
+    }
+
+    private fun updateBookmark() {
+        when (isLocal && isDownload) {
+            true -> viewModel.addDownload(currentBook)
+            false -> {
+                viewModel.addRecent(currentBook)
+                viewModel.putRemoteUserApi(currentBook)
+            }
         }
     }
 
