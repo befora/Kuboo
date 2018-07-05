@@ -17,45 +17,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
 
     protected lateinit var downloadsAdapter: DownloadsAdapter
 
-    protected val fetchListener = getFetchListener()
-
-    protected fun populateDownloads() {
-        setStateLoading()
-
-        saveRecyclerViewState()
-        handleResult(viewModel.getDownloadListFavoriteCompressed())
-    }
-
-    protected fun setBottomNavigation() = downloadsTabLayout.apply {
-        addTab(newTab(), 0)
-        addTab(newTab(), 1)
-        getTabAt(0)?.text = getString(R.string.downloads_pause_all)
-        getTabAt(1)?.text = getString(R.string.downloads_resume_all)
-        getTabAt(0)?.setIcon(R.drawable.ic_pause_white_24dp)
-        getTabAt(1)?.setIcon(R.drawable.ic_play_arrow_white_24dp)
-        visibility = View.VISIBLE
-
-        addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab) {
-                handleTab(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                handleTab(tab.position)
-            }
-
-            private fun handleTab(position: Int) {
-                when (position) {
-                    0 -> kubooRemote.pauseAll()
-                    1 -> kubooRemote.resumeAll()
-                }
-            }
-        })
-    }
-
-    private fun getFetchListener() = object : FetchListener {
+    protected val fetchListener = object : FetchListener {
 
         override fun onCancelled(download: Download) {
             updatePosition(download)
@@ -103,6 +65,42 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
                 false -> dataFilteredByUrl.forEach { downloadsAdapter.updatePosition(it, download) }
             }
         }
+    }
+
+    protected fun populateDownloads() {
+        setStateLoading()
+
+        saveRecyclerViewState()
+        handleResult(viewModel.getDownloadListFavoriteCompressed())
+    }
+
+    protected fun setBottomNavigation() = downloadsTabLayout.apply {
+        addTab(newTab(), 0)
+        addTab(newTab(), 1)
+        getTabAt(0)?.text = getString(R.string.downloads_pause_all)
+        getTabAt(1)?.text = getString(R.string.downloads_resume_all)
+        getTabAt(0)?.setIcon(R.drawable.ic_pause_white_24dp)
+        getTabAt(1)?.setIcon(R.drawable.ic_play_arrow_white_24dp)
+        visibility = View.VISIBLE
+
+        addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                handleTab(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                handleTab(tab.position)
+            }
+
+            private fun handleTab(position: Int) {
+                when (position) {
+                    0 -> kubooRemote.pauseAll()
+                    1 -> kubooRemote.resumeAll()
+                }
+            }
+        })
     }
 
     internal fun handleResult(result: List<Book>?) {
