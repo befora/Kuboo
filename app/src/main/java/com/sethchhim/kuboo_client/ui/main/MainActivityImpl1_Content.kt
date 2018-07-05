@@ -16,6 +16,7 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
     protected var loginLiveData = MutableLiveData<Login>()
 
     protected fun onActiveLoginChanged(it: Login?) {
+        viewModel.clearPathList()
         when (it == null || it.isEmpty()) {
             true -> onActiveLoginInvalid()
             false -> onActiveLoginValid()
