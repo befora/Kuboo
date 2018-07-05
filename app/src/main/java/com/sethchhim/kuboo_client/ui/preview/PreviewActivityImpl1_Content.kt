@@ -76,6 +76,7 @@ open class PreviewActivityImpl1_Content : PreviewActivityImpl0_View() {
 
         val requestOptions = RequestOptions()
                 .priority(Priority.IMMEDIATE)
+                .disallowHardwareConfig()
                 .transform(CropTransformation(context, width, height, CropTransformation.CropType.TOP))
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .format(DecodeFormat.PREFER_RGB_565)

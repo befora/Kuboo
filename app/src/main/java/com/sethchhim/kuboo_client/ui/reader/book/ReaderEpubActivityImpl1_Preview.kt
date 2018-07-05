@@ -54,6 +54,7 @@ open class ReaderEpubActivityImpl1_Preview : ReaderEpubActivityImpl0_View() {
             .load(any)
             .apply(RequestOptions()
                     .priority(Priority.IMMEDIATE)
+                    .disallowHardwareConfig()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .format(DecodeFormat.PREFER_RGB_565)
                     .dontAnimate()

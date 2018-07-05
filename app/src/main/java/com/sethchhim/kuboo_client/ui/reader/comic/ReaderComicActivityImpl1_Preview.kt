@@ -53,10 +53,10 @@ open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
                     .load(any)
                     .apply(RequestOptions()
                             .priority(Priority.IMMEDIATE)
+                            .disallowHardwareConfig()
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                             .format(DecodeFormat.PREFER_RGB_565)
-                            .dontAnimate()
-                            .dontTransform())
+                            .dontAnimate())
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                             Timber.e("message[${e?.message}] url[$transitionUrl]")
