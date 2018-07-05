@@ -120,10 +120,12 @@ public class DocumentActivity extends AppCompatActivity {
             try {
                 InputStream stm = getContentResolver().openInputStream(uri);
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
-                byte[] buf = new byte[16384];
-                int n;
-                while ((n = stm.read(buf)) != -1)
-                    out.write(buf, 0, n);
+                if (stm != null) {
+                    byte[] buf = new byte[16384];
+                    int n;
+                    while ((n = stm.read(buf)) != -1)
+                        out.write(buf, 0, n);
+                }
                 out.flush();
                 buffer = out.toByteArray();
             } catch (IOException x) {
