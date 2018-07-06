@@ -138,6 +138,7 @@ class RecentAdapter(private val recentFragmentImpl1Content: RecentFragmentImpl1_
                                     .load(resource)
                                     .apply(RequestOptions()
                                             .priority(Priority.HIGH)
+                                            .disallowHardwareConfig()
                                             .diskCacheStrategy(DiskCacheStrategy.DATA)
                                             .format(DecodeFormat.PREFER_RGB_565)
                                             .error(Settings.ERROR_DRAWABLE)
