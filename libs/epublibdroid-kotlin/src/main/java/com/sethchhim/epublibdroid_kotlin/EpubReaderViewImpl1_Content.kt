@@ -104,12 +104,11 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
             }
             //Log.d("EpubReaderRL",resourceLocation);
             chapterList.clear()
-            if (resourceLocation.contains("OEPBS") && book.tableOfContents.tocReferences.size > 1)
-                processChaptersByTOC(book.tableOfContents.tocReferences)
-            else if (book.tableOfContents.tocReferences.size > 1) {
-                processChaptersByTOC(book.tableOfContents.tocReferences)
-            } else
-                processChaptersBySpine(book.spine)
+
+            when (book.tableOfContents.tocReferences.isNotEmpty()) {
+                true -> processChaptersByTOC(book.tableOfContents.tocReferences)
+                false -> processChaptersBySpine(book.spine)
+            }
         } catch (e: Exception) {
 
         } finally {
@@ -126,7 +125,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
 
     fun loadPosition(chapterNumber: Int, chapterProgress: Float) {
         epubReaderListener.OnPositionLoading()
-        process(chapterNumber, chapterProgress)
+        validate(chapterNumber, chapterProgress)
 
         val htmlData = chapterList[this.chapterNumber].content.formatHtmlContent()
         val mimeType = "text/html; charset=UTF-8"
@@ -327,28 +326,26 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
     }
 
     private fun processChaptersByTOC(tocReferences: List<TOCReference>) {
-        if (tocReferences.isNotEmpty()) {
-            for (TOC in tocReferences) {
-                val builder = StringBuilder()
-                try {
-                    val reader = BufferedReader(InputStreamReader(TOC.resource.inputStream))
-                    while (true) {
-                        val line = reader.readLine() ?: break
-                        builder.append(line)
-                    }
-                } catch (e: Exception) {
+        tocReferences.forEach {
+            val builder = StringBuilder()
+            try {
+                val reader = BufferedReader(InputStreamReader(it.resource.inputStream))
+                while (true) {
+                    val line = reader.readLine() ?: break
+                    builder.append(line)
                 }
+            } catch (e: Exception) {
+            }
 
-                chapterList.add(Chapter(TOC.title, builder.toString(), TOC.completeHref))
-                if (TOC.children.size > 0) {
-                    processChaptersByTOC(TOC.children)
-                }
+            chapterList.add(Chapter(it.title, builder.toString(), it.completeHref))
+            if (it.children.size > 0) {
+                processChaptersByTOC(it.children)
             }
         }
     }
 
     private fun processChaptersBySpine(spine: Spine?) {
-        var ChapterNumber = 1
+        var chapterNumber = 1
         if (spine != null) {
             for (i in 0 until spine.size()) {
                 val builder = StringBuilder()
@@ -362,12 +359,12 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
                     e.printStackTrace()
                 }
 
-                chapterList.add(Chapter(if (spine.getResource(i).title != null) spine.getResource(i).title else ChapterNumber.toString() + "", builder.toString(), spine.getResource(i).href))
+                chapterList.add(Chapter(if (spine.getResource(i).title != null) spine.getResource(i).title else chapterNumber.toString() + "", builder.toString(), spine.getResource(i).href))
                 //Log.d("EpubReaderContent",builder.toString());
-                ChapterNumber++
+                chapterNumber++
             }
         } else {
-            Log.d("EpubReader", "spline is null")
+            Log.d("EpubReader", "Spine is null!")
         }
     }
 
@@ -568,23 +565,13 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
 
     private fun String.formatHtmlContent() = replace("href=\"http".toRegex(), "hreflink=\"http").replace("<a href=\"[^\"]*".toRegex(), "<a ").replace("hreflink=\"http".toRegex(), "href=\"http")
 
-    private fun process(chapterNumber: Int, chapterProgress: Float) {
-        when {
-            chapterNumber < 0 -> {
-                this.chapterNumber = 0
-                this.progress = 0f
-            }
-            chapterNumber >= chapterList.size -> {
-                this.chapterNumber = chapterList.size - 1
-                this.progress = 1f
-            }
-            else -> {
-                this.chapterNumber = chapterNumber
-                this.progress = chapterProgress
-            }
-        }
+    private fun validate(chapterNumber: Int, chapterProgress: Float) {
+        this.chapterNumber = chapterNumber
+        this.progress = chapterProgress
+
+        if (chapterList.isNotEmpty() && chapterNumber >= chapterList.size) this.chapterNumber = chapterList.size - 1
+        if (chapterNumber < 0) this.chapterNumber = 0
+        if (chapterProgress < 0f || chapterProgress > 1f) this.progress = 0f
     }
 
 }
-
-

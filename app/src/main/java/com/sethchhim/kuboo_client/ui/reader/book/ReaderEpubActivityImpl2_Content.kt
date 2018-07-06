@@ -110,7 +110,10 @@ open class ReaderEpubActivityImpl2_Content : ReaderEpubActivityImpl1_Preview(), 
                 marginSize = Settings.EPUB_MARGIN_SIZE,
                 textZoom = Settings.EPUB_TEXT_ZOOM)
         epubReaderView.epubReaderListener = this
-        epubReaderView.loadPosition(getChapterFromEpubBookmark(currentBook.bookMark), getProgressFromEpubBookmark(currentBook.bookMark))
+
+        val chapter = getChapterFromEpubBookmark(currentBook.bookMark)
+        val progress = getProgressFromEpubBookmark(currentBook.bookMark)
+        epubReaderView.loadPosition(chapter, progress)
     }
 
 }
