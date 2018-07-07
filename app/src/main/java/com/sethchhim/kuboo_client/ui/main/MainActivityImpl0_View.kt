@@ -94,6 +94,10 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     internal fun showFragmentSettings() = supportFragmentManager.show(settingsFragment, R.id.main_layout_base_frameLayout)
 
+    internal fun collapseMenuItemSearch() {
+        if (::searchMenuItem.isInitialized && searchMenuItem.isActionViewExpanded) searchMenuItem.collapseActionView()
+    }
+
     protected fun setCurrentTitle() {
         when (getCurrentFragment()) {
             is RecentFragment -> title = getString(R.string.title_home)

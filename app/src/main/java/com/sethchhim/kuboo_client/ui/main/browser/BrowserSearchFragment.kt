@@ -19,8 +19,7 @@ class BrowserSearchFragment : BrowserBaseFragment() {
         super.onActivityCreated(savedInstanceState)
         stringQuery = arguments?.getString(ARG_SEARCH) ?: ""
         mainActivity.title = stringQuery
-        mainActivity.searchMenuItem.collapseActionView()
-        mainActivity.searchView.inputType = 0
+        mainActivity.collapseMenuItemSearch()
         pathHorizontalScrollView.gone()
         populateSearch()
     }
