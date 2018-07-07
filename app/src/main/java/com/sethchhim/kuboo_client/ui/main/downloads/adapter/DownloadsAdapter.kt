@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -22,6 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.matrixxun.starry.badgetextview.MaterialBadgeTextView
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.fadeGone
+import com.sethchhim.kuboo_client.Extensions.fadeInvisible
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.filteredBySeries
 import com.sethchhim.kuboo_client.Extensions.gone
@@ -160,6 +162,13 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         }
     }
 
+    private fun ProgressBar.loadProgress(holder: DownloadHolder) {
+        val book = data[holder.adapterPosition]
+        max = book.totalPages
+        progress = book.currentPage
+        visible()
+    }
+
     private fun ImageView.loadFolderThumbnail(holder: DownloadsAdapter.DownloadHolder, download: Download) {
         val isMatchServer = download.url.contains(viewModel.getActiveServer())
         val requestOptions = RequestOptions()
@@ -178,7 +187,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         holder.itemView.browser_item_download_imageView1.fadeVisible()
                         holder.itemView.browser_item_download_imageView2.fadeVisible()
-                        holder.itemView.browser_item_download_imageView4.fadeGone()
+                        holder.itemView.browser_item_download_imageView4.fadeInvisible()
                         return false
                     }
 
@@ -198,6 +207,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download)
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_progressBar.loadProgress(holder)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         val fileName = download.url.guessFilename()

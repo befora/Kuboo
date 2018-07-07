@@ -10,6 +10,7 @@
         android:id="@+id/browser_item_download_imageView1"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_margin="8dp"
         android:scaleType="center"
         android:src="@drawable/ic_folder_circle"
         android:visibility="invisible"
@@ -21,6 +22,7 @@
         android:id="@+id/browser_item_download_imageView2"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_margin="8dp"
         android:scaleType="center"
         android:src="@drawable/ic_folder"
         android:visibility="invisible"
@@ -49,6 +51,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:layout_width="60dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/browser_item_download_imageView4">
+
+        <ProgressBar
+            android:id="@+id/browser_item_download_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"/>
+
+    </FrameLayout>
 
     <com.matrixxun.starry.badgetextview.MaterialBadgeTextView
         android:id="@+id/browser_item_download_materialBadgeTextView"
