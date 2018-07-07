@@ -24,7 +24,7 @@ class Task_RemoteFirstBook(val kubooRemote: KubooRemote, val login: Login, val b
                 val response = call.execute()
                 val inputStream = response.body()?.byteStream()
                 if (response.isSuccessful && inputStream != null) {
-                    val boundInputStream = BoundedInputStream(inputStream, 8 * 1024)
+                    val boundInputStream = BoundedInputStream(inputStream, 50 * 1024)
                     val inputAsString = boundInputStream.bufferedReader().use { it.readText() }
                     val result = parseService.parseOpds(login, inputAsString, 1)
                     kubooRemote.mainThread.execute {
