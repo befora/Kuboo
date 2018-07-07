@@ -2,6 +2,21 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Jul 6, 2018"
+        versionName="1.0.4">
+        <changelogtext>add progressbar to downloads</changelogtext>
+        <changelogtext>fix progressbar max</changelogtext>
+        <changelogtext>fix book adds to download list when it should not</changelogtext>
+        <changelogtext>fix crash on null pdf inputstream</changelogtext>
+        <changelogtext>fix crash with transition on android 8.0</changelogtext>
+        <changelogtext>fix onclearfromrecentservice missing super call</changelogtext>
+        <changelogtext>fix open book from browser did not show bookmark dialog</changelogtext>
+        <changelogtext>fix preload book into wrong directory</changelogtext>
+        <changelogtext>fix browse history remained after server change</changelogtext>
+        <changelogtext>update kotlin to 1.2.51 from 1.2.50</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Jun 28, 2018"
         versionName="1.0.3">
         <changelogtext>add open series and copy to clipboard to reader info dialog</changelogtext>
