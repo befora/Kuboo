@@ -164,7 +164,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
 
     private fun ProgressBar.loadProgress(holder: DownloadHolder) {
         val book = data[holder.adapterPosition]
-        max = book.totalPages
+        max = book.totalPages - 1
         progress = book.currentPage
         visible()
     }
