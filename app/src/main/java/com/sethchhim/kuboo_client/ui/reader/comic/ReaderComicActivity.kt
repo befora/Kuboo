@@ -44,7 +44,6 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
             R.id.reader_aspect_fit_width -> setScaleType(item, 2)
             R.id.reader_dual_pane_mode -> onSelectDualPane()
             R.id.reader_manga_mode -> onSelectMangaMode()
-            R.id.reader_info -> showDialogInfo(currentBook)
         }
         return super.onOptionsItemSelected(item)
     }

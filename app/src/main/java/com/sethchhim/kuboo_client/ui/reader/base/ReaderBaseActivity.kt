@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.reader.base
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.MenuItem
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
@@ -31,6 +32,13 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
 
         viewModel.clearReaderLists()
         populateNeighbors()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.reader_info -> showDialogInfo(currentBook)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() = when (systemUtil.isHardwareNavigation()) {
