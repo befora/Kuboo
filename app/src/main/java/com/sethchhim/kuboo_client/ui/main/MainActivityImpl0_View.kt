@@ -19,11 +19,11 @@ import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserSearchFragment
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
+import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
+import com.sethchhim.kuboo_client.ui.main.home.HomeFragmentImpl1_Content
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragmentImpl0_View
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
-import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
-import com.sethchhim.kuboo_client.ui.main.recent.RecentFragmentImpl1_Content
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragmentImp0_View
 import com.sethchhim.kuboo_client.ui.state.FailFragment
@@ -40,7 +40,7 @@ open class MainActivityImpl0_View : BaseActivity() {
     @Inject lateinit var browserRecentFragment: BrowserRecentFragment
     @Inject lateinit var browserRemoteFragment: BrowserRemoteFragment
     @Inject lateinit var downloadFragment: DownloadsFragment
-    @Inject lateinit var recentFragment: RecentFragment
+    @Inject lateinit var homeFragment: HomeFragment
     @Inject lateinit var settingsFragment: SettingsFragment
 
     @Inject lateinit var failFragment: FailFragment
@@ -100,7 +100,7 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     protected fun setCurrentTitle() {
         when (getCurrentFragment()) {
-            is RecentFragment -> title = getString(R.string.title_home)
+            is HomeFragment -> title = getString(R.string.title_home)
             is BrowserRemoteFragment -> title = getString(R.string.title_browse)
             is DownloadsFragment -> title = getString(R.string.title_downloads)
             is SettingsFragment -> title = getString(R.string.title_settings)
@@ -135,7 +135,7 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     protected fun showFragmentHome() = when (viewModel.isLoginListEmpty() || viewModel.isActiveLoginEmpty()) {
         true -> supportFragmentManager.show(welcomeFragment, R.id.main_layout_base_frameLayout)
-        false -> supportFragmentManager.show(recentFragment, R.id.main_layout_base_frameLayout)
+        false -> supportFragmentManager.show(homeFragment, R.id.main_layout_base_frameLayout)
     }
 
     protected fun isHomeSelected() = bottomNav.selectedItemId == R.id.navigation_home
@@ -152,7 +152,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         is LoginBrowserFragmentImpl0_View -> getString(R.string.login_servers)
         is LoginEditFragment -> getString(R.string.login_edit_server)
         is SettingsFragmentImp0_View -> getString(R.string.main_settings)
-        is RecentFragmentImpl1_Content -> getString(R.string.main_read_now)
+        is HomeFragmentImpl1_Content -> getString(R.string.main_read_now)
         is WelcomeFragment -> getString(R.string.main_home_welcome)
         else -> "ERROR"
     }

@@ -20,9 +20,9 @@ import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserSearchFragment
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
+import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
-import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
@@ -163,7 +163,7 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
         when (item.itemId) {
             R.id.navigation_home -> {
                 when (currentFragment) {
-                    is RecentFragment -> recentFragment.scrollToFirstRecent()
+                    is HomeFragment -> homeFragment.scrollToFirstRecent()
                     else -> {
                         setStateLoading()
                         viewModel.cancelAllPing()

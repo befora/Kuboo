@@ -5,9 +5,9 @@ import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserSearchFragment
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
+import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
-import com.sethchhim.kuboo_client.ui.main.recent.RecentFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 import com.sethchhim.kuboo_client.ui.scope.HomeScope
 import com.sethchhim.kuboo_client.ui.state.FailFragment
@@ -41,7 +41,7 @@ internal abstract class MainModuleSub {
 
     @HomeScope
     @ContributesAndroidInjector
-    internal abstract fun recentFragment(): RecentFragment
+    internal abstract fun recentFragment(): HomeFragment
 
     @HomeScope
     @ContributesAndroidInjector

@@ -15,8 +15,8 @@ import com.sethchhim.kuboo_client.ui.about.adapter.LicenseAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadsAdapter
+import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
-import com.sethchhim.kuboo_client.ui.main.recent.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragmentImp0_View
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
 import com.sethchhim.kuboo_client.ui.scope.AppScope
