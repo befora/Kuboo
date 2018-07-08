@@ -2,9 +2,11 @@ package com.sethchhim.kuboo_client.ui.main
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
+import android.content.Intent
 import com.sethchhim.kuboo_client.Extensions.millisecondsToSeconds
 import com.sethchhim.kuboo_client.Extensions.minutesToMilliseconds
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import timber.log.Timber
 import java.util.*
 import kotlin.concurrent.timer
@@ -24,6 +26,10 @@ open class MainActivityImpl3_Service : MainActivityImpl2_Selection() {
     internal fun setDownloadTrackingService() {
         startSeriesDownloadService()
         setDownloadTrackingTimer()
+    }
+
+    protected fun setOnClearFromRecentService() {
+        startService(Intent(this, OnClearFromRecentService::class.java))
     }
 
     private fun setDownloadTrackingTimer() {

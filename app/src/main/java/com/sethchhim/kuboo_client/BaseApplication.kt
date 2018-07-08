@@ -1,10 +1,8 @@
 package com.sethchhim.kuboo_client
 
-import android.content.Intent
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.di.AppComponent
 import com.sethchhim.kuboo_client.di.DaggerAppComponent
-import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import com.sethchhim.kuboo_client.util.SharedPrefsHelper
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Login
@@ -44,9 +42,6 @@ class BaseApplication : DaggerApplication() {
                         password = ""))
             }
         }
-
-        //on application exit service
-        startService(Intent(this, OnClearFromRecentService::class.java))
 
         //restore settings
         sharedPrefsHelper.restoreSettings()
