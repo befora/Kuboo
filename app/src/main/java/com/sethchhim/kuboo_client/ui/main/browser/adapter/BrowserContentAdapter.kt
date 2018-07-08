@@ -82,6 +82,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         //reset views to default state
         when (holder.itemViewType) {
             Browser.FOLDER -> {
+                Glide.with(browserFragment).clear(holder.itemView.browser_item_content_folder_imageView3)
                 holder.itemView.browser_item_content_folder_imageView1.visible()
                 holder.itemView.browser_item_content_folder_imageView2.visible()
                 holder.itemView.browser_item_content_folder_imageView3.invisible()
