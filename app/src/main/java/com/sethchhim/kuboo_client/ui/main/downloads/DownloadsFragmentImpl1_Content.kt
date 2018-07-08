@@ -97,7 +97,10 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
             private fun handleTab(position: Int) {
                 when (position) {
                     0 -> kubooRemote.pauseAll()
-                    1 -> kubooRemote.resumeAll()
+                    1 -> {
+                        mainActivity.startSeriesDownloadService()
+                        kubooRemote.resumeAll()
+                    }
                 }
             }
         })
