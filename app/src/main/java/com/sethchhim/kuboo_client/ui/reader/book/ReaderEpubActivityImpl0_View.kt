@@ -13,7 +13,6 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.toast
-import java.util.concurrent.TimeUnit
 
 @SuppressLint("Registered")
 open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
@@ -51,8 +50,10 @@ open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
     private fun showEnterTransition() {
         launch(UI) {
             try {
-                delay(1200, TimeUnit.MILLISECONDS)
+                delay(1200)
                 previewImageView.slideOut()
+                delay(300)
+                previewImageView.isAnimatingTransition = false
             } catch (e: RuntimeException) {
                 e.printStackTrace()
             }

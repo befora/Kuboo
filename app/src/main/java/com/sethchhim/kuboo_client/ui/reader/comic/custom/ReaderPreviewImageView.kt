@@ -16,6 +16,8 @@ class ReaderPreviewImageView @JvmOverloads constructor(private val ctx: Context,
     private val slideOutLeftAnimation: Animation by lazy { AnimationUtils.loadAnimation(ctx, R.anim.slide_out_left) }
     private val slideOutRightAnimation: Animation by lazy { AnimationUtils.loadAnimation(ctx, R.anim.slide_out_right) }
 
+    internal var isAnimatingTransition = true
+
     internal fun slideIn() {
         visibility = View.VISIBLE
         when (Settings.RTL) {

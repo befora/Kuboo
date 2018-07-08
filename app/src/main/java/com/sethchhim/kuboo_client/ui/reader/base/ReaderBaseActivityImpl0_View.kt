@@ -64,15 +64,18 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     protected fun hideReaderToolbar() = supportActionBar?.hide()
 
     protected fun showExitTransition() {
-        launch(UI) {
-            try {
-                showStatusBar()
-                delay(300)
-                previewImageView.slideIn()
-                delay(800, TimeUnit.MILLISECONDS)
-                super.onBackPressed()
-            } catch (e: Exception) {
-                Timber.e(e)
+        if (!previewImageView.isAnimatingTransition) {
+            launch(UI) {
+                try {
+                    previewImageView.isAnimatingTransition = true
+                    showStatusBar()
+                    delay(300)
+                    previewImageView.slideIn()
+                    delay(800, TimeUnit.MILLISECONDS)
+                    super.onBackPressed()
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
             }
         }
     }

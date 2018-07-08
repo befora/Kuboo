@@ -69,6 +69,8 @@ open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
                 delay(1200, TimeUnit.MILLISECONDS)
                 previewImageView.slideOut()
                 showViewPager()
+                delay(300)
+                previewImageView.isAnimatingTransition = false
             } catch (e: RuntimeException) {
                 e.printStackTrace()
             }
