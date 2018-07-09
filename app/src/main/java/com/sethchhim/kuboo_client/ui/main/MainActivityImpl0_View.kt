@@ -98,15 +98,6 @@ open class MainActivityImpl0_View : BaseActivity() {
         if (::searchMenuItem.isInitialized && searchMenuItem.isActionViewExpanded) searchMenuItem.collapseActionView()
     }
 
-    protected fun setCurrentTitle() {
-        when (getCurrentFragment()) {
-            is HomeFragment -> title = getString(R.string.title_home)
-            is BrowserRemoteFragment -> title = getString(R.string.title_browse)
-            is DownloadsFragment -> title = getString(R.string.title_downloads)
-            is SettingsFragment -> title = getString(R.string.title_settings)
-        }
-    }
-
     protected fun onBackPressedBrowserRemote() {
         val previousBook = viewModel.getPreviousBook()
         when (previousBook != null) {

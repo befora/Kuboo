@@ -31,15 +31,28 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout_base)
         ButterKnife.bind(this)
-
-        setTitle(R.string.main_read_now)
+        setTitle(R.string.title_home)
         setSupportActionBar(toolbar)
-
-        showChangeLog()
 
         bottomNav.setOnNavigationItemSelectedListener(this)
         bottomNav.setOnNavigationItemReselectedListener(this)
         bottomNav.disableShiftMode()
+
+        showChangeLog()
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            when (getCurrentFragment()) {
+                is DownloadsFragment -> title = getString(R.string.title_downloads)
+                is BrowserLatestFragment -> title = getString(R.string.main_latest_added)
+                is BrowserRecentFragment -> title = getString(R.string.main_recently_viewed)
+                is BrowserRemoteFragment -> title = getString(R.string.title_browse)
+                is BrowserSeriesFragment -> title = getString(R.string.main_series)
+                is HomeFragment -> title = getString(R.string.title_home)
+                is LoginBrowserFragment -> title = getString(R.string.login_servers)
+                is LoginEditFragment -> title = getString(R.string.login_edit_server)
+                is SettingsFragment -> title = getString(R.string.title_settings)
+            }
+        }
 
         loginLiveData.removeAllObservers(this)
         loginLiveData = viewModel.activeLoginLiveData.apply {
@@ -126,8 +139,6 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
                 R.id.navigation_downloads -> selectHome()
             }
         }
-
-        setCurrentTitle()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
