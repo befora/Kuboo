@@ -44,6 +44,7 @@ open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
 
     protected fun onLoadPreviewFail() {
         supportStartPostponedEnterTransition()
+        previewImageView.isAnimatingTransition = false
         previewImageView.gone()
     }
 

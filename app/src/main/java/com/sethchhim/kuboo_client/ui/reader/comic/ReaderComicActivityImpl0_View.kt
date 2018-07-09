@@ -33,12 +33,14 @@ open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
 
     protected fun onLoadPreviewSuccessResume() {
         supportStartPostponedEnterTransition()
+        previewImageView.isAnimatingTransition = false
         previewImageView.gone()
         showViewPager()
     }
 
     protected fun onLoadPreviewFail() {
         supportStartPostponedEnterTransition()
+        previewImageView.isAnimatingTransition = false
         previewImageView.gone()
         showViewPager()
     }
