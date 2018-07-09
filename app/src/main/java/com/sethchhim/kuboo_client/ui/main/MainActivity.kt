@@ -40,19 +40,7 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
 
         showChangeLog()
 
-        supportFragmentManager.addOnBackStackChangedListener {
-            when (getCurrentFragment()) {
-                is DownloadsFragment -> title = getString(R.string.title_downloads)
-                is BrowserLatestFragment -> title = getString(R.string.main_latest_added)
-                is BrowserRecentFragment -> title = getString(R.string.main_recently_viewed)
-                is BrowserRemoteFragment -> title = getString(R.string.title_browse)
-                is BrowserSeriesFragment -> title = getString(R.string.main_series)
-                is HomeFragment -> title = getString(R.string.title_home)
-                is LoginBrowserFragment -> title = getString(R.string.login_servers)
-                is LoginEditFragment -> title = getString(R.string.login_edit_server)
-                is SettingsFragment -> title = getString(R.string.title_settings)
-            }
-        }
+        supportFragmentManager.addOnBackStackChangedListener { setTitleByCurrentFragment() }
 
         loginLiveData.removeAllObservers(this)
         loginLiveData = viewModel.activeLoginLiveData.apply {
