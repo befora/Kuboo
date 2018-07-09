@@ -143,7 +143,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                 observe(downloadsFragment, Observer {
                     it?.let {
                         downloadsFragment.handleResult(it)
-                        mainActivity.startSeriesDownload(book)
+                        mainActivity.startTrackingByBook(book)
                     }
                 })
             })
@@ -158,7 +158,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                     }
                 })
             })
-            mainActivity.stopSeriesDownload(book)
+            mainActivity.stopTrackingByBook(book)
         }
     }
 

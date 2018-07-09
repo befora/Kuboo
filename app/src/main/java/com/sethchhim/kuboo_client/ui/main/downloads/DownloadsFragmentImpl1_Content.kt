@@ -98,7 +98,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
                 when (position) {
                     0 -> kubooRemote.pauseAll()
                     1 -> {
-                        mainActivity.startSeriesDownloadService()
+                        mainActivity.startTrackingService()
                         kubooRemote.resumeAll()
                     }
                 }

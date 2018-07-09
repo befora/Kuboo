@@ -7,18 +7,18 @@ import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
 
 @SuppressLint("Registered")
-open class BaseActivityImpl2_DownloadStart : BaseActivityImpl1_ReadStart() {
+open class BaseActivityImpl2_Tracking : BaseActivityImpl1_Read() {
 
     private lateinit var startSeriesBook: Book
 
-    fun startSeriesDownloadService() = viewModel.getDownloadListFavoriteCompressed()
+    internal fun startTrackingService() = viewModel.getDownloadListFavoriteCompressed()
             .filter { it.isFavorite }
             .forEach {
                 viewModel.deleteDownloadsBefore(it)
-                startSeriesDownload(it)
+                startTrackingByBook(it)
             }
 
-    fun startSeriesDownload(book: Book) {
+    internal fun startTrackingByBook(book: Book) {
         startSeriesBook = book
         if (viewModel.getActiveServer() == startSeriesBook.server) {
             val startTime = System.currentTimeMillis()
@@ -31,7 +31,7 @@ open class BaseActivityImpl2_DownloadStart : BaseActivityImpl1_ReadStart() {
         }
     }
 
-    fun stopSeriesDownload(book: Book) = viewModel.getDownloadList()
+    internal fun stopTrackingByBook(book: Book) = viewModel.getDownloadList()
             .filter { it.getXmlId() == book.getXmlId() }
             .sortedBy { it.id }
             .filterIndexed { i, _ -> i != 0 }
@@ -45,7 +45,7 @@ open class BaseActivityImpl2_DownloadStart : BaseActivityImpl1_ReadStart() {
         val isRequireNextPage = seriesNeighbors.size < Settings.DOWNLOAD_TRACKING_LIMIT && linkNext.isNotEmpty()
         when (isRequireNextPage) {
             true -> getRemainingSeriesNeighbors(seriesNeighbors, linkNext, startTime)
-            false -> handleResultFinal(seriesNeighbors, startSeriesBook, startTime)
+            false -> handleResultFinal(seriesNeighbors, startTime)
         }
     }
 
@@ -65,9 +65,10 @@ open class BaseActivityImpl2_DownloadStart : BaseActivityImpl1_ReadStart() {
         })
     }
 
-    private fun handleResultFinal(seriesNeighbors: MutableList<Book>, book: Book, startTime: Long) {
+    private fun handleResultFinal(seriesNeighbors: MutableList<Book>, startTime: Long) {
         if (seriesNeighbors.isNotEmpty()) viewModel.startDownloads(seriesNeighbors, Settings.DOWNLOAD_SAVE_PATH)
-        Timber.d("Finished ${System.currentTimeMillis() - startTime}")
+        val elapsedTime = System.currentTimeMillis() - startTime
+        Timber.d("Tracking service finished [$elapsedTime ms]")
     }
 
 }

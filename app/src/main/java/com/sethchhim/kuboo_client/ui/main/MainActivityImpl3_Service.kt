@@ -24,7 +24,7 @@ open class MainActivityImpl3_Service : MainActivityImpl2_Selection() {
 
 
     internal fun setDownloadTrackingService() {
-        startSeriesDownloadService()
+        startTrackingService()
         setDownloadTrackingTimer()
     }
 
@@ -36,7 +36,7 @@ open class MainActivityImpl3_Service : MainActivityImpl2_Selection() {
         if (downloadTrackingTimer != null) downloadTrackingTimer!!.cancel()
         setNextUpdateTimer()
         downloadTrackingTimer = timer(startAt = Date(), period = Settings.DOWNLOAD_TRACKING_INTERVAL.minutesToMilliseconds(), action = {
-            startSeriesDownloadService()
+            startTrackingService()
             setNextUpdateTimer()
             Timber.i("Download tracking service started.")
         })

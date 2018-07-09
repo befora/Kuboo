@@ -6,7 +6,7 @@ import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_remote.model.Book
 
 @SuppressLint("Registered")
-open class BaseActivity : BaseActivityImpl2_DownloadStart() {
+open class BaseActivity : BaseActivityImpl2_Tracking() {
 
     protected var isFirstRun = true
 

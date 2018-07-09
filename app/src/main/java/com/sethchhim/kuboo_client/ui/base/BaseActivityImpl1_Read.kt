@@ -31,7 +31,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.io.File
 
 @SuppressLint("Registered")
-open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
+open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
 
     internal fun startPreview(readData: ReadData) = when (Settings.PREVIEW) {
         true -> startPreviewActivity(readData)
@@ -74,7 +74,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
             when (readerClass == null) {
                 true -> showToastFileTypeNotSupported()
                 false -> {
-                    val intent = Intent(this@BaseActivityImpl1_ReadStart, readerClass).apply {
+                    val intent = Intent(this@BaseActivityImpl1_Read, readerClass).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
                         putExtra(Constants.ARG_BOOK, book)
                         putExtra(Constants.ARG_TRANSITION_URL, sharedElement?.transitionName)
@@ -83,12 +83,12 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
                     when (requestFinish) {
                         true -> {
                             finishAndRemoveTask()
-                            this@BaseActivityImpl1_ReadStart.startActivity(intent)
+                            this@BaseActivityImpl1_Read.startActivity(intent)
                         }
                         false -> when (sharedElement == null) {
-                            true -> this@BaseActivityImpl1_ReadStart.startActivity(intent)
+                            true -> this@BaseActivityImpl1_Read.startActivity(intent)
                             false -> {
-                                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_ReadStart, sharedElement!!, sharedElement!!.transitionName)
+                                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_Read, sharedElement!!, sharedElement!!.transitionName)
                                 startActivity(intent, options.toBundle())
                             }
                         }
@@ -105,16 +105,16 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
 
     private fun startPreviewActivity(readData: ReadData) {
         readData.apply {
-            val intent = Intent(this@BaseActivityImpl1_ReadStart, PreviewActivity::class.java).apply {
+            val intent = Intent(this@BaseActivityImpl1_Read, PreviewActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
                 putExtra(Constants.ARG_BOOK, book)
                 putExtra(Constants.ARG_TRANSITION_URL, sharedElement?.transitionName)
             }
 
             sharedElement?.let {
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_ReadStart, it, it.transitionName)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_Read, it, it.transitionName)
                 startActivity(intent, options.toBundle())
-            } ?: this@BaseActivityImpl1_ReadStart.startActivity(intent)
+            } ?: this@BaseActivityImpl1_Read.startActivity(intent)
         }
     }
 
@@ -158,7 +158,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
         when (localBookmark != null) {
             true ->
                 //Bookmark Stage 2a: Search for remote bookmark of local bookmark
-                viewModel.getRemoteUserApi(localBookmark!!).observe(this@BaseActivityImpl1_ReadStart, Observer { result ->
+                viewModel.getRemoteUserApi(localBookmark!!).observe(this@BaseActivityImpl1_Read, Observer { result ->
                     isLoadingRequired = false
 
                     if (!isLoadingCancelled) when (result != null) {
@@ -168,7 +168,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
                 })
             false ->
                 //Bookmark Stage 2b: Search for remote bookmark of selected book
-                viewModel.getRemoteUserApi(book).observe(this@BaseActivityImpl1_ReadStart, Observer { result ->
+                viewModel.getRemoteUserApi(book).observe(this@BaseActivityImpl1_Read, Observer { result ->
                     isLoadingRequired = false
 
                     if (!isLoadingCancelled) when (result != null) {
@@ -241,7 +241,7 @@ open class BaseActivityImpl1_ReadStart : BaseActivityImpl0_View() {
             progressBar.max = savedBook.totalPages
             progressBar.progress = savedBook.currentPage
 
-            Glide.with(this@BaseActivityImpl1_ReadStart)
+            Glide.with(this@BaseActivityImpl1_Read)
                     .load(bookmarkPreviewUrl)
                     .apply(RequestOptions()
                             .priority(Priority.IMMEDIATE)
