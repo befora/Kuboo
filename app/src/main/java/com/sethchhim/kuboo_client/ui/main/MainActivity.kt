@@ -15,10 +15,7 @@ import com.sethchhim.kuboo_client.Extensions.disableShiftMode
 import com.sethchhim.kuboo_client.Extensions.getVisibleFragment
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRecentFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSearchFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
+import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
@@ -115,6 +112,7 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
 
     override fun onBackPressed() {
         when (getCurrentFragment()) {
+            is BrowserLatestFragment -> supportFragmentManager.popBackStackImmediate()
             is BrowserRecentFragment -> supportFragmentManager.popBackStackImmediate()
             is BrowserRemoteFragment -> onBackPressedBrowserRemote()
             is BrowserSearchFragment -> supportFragmentManager.popBackStackImmediate()

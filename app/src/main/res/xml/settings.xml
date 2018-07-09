@@ -12,6 +12,17 @@
             android:title="@string/settings_active_server"/>
     </android.support.v7.preference.PreferenceCategory>
 
+    <!-- HOME -->
+    <android.support.v7.preference.PreferenceCategory
+        android:key="category_home"
+        android:layout="@layout/settings_item_category"
+        android:title="@string/settings_home">
+        <android.support.v7.preference.Preference
+            android:key="settings_home_layout"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="@string/settings_layout"/>
+    </android.support.v7.preference.PreferenceCategory>
+
     <!-- BROWSER -->
     <android.support.v7.preference.PreferenceCategory
         android:key="category_browser"

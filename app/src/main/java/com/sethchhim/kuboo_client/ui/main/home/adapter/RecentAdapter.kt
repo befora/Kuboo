@@ -3,22 +3,24 @@ package com.sethchhim.kuboo_client.ui.main.home.adapter
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.sethchhim.kuboo_client.BR
 import com.sethchhim.kuboo_client.BaseApplication
-import com.sethchhim.kuboo_client.Constants.HI_DPI_VALUE
-import com.sethchhim.kuboo_client.Constants.PAGE_NOT_FOUND_LENGTH
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.R
@@ -58,8 +60,6 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
     private val mainActivity = homeFragmentImpl1Content.mainActivity
     private val layoutManager = homeFragmentImpl1Content.recentRecyclerView.layoutManager as RecentLinearLayoutManager
-    private var isPortrait = systemUtil.isOrientationPortrait()
-    private var systemWidth = systemUtil.getSystemWidth()
 
     override fun convert(helper: RecentHolder, item: Book) {
         val binding = helper.binding
@@ -73,7 +73,6 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         val binding = DataBindingUtil.inflate<BrowserItemRecentBinding>(homeFragmentImpl1Content.layoutInflater, layoutResId, parent, false)
         val view = binding.root
         view.setTag(R.id.BaseQuickAdapter_databinding_support, binding)
-        view.browser_item_recent_constraintLayout.setScale()
         return view
     }
 
@@ -128,22 +127,24 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
                     .load(stringUrl)
                     .into(object : SimpleTarget<File>() {
                         override fun onResourceReady(resource: File, transition: Transition<in File>?) {
-                            Timber.d("$adapterPosition ${resource.length()}")
-                            when (resource.length() == PAGE_NOT_FOUND_LENGTH) {
-                                true -> setStateInvalid()
-                                false -> setStateValid()
-                            }
-
                             Glide.with(itemView.context)
                                     .load(resource)
                                     .apply(RequestOptions()
                                             .priority(Priority.HIGH)
                                             .disallowHardwareConfig()
-                                            .diskCacheStrategy(DiskCacheStrategy.DATA)
                                             .format(DecodeFormat.PREFER_RGB_565)
-                                            .error(Settings.ERROR_DRAWABLE)
-                                            .dontAnimate()
-                                            .dontTransform())
+                                            .error(Settings.ERROR_DRAWABLE))
+                                    .listener(object : RequestListener<Drawable> {
+                                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                            setStateInvalid()
+                                            return false
+                                        }
+
+                                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                            setStateValid()
+                                            return false
+                                        }
+                                    })
                                     .into(itemView.browser_item_recent_imageView)
                         }
                     })
@@ -194,7 +195,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         item?.let {
             viewModel.removeRecent(item).observe(homeFragmentImpl1Content, Observer { result ->
                 Timber.d("Recent removed: position[$position] title[${item.title}]")
-                homeFragmentImpl1Content.handleResult(result)
+                homeFragmentImpl1Content.handleRecentResult(result)
 
                 dialogUtil.getSnackBarDeleteRecent(mainActivity.frameLayout, it).apply {
                     setAction(context.getString(R.string.dialog_undo)) { onClickSnackBarUndoDeleteRecent(item) }
@@ -205,22 +206,8 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
     }
 
     private fun onClickSnackBarUndoDeleteRecent(item: Book) = viewModel.addRecent(item).observe(homeFragmentImpl1Content, Observer { result ->
-        homeFragmentImpl1Content.handleResult(result)
+        homeFragmentImpl1Content.handleRecentResult(result)
     })
-
-    private fun View.setScale() {
-        val layoutParams = this.layoutParams
-        val widthScale = when (isPortrait) {
-            true -> 70
-            false -> when (systemWidth >= HI_DPI_VALUE) {
-                true -> 30
-                false -> 20
-            }
-        }
-        val newWidth = systemWidth * (widthScale * .01)
-        layoutParams.width = newWidth.toInt()
-        this.layoutParams = layoutParams
-    }
 
     internal fun update(result: List<Book>) {
         val diffUtilHelper = DiffUtilHelper(this)
@@ -246,4 +233,3 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
     }
 
 }
-

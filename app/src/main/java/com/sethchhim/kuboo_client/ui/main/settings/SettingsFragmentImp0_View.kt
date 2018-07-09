@@ -44,6 +44,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var downloadTrackingInterval: Preference
     protected lateinit var epubTextZoomPreference: Preference
     protected lateinit var epubMarginPreference: Preference
+    protected lateinit var homeLayoutPreference: Preference
     protected lateinit var serverLoginPreference: Preference
     protected lateinit var systemOrientationPreference: Preference
     protected lateinit var systemThemePreference: Preference
@@ -63,6 +64,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         downloadTrackingInterval = findPreference("settings_download_tracking_interval")
         epubTextZoomPreference = findPreference("settings_epub_text_zoom")
         epubMarginPreference = findPreference("settings_epub_margin")
+        homeLayoutPreference = findPreference("settings_home_layout")
         serverLoginPreference = findPreference("settings_server_login")
         systemOrientationPreference = findPreference("settings_system_orientation")
         systemThemePreference = findPreference("settings_system_theme")

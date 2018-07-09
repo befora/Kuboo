@@ -110,6 +110,17 @@ class DialogUtil(val context: Context) {
         }
     }.create()
 
+    internal fun getDialogHomeLayout(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {
+        setSingleChoiceItems(context.resources.getStringArray(R.array.settings_layout_entries), Settings.HOME_LAYOUT) { dialog, which ->
+            when (which) {
+                0 -> onDialogSelect2.onSelect0()
+                1 -> onDialogSelect2.onSelect1()
+                2 -> onDialogSelect2.onSelect2()
+            }
+            dialog.dismiss()
+        }
+    }.create()
+
     internal fun getDialogHttps(context: Context, tlsCipherSuite: String) = getAlertDialogBuilder(context).apply {
         setTitle(context.getString(R.string.dialog_connection_is_encrypted))
         setMessage(tlsCipherSuite)

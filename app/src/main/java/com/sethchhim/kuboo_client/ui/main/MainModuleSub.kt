@@ -1,9 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main
 
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRecentFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSearchFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
+import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
@@ -50,6 +47,10 @@ internal abstract class MainModuleSub {
     @HomeScope
     @ContributesAndroidInjector
     internal abstract fun welcomeFragment(): WelcomeFragment
+
+    @HomeScope
+    @ContributesAndroidInjector
+    internal abstract fun browserLatestFragment(): BrowserLatestFragment
 
     @HomeScope
     @ContributesAndroidInjector

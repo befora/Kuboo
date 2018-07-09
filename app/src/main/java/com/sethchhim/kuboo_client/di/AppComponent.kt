@@ -15,6 +15,7 @@ import com.sethchhim.kuboo_client.ui.about.adapter.LicenseAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadsAdapter
+import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragmentImp0_View
@@ -31,24 +32,25 @@ interface AppComponent : AndroidInjector<BaseApplication> {
 
     override fun inject(baseApplication: BaseApplication)
 
-    fun inject(glideModule: GlideModule)
-    fun inject(glideLocalFetcher: GlideLocalFetcher)
-    fun inject(glideRemoteFetcher: GlideRemoteFetcher)
 
     fun inject(aboutPagerAdapter: AboutPagerAdapter)
     fun inject(browserContentAdapter: BrowserContentAdapter)
     fun inject(browserPathAdapter: BrowserPathAdapter)
     fun inject(downloadsAdapter: DownloadsAdapter)
     fun inject(faqAdapter: FaqAdapter)
+    fun inject(glideLocalFetcher: GlideLocalFetcher)
+    fun inject(glideModule: GlideModule)
+    fun inject(glidePassthroughFetcher: GlidePassthroughFetcher)
+    fun inject(glideRemoteFetcher: GlideRemoteFetcher)
+    fun inject(intentService: IntentService)
+    fun inject(latestAdapter: LatestAdapter)
+    fun inject(licenseAdapter: LicenseAdapter)
     fun inject(loginAdapter: LoginAdapter)
+    fun inject(onClearFromRecentService: OnClearFromRecentService)
     fun inject(readerComicAdapter: ReaderComicAdapter)
     fun inject(recentAdapter: RecentAdapter)
-    fun inject(task_LocalBase: Task_LocalBase)
     fun inject(settingsFragment: SettingsFragmentImp0_View)
-    fun inject(intentService: IntentService)
-    fun inject(onClearFromRecentService: OnClearFromRecentService)
-    fun inject(glidePassthroughFetcher: GlidePassthroughFetcher)
-    fun inject(licenseAdapter: LicenseAdapter)
+    fun inject(task_LocalBase: Task_LocalBase)
 
     @Component.Builder
     interface Builder {

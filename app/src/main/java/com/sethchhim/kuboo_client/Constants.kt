@@ -9,6 +9,7 @@ object Constants {
 
     internal const val DATABASE_NAME = "ROOM_DATABASE"
     internal const val DATABASE_VERSION = 1
+
     internal const val ARG_BOOK = "ARG_BOOK"
     internal const val ARG_LOCAL = "ARG_LOCAL"
     internal const val ARG_OVERLAY = "ARG_OVERLAY"
@@ -31,6 +32,7 @@ object Constants {
     internal const val KEY_EPUB_MARGIN_SIZE = "KEY_EPUB_MARGIN_SIZE"
     internal const val KEY_FAVORITE = "FAVORITE"
     internal const val KEY_FIRST_DOWNLOAD = "KEY_FIRST_DOWNLOAD"
+    internal const val KEY_HOME_LAYOUT = "KEY_HOME_LAYOUT"
     internal const val KEY_LOGIN_LIST = "KEY_LOGIN_LIST"
     internal const val KEY_MARK_FINISHED = "KEY_MARK_FINISHED"
     internal const val KEY_MAX_PAGE_WIDTH = "KEY_MAX_PAGE_WIDTH"
@@ -42,9 +44,6 @@ object Constants {
     internal const val KEY_SINGLE = "KEY_SINGLE"
     internal const val KEY_TASK_PING = "KEY_TASK_PING"
     internal const val KEY_WIFI_ONLY = "KEY_SHAREDPREFS_WIFI_ONLY"
-    internal const val KEY_XML_ID_COUNT = "KEY_XML_ID_COUNT"
-
-    internal const val REQUEST_CODE_FOLDER_PICKER = 100
 
     internal const val URL_PATH_ROOT = "all?groupByFolder=true"
     internal const val URL_PATH_SEARCH = "?search=true&searchstring="

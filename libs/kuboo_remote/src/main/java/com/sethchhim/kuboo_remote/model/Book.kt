@@ -249,6 +249,8 @@ data class Book(
 
     fun getAcquisitionUrl() = server + linkAcquisition
 
+    fun getPreviewUrl() = server + linkThumbnail
+
     fun getPreviewUrl(maxWidth: Int) = server + getPseCover(maxWidth)
 
     fun getPreviewUrl(login: Login, maxWidth: Int) = login.server + getPseCover(maxWidth)

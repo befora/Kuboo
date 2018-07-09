@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/browser_item_recent_constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingEnd="8dp"
         android:paddingStart="8dp">
@@ -19,6 +19,7 @@
             android:id="@+id/browser_item_recent_imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="W,1:1.5"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toTopOf="@+id/browser_item_recent_progressBar1"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,9 @@
 package com.sethchhim.kuboo_client.ui.main.home
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.constraint.Guideline
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +14,7 @@ import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.util.SystemUtil
@@ -27,8 +31,18 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
     @BindView(R.id.home_layout_recent_textView3) lateinit var recentEmptyTextView: TextView
     @BindView(R.id.home_layout_recent_recyclerView) lateinit var recentRecyclerView: RecyclerView
 
+    lateinit var constraintLayout: ConstraintLayout
+    lateinit var guideline: Guideline
+    lateinit var latestMoreTextView: TextView
+    lateinit var latestEmptyTextView: TextView
+    lateinit var latestRecyclerView: RecyclerView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.home_layout_recent, container, false)
+        val layout = when (Settings.HOME_LAYOUT) {
+            1 -> R.layout.home_layout_base1
+            else -> R.layout.home_layout_base0
+        }
+        val view = inflater.inflate(layout, container, false)
         ButterKnife.bind(this, view)
         return view
     }
@@ -37,24 +51,60 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
 
     protected fun onClickRecentMoreTextView() = mainActivity.showFragmentBrowserRecent()
 
-    protected fun setStateConnected() {
+    protected fun onClickLatestMoreTextView() = mainActivity.showFragmentBrowserLatest()
+
+    protected fun setRecentStateConnected() {
         recentRecyclerView.fadeVisible()
         recentEmptyTextView.gone()
     }
 
-    protected fun setStateDisconnected() {
+    protected fun setRecentStateDisconnected() {
         recentRecyclerView.gone()
         recentEmptyTextView.fadeVisible()
     }
 
-    protected fun setStateEmpty() {
+    protected fun setRecentStateEmpty() {
         recentRecyclerView.gone()
         recentEmptyTextView.fadeVisible()
     }
 
-    protected fun setStateLoading() {
-        recentRecyclerView.gone()
+    protected fun setRecentStateLoading() {
+//        recentRecyclerView.gone()
         recentEmptyTextView.gone()
+    }
+
+    protected fun setLatestStateConnected() {
+        latestRecyclerView.fadeVisible()
+        latestEmptyTextView.gone()
+    }
+
+    protected fun setLatestStateDisconnected() {
+        latestRecyclerView.gone()
+        latestEmptyTextView.fadeVisible()
+    }
+
+    protected fun setLatestStateEmpty() {
+        latestRecyclerView.gone()
+        latestEmptyTextView.fadeVisible()
+    }
+
+    protected fun setLatestStateLoading() {
+//        latestRecyclerView.gone()
+        latestEmptyTextView.gone()
+    }
+
+    protected fun Guideline.setGuideLinePercent() {
+        val orientation = resources.configuration.orientation
+        setGuidelinePercent(when (mainActivity.isHiDpi()) {
+            true -> when (orientation) {
+                Configuration.ORIENTATION_PORTRAIT -> 0.8F
+                else -> 0.7F
+            }
+            false -> when (orientation) {
+                Configuration.ORIENTATION_PORTRAIT -> 0.6F
+                else -> 0.55F
+            }
+        })
     }
 
 }

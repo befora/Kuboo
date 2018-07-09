@@ -33,6 +33,8 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setDownloadSavePath()
         setDownloadTrackingLimit()
         setDownloadTrackingInterval()
+
+        setHomeLayout()
     }
 
     private fun setAboutVersionPreference() = aboutVersionPreference.apply {
@@ -183,6 +185,31 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
                     summary = "${Settings.EPUB_MARGIN_SIZE}"
                 }
             }
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setHomeLayout() = homeLayoutPreference.apply {
+        val stringArray = resources.getStringArray(R.array.settings_layout_entries)
+        summary = when (Settings.HOME_LAYOUT) {
+            0 -> stringArray[0]
+            1 -> stringArray[1]
+            2 -> stringArray[2]
+            else -> "ERROR"
+        }
+
+        setOnPreferenceClickListener {
+            dialogUtil.getDialogHomeLayout(mainActivity, object : DialogUtil.OnDialogSelect2 {
+                override fun onSelect0() = saveHomeLayout(0)
+                override fun onSelect1() = saveHomeLayout(1)
+                override fun onSelect2() = saveHomeLayout(2)
+
+                private fun saveHomeLayout(layout: Int) {
+                    Settings.HOME_LAYOUT = layout
+                    sharedPrefsHelper.saveHomeLayout()
+                    summary = stringArray[layout]
+                }
+            }).show()
             return@setOnPreferenceClickListener true
         }
     }

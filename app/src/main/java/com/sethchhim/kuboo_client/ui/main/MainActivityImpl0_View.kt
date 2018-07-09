@@ -14,10 +14,7 @@ import com.sethchhim.kuboo_client.Extensions.show
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.about.AboutActivity
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRecentFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSearchFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
+import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragmentImpl1_Content
@@ -37,6 +34,7 @@ import javax.inject.Inject
 @SuppressLint("Registered")
 open class MainActivityImpl0_View : BaseActivity() {
 
+    @Inject lateinit var browserLatestFragment: BrowserLatestFragment
     @Inject lateinit var browserRecentFragment: BrowserRecentFragment
     @Inject lateinit var browserRemoteFragment: BrowserRemoteFragment
     @Inject lateinit var downloadFragment: DownloadsFragment
@@ -83,6 +81,8 @@ open class MainActivityImpl0_View : BaseActivity() {
         hideMenuItemHttps()
         showFragmentLoading()
     }
+
+    internal fun showFragmentBrowserLatest() = supportFragmentManager.show(browserLatestFragment, R.id.main_layout_base_frameLayout)
 
     internal fun showFragmentBrowserRecent() = supportFragmentManager.show(browserRecentFragment, R.id.main_layout_base_frameLayout)
 

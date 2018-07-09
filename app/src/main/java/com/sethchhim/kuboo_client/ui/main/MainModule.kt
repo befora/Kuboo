@@ -1,9 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main
 
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRecentFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserRemoteFragment
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserSeriesFragment
+import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
@@ -22,6 +19,10 @@ class MainModule {
     @Provides
     @MainScope
     fun provideBrowserBaseFragment() = BrowserBaseFragment()
+
+    @Provides
+    @MainScope
+    fun provideBrowserLatestFragment() = BrowserLatestFragment()
 
     @Provides
     @MainScope

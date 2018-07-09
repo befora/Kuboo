@@ -15,6 +15,8 @@ object Settings {
     const val DEFAULT_DOWNLOAD_TRACKING_LIMIT = 3
     const val DEFAULT_DOWNLOAD_TRACKING_INTERVAL = 180 //minutes
 
+    const val DEFAULT_HOME_LAYOUT = 0
+
     //----------------------------------------APP_THEME---------------------------------------------
 
     //0 = LIGHT, 1 = DARK, 2 = OLED
@@ -29,8 +31,10 @@ object Settings {
     //Screen rotation delay before animation.
     const val SHARED_ELEMENT_TRANSITION_DURATION = 350L
 
-    // BROWSER_FILE_LAYOUT 0 = GRID PORTRAIT 3/ LANDSCAPE 4
-    // BROWSER_FILE_LAYOUT 1 = CROP TOP
+    // HOME_LAYOUT 0 = RECENTLY VIEWED ONLY
+    // HOME_LAYOUT 1 = RECENTLY VIEWED + LATEST
+    var HOME_LAYOUT = DEFAULT_HOME_LAYOUT
+
     var IMMERSIVE_BROWSER = false
     var MARK_FINISHED = false
     var REVERSE_LAYOUT = false
