@@ -15,7 +15,7 @@ class Task_RecentInsert(login: Login, book: Book, setTimeAccessed: Boolean) : Ta
     internal val liveData = MutableLiveData<List<Book>>()
 
     init {
-        executors.diskIO.execute {
+        if (!book.isBannedFromRecent()) executors.diskIO.execute {
             try {
                 if (setTimeAccessed) book.setTimeAccessed()
                 when (book.isComic()) {
