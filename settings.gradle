@@ -1,6 +1,5 @@
-include ':app', ':epublibdroid-kotlin', ':junrar', ':kuboo_local', ':kuboo_remote', ':mupdf'
+include ':app', ':epublibdroid-kotlin', ':kuboo_local', ':kuboo_remote', ':mupdf'
 project(':epublibdroid-kotlin').projectDir = new File('libs/epublibdroid-kotlin')
-project(':junrar').projectDir = new File('libs/kuboo_local/libs/junrar')
 project(':kuboo_local').projectDir = new File('libs/kuboo_local')
 project(':kuboo_remote').projectDir = new File('libs/kuboo_remote')
 project(':mupdf').projectDir = new File('libs/mupdf')

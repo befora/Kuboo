@@ -78,9 +78,10 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
-#apache commons compress
--dontwarn org.apache.commons.compress.compressors.**
--dontwarn org.apache.commons.compress.archivers.**
+#apache
+-dontpreverify
+-keep class org.apache.** { *; }
+-dontwarn org.apache.**
 
 #supportlibrary
 -keep public class android.support.v7.widget.** { *; }

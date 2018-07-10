@@ -1,8 +1,9 @@
 package com.sethchhim.kuboo_local.parser
 
-import junrar.Archive
-import junrar.exception.RarException
-import junrar.rarfile.FileHeader
+import com.github.junrar.Archive
+import com.github.junrar.exception.RarException
+import com.github.junrar.impl.FileVolumeManager
+import com.github.junrar.rarfile.FileHeader
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
@@ -20,7 +21,7 @@ class ParserRar : ParserBase(), Parser {
     @Throws(IOException::class)
     override fun parse(file: File) {
         try {
-            mArchive = Archive(file)
+            mArchive = Archive(FileVolumeManager(file))
         } catch (e: RarException) {
             throw IOException("unable to open archive")
         }
