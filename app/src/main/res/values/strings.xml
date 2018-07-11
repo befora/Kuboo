@@ -106,6 +106,7 @@
     <string name="login_active_server_removed">Active server removed!</string>
     <string name="login_add_server">Add Server</string>
     <string name="login_delete_server">Delete Server</string>
+    <string name="login_does_not_contain_opds_books_or_opds_comics">Does not contain /opds-books/ or /opds-comics/</string>
     <string name="login_edit_server">Edit Server</string>
     <string name="login_ip_address">IP Address (Required)</string>
     <string name="login_password">Password (Optional)</string>

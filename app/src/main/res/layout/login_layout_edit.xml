@@ -16,53 +16,65 @@
 
         <!--  Name Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_layout_edit_textInputLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:hint="@string/login_server_name"
+            app:hintTextAppearance="@style/hintTextStyle">
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/login_layout_edit_textInputEditText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_server_name"
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Ip Address Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_layout_edit_textInputLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:hint="@string/login_ip_address"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/errorTextStyle"
+            app:hintAnimationEnabled="true"
+            app:hintTextAppearance="@style/hintTextStyle">
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/login_layout_edit_textInputEditText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_ip_address"
                 android:inputType="textVisiblePassword"
                 android:textSize="12sp"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Username Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_layout_edit_textInputLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:hint="@string/login_username"
+            app:hintTextAppearance="@style/hintTextStyle">
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/login_layout_edit_textInputEditText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_username"
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_layout_edit_textInputLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:hint="@string/login_password"
+            app:hintTextAppearance="@style/hintTextStyle"
             app:passwordToggleContentDescription="@string/login_show"
             app:passwordToggleDrawable="@drawable/asl_password_visibility"
             app:passwordToggleEnabled="true"
@@ -71,7 +83,6 @@
                 android:id="@+id/login_layout_edit_textInputEditText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_password"
                 android:inputType="textPassword"/>
         </android.support.design.widget.TextInputLayout>
 

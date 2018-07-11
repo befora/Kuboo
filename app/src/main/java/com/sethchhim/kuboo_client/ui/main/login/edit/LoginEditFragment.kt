@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.ui.main.login.edit
 
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Constants
-import com.sethchhim.kuboo_client.Constants.ARG_LOGIN
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
@@ -19,6 +19,7 @@ import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_remote.model.Login
 import dagger.android.support.DaggerFragment
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk25.coroutines.textChangedListener
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -31,6 +32,7 @@ open class LoginEditFragment : DaggerFragment() {
     @BindView(R.id.login_layout_edit_textInputEditText2) lateinit var editTextServerAddress: TextInputEditText
     @BindView(R.id.login_layout_edit_textInputEditText3) lateinit var editTextUsername: TextInputEditText
     @BindView(R.id.login_layout_edit_textInputEditText4) lateinit var editTextPassword: TextInputEditText
+    @BindView(R.id.login_layout_edit_textInputLayout2) lateinit var textInputLayoutServer: TextInputLayout
     @BindView(R.id.login_layout_edit_button2) lateinit var addServerButton: Button
     @BindView(R.id.login_layout_edit_button1) lateinit var deleteServerButton: Button
 
@@ -46,6 +48,14 @@ open class LoginEditFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         addServerButton.onClick { onAddServerButtonClicked() }
         deleteServerButton.onClick { onDeleteServerButtonClicked() }
+        editTextServerAddress.textChangedListener {
+            this.onTextChanged { charSequence, _, _, _ ->
+                when (charSequence?.isValid()) {
+                    true -> setStateServerValid()
+                    false -> setStateServerInvalid()
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -104,10 +114,21 @@ open class LoginEditFragment : DaggerFragment() {
         password = editTextPassword.text.toString()
     }
 
+    private fun setStateServerValid() {
+        textInputLayoutServer.error = null
+    }
+
+    private fun setStateServerInvalid() {
+        textInputLayoutServer.error = getString(R.string.login_does_not_contain_opds_books_or_opds_comics)
+    }
+
+    private fun CharSequence.isValid() = contains("/opds-comics/", ignoreCase = true) || contains("/opds-books/", ignoreCase = true)
+
     companion object {
         fun newInstance(login: Login?) = LoginEditFragment().apply {
-            arguments = Bundle().apply { putParcelable(ARG_LOGIN, login) }
+            arguments = Bundle().apply { putParcelable(Constants.ARG_LOGIN, login) }
         }
     }
 
 }
+
