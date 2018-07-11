@@ -109,6 +109,7 @@
     <string name="login_does_not_contain_opds_books_or_opds_comics">Does not contain /opds-books/ or /opds-comics/</string>
     <string name="login_edit_server">Edit Server</string>
     <string name="login_ip_address">IP Address (Required)</string>
+    <string name="login_ip_address_must_not_be_empty">IP Address must not be empty!</string>
     <string name="login_password">Password (Optional)</string>
     <string name="login_server_name">Server Name (Optional)</string>
     <string name="login_server_removed">Server removed!</string>

@@ -20,6 +20,7 @@ import com.sethchhim.kuboo_remote.model.Login
 import dagger.android.support.DaggerFragment
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.textChangedListener
+import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -92,9 +93,14 @@ open class LoginEditFragment : DaggerFragment() {
     }
 
     private fun onAddServerButtonClicked() {
-        login?.let { viewModel.removeLogin(it) }
-        viewModel.addLogin(getLoginFromEditTexts())
-        mainActivity.showFragmentLoginBrowser()
+        when (editTextServerAddress.text.isEmpty()) {
+            true -> toast(getString(R.string.login_ip_address_must_not_be_empty))
+            false -> {
+                login?.let { viewModel.removeLogin(it) }
+                viewModel.addLogin(getLoginFromEditTexts())
+                mainActivity.showFragmentLoginBrowser()
+            }
+        }
     }
 
     private fun onDeleteServerButtonClicked() {
