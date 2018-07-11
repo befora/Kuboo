@@ -197,7 +197,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
             textView.text = savedBook.title
 
             val string0 = if (savedBook.isComic() || savedBook.isPdf()) {
-                "• ${context.getString(R.string.dialog_resume_page)} ${savedBook.currentPage + 1} ${context.getString(R.string.bookmark_of)} ${savedBook.totalPages}"
+                "• ${context.getString(R.string.dialog_resume_page)} ${savedBook.currentPage + 1} ${context.getString(R.string.dialog_of)} ${savedBook.totalPages}"
             } else if (savedBook.isEpub()) {
                 val chapter = try {
                     when (savedBook.bookMark.contains("#")) {

@@ -37,8 +37,6 @@
 
     <string name="app_label">Kuboo</string>
 
-    <string name="bookmark_of">of</string>
-
     <string name="browser_favorite">Favorite</string>
     <string name="browser_folder">Folder</string>
     <string name="browser_media">Media</string>
@@ -48,7 +46,7 @@
 
     <string name="dialog_bookmark_found">Bookmark found!</string>
     <string name="dialog_browse">Browse</string>
-    <string name="dialog_cancel">CANCEL</string>
+    <string name="dialog_cancel">Cancel</string>
     <string name="dialog_connecting_to_server">Connecting to Server</string>
     <string name="dialog_connection_is_encrypted">Connection is encrypted</string>
     <string name="dialog_copy_to_clipboard">Copy to clipboard</string>
@@ -66,6 +64,7 @@
     <string name="dialog_loading_single_pane_mode">Loading single pane mode</string>
     <string name="dialog_local_file">Local File</string>
     <string name="dialog_margin">Margin</string>
+    <string name="dialog_of">of</string>
     <string name="dialog_open_series">Open Series</string>
     <string name="dialog_please_restart_to_apply_changes">Please restart to apply changes.</string>
     <string name="dialog_please_wait">Please wait…</string>
@@ -151,7 +150,7 @@
     <string name="main_start_reading_to_add_items">Start reading to add items!</string>
     <string name="main_text_copied_to_clipboard">Text copied to clipboard</string>
 
-    <string name="notification_cancel">CANCEL</string>
+    <string name="notification_cancel">Cancel</string>
     <string name="notification_download_in_progress">Download in progress…</string>
     <string name="notification_download_in_progress_remaining">Download in progress… %1$s remaining</string>
     <string name="notification_download_service_paused">Download service paused.</string>
@@ -200,10 +199,6 @@
         <item>@string/settings_recently_viewed_only</item>
         <item>@string/settings_recent_viewed_plus_latest</item>
     </string-array>
-    <string-array name="settings_layout_values">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
     <string name="settings_manga_mode">Manga Mode</string>
     <string name="settings_margin">Margin</string>
     <string name="settings_mark_finished">Mark Finished</string>
@@ -214,11 +209,6 @@
         <item>@string/settings_auto</item>
         <item>@string/settings_portrait</item>
         <item>@string/settings_landscape</item>
-    </string-array>
-    <string-array name="settings_orientation_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
     </string-array>
     <string name="settings_portrait">Portrait</string>
     <string name="settings_preview">Preview</string>
@@ -236,11 +226,6 @@
         <item>@string/settings_fit_width</item>
     </string-array>
     <string name="settings_scale_type">Scale Type</string>
-    <string-array name="settings_scale_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
     <string name="settings_server">Server</string>
     <string name="settings_show_favorite_buttons">Show favorite buttons</string>
     <string name="settings_show_preview_page_before_reading">Show preview page before reading</string>
@@ -251,11 +236,6 @@
         <item>Light Theme</item>
         <item>Dark Theme</item>
         <item>OLED Theme</item>
-    </string-array>
-    <string-array name="settings_theme_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
     </string-array>
     <string name="settings_tracking_interval">Tracking Interval</string>
     <string name="settings_tracking_limit">Tracking Limit</string>
