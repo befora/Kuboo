@@ -56,15 +56,12 @@ open class ReaderComicFragment : DaggerFragment() {
         Glide.with(this@ReaderComicFragment)
                 .asBitmap()
                 .load(any)
-                .apply(getRequestOptions())
+                .apply(RequestOptions()
+                        .format(DecodeFormat.PREFER_RGB_565)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .listener(requestListener)
                 .into(this)
     }
-
-
-    private fun getRequestOptions() = RequestOptions()
-            .format(DecodeFormat.PREFER_RGB_565)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
 }
 
