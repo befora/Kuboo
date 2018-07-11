@@ -10,7 +10,7 @@ object Settings {
     internal val CONNECTION_TIMEOUT = 15000
     internal val READ_TIMEOUT = 15000
 
-    internal val CACHE_SIZE = 100 //megabytes
+    internal val CACHE_SIZE = 20 //megabytes
 
     val MAX_PAGE_WIDTH_DEFAULT = 500
 
