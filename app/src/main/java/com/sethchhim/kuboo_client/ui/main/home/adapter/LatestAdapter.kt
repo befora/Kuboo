@@ -23,6 +23,7 @@ import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.databinding.BrowserItemLatestBinding
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragmentImpl1_Content
@@ -116,10 +117,7 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         val item = data[adapterPosition]
         item?.let {
             Timber.d("Latest selected: position[$adapterPosition] title[${item.title}]")
-            mainActivity.startReader(ReadData(
-                    book = item,
-                    bookmarksEnabled = false,
-                    sharedElement = itemView.browser_item_latest_imageView))
+            mainActivity.startReader(ReadData(book = item, bookmarksEnabled = false, sharedElement = itemView.browser_item_latest_imageView, source = Source.LATEST))
         } ?: mainActivity.toast("Failed to find book!")
     }
 

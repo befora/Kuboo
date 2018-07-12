@@ -32,7 +32,7 @@ open class ReaderBaseActivityImpl3_Bookmark : ReaderBaseActivityImpl2_Content() 
     }
 
     private fun updateBookmark() {
-        when (isLocal && isDownload) {
+        when (isDownload) {
             true -> viewModel.addDownload(currentBook)
             false -> {
                 viewModel.addRecent(currentBook)

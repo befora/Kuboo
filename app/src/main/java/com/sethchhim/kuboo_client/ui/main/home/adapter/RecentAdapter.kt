@@ -27,6 +27,7 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.Settings.THUMBNAIL_SIZE_RECENT
 import com.sethchhim.kuboo_client.data.ViewModel
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.databinding.BrowserItemRecentBinding
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragmentImpl1_Content
@@ -183,10 +184,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         val item = viewModel.getRecentAt(adapterPosition)
         item?.let {
             Timber.d("Recent selected: position[$adapterPosition] title[${item.title}]")
-            mainActivity.startReader(ReadData(
-                    book = item,
-                    bookmarksEnabled = false,
-                    sharedElement = itemView.browser_item_recent_imageView))
+            mainActivity.startReader(ReadData(book = item, bookmarksEnabled = false, sharedElement = itemView.browser_item_recent_imageView, source = Source.RECENT))
         } ?: mainActivity.toast("Failed to find book!")
     }
 

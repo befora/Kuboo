@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.base.custom.OnLoadCallback
@@ -28,9 +29,7 @@ open class PreviewActivityImpl0_View : BaseActivity(), OnLoadCallback {
             fab.hide()
             delay(300, TimeUnit.MILLISECONDS)
             try {
-                startReader(ReadData(book = currentBook,
-                        sharedElement = imageView,
-                        onLoadCallback = this@PreviewActivityImpl0_View))
+                startReader(ReadData(book = currentBook, onLoadCallback = this@PreviewActivityImpl0_View, sharedElement = imageView, source = Source.PREVIEW))
             } catch (e: RuntimeException) {
                 e.printStackTrace()
             }

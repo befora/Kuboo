@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.data.model.copyProgress
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
@@ -77,6 +78,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
                     val intent = Intent(this@BaseActivityImpl1_Read, readerClass).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
                         putExtra(Constants.ARG_BOOK, book)
+                        putExtra(Constants.ARG_SOURCE, readData.source)
                         putExtra(Constants.ARG_TRANSITION_URL, sharedElement?.transitionName)
                     }
 
@@ -226,10 +228,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
 
             button0.apply {
                 text = string0
-                val bookmarkReadData = ReadData(
-                        book = savedBook,
-                        bookmarksEnabled = readData.bookmarksEnabled,
-                        sharedElement = imageView)
+                val bookmarkReadData = ReadData(book = savedBook, bookmarksEnabled = readData.bookmarksEnabled, sharedElement = imageView, source = Source.BOOKMARK)
                 this.onClick { onClickBookmarkResume(bookmarkReadData) }
             }
 

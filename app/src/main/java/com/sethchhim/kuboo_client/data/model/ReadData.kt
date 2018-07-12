@@ -1,12 +1,14 @@
 package com.sethchhim.kuboo_client.data.model
 
 import android.widget.ImageView
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.ui.base.custom.OnLoadCallback
 import com.sethchhim.kuboo_remote.model.Book
 
 data class ReadData(var book: Book,
                     var bookmarksEnabled: Boolean = true,
                     var requestFinish: Boolean = false,
+                    var source: Source,
                     var sharedElement: ImageView? = null,
                     var onLoadCallback: OnLoadCallback? = null)
 

@@ -20,6 +20,7 @@ object Constants {
     internal const val ARG_LOGIN = "ARG_LOGIN"
     internal const val ARG_RESPONSE = "ARG_RESPONSE"
     internal const val ARG_SEARCH = "ARG_SEARCH"
+    internal const val ARG_SOURCE = "ARG_SOURCE"
     internal const val ARG_TRANSITION_URL = "ARG_TRANSITION_URL"
 
     internal const val KEY_APP_THEME = "KEY_APP_THEME"

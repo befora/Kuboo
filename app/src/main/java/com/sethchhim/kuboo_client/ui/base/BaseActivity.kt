@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.base
 import android.annotation.SuppressLint
 import android.os.Bundle
 import com.sethchhim.kuboo_client.Constants
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_remote.model.Book
 
 @SuppressLint("Registered")
@@ -24,9 +25,13 @@ open class BaseActivity : BaseActivityImpl2_Tracking() {
             currentBook = getParcelableExtra(Constants.ARG_BOOK) ?: Book()
             previousBook = Book()
             nextBook = Book()
+
             transitionUrl = getStringExtra(Constants.ARG_TRANSITION_URL) ?: ""
+
             isLocal = currentBook.isLocal()
-            isDownload = viewModel.isDownloadContains(currentBook)
+
+            val source = (getSerializableExtra(Constants.ARG_SOURCE) as Source?) ?: Source.UNKNOWN
+            isDownload = source == Source.DOWNLOAD
         }
     }
 

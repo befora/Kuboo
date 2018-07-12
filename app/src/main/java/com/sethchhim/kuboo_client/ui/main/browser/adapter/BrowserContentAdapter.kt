@@ -35,6 +35,7 @@ import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.Browser
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Content
@@ -159,10 +160,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
             val previewUrl = book.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
             val imageView = itemView.browser_item_content_media_imageView
             imageView.transitionName = previewUrl
-            mainActivity.startPreview(ReadData(
-                    book = book,
-                    sharedElement = imageView
-            ))
+            mainActivity.startPreview(ReadData(book = book, sharedElement = imageView, source = Source.BROWSER))
         }
 
         private fun populateContent(book: Book) {

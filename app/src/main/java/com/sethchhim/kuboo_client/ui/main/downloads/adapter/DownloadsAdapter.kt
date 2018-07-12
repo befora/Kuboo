@@ -33,6 +33,7 @@ import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.ViewModel
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragmentImpl1_Content
 import com.sethchhim.kuboo_client.util.DialogUtil
@@ -86,7 +87,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         internal fun onItemSelected() {
             val book = data[adapterPosition]
             viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
-                if (it?.status == Status.COMPLETED) mainActivity.startReader(ReadData(book))
+                if (it?.status == Status.COMPLETED) mainActivity.startReader(ReadData(book = book, source = Source.DOWNLOAD))
             })
         }
 
