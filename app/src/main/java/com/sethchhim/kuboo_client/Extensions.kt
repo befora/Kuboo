@@ -108,7 +108,7 @@ object Extensions {
                 beginTransaction()
                         .replace(containerViewId, fragment, uniqueTag)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .commit()
+                        .commitAllowingStateLoss()
             } else {
                 Timber.i("replaceFragment: name[$uniqueTag] exists[$isFragmentExist]")
                 beginTransaction()

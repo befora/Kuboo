@@ -47,8 +47,6 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
             observe(this@MainActivity, Observer { result -> onActiveLoginChanged(result) })
         }
 
-
-        setStateLoading()
         setDownloadTrackingService()
         setOnClearFromRecentService()
     }
@@ -90,6 +88,7 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
+        setStateLoading()
         setActiveLogin()
     }
 
