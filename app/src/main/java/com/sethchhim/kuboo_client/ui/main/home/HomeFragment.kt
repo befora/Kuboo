@@ -24,6 +24,7 @@ class HomeFragment : HomeFragmentImpl1_Content() {
                 guideline = view.findViewById(R.id.home_layout_base1_guideline)
                 guideline.setGuideLinePercent()
                 constraintLayout = view.findViewById(R.id.home_layout_base1_constraintLayout)
+                scrollView = view.findViewById(R.id.home_layout_base1_scrollView)
                 latestRecyclerView = view.findViewById(R.id.home_layout_latest_recyclerView)
                 latestMoreTextView = view.findViewById(R.id.home_layout_latest_textView2)
                 latestEmptyTextView = view.findViewById(R.id.home_layout_latest_textView3)
@@ -54,6 +55,16 @@ class HomeFragment : HomeFragmentImpl1_Content() {
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
         if (isHomeRequireLatest()) guideline.setGuideLinePercent()
+    }
+
+    internal fun resetHome() {
+        scrollToFirstRecent()
+        populateRecent()
+        if (isHomeRequireLatest()) {
+            scrollToHomeTop()
+            scrollToFirstLatest()
+            populateLatest()
+        }
     }
 
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -33,6 +34,7 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
 
     lateinit var constraintLayout: ConstraintLayout
     lateinit var guideline: Guideline
+    lateinit var scrollView: ScrollView
     lateinit var latestMoreTextView: TextView
     lateinit var latestEmptyTextView: TextView
     lateinit var latestRecyclerView: RecyclerView
@@ -47,7 +49,19 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
         return view
     }
 
-    internal fun scrollToFirstRecent() = recentRecyclerView.layoutManager.scrollToPosition(0)
+    internal fun scrollToFirstRecent() {
+        recentRecyclerView.stopScroll()
+        recentRecyclerView.layoutManager.scrollToPosition(0)
+    }
+
+    protected fun scrollToFirstLatest() {
+        latestRecyclerView.stopScroll()
+        latestRecyclerView.layoutManager.scrollToPosition(0)
+    }
+
+    protected fun scrollToHomeTop() {
+        scrollView.smoothScrollTo(0, 0)
+    }
 
     protected fun onClickRecentMoreTextView() = mainActivity.showFragmentBrowserRecent()
 

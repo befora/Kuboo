@@ -11,7 +11,7 @@ open class HomeFragmentImpl1_Content : HomeFragmentImpl0_View() {
     protected lateinit var latestAdapter: LatestAdapter
     protected lateinit var recentAdapter: RecentAdapter
 
-    internal fun isHomeRequireLatest() = Settings.HOME_LAYOUT == 1
+    protected fun isHomeRequireLatest() = Settings.HOME_LAYOUT == 1
 
     //recent
     protected fun populateRecent() {

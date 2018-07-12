@@ -131,7 +131,7 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
     }
 
     private fun onDiffUtilUpdateFinished(result: List<Book>) {
-        Timber.i("DiffUtil updateDownload successful. oldDataSize[${data.size}] newDataSize[${result.size}]")
+        Timber.i("DiffUtil successful. oldDataSize[${data.size}] newDataSize[${result.size}]")
         viewModel.setLatestList(result)
     }
 

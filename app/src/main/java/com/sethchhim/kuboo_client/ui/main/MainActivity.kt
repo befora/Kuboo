@@ -159,7 +159,7 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
         when (item.itemId) {
             R.id.navigation_home -> {
                 when (currentFragment) {
-                    is HomeFragment -> homeFragment.scrollToFirstRecent()
+                    is HomeFragment -> homeFragment.resetHome()
                     else -> {
                         setStateLoading()
                         viewModel.cancelAllPing()
