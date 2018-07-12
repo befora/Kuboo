@@ -39,7 +39,7 @@ open class HomeFragmentImpl1_Content : HomeFragmentImpl0_View() {
     //latest
     protected fun populateLatest() {
         setLatestStateLoading()
-        viewModel.getLatestList().observe(this, Observer { handleLatestResult(it) })
+        viewModel.getLatestListFromServer().observe(this, Observer { handleLatestResult(it) })
     }
 
     private fun handleLatestResult(result: List<Book>?) = when (result == null) {

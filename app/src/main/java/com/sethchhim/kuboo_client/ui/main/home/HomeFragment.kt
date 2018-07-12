@@ -29,7 +29,7 @@ class HomeFragment : HomeFragmentImpl1_Content() {
                 latestEmptyTextView = view.findViewById(R.id.home_layout_latest_textView3)
                 latestRecyclerView.layoutManager = LatestLinearLayoutManager(activity!!)
                 latestRecyclerView.setHasFixedSize(true)
-                latestAdapter = LatestAdapter(this)
+                latestAdapter = LatestAdapter(this, viewModel)
             }
         }
         return view

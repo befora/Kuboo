@@ -69,7 +69,6 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
     }
 
     protected fun setRecentStateLoading() {
-//        recentRecyclerView.gone()
         recentEmptyTextView.gone()
     }
 
@@ -89,7 +88,6 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
     }
 
     protected fun setLatestStateLoading() {
-//        latestRecyclerView.gone()
         latestEmptyTextView.gone()
     }
 
@@ -108,7 +106,3 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
     }
 
 }
-
-
-
-

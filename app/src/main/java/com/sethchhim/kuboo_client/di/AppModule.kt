@@ -38,11 +38,12 @@ class AppModule {
             downloadsRepository: DownloadsRepository,
             favoriteRepository: FavoriteRepository,
             fetchRepository: FetchRepository,
+            latestRepository: LatestRepository,
             localRepository: LocalRepository,
             loginRepository: LoginRepository,
             readerRepository: ReaderRepository,
             recentRepository: RecentRepository,
-            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, localRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
+            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, latestRepository, localRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
 
     @Provides
     @AppScope
@@ -59,6 +60,10 @@ class AppModule {
     @Provides
     @AppScope
     fun provideFetchRepository(kubooRemote: KubooRemote, notificationService: NotificationService) = FetchRepository(kubooRemote, notificationService)
+
+    @Provides
+    @AppScope
+    fun provideLatestRepository() = LatestRepository()
 
     @Provides
     @AppScope

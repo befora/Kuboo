@@ -16,6 +16,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
                 private val downloadsRepository: DownloadsRepository,
                 private val favoriteRepository: FavoriteRepository,
                 private val fetchRepository: FetchRepository,
+                private val latestRepository: LatestRepository,
                 private val localRepository: LocalRepository,
                 private val loginRepository: LoginRepository,
                 private val readerRepository: ReaderRepository,
@@ -99,9 +100,11 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun setRecentList(list: List<Book>) = recentRepository.setRecentList(list)
 
     //latest
-    internal fun getLatestList() = remoteRepository.getLatestList(getActiveLogin())
+    internal fun getLatestListFromServer() = remoteRepository.getLatestList(getActiveLogin())
 
-    internal fun syncLatestList(list: List<Book>) = remoteRepository.syncLatestList(list)
+    internal fun getLatestList() = latestRepository.getLatestList()
+
+    internal fun setLatestList(list: List<Book>) = latestRepository.setLatestList(list)
 
     //favorite
     internal fun getFavoriteListFromDao() = favoriteRepository.getFavoriteListFromDao()

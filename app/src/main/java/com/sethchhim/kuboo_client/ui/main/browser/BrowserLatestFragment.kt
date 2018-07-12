@@ -22,7 +22,7 @@ class BrowserLatestFragment : BrowserBaseFragment() {
         setStateLoading()
         resetRecyclerView()
         paginationHandler.reset()
-        viewModel.getLatestList().observe(this, Observer { handleMediaResult(null, it) })
+        viewModel.getLatestListFromServer().observe(this, Observer { handleMediaResult(null, it) })
     }
 
     private fun onSwipeRefresh() = populateLatest()

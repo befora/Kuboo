@@ -23,6 +23,7 @@ import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.databinding.BrowserItemLatestBinding
@@ -38,7 +39,7 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Content) : BaseQuickAdapter<Book, LatestAdapter.LatestHolder>(R.layout.browser_item_latest, listOf()) {
+class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Content, val viewModel: ViewModel) : BaseQuickAdapter<Book, LatestAdapter.LatestHolder>(R.layout.browser_item_latest, viewModel.getLatestList()) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -131,7 +132,7 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
     private fun onDiffUtilUpdateFinished(result: List<Book>) {
         Timber.i("DiffUtil updateDownload successful. oldDataSize[${data.size}] newDataSize[${result.size}]")
-        setNewData(result)
+        viewModel.setLatestList(result)
     }
 
 }
