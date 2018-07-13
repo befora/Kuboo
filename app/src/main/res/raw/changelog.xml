@@ -2,6 +2,33 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Jul 13, 2018"
+        versionName="1.0.5">
+        <changelogtext>add server edit check for /opds-books/ or /opds-comics/</changelogtext>
+        <changelogtext>add server edit check for empty ip address</changelogtext>
+        <changelogtext>add setting for home layout</changelogtext>
+        <changelogtext>change glide cache size to 100mb from 250mb</changelogtext>
+        <changelogtext>change okhttp cache size to 20mb from 100mb</changelogtext>
+        <changelogtext>fix browser folder thumbnail did not cancel previous image pull</changelogtext>
+        <changelogtext>fix browser missing folder thumbnail sometimes</changelogtext>
+        <changelogtext>fix browser search fragment crash</changelogtext>
+        <changelogtext>fix cbr performance</changelogtext>
+        <changelogtext>fix crash on fragment transition</changelogtext>
+        <changelogtext>fix crash on service start after app has been backgrounded</changelogtext>
+        <changelogtext>fix download and recent bookmark mixup</changelogtext>
+        <changelogtext>fix download resume all button now resumes download tracking</changelogtext>
+        <changelogtext>fix fetch update ui crash</changelogtext>
+        <changelogtext>fix home reset on bottom navigation reselect</changelogtext>
+        <changelogtext>fix isHiDpi is more accurate</changelogtext>
+        <changelogtext>fix latest list now uses memory buffer</changelogtext>
+        <changelogtext>fix missing titles</changelogtext>
+        <changelogtext>fix prevent certain books from being added to recent list</changelogtext>
+        <changelogtext>fix reader back press to exit did not work sometimes</changelogtext>
+        <changelogtext>fix reader info dialog broken for epub</changelogtext>
+        <changelogtext>fix reader transition from being interrupted with back press</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Jul 6, 2018"
         versionName="1.0.4">
         <changelogtext>add progressbar to downloads</changelogtext>
