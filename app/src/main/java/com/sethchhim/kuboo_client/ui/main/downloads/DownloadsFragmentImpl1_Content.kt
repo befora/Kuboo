@@ -59,10 +59,14 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         }
 
         private fun updatePosition(download: Download) {
-            val dataFilteredByUrl = downloadsAdapter.data.filter { it.server + it.linkAcquisition == download.url }
-            when (dataFilteredByUrl.isEmpty()) {
-                true -> downloadsAdapter.data.filter { it.getXmlId() == download.group }.forEach { downloadsAdapter.updatePosition(it, download) }
-                false -> dataFilteredByUrl.forEach { downloadsAdapter.updatePosition(it, download) }
+            if (::downloadsAdapter.isInitialized) {
+                downloadsAdapter.apply {
+                    val dataFilteredByUrl = data.filter { it.server + it.linkAcquisition == download.url }
+                    when (dataFilteredByUrl.isEmpty()) {
+                        true -> data.filter { it.getXmlId() == download.group }.forEach { updatePosition(it, download) }
+                        false -> dataFilteredByUrl.forEach { updatePosition(it, download) }
+                    }
+                }
             }
         }
     }
