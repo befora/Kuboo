@@ -99,11 +99,13 @@ class SystemUtil(private val context: Context) {
 
     //==============================================================================================
 
+    fun getDensity() = context.resources.displayMetrics.density
+
     fun getSystemWidth(): Int {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val size = Point()
-        display.getSize(size)
+        display.getRealSize(size)
         return size.x
     }
 
@@ -111,7 +113,7 @@ class SystemUtil(private val context: Context) {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val size = Point()
-        display.getSize(size)
+        display.getRealSize(size)
         return size.y
     }
 

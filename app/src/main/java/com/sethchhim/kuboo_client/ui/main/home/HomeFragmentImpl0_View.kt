@@ -109,8 +109,8 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
         val orientation = resources.configuration.orientation
         setGuidelinePercent(when (mainActivity.isHiDpi()) {
             true -> when (orientation) {
-                Configuration.ORIENTATION_PORTRAIT -> 0.8F
-                else -> 0.7F
+                Configuration.ORIENTATION_PORTRAIT -> 0.7F
+                else -> 0.6F
             }
             false -> when (orientation) {
                 Configuration.ORIENTATION_PORTRAIT -> 0.6F

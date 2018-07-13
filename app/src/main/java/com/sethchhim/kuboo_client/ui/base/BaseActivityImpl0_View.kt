@@ -73,7 +73,7 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
         }
     }
 
-    internal fun isHiDpi() = systemUtil.getSystemWidth() >= Constants.HI_DPI_VALUE || systemUtil.getSystemHeight() >= Constants.HI_DPI_VALUE
+    internal fun isHiDpi() = systemUtil.getSystemWidth() >= Constants.HI_DPI_VALUE || systemUtil.getSystemHeight() >= Constants.HI_DPI_VALUE && systemUtil.getDensity() <= 3
 
     internal fun isLandscape() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 

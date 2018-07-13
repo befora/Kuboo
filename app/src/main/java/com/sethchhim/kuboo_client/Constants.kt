@@ -55,6 +55,6 @@ object Constants {
     internal const val URL_PATH_FOLDER_INDEX = "?index="
     internal const val URL_PATH_GRID_INDEX = "&index="
 
-    internal const val HI_DPI_VALUE = 2400
+    internal const val HI_DPI_VALUE = 2560
     internal const val PAGE_NOT_FOUND_LENGTH = 10796L
 }
