@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 androidExtensions { experimental = true }
-kapt { generateStubs = true }
-
 android {
     compileOptions {
         sourceCompatibility 1.8
@@ -46,11 +44,7 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
-    repositories {
-        google()
-    }
 }
-
 dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -123,5 +117,4 @@ dependencies {
     implementation project(path: ':kuboo_local')
     implementation project(path: ':kuboo_remote')
     implementation project(path: ':mupdf')
-
 }

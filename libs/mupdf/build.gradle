@@ -38,33 +38,5 @@ dependencies {
     else
         implementation 'com.artifex.mupdf:fitz:1.13.0'
 
-    final android_support_version = "27.1.1"
-    implementation "com.android.support:appcompat-v7:$android_support_version"
-
-    final android_lifecycle_version = "1.1.1"
-    implementation "android.arch.lifecycle:extensions:$android_lifecycle_version"
-    implementation "android.arch.lifecycle:runtime:$android_lifecycle_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: 'file://MAVEN')
-            pom {
-                artifactId = 'mini'
-                project {
-                    licenses {
-                        license {
-                            name 'GNU Affero General Public License'
-                            url 'https://www.gnu.org/licenses/agpl-3.0.html'
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-repositories {
-    mavenCentral()
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 }

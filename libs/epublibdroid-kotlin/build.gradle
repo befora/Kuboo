@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -25,7 +24,6 @@ android {
         }
     }
 }
-
 dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -36,5 +34,4 @@ dependencies {
     implementation files('libs/slf4j-android-1.6.1-RC1.jar')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'org.jetbrains.anko:anko:0.10.5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

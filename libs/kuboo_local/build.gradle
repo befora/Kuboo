@@ -1,11 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
+androidExtensions { experimental = true }
 android {
     compileSdkVersion 27
-    dataBinding { enabled = true }
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
@@ -25,21 +24,14 @@ android {
         }
     }
 }
-
-androidExtensions { experimental = true }
-
 dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'android.arch.lifecycle:livedata:1.1.1'
     implementation 'com.jakewharton.timber:timber:4.6.1'
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.commons:commons-compress:1.16.1'
     implementation 'com.github.sethchhim:junrar:21bab9c'
-}
-
-repositories {
-    mavenCentral()
 }
