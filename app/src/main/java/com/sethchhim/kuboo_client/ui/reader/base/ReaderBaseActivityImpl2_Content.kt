@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.model.Progress
 
@@ -29,6 +30,8 @@ open class ReaderBaseActivityImpl2_Content : ReaderBaseActivityImpl1_Overlay() {
             false -> viewModel.createRemoteSinglePaneReaderList(currentBook)
         })
     }
+
+    protected fun isDownload() = source == Source.DOWNLOAD
 
     private fun List<PageUrl>.toLocalDualPaneList() = viewModel.singleToDualLocal(this).apply {
         (this[0] as MutableLiveData<Progress>).observe(this@ReaderBaseActivityImpl2_Content, Observer { result -> result?.let { handleProgress(it) } })

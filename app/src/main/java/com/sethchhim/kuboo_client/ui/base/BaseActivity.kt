@@ -22,16 +22,12 @@ open class BaseActivity : BaseActivityImpl2_Tracking() {
         isFirstRun = savedInstanceState == null
 
         intent.apply {
+            source = (getSerializableExtra(Constants.ARG_SOURCE) as Source?) ?: Source.UNKNOWN
             currentBook = getParcelableExtra(Constants.ARG_BOOK) ?: Book()
             previousBook = Book()
             nextBook = Book()
-
             transitionUrl = getStringExtra(Constants.ARG_TRANSITION_URL) ?: ""
-
             isLocal = currentBook.isLocal()
-
-            val source = (getSerializableExtra(Constants.ARG_SOURCE) as Source?) ?: Source.UNKNOWN
-            isDownload = source == Source.DOWNLOAD
         }
     }
 

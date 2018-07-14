@@ -18,6 +18,7 @@ import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
+import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.GlideUtil
@@ -39,15 +40,15 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
     @Inject lateinit var viewModel: ViewModel
 
     internal lateinit var currentBook: Book
-    internal lateinit var previousBook: Book
-    internal lateinit var nextBook: Book
-
-    internal lateinit var transitionUrl: String
-    internal var isLocal = false
-    internal var isDownload = false
+    protected lateinit var previousBook: Book
+    protected lateinit var nextBook: Book
+    protected lateinit var source: Source
+    protected lateinit var transitionUrl: String
 
     protected lateinit var bookmarkDialog: AlertDialog
     protected lateinit var loadingDialog: AlertDialog
+
+    internal var isLocal = false
     protected var isLoadingCancelled = false
     protected var isLoadingRequired = true
 
