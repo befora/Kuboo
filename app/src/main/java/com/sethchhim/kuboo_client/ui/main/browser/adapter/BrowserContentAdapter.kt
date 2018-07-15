@@ -80,7 +80,18 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
     }
 
     override fun convert(holder: BrowserHolder, item: Browser) {
+        //load new data
+        holder.bookId = item.book.id
+        when (holder.itemViewType) {
+            Browser.FOLDER -> FolderHandler().process(holder, item)
+            Browser.MEDIA -> MediaHandler().process(holder, item)
+        }
+    }
+
+    override fun onViewRecycled(holder: BrowserHolder) {
+        super.onViewRecycled(holder)
         //reset views to default state
+        holder.bookId = -1
         when (holder.itemViewType) {
             Browser.FOLDER -> {
                 Glide.with(browserFragment).clear(holder.itemView.browser_item_content_folder_imageView3)
@@ -91,13 +102,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 if (!holder.itemView.browser_item_content_folder_likeButton.isLiked) holder.itemView.browser_item_content_folder_likeButton.isLiked = false
             }
             Browser.MEDIA -> holder.itemView.browser_item_content_media_imageView.colorFilterNull()
-        }
-
-        //load new data
-        holder.bookId = item.book.id
-        when (holder.itemViewType) {
-            Browser.FOLDER -> FolderHandler().process(holder, item)
-            Browser.MEDIA -> MediaHandler().process(holder, item)
         }
     }
 
@@ -301,10 +305,12 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         private fun MaterialBadgeTextView.loadItemCount(holder: BrowserHolder, book: Book) =
                 when (book.isBrowserMediaType()) {
                     true -> viewModel.getItemCountByBook(book).observe(browserFragment, Observer { result ->
-                        if (result != null && holder.bookId == book.id) {
-                            holder.itemView.browser_item_content_folder_materialBadgeTextView.setBadgeCount(result.toInt())
-                            holder.itemView.browser_item_content_folder_imageView4.fadeInvisible()
-                            holder.itemView.browser_item_content_folder_materialBadgeTextView.fadeVisible()
+                        result?.let {
+                            if (holder.bookId == book.id) {
+                                holder.itemView.browser_item_content_folder_materialBadgeTextView.setBadgeCount(result.toInt())
+                                holder.itemView.browser_item_content_folder_imageView4.fadeInvisible()
+                                holder.itemView.browser_item_content_folder_materialBadgeTextView.fadeVisible()
+                            }
                         }
                     })
                     false -> visibility = View.INVISIBLE
