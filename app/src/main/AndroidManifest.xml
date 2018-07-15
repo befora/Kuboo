@@ -38,6 +38,7 @@
         <!--reader-->
         <activity
             android:name=".ui.reader.comic.ReaderComicActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             tools:targetApi="n"/>

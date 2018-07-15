@@ -27,6 +27,8 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         }
     }
 
+    protected fun refreshViewpager() = viewPager.adapter?.notifyDataSetChanged()
+
     internal fun onSwipeOutOfBoundsStart() = Timber.i("onSwipeOutOfBoundsStart")
 
     internal fun onSwipeOutOfBoundsEnd() {

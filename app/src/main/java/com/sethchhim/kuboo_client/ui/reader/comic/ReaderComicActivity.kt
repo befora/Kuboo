@@ -1,5 +1,6 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -46,6 +47,11 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
             R.id.reader_manga_mode -> onSelectMangaMode()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        refreshViewpager()
     }
 
 }
