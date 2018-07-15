@@ -84,7 +84,6 @@ class ReaderRepository(private val kubooLocal: KubooLocal, private val kubooRemo
                 bookList.add(PageUrl(index, stringUrl, ""))
             }
         }
-
         return bookList.format()
     }
 
