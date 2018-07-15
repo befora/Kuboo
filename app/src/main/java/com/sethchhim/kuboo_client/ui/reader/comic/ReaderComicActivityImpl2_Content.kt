@@ -27,7 +27,11 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         }
     }
 
-    protected fun refreshViewpager() = viewPager.adapter?.notifyDataSetChanged()
+    protected fun refreshViewpager() {
+        val currentItem = viewPager.currentItem
+        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl2_Content)
+        viewPager.currentItem = currentItem
+    }
 
     internal fun onSwipeOutOfBoundsStart() = Timber.i("onSwipeOutOfBoundsStart")
 
@@ -62,12 +66,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         Settings.DUAL_PANE = !Settings.DUAL_PANE
         sharedPrefsHelper.saveDualPane()
 
-        forceOrientation()
-
-        when (Settings.DUAL_PANE) {
-            true -> startDualPaneMode()
-            false -> startSinglePaneMode()
-        }
+        recreate()
     }
 
     protected fun toggleMangaMode() {
@@ -121,16 +120,13 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
 
     private fun onReaderListChanged() {
         viewModel.setReaderListType()
-
+        setOverlay(viewModel.getReaderListSize())
         viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl2_Content)
         viewPager.post {
             val position = viewModel.getReaderPositionByTrueIndex(currentBook.currentPage)
             viewPager.currentItem = position
             saveComicBookmark(position)
         }
-
-        setOverlay(viewModel.getReaderListSize())
-
         hideLoadingDialog()
     }
 
@@ -159,5 +155,3 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
     }
 
 }
-
-
