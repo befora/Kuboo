@@ -18,10 +18,4 @@ class KubooLocal(val diskIO: Executor, val mainThread: Executor) {
 
     fun getLocalInputStreamAt(position: Int) = Task_LocalImageInputStream(this, position).liveData
 
-    fun getPage(position: Int) = try {
-        parser.getPage(position)
-    } catch (e: Exception) {
-        null
-    }
-
 }

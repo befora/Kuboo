@@ -251,8 +251,6 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getSeriesNeighborsNextPageRemote(stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsNextPageRemote(getActiveLogin(), stringUrl, seriesLimit)
 
-    internal fun getPage(position: Int) = localRepository.getPage(position)
-
     internal fun getLocalImageInputStream(position: Int) = localRepository.getLocalImageInputStream(position)
 
     internal fun cleanupParser() = localRepository.cleanupParser()

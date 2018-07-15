@@ -12,10 +12,9 @@ class Task_ReaderSingleToDualLocal(list: List<PageUrl>) : Task_ReaderSingleToDua
 
     init {
         list.forEachIndexed { index, pageUrl ->
-            executors.diskIO.execute {
+            viewModel.getLocalImageInputStream(0).observeForever {
                 val isFirst = index == 0
-                val inputStream = viewModel.getPage(index)
-                val isWide = inputStream?.let {
+                val isWide = it?.let {
                     val isBitmapWide = isBitmapWide(it)
                     it.close()
                     isBitmapWide
@@ -23,9 +22,9 @@ class Task_ReaderSingleToDualLocal(list: List<PageUrl>) : Task_ReaderSingleToDua
                 if (isFirst || isWide) pageUrl.page1 = Constants.KEY_SINGLE
                 resultList.add(pageUrl)
 
-                executors.mainThread.execute { liveDataProgress.value = Progress(resultList.size, list.size - 1) }
+                liveDataProgress.value = Progress(resultList.size, list.size - 1)
                 val isEnd = resultList.size == list.size
-                if (isEnd) executors.mainThread.execute {
+                if (isEnd) {
                     liveDataResult.value = resultList.processWideList()
                     liveDataProgress.value = Progress(-1, -1)
                 }
