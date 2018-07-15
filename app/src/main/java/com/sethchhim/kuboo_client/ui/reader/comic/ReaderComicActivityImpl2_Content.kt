@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager
 import android.widget.SeekBar
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
@@ -84,7 +83,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         val nextPreviewUrl = nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
         previewImageView.transitionName = nextPreviewUrl
 
-        startReader(ReadData(book = nextBook, bookmarksEnabled = false, requestFinish = true, sharedElement = previewImageView, source = Source.READER))
+        startReader(ReadData(book = nextBook, bookmarksEnabled = false, requestFinish = true, sharedElement = previewImageView, source = source))
         startDownloadTracking(nextBook)
     }
 
