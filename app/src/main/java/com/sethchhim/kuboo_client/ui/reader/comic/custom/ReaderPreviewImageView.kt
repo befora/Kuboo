@@ -18,7 +18,7 @@ class ReaderPreviewImageView @JvmOverloads constructor(private val ctx: Context,
 
     internal var isAnimatingTransition = true
 
-    internal fun slideIn() {
+    internal fun slideIn() = post {
         visibility = View.VISIBLE
         when (Settings.RTL) {
             true -> startAnimation(slideInLeftAnimation)
@@ -26,7 +26,7 @@ class ReaderPreviewImageView @JvmOverloads constructor(private val ctx: Context,
         }
     }
 
-    internal fun slideOut() {
+    internal fun slideOut() = post {
         when (Settings.RTL) {
             true -> startAnimation(slideOutRightAnimation)
             false -> startAnimation(slideOutLeftAnimation)
