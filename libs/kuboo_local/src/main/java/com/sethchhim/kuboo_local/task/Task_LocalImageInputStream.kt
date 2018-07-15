@@ -12,8 +12,8 @@ class Task_LocalImageInputStream(kubooLocal: KubooLocal, position: Int) {
     internal val liveData = MutableLiveData<InputStream>()
 
     init {
-        try {
-            kubooLocal.diskIO.execute {
+        kubooLocal.diskIO.execute {
+            try {
                 val startTime = System.currentTimeMillis()
                 val result = parser.getPage(position)
                 kubooLocal.mainThread.execute {
@@ -21,10 +21,10 @@ class Task_LocalImageInputStream(kubooLocal: KubooLocal, position: Int) {
                     liveData.value = result
                     Timber.d("Parse image byte array: position[$position] size[${result}] time[$elapsedTime]")
                 }
+            } catch (e: Exception) {
+                Timber.e("message[${e.message}]")
+                kubooLocal.mainThread.execute { liveData.value = null }
             }
-        } catch (e: Exception) {
-            Timber.e("message[${e.message}]")
-            kubooLocal.mainThread.execute { liveData.value = null }
         }
     }
 }
