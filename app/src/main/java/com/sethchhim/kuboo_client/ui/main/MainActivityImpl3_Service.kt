@@ -3,7 +3,6 @@ package com.sethchhim.kuboo_client.ui.main
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
-import com.sethchhim.kuboo_client.Extensions.millisecondsToSeconds
 import com.sethchhim.kuboo_client.Extensions.minutesToMilliseconds
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.service.OnClearFromRecentService
@@ -48,7 +47,7 @@ open class MainActivityImpl3_Service : MainActivityImpl2_Selection() {
         nextExecutionTime = currentExecutionTime + Settings.DOWNLOAD_TRACKING_INTERVAL.minutesToMilliseconds()
         nextUpdateTimer = timer(startAt = Date(), period = 1000, action = {
             timeUntilLiveData.postValue((System.currentTimeMillis() - nextExecutionTime).absoluteValue)
-            Timber.d("Time until next download tracking update: ${timeUntilLiveData.value?.millisecondsToSeconds()} seconds")
+//            Timber.d("Time until next download tracking update: ${timeUntilLiveData.value?.millisecondsToSeconds()} seconds")
         })
     }
 
