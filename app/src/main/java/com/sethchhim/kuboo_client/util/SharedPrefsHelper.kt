@@ -23,6 +23,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Constants.KEY_RTL
 import com.sethchhim.kuboo_client.Constants.KEY_SCALE_TYPE
 import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
@@ -33,6 +34,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.DEFAULT_HOME_LAYOUT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
+import com.sethchhim.kuboo_client.Settings.DEFAULT_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_LIMIT
@@ -49,6 +51,7 @@ import com.sethchhim.kuboo_client.Settings.REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Settings.RTL
 import com.sethchhim.kuboo_client.Settings.SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Settings.VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Settings.WIFI_ONLY
 import com.sethchhim.kuboo_remote.model.Login
 import org.jetbrains.anko.defaultSharedPreferences
@@ -78,6 +81,7 @@ class SharedPrefsHelper(val context: Context) {
         REVERSE_LAYOUT = sharedPreferences.getBoolean(KEY_REVERSE_LAYOUT, false)
         SCALE_TYPE = sharedPreferences.getInt(KEY_SCALE_TYPE, DEFAULT_SCALE_TYPE)
         SCREEN_ORIENTATION = sharedPreferences.getInt(KEY_SCREEN_ORIENTATION, SCREEN_ORIENTATION)
+        VOLUME_PAGE_TURN = sharedPreferences.getBoolean(KEY_VOLUME_PAGE_TURN, DEFAULT_VOLUME_PAGE_TURN)
         WIFI_ONLY = sharedPreferences.getBoolean(KEY_WIFI_ONLY, false)
 
         if (isDebugSharedPreferencesHelper) {
@@ -94,6 +98,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading REVERSE_LAYOUT: $REVERSE_LAYOUT")
             Timber.i("Loading MAX_PAGE_WIDTH: $MAX_PAGE_WIDTH")
             Timber.i("Loading SCREEN_ORIENTATION: $SCREEN_ORIENTATION")
+            Timber.i("Loading VOLUME_PAGE_TURN: $VOLUME_PAGE_TURN")
             Timber.i("Loading DOWNLOAD_SAVE_PATH: $DOWNLOAD_SAVE_PATH")
             Timber.i("Loading DOWNLOAD_TRACKING_INTERVAL: $DOWNLOAD_TRACKING_INTERVAL")
             Timber.i("Loading DOWNLOAD_TRACKING_LIMIT: $DOWNLOAD_TRACKING_LIMIT")
@@ -256,6 +261,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveEpubMarginSize() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving EPUB_MARGIN_SIZE: $EPUB_MARGIN_SIZE")
         sharedPreferences.edit().putInt(KEY_EPUB_MARGIN_SIZE, EPUB_MARGIN_SIZE).apply()
+    }
+
+    fun saveVolumePageTurn() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving VOLUME_PAGE_TURN: $VOLUME_PAGE_TURN")
+        sharedPreferences.edit().putBoolean(KEY_VOLUME_PAGE_TURN, VOLUME_PAGE_TURN).apply()
     }
 
     private fun Any.toJson() = Gson().toJson(this)

@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.reader.pdf
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.view.KeyEvent
 import com.artifex.mupdf.mini.DocumentActivity
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.R
@@ -41,6 +42,26 @@ class ReaderPdfActivity : DocumentActivity() {
         }
     }
 
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (Settings.VOLUME_PAGE_TURN) {
+            if (event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                if (event.isLongPress)
+                    onVolumeDownLongPressed()
+                else if (event.action == KeyEvent.ACTION_UP)
+                    onVolumeDownPressed()
+                return true
+            }
+            if (event.keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                if (event.isLongPress)
+                    onVolumeUpLongPressed()
+                else if (event.action == KeyEvent.ACTION_UP)
+                    onVolumeUpPressed()
+                return true
+            }
+        }
+        return super.dispatchKeyEvent(event)
+    }
+
     override fun onLoadPageSuccess() {
         super.onLoadPageSuccess()
         saveBookmark()
@@ -60,6 +81,22 @@ class ReaderPdfActivity : DocumentActivity() {
             1 -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT
             2 -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE
         }
+    }
+
+    private fun onVolumeDownLongPressed() {
+        goLast()
+    }
+
+    private fun onVolumeDownPressed() {
+        goForward()
+    }
+
+    private fun onVolumeUpLongPressed() {
+        goFirst()
+    }
+
+    private fun onVolumeUpPressed() {
+        goBackward()
     }
 
     private fun printOutline() {

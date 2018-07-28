@@ -118,6 +118,11 @@
             android:key="settings_system_orientation"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_orientation"/>
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="settings_volume_page_turn"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_volume_buttons_will_turn_page"
+            android:title="@string/settings_volume_page_turn"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- ABOUT -->

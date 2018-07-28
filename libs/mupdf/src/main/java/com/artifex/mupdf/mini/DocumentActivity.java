@@ -621,11 +621,21 @@ public class DocumentActivity extends AppCompatActivity {
         }
     }
 
+    public void goFirst() {
+        currentPage = 0;
+        loadPage();
+    }
+
     public void goForward() {
         if (currentPage < pageCount - 1) {
             currentPage++;
             loadPage();
         }
+    }
+
+    public void goLast() {
+        currentPage = pageCount - 1;
+        loadPage();
     }
 
     public void gotoPage(int p) {

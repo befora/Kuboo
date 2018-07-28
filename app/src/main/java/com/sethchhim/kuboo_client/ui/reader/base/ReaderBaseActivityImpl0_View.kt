@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.Guideline
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.util.Rational
@@ -45,6 +46,9 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     @BindView(R.id.reader_layout_base_overlay_textView5) lateinit var overlayTotalPagesTextView: TextView
     @BindView(R.id.reader_layout_base_preview_readerPreviewImageView) lateinit var previewImageView: ReaderPreviewImageView
     @BindView(R.id.reader_layout_base_toolBar) lateinit var toolbar: Toolbar
+
+    protected var snackBarEnd: Snackbar? = null
+    protected var snackBarNext: Snackbar? = null
 
     protected fun forceOrientation() = when (Settings.DUAL_PANE) {
         true -> forceOrientationLandscape()

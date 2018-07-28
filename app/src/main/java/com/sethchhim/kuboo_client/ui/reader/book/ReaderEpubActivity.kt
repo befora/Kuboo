@@ -34,6 +34,22 @@ class ReaderEpubActivity : ReaderEpubActivityImpl3_Menu() {
         resetPosition()
     }
 
+    override fun onVolumeDownLongPressed() {
+        //do nothing
+    }
+
+    override fun onVolumeDownPressed() {
+        epubReaderView.goToNextPage()
+    }
+
+    override fun onVolumeUpLongPressed() {
+        //do nothing
+    }
+
+    override fun onVolumeUpPressed() {
+        epubReaderView.goToPreviousPage()
+    }
+
     private fun showSettingsDialog() = dialogUtil.getDialogBookSettings(this).apply {
         show()
         hideOverlay()

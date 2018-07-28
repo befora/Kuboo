@@ -48,6 +48,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var serverLoginPreference: Preference
     protected lateinit var systemOrientationPreference: Preference
     protected lateinit var systemThemePreference: Preference
+    protected lateinit var systemVolumePageTurnPreference: SwitchPreferenceCompat
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
@@ -68,6 +69,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         serverLoginPreference = findPreference("settings_server_login")
         systemOrientationPreference = findPreference("settings_system_orientation")
         systemThemePreference = findPreference("settings_system_theme")
+        systemVolumePageTurnPreference = findPreference("settings_volume_page_turn") as SwitchPreferenceCompat
 
         mainActivity.timeUntilLiveData.observe(this, Observer {
             it?.let {

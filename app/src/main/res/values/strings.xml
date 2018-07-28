@@ -240,6 +240,8 @@
     <string name="settings_tracking_interval">Tracking Interval</string>
     <string name="settings_tracking_limit">Tracking Limit</string>
     <string name="settings_version">Version</string>
+    <string name="settings_volume_buttons_will_turn_page">Volume buttons will turn the page</string>
+    <string name="settings_volume_page_turn">Volume Page Turn</string>
 
     <string name="title_browse">Browse</string>
     <string name="title_downloads">Downloads</string>

@@ -130,6 +130,14 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         hideLoadingDialog()
     }
 
+    internal fun goToFirstPage(){
+        viewPager.currentItem = 0
+    }
+
+    internal fun goToLastPage() = viewPager.adapter?.let {
+        viewPager.currentItem = it.count - 1
+    }
+
     internal fun goToPreviousPage() = when (viewPager.currentItem == 0) {
         true -> onSwipeOutOfBoundsStart()
         false -> viewPager.currentItem = viewPager.currentItem - 1
@@ -143,15 +151,25 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
     }
 
     private fun showSnackBarEnd() {
-        val snackBarEnd = dialogUtil.getSnackBarFinishBookEnd(constraintLayout)
-        snackBarEnd.setAction(R.string.reader_menu) { finishBook() }
-        snackBarEnd.show()
+        snackBarEnd = dialogUtil.getSnackBarFinishBookEnd(constraintLayout).apply {
+            setAction(R.string.reader_menu) { onSnackBarEndAction() }
+            show()
+        }
+    }
+
+    protected fun onSnackBarEndAction() {
+        finishBook()
     }
 
     private fun showSnackBarNext() {
-        val snackBarNext = dialogUtil.getSnackBarFinishBookNext(constraintLayout, nextBook)
-        snackBarNext.setAction(R.string.reader_read) { startNextBook() }
-        snackBarNext.show()
+        snackBarNext = dialogUtil.getSnackBarFinishBookNext(constraintLayout, nextBook).apply {
+            setAction(R.string.reader_read) { onSnackBarNextAction() }
+            show()
+        }
+    }
+
+    protected fun onSnackBarNextAction() {
+        startNextBook()
     }
 
 }

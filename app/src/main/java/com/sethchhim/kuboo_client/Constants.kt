@@ -44,6 +44,7 @@ object Constants {
     internal const val KEY_SCREEN_ORIENTATION = "KEY_SCREEN_ORIENTATION"
     internal const val KEY_SINGLE = "KEY_SINGLE"
     internal const val KEY_TASK_PING = "KEY_TASK_PING"
+    internal const val KEY_VOLUME_PAGE_TURN = "KEY_VOLUME_PAGE_TURN"
     internal const val KEY_WIFI_ONLY = "KEY_SHAREDPREFS_WIFI_ONLY"
 
     internal const val URL_PATH_ROOT = "all?groupByFolder=true"

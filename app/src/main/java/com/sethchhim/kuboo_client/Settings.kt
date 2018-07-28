@@ -17,6 +17,8 @@ object Settings {
 
     const val DEFAULT_HOME_LAYOUT = 0
 
+    const val DEFAULT_VOLUME_PAGE_TURN = false
+
     //----------------------------------------APP_THEME---------------------------------------------
 
     //0 = LIGHT, 1 = DARK, 2 = OLED
@@ -59,6 +61,7 @@ object Settings {
     var DUAL_PANE = false
     var RTL = false
     var PIP_MODE = false
+    var VOLUME_PAGE_TURN = DEFAULT_VOLUME_PAGE_TURN
 
     var MAX_PAGE_WIDTH = 1500
     var MAX_PAGE_HEIGHT = 2000

@@ -49,6 +49,26 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onVolumeDownLongPressed() {
+        goToLastPage()
+    }
+
+    override fun onVolumeDownPressed() {
+        when {
+            snackBarEnd?.isShownOrQueued ?: false -> onSnackBarEndAction()
+            snackBarNext?.isShownOrQueued ?: false -> onSnackBarNextAction()
+            else -> goToNextPage()
+        }
+    }
+
+    override fun onVolumeUpLongPressed() {
+        goToFirstPage()
+    }
+
+    override fun onVolumeUpPressed() {
+        goToPreviousPage()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
         refreshViewpager()

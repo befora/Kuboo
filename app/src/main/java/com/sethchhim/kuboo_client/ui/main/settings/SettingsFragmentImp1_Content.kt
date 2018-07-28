@@ -20,6 +20,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setReverseLayoutPreference()
         setThemePreference()
         setOrientationPreference()
+        setVolumePageTurnPreference()
 
         setAboutVersionPreference()
 
@@ -376,6 +377,15 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             1 -> stringArray[1]
             2 -> stringArray[2]
             else -> "ERROR"
+        }
+    }
+
+    private fun setVolumePageTurnPreference() = systemVolumePageTurnPreference.apply {
+        isChecked = Settings.VOLUME_PAGE_TURN
+        setOnPreferenceClickListener {
+            Settings.VOLUME_PAGE_TURN = !Settings.VOLUME_PAGE_TURN
+            sharedPrefsHelper.saveVolumePageTurn()
+            return@setOnPreferenceClickListener true
         }
     }
 
