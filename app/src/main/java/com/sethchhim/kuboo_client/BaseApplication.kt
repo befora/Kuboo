@@ -32,12 +32,12 @@ class BaseApplication : DaggerApplication() {
 
             if (viewModel.isLoginListEmpty()) {
                 viewModel.addLogin(Login(nickname = "Books Server",
-                        server = "http://192.168.1.100:2202/opds-books/",
+                        server = "https://192.168.1.100:2202/opds-books/",
                         username = "",
                         password = ""))
 
                 viewModel.addLogin(Login(nickname = "Comics Server",
-                        server = "http://192.168.1.100:2202/opds-comics/",
+                        server = "https://192.168.1.100:2202/opds-comics/",
                         username = "",
                         password = ""))
             }
