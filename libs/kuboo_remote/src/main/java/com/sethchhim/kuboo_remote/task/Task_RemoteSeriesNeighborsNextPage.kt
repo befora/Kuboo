@@ -6,6 +6,7 @@ import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.util.Settings.isDebugOkHttp
+import okhttp3.CacheControl
 import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.SocketTimeoutException
@@ -20,7 +21,7 @@ class Task_RemoteSeriesNeighborsNextPage(kubooRemote: KubooRemote, login: Login,
     init {
         kubooRemote.networkIO.execute {
             try {
-                val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
+                val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName, CacheControl.FORCE_NETWORK)
                 val response = call.execute()
                 val inputStream = response.body()?.byteStream()
                 if (response.isSuccessful && inputStream != null) {
