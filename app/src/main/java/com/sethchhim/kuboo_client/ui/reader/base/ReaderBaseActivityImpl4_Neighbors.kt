@@ -7,12 +7,6 @@ import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
 import timber.log.Timber
 
-/**
- * Created by Seth Chhim on 12/30/2017.
- * Project: kuboo
- * Contact: sethchhim@gmail.com
- */
-
 @SuppressLint("Registered")
 open class ReaderBaseActivityImpl4_Neighbors : ReaderBaseActivityImpl3_Bookmark() {
 
