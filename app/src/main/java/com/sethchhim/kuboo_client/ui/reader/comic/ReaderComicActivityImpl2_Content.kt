@@ -65,15 +65,13 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
     protected fun toggleDualPaneMode() {
         Settings.DUAL_PANE = !Settings.DUAL_PANE
         sharedPrefsHelper.saveDualPane()
-
         recreate()
     }
 
     protected fun toggleMangaMode() {
         Settings.RTL = !Settings.RTL
         sharedPrefsHelper.saveRtl()
-
-        recreate()
+        restartActivity(intent)
     }
 
     private fun startNextBook() {
@@ -130,7 +128,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         hideLoadingDialog()
     }
 
-    internal fun goToFirstPage(){
+    internal fun goToFirstPage() {
         viewPager.currentItem = 0
     }
 

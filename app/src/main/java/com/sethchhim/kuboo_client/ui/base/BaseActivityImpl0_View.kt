@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.support.v4.content.ContextCompat
@@ -82,6 +83,12 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
         return activity.window.decorView.systemUiVisibility == View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+    }
+
+    internal fun restartActivity(intent: Intent) {
+        finish()
+        overridePendingTransition(0, 0)
+        startActivity(intent)
     }
 
     internal fun setFullScreen() {
