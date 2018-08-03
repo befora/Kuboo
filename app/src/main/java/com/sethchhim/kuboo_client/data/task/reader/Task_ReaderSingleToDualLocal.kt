@@ -12,7 +12,7 @@ class Task_ReaderSingleToDualLocal(list: List<PageUrl>) : Task_ReaderSingleToDua
 
     init {
         list.forEachIndexed { index, pageUrl ->
-            viewModel.getLocalImageInputStream(0).observeForever {
+            viewModel.getLocalImageInputStream(index).observeForever {
                 val isFirst = index == 0
                 val isWide = it?.let {
                     val isBitmapWide = isBitmapWide(it)
