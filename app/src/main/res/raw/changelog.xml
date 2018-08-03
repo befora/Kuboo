@@ -2,6 +2,27 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Aug 3, 2018"
+        versionName="1.0.6">
+        <changelogtext>add setting volume buttons turn page</changelogtext>
+        <changelogtext>change debug server</changelogtext>
+        <changelogtext>fix browser state after recycle</changelogtext>
+        <changelogtext>fix cbr out of memory crash</changelogtext>
+        <changelogtext>fix comic reader (local) did not measure dual pane condition correctly
+        </changelogtext>
+        <changelogtext>fix comic reader orientation change did not update image</changelogtext>
+        <changelogtext>fix comic reader slow switching of dual pane mode</changelogtext>
+        <changelogtext>fix comic reader slow switching of manga mode</changelogtext>
+        <changelogtext>fix comic reader slow switching of next book</changelogtext>
+        <changelogtext>fix comic reader slow switching of orientation change</changelogtext>
+        <changelogtext>fix reader transition jank</changelogtext>
+        <changelogtext>fix series pull not supposed to use cache</changelogtext>
+        <changelogtext>update jsoup to 1.11.3 from 1.11.2</changelogtext>
+        <changelogtext>update kotlin to 1.2.60 from 1.2.51</changelogtext>
+        <changelogtext>update okhttp to 3.11.0 from 3.10.0</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Jul 13, 2018"
         versionName="1.0.5">
         <changelogtext>add server edit check for /opds-books/ or /opds-comics/</changelogtext>
@@ -9,7 +30,8 @@
         <changelogtext>add setting for home layout</changelogtext>
         <changelogtext>change glide cache size to 100mb from 250mb</changelogtext>
         <changelogtext>change okhttp cache size to 20mb from 100mb</changelogtext>
-        <changelogtext>fix browser folder thumbnail did not cancel previous image pull</changelogtext>
+        <changelogtext>fix browser folder thumbnail did not cancel previous image pull
+        </changelogtext>
         <changelogtext>fix browser missing folder thumbnail sometimes</changelogtext>
         <changelogtext>fix browser search fragment crash</changelogtext>
         <changelogtext>fix cbr performance</changelogtext>
