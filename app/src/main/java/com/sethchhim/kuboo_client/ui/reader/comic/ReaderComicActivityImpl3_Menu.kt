@@ -16,16 +16,6 @@ open class ReaderComicActivityImpl3_Menu : ReaderComicActivityImpl2_Content() {
     protected lateinit var mangaModeMenuItem: MenuItem
     protected lateinit var localMenuItem: MenuItem
 
-    protected fun onSelectDualPane() {
-        toggleDualPaneMode()
-        updateDualPaneMenuItemState()
-    }
-
-    protected fun onSelectMangaMode() {
-        toggleMangaMode()
-        updateMangaModeMenuItemState()
-    }
-
     protected fun setScaleType(menuItem: MenuItem, scaleType: Int) {
         menuItem.isChecked = true
         when (scaleType) {

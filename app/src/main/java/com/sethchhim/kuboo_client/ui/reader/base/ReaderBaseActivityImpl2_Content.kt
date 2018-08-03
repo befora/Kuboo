@@ -20,7 +20,6 @@ open class ReaderBaseActivityImpl2_Content : ReaderBaseActivityImpl1_Overlay() {
             true -> viewModel.getSinglePaneList().toLocalDualPaneList()
             false -> viewModel.getSinglePaneList().toRemoteDualPaneList()
         }
-
         return dualPaneLiveData
     }
 

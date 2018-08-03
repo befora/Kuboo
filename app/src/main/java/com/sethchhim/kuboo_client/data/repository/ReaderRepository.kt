@@ -67,7 +67,6 @@ class ReaderRepository(private val kubooLocal: KubooLocal, private val kubooRemo
     internal fun clearReaderLists() {
         singlePaneList.clear()
         dualPaneList.clear()
-        readerList.clear()
     }
 
     private fun setReaderList(list: List<PageUrl>) {

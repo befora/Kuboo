@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager
 import android.widget.SeekBar
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
 import timber.log.Timber
@@ -65,24 +64,28 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
     protected fun toggleDualPaneMode() {
         Settings.DUAL_PANE = !Settings.DUAL_PANE
         sharedPrefsHelper.saveDualPane()
-        recreate()
+        isPreviewEnabled = false
+        startActivity(intent)
     }
 
     protected fun toggleMangaMode() {
         Settings.RTL = !Settings.RTL
         sharedPrefsHelper.saveRtl()
-        restartActivity(intent)
+        isPreviewEnabled = false
+        startActivity(intent)
     }
 
     private fun startNextBook() {
+        isPreviewEnabled = true
+
         viewModel.addFinish(currentBook)
+        viewModel.clearReaderLists()
+        if (isLocal) viewModel.cleanupParser()
 
-        viewPager.adapter = null
+        transitionUrl = nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
+        previewImageView.transitionName = transitionUrl
 
-        val nextPreviewUrl = nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
-        previewImageView.transitionName = nextPreviewUrl
-
-        startReader(ReadData(book = nextBook, bookmarksEnabled = false, requestFinish = true, sharedElement = previewImageView, source = source))
+        showNewIntentTransition()
         startDownloadTracking(nextBook)
     }
 
@@ -96,20 +99,19 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         showLoadingDialog(loadingStage = LoadingStage.SINGLE)
         populateSinglePaneList()
         loadPreviewImage()
-
         onReaderListChanged()
     }
 
     private fun startDualPaneMode() {
         //populate single list
-        showLoadingDialog(loadingStage = LoadingStage.DUAL)
         populateSinglePaneList()
         loadPreviewImage()
-
         when (viewModel.isReaderDualPaneListEmpty()) {
-            true ->
+            true -> {
                 //populate dual list and observe
+                showLoadingDialog(loadingStage = LoadingStage.DUAL)
                 populateDualPaneList().observe(this, Observer { onReaderListChanged() })
+            }
             false ->
                 //or reuse existing dual list
                 onReaderListChanged()
@@ -120,11 +122,9 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         viewModel.setReaderListType()
         setOverlay(viewModel.getReaderListSize())
         viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl2_Content)
-        viewPager.post {
-            val position = viewModel.getReaderPositionByTrueIndex(currentBook.currentPage)
-            viewPager.currentItem = position
-            saveComicBookmark(position)
-        }
+        val position = viewModel.getReaderPositionByTrueIndex(currentBook.currentPage)
+        viewPager.currentItem = position
+        saveComicBookmark(position)
         hideLoadingDialog()
     }
 

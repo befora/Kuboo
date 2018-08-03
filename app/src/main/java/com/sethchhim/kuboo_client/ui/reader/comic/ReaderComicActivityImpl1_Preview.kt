@@ -20,6 +20,8 @@ import timber.log.Timber
 @SuppressLint("Registered")
 open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
 
+    protected var isPreviewEnabled = true
+
     protected fun loadPreviewImage() = when (isLocal) {
         true -> loadLocalPreviewImage()
         false -> loadRemotePreviewImage()
@@ -56,6 +58,7 @@ open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
                             .disallowHardwareConfig()
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                             .format(DecodeFormat.PREFER_RGB_565)
+                            .dontTransform()
                             .dontAnimate())
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
@@ -78,7 +81,7 @@ open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
                         }
 
                         private fun processResult() {
-                            when (isFirstRun) {
+                            when (isPreviewEnabled) {
                                 true -> onLoadPreviewSuccessFirstRun()
                                 false -> onLoadPreviewSuccessResume()
                             }

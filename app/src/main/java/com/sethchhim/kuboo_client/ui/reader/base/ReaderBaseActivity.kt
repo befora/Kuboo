@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_client.ui.reader.base
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
@@ -26,13 +27,21 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
         title = currentBook.title
         previewImageView.transitionName = transitionUrl
 
-        overlaySeekBar.setLayoutDirection()
         overlayLayout.onClick { hideOverlay() }
         overlayTextView1.onClick { hideOverlay() }
         restoreOverlay()
 
-        viewModel.clearReaderLists()
         populateNeighbors()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        populateNeighbors()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearReaderLists()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

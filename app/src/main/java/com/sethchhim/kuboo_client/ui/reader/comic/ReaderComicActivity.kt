@@ -1,5 +1,6 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,16 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initContentUi()
+        initListeners()
+        populateContent()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        updateDualPaneMenuItemState()
+        updateMangaModeMenuItemState()
+
         initContentUi()
         initListeners()
         populateContent()
@@ -43,8 +54,8 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
             R.id.reader_aspect_fill -> setScaleType(item, 0)
             R.id.reader_aspect_fit -> setScaleType(item, 1)
             R.id.reader_aspect_fit_width -> setScaleType(item, 2)
-            R.id.reader_dual_pane_mode -> onSelectDualPane()
-            R.id.reader_manga_mode -> onSelectMangaMode()
+            R.id.reader_dual_pane_mode -> toggleDualPaneMode()
+            R.id.reader_manga_mode -> toggleMangaMode()
         }
         return super.onOptionsItemSelected(item)
     }

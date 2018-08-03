@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.reader.comic.adapter
 import android.os.Parcelable
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
+import android.view.ViewGroup
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Settings
@@ -11,6 +12,7 @@ import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityImpl2_Conte
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragment
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl1_Single
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl2_Dual
+import timber.log.Timber
 import javax.inject.Inject
 
 class ReaderComicAdapter internal constructor(private val readerComicActivityImpl2Content: ReaderComicActivityImpl2_Content) : FragmentStatePagerAdapter(readerComicActivityImpl2Content.supportFragmentManager) {
@@ -35,6 +37,14 @@ class ReaderComicAdapter internal constructor(private val readerComicActivityImp
     override fun getItemPosition(`object`: Any) = PagerAdapter.POSITION_NONE
 
     override fun getCount() = viewModel.getReaderListSize()
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        try {
+            super.destroyItem(container, position, `object`)
+        } catch (e: Exception) {
+            Timber.e("Failed to destroyItem! position[$position]")
+        }
+    }
 
     override fun saveState(): Parcelable? {
         return null

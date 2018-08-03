@@ -56,6 +56,7 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     }
 
     protected fun handleProgress(progress: Progress) {
+        Timber.d("progress ${progress.position} ${progress.total}")
         if (loadingDialog.isShowing) {
             val textView = loadingDialog.findViewById<TextView>(android.R.id.message)
             textView?.let {

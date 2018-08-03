@@ -248,6 +248,7 @@ object Extensions {
             mutate()
             setColorFilter(colorGreen, PorterDuff.Mode.SRC_ATOP)
         }
+        isEnabled = true
     }
 
     internal fun MenuItem.setStateDisabled(context: Context) {
@@ -257,6 +258,7 @@ object Extensions {
             mutate()
             setColorFilter(colorGrey, PorterDuff.Mode.SRC_ATOP)
         }
+        isEnabled = true
     }
 
     internal fun MutableList<Book>.containsSeries(xmlId: Int): Boolean {
