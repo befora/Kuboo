@@ -29,6 +29,7 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
             downloadsAdapter = DownloadsAdapter(this, viewModel)
             contentRecyclerView.adapter = downloadsAdapter
             populateDownloads()
+            setNumberProgressBar()
         }
     }
 
@@ -37,6 +38,7 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         downloadsAdapter = DownloadsAdapter(this, viewModel)
         contentRecyclerView.adapter = downloadsAdapter
         populateDownloads()
+        setNumberProgressBar()
     }
 
     override fun onDestroy() {

@@ -2,13 +2,17 @@ package com.sethchhim.kuboo_client.ui.main.downloads
 
 import android.support.design.widget.TabLayout
 import android.view.View
+import com.sethchhim.kuboo_client.Extensions.toReadable
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadsAdapter
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.FetchListener
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
@@ -28,6 +32,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         }
 
         override fun onDeleted(download: Download) {
+            setNumberProgressBar()
         }
 
         override fun onError(download: Download) {
@@ -59,6 +64,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         }
 
         private fun updatePosition(download: Download) {
+            setNumberProgressBar()
             if (::downloadsAdapter.isInitialized) {
                 downloadsAdapter.apply {
                     val dataFilteredByUrl = data.filter { it.server + it.linkAcquisition == download.url }
@@ -108,6 +114,20 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
                 }
             }
         })
+    }
+
+    protected fun setNumberProgressBar() = downloadsNumberProgressBar.apply {
+        val saveDir = File(Settings.DOWNLOAD_SAVE_PATH)
+        val freeSpace = saveDir.freeSpace
+        val totalSpace = saveDir.totalSpace
+        val usedSpace = totalSpace - freeSpace
+        val usedPercentage = (usedSpace * 100f / totalSpace).toInt()
+
+        max = 100
+        progress = usedPercentage
+        progressValueHidden = true
+        suffix = "${freeSpace.toReadable()} ${getString(R.string.downloads_free)}"
+        visible()
     }
 
     internal fun handleResult(result: List<Book>?) {

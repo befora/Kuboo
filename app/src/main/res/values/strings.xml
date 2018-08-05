@@ -87,6 +87,7 @@
     <string name="downloads_fetch_database_error">FETCH DATABASE ERROR</string>
     <string name="downloads_file_not_created">FILE NOT CREATED</string>
     <string name="downloads_finished">FINISHED</string>
+    <string name="downloads_free">free</string>
     <string name="downloads_http_not_found">HTTP NOT FOUND</string>
     <string name="downloads_no_network_connection">NO NETWORK CONNECTION</string>
     <string name="downloads_no_storage_space">NO STORAGE SPACE</string>

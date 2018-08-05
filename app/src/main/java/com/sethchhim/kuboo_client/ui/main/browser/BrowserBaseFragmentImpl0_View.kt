@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.daimajia.numberprogressbar.NumberProgressBar
 import com.sethchhim.kuboo_client.Extensions.dismissDelayed
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
@@ -43,6 +44,7 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
     @BindView(R.id.browser_layout_content_spinKitView) lateinit var contentLoading: ProgressBar
     @BindView(R.id.browser_layout_content_browserContentRecyclerView) lateinit var contentRecyclerView: BrowserContentRecyclerView
     @BindView(R.id.browser_layout_content_swipeRefreshLayout) lateinit var contentSwipeRefreshLayout: SwipeRefreshLayout
+    @BindView(R.id.browser_layout_download_numberProgressBar) lateinit var downloadsNumberProgressBar: NumberProgressBar
     @BindView(R.id.browser_layout_downloads_tabLayout) lateinit var downloadsTabLayout: TabLayout
     @BindView(R.id.browser_layout_path_horizontalScrollView) lateinit var pathHorizontalScrollView: HorizontalScrollView
     @BindView(R.id.browser_layout_path_recyclerView) lateinit var pathRecyclerView: RecyclerView
