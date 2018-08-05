@@ -7,8 +7,6 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
-import android.view.WindowManager
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.disableShiftMode
@@ -25,7 +23,7 @@ import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
 
 
-class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
+open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +36,7 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
         bottomNav.setOnNavigationItemReselectedListener(this)
         bottomNav.disableShiftMode()
 
-        showChangeLog()
+        if (systemUtil.isFirstRunOfThisVersion()) showChangeLog()
 
         supportFragmentManager.addOnBackStackChangedListener { setTitleByCurrentFragment() }
 
@@ -69,19 +67,6 @@ class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigat
                     true -> showFragmentBrowserSeries(payload)
                     false -> showToastError()
                 }
-            }
-        }
-    }
-
-    private fun showChangeLog() {
-        if (systemUtil.isFirstRunOfThisVersion()) dialogUtil.getDialogChangeLog(this).apply {
-            show()
-            window.attributes = WindowManager.LayoutParams().apply {
-                val systemWidth = systemUtil.getSystemWidth()
-                val systemHeight = systemUtil.getSystemHeight()
-                val newSize = (Math.min(systemWidth, systemHeight) * 0.9f).toInt()
-                width = newSize
-                height = ViewGroup.LayoutParams.WRAP_CONTENT
             }
         }
     }

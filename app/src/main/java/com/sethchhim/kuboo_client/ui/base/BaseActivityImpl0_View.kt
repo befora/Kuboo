@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
@@ -142,6 +143,17 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
     private fun showBottomNavigation() = main_layout_base_bottomNavigationView.visible()
 
     private fun showToolbar() = main_layout_base_toolBar.visible()
+
+    internal fun showChangeLog() = dialogUtil.getDialogChangeLog(this).apply {
+        show()
+        window.attributes = WindowManager.LayoutParams().apply {
+            val systemWidth = systemUtil.getSystemWidth()
+            val systemHeight = systemUtil.getSystemHeight()
+            val newSize = (Math.min(systemWidth, systemHeight) * 0.9f).toInt()
+            width = newSize
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+        }
+    }
 
     protected fun showLoadingDialog(loadingStage: LoadingStage) = loadingDialog.apply {
         isLoadingCancelled = false

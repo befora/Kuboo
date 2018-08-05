@@ -40,6 +40,10 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
     private fun setAboutVersionPreference() = aboutVersionPreference.apply {
         summary = systemUtil.getVersionName()
+        setOnPreferenceClickListener {
+            mainActivity.showChangeLog()
+            true
+        }
     }
 
     private fun setDownloadSavePath() = downloadSavePath.apply {
