@@ -58,7 +58,7 @@ open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNa
         when {
             isRequestDownloadFragment -> {
                 Timber.i("Download fragment is requested from intent.")
-                showFragmentDownloads()
+                selectDownloads()
             }
             isRequestRemoteBrowserFragment -> {
                 Timber.i("Remote browser fragment is requested from intent.")

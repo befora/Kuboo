@@ -14,7 +14,7 @@ import android.support.v4.app.NotificationCompat
 import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.R
-import com.sethchhim.kuboo_client.ui.main.MainActivityImpl0_View
+import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.tonyodev.fetch2.Download
 
@@ -45,7 +45,7 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
     }
 
     private fun getSelectionIntent(): PendingIntent? {
-        val intent = Intent(context, MainActivityImpl0_View::class.java)
+        val intent = Intent(context, MainActivity::class.java)
         intent.putExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
         return PendingIntent.getActivity(context, 0, intent, 0)
     }

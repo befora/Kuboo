@@ -61,6 +61,10 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     internal fun getCurrentFragment() = supportFragmentManager.findFragmentById(R.id.main_layout_base_frameLayout)
 
+    internal fun selectDownloads() {
+        bottomNav.selectedItemId = R.id.navigation_downloads
+    }
+
     internal fun selectHome() {
         bottomNav.selectedItemId = R.id.navigation_home
     }
