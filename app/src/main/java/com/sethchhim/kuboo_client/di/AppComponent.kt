@@ -32,7 +32,6 @@ interface AppComponent : AndroidInjector<BaseApplication> {
 
     override fun inject(baseApplication: BaseApplication)
 
-
     fun inject(aboutPagerAdapter: AboutPagerAdapter)
     fun inject(browserContentAdapter: BrowserContentAdapter)
     fun inject(browserPathAdapter: BrowserPathAdapter)
@@ -56,7 +55,6 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     interface Builder {
         @BindsInstance
         fun context(context: Context): Builder
-
         fun build(): AppComponent
     }
 
