@@ -94,7 +94,9 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
         window.decorView.systemUiVisibility = uiOptions
     }
 
-    internal fun setKeepScreenOn() = window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    internal fun setKeepScreenOn() {
+        if (Settings.KEEP_SCREEN_ON) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
 
     internal fun showStatusBar() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)

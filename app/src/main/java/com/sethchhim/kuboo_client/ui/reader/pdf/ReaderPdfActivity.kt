@@ -101,7 +101,9 @@ class ReaderPdfActivity : DocumentActivity() {
         goBackward()
     }
 
-    private fun setKeepScreenOn() = window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    private fun setKeepScreenOn() {
+        if (Settings.KEEP_SCREEN_ON) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
 
     private fun printOutline() {
         flatOutline?.forEachWithIndex { i, item ->
