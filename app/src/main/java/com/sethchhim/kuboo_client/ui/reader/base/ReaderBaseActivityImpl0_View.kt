@@ -50,6 +50,13 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     protected var snackBarEnd: Snackbar? = null
     protected var snackBarNext: Snackbar? = null
 
+    protected var isBackStackLost = false
+    internal var isInPipMode = false
+
+    internal var pipPosition = 0
+    internal var pipWidth = 0
+    internal var pipHeight = 0
+
     protected fun forceOrientation() = when (Settings.DUAL_PANE) {
         true -> forceOrientationLandscape()
         false -> forceOrientationSetting()
@@ -132,7 +139,7 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     protected fun startPictureInPictureMode() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val pipParams = PictureInPictureParams.Builder().apply {
-                val aspectRatio = Rational(contentFrameLayout.width, contentFrameLayout.height)
+                val aspectRatio = Rational(pipWidth, pipHeight)
                 setAspectRatio(aspectRatio)
             }.build()
             enterPictureInPictureMode(pipParams)

@@ -41,10 +41,14 @@ open class ReaderBaseActivityImpl1_Overlay : ReaderBaseActivityImpl0_View() {
         showExitTransition()
     }
 
-    protected fun hideOverlay() {
+    protected fun hideOverlay(isFadeEnabled: Boolean = true) {
         overlayImageView.gone()
         overlayTextView1.gone()
-        overlayLayout.fadeGone(200)
+
+        when (isFadeEnabled) {
+            true -> overlayLayout.fadeGone(200)
+            false -> overlayLayout.gone()
+        }
 
         hideStatusBar()
         hideReaderToolbar()

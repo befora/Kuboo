@@ -3,12 +3,14 @@ package com.sethchhim.kuboo_client.ui.reader.comic
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.support.v4.view.ViewPager
+import android.view.View
 import android.widget.SeekBar
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
 import timber.log.Timber
+import kotlin.math.roundToInt
 
 @SuppressLint("Registered")
 open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview(), ViewPager.OnPageChangeListener, SeekBar.OnSeekBarChangeListener {
@@ -53,6 +55,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
     }
 
     override fun onPageSelected(position: Int) {
+        setPipDimensions(position)
         setOverlayPosition(position)
         saveComicBookmark(position)
     }
@@ -155,6 +158,12 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         }
     }
 
+    protected fun hideSnackBarEnd() {
+        snackBarEnd?.let {
+            it.view.visibility = View.GONE
+        }
+    }
+
     protected fun onSnackBarEndAction() {
         finishBook()
     }
@@ -166,8 +175,30 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
         }
     }
 
+    protected fun hideSnackBarNext() {
+        snackBarNext?.let {
+            it.view.visibility = View.GONE
+        }
+    }
+
     protected fun onSnackBarNextAction() {
         startNextBook()
     }
 
+    internal fun setPipDimensions(position: Int) {
+        viewModel.getReaderDimensionAt(position)?.let {
+            pipPosition = position
+            pipWidth = it.width
+            pipHeight = it.height
+
+            val mediumPercentage = 62.58
+            val smallPercentage = 74.77
+            Timber.d("PipDimensions: position[$pipPosition] width[$pipWidth] widthMedium[${pipWidth.calculatePercentage(mediumPercentage)}] widthSmall[${pipWidth.calculatePercentage(smallPercentage)}] height[$pipHeight] heightMedium[${pipHeight.calculatePercentage(mediumPercentage)}] heightSmall[${pipHeight.calculatePercentage(smallPercentage)}]")
+        }
+    }
+
+}
+
+private fun Int.calculatePercentage(percentage: Double): Int {
+    return (this - (this * (percentage / 100))).roundToInt()
 }

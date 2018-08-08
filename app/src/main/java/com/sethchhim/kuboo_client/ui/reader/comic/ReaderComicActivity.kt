@@ -60,6 +60,14 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration?) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        if (isInPictureInPictureMode) {
+            hideSnackBarEnd()
+            hideSnackBarNext()
+        }
+    }
+
     override fun onVolumeDownLongPressed() {
         goToLastPage()
     }

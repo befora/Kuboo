@@ -41,7 +41,7 @@ class ReaderPageImageView : AppCompatImageView {
     private var mTranslateRightEdge = false
 
     //0 = Both, 1 = Left, 2 = Right
-    var navigationButtonType = 0
+    internal var navigationButtonType = 0
 
     private val currentScale: Float
         get() {

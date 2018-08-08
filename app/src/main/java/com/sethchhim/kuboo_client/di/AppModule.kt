@@ -75,7 +75,7 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideReaderRepository(kubooLocal: KubooLocal, kubooRemote: KubooRemote) = ReaderRepository(kubooLocal, kubooRemote)
+    fun provideReaderRepository(systemUtil: SystemUtil, kubooLocal: KubooLocal, kubooRemote: KubooRemote) = ReaderRepository(systemUtil, kubooLocal, kubooRemote)
 
     @Provides
     @AppScope

@@ -9,7 +9,9 @@ import android.view.MenuItem
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.ui.main.MainActivity
 import org.jetbrains.anko.sdk25.coroutines.onClick
+
 
 @SuppressLint("Registered")
 open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
@@ -23,6 +25,9 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
 
         hideReaderToolbar()
         hideStatusBar()
+
+        pipWidth = systemUtil.getSystemWidth()
+        pipHeight = systemUtil.getSystemHeight()
 
         title = currentBook.title
         previewImageView.transitionName = transitionUrl
@@ -42,6 +47,14 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
     override fun onDestroy() {
         super.onDestroy()
         viewModel.clearReaderLists()
+    }
+
+    override fun finish() {
+        if (isBackStackLost) {
+            startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(0, 0)
+        }
+        super.finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -83,7 +96,13 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration?) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
-        if (isInPictureInPictureMode) hideOverlay()
+        if (isInPictureInPictureMode) {
+            isInPipMode = true
+            hideOverlay(isFadeEnabled = false)
+        } else {
+            isInPipMode = false
+            isBackStackLost = true
+        }
     }
 
     open fun onVolumeDownLongPressed() {

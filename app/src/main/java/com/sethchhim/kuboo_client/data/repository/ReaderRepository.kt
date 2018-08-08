@@ -4,15 +4,17 @@ import android.arch.lifecycle.LifecycleOwner
 import com.sethchhim.kuboo_client.Constants.KEY_SINGLE
 import com.sethchhim.kuboo_client.Extensions.printPageUrls
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.model.Dimension
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.task.reader.Task_ReaderSingleToDualLocal
 import com.sethchhim.kuboo_client.data.task.reader.Task_ReaderSingleToDualRemote
+import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_local.KubooLocal
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
 
-class ReaderRepository(private val kubooLocal: KubooLocal, private val kubooRemote: KubooRemote) {
+class ReaderRepository(private val systemUtil: SystemUtil, private val kubooLocal: KubooLocal, private val kubooRemote: KubooRemote) {
 
     private val readerList = mutableListOf<PageUrl>()
 
@@ -72,6 +74,13 @@ class ReaderRepository(private val kubooLocal: KubooLocal, private val kubooRemo
     private fun setReaderList(list: List<PageUrl>) {
         readerList.clear()
         readerList.addAll(list)
+        dimensionList.clear()
+
+        val screenWidth = systemUtil.getSystemWidth()
+        val screenHeight = systemUtil.getSystemHeight()
+        for (index in 0..readerList.size) {
+            dimensionList.add(Dimension(screenWidth, screenHeight))
+        }
     }
 
     //remote reader licenseList
@@ -168,6 +177,26 @@ class ReaderRepository(private val kubooLocal: KubooLocal, private val kubooRemo
         }
         Timber.e("Failed to get position by url: url[$url]")
         return 0
+    }
+
+    //dimension
+    private val dimensionList = mutableListOf<Dimension>()
+
+    fun setReaderDimension(position: Int, dimension: Dimension) {
+        try {
+            dimensionList[position] = dimension
+        } catch (e: Exception) {
+            Timber.e(e.message)
+        }
+    }
+
+    fun getReaderDimensionAt(position: Int): Dimension? {
+        try {
+            return dimensionList[position]
+        } catch (e: Exception) {
+            Timber.e(e.message)
+        }
+        return null
     }
 
 }

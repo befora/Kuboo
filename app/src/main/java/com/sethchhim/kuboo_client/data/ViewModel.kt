@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.Constants
+import com.sethchhim.kuboo_client.data.model.Dimension
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.repository.*
 import com.sethchhim.kuboo_remote.model.Book
@@ -261,6 +262,10 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun singleToDualRemote(lifecycleOwner: LifecycleOwner, list: List<PageUrl>) = readerRepository.singleToDualRemote(lifecycleOwner, list)
 
+    internal fun getReaderDimensionAt(position: Int) = readerRepository.getReaderDimensionAt(position)
+
+    internal fun setReaderDimension(position: Int, dimension: Dimension) = readerRepository.setReaderDimension(position, dimension)
+
 //    internal fun preloadImageByteArray(position: Int) = readerRepository.preloadImageByteArray(position)
 
     //bookmark
@@ -273,5 +278,6 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun getRemoteUserApi(book: Book) = remoteRepository.getRemoteUserApi(getActiveLogin(), book)
 
     internal fun putRemoteUserApi(book: Book) = remoteRepository.putRemoteUserApi(getActiveLogin(), book)
+
 
 }

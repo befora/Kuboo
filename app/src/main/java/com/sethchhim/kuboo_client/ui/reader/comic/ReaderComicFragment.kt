@@ -1,17 +1,19 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.github.ybq.android.spinkit.SpinKitView
 import com.sethchhim.kuboo_client.Constants.ARG_BOOK
 import com.sethchhim.kuboo_client.Constants.ARG_LOCAL
 import com.sethchhim.kuboo_client.Constants.ARG_POSITION
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
@@ -25,7 +27,14 @@ open class ReaderComicFragment : DaggerFragment() {
 
     protected var position = 0
     protected var isLocal = false
+
     lateinit var book: Book
+    lateinit var readerComicActivity: ReaderComicActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        readerComicActivity = (activity as ReaderComicActivity)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,15 +61,27 @@ open class ReaderComicFragment : DaggerFragment() {
         0
     }
 
-    protected fun ImageView.loadImage(any: Any, requestListener: RequestListener<Bitmap>) {
+    protected fun ImageView.loadImage(source: Any, requestListener: RequestListener<Bitmap>) {
+        val requestOptions = RequestOptions()
+                .format(DecodeFormat.PREFER_RGB_565)
         Glide.with(this@ReaderComicFragment)
                 .asBitmap()
-                .load(any)
-                .apply(RequestOptions()
-                        .format(DecodeFormat.PREFER_RGB_565)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                .load(source)
+                .apply(requestOptions)
                 .listener(requestListener)
                 .into(this)
+    }
+
+    @SuppressLint("NewApi")
+    protected fun ImageView.setScaleToPip(singlePane: Boolean) {
+        adjustViewBounds = readerComicActivity.isInPictureInPictureMode && singlePane
+    }
+
+    @SuppressLint("NewApi")
+    protected fun SpinKitView.setVisibilityToPip() {
+        if (!readerComicActivity.isInPictureInPictureMode) {
+            visible()
+        }
     }
 
 }

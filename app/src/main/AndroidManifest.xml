@@ -39,21 +39,21 @@
         <activity
             android:name=".ui.reader.comic.ReaderComicActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             tools:targetApi="n"/>
 
         <activity
             android:name=".ui.reader.book.ReaderEpubActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             tools:targetApi="n"/>
 
         <activity
             android:name=".ui.reader.pdf.ReaderPdfActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             tools:targetApi="n"/>
 

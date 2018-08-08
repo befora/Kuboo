@@ -24,6 +24,7 @@ import com.sethchhim.kuboo_client.Extensions.enable
 import com.sethchhim.kuboo_client.Extensions.fadeGone
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.data.model.Dimension
 import com.sethchhim.kuboo_client.data.model.GlideLocal
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPageImageView
 import com.sethchhim.kuboo_remote.model.Book
@@ -45,21 +46,27 @@ class ReaderComicFragmentImpl1_Single : ReaderComicFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipeRefreshLayout.setColorSchemeResources(R.color.lightColorAccent)
+        val page1 = getPage1()
+        val page1Int = getPage1ToInt()
 
-        when (isLocal) {
-            true -> {
-                imageView.loadImage(GlideLocal(book, getPage1ToInt()), getGlideCallback())
-                swipeRefreshLayout.onRefresh { imageView.loadImage(GlideLocal(book, getPage1ToInt()), getGlideCallback()) }
-            }
-            false -> {
-                imageView.loadImage(getPage1(), getGlideCallback())
-                swipeRefreshLayout.onRefresh { imageView.loadImage(getPage1(), getGlideCallback()) }
+        spinKitView.setVisibilityToPip()
+        imageView.setScaleToPip(singlePane = true)
+        imageView.loadImage(when (isLocal) {
+            true -> GlideLocal(book, page1Int)
+            false -> page1
+        }, getRequestListener())
+        swipeRefreshLayout.setColorSchemeResources(R.color.lightColorAccent)
+        swipeRefreshLayout.onRefresh {
+            when (isLocal) {
+                true -> imageView.loadImage(GlideLocal(book, page1Int), getRequestListener())
+                false -> imageView.loadImage(page1, getRequestListener())
             }
         }
     }
 
-    private fun onLoadImageSuccess() {
+    private fun onLoadImageSuccess(bitmap: Bitmap) {
+        viewModel.setReaderDimension(position, Dimension(bitmap.width, bitmap.height))
+        if (readerComicActivity.pipPosition == position) readerComicActivity.setPipDimensions(position)
         spinKitView.fadeGone()
         imageView.fadeVisible()
 
@@ -69,6 +76,8 @@ class ReaderComicFragmentImpl1_Single : ReaderComicFragment() {
     }
 
     private fun onLoadImageFail(message: String?) {
+        viewModel.setReaderDimension(position, Dimension(readerComicActivity.contentFrameLayout.width, readerComicActivity.contentFrameLayout.height))
+        if (readerComicActivity.pipPosition == position) readerComicActivity.setPipDimensions(position)
         spinKitView.fadeGone()
         imageView.fadeGone()
 
@@ -80,9 +89,9 @@ class ReaderComicFragmentImpl1_Single : ReaderComicFragment() {
         swipeRefreshLayout.enable()
     }
 
-    private fun getGlideCallback() = object : RequestListener<Bitmap> {
-        override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-            onLoadImageSuccess()
+    private fun getRequestListener() = object : RequestListener<Bitmap> {
+        override fun onResourceReady(resource: Bitmap, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            onLoadImageSuccess(resource)
             return false
         }
 

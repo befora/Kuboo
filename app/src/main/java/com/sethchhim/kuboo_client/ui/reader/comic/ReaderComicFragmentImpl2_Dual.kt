@@ -25,6 +25,7 @@ import com.sethchhim.kuboo_client.Extensions.enable
 import com.sethchhim.kuboo_client.Extensions.fadeGone
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.data.model.Dimension
 import com.sethchhim.kuboo_client.data.model.GlideLocal
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPageImageView
 import com.sethchhim.kuboo_remote.model.Book
@@ -52,41 +53,50 @@ class ReaderComicFragmentImpl2_Dual : ReaderComicFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipeRefreshLayout1.setColorSchemeResources(R.color.lightColorAccent)
-        swipeRefreshLayout2.setColorSchemeResources(R.color.lightColorAccent)
-
         val page1 = getPage1()
+        val page1Int = getPage1ToInt()
         val page2 = getPage2()
-        when (isLocal) {
-            true -> {
-                if (page1 != Constants.KEY_SINGLE) {
-                    imageView1.loadImage(GlideLocal(book, getPage1ToInt()), getRequestListener1())
-                    swipeRefreshLayout1.onRefresh { imageView1.loadImage(GlideLocal(book, getPage1ToInt()), getRequestListener1()) }
-                }
-                if (page2 != Constants.KEY_SINGLE) {
-                    imageView1.navigationButtonType = 1
-                    imageView2.navigationButtonType = 2
-                    imageView2.loadImage(GlideLocal(book, getPage2ToInt()), getRequestListener2())
-                    swipeRefreshLayout2.onRefresh { imageView2.loadImage(GlideLocal(book, getPage2ToInt()), getRequestListener2()) }
-                }
-            }
-            false -> {
-                if (page1 != Constants.KEY_SINGLE) {
-                    imageView1.loadImage(page1, getRequestListener1())
-                    swipeRefreshLayout1.onRefresh { imageView1.loadImage(page1, getRequestListener1()) }
-                }
+        val page2Int = getPage2ToInt()
+        val isPage1Single = page1 == Constants.KEY_SINGLE
+        val isPage2Single = page2 == Constants.KEY_SINGLE
 
-                if (page2 != Constants.KEY_SINGLE) {
-                    imageView1.navigationButtonType = 1
-                    imageView2.navigationButtonType = 2
-                    imageView2.loadImage(page2, getRequestListener2())
-                    swipeRefreshLayout2.onRefresh { imageView2.loadImage(page2, getRequestListener2()) }
-                }
+        spinKitView1.setVisibilityToPip()
+        spinKitView2.setVisibilityToPip()
+        imageView1.setScaleToPip(singlePane = isPage2Single)
+        imageView2.setScaleToPip(singlePane = isPage2Single)
+        if (!isPage1Single) {
+            imageView1.loadImage(when (isLocal) {
+                true -> GlideLocal(book, page1Int)
+                false -> page1
+            }, getRequestListener1())
+            swipeRefreshLayout1.setColorSchemeResources(R.color.lightColorAccent)
+            swipeRefreshLayout1.onRefresh {
+                imageView1.loadImage(when (isLocal) {
+                    true -> GlideLocal(book, page1Int)
+                    false -> page1
+                }, getRequestListener1())
+            }
+        }
+
+        if (!isPage2Single) {
+            imageView1.navigationButtonType = 1
+            imageView2.navigationButtonType = 2
+            imageView2.loadImage(when (isLocal) {
+                true -> GlideLocal(book, page2Int)
+                false -> page2
+            }, getRequestListener2())
+            swipeRefreshLayout2.setColorSchemeResources(R.color.lightColorAccent)
+            swipeRefreshLayout2.onRefresh {
+                imageView2.loadImage(when (isLocal) {
+                    true -> GlideLocal(book, page2Int)
+                    false -> page2
+                }, getRequestListener2())
             }
         }
     }
 
     private fun onLoadImage1Success() {
+        viewModel.setReaderDimension(position, Dimension(readerComicActivity.contentFrameLayout.width, readerComicActivity.contentFrameLayout.height))
         spinKitView1.fadeGone()
         imageView1.fadeVisible()
 
@@ -96,6 +106,7 @@ class ReaderComicFragmentImpl2_Dual : ReaderComicFragment() {
     }
 
     private fun onLoadImage1Fail(message: String?) {
+        viewModel.setReaderDimension(position, Dimension(readerComicActivity.contentFrameLayout.width, readerComicActivity.contentFrameLayout.height))
         spinKitView1.fadeGone()
         imageView1.fadeVisible()
 

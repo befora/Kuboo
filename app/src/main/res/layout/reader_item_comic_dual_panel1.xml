@@ -16,6 +16,7 @@
         style="@style/SpinKitView.Large.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:SpinKit_Color="@color/lightColorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/reader_layout_comic_dual_content_guideLine"
