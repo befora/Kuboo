@@ -15,6 +15,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Constants.KEY_FAVORITE
 import com.sethchhim.kuboo_client.Constants.KEY_FIRST_DOWNLOAD
 import com.sethchhim.kuboo_client.Constants.KEY_HOME_LAYOUT
+import com.sethchhim.kuboo_client.Constants.KEY_KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_LIST
 import com.sethchhim.kuboo_client.Constants.KEY_MARK_FINISHED
 import com.sethchhim.kuboo_client.Constants.KEY_MAX_PAGE_WIDTH
@@ -32,6 +33,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_LIMIT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_MARGIN_SIZE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.DEFAULT_HOME_LAYOUT
+import com.sethchhim.kuboo_client.Settings.DEFAULT_KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_VOLUME_PAGE_TURN
@@ -44,6 +46,7 @@ import com.sethchhim.kuboo_client.Settings.EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.FAVORITE
 import com.sethchhim.kuboo_client.Settings.HOME_LAYOUT
 import com.sethchhim.kuboo_client.Settings.IMMERSIVE_BROWSER
+import com.sethchhim.kuboo_client.Settings.KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Settings.MARK_FINISHED
 import com.sethchhim.kuboo_client.Settings.MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.PREVIEW
@@ -74,6 +77,7 @@ class SharedPrefsHelper(val context: Context) {
         FAVORITE = sharedPreferences.getBoolean(KEY_FAVORITE, true)
         HOME_LAYOUT = sharedPreferences.getInt(KEY_HOME_LAYOUT, DEFAULT_HOME_LAYOUT)
         IMMERSIVE_BROWSER = sharedPreferences.getBoolean(KEY_BROWSER_IMMERSIVE, false)
+        KEEP_SCREEN_ON = sharedPreferences.getBoolean(KEY_KEEP_SCREEN_ON, DEFAULT_KEEP_SCREEN_ON)
         MARK_FINISHED = sharedPreferences.getBoolean(KEY_MARK_FINISHED, true)
         MAX_PAGE_WIDTH = sharedPreferences.getInt(KEY_MAX_PAGE_WIDTH, DEFAULT_MAX_PAGE_WIDTH)
         PREVIEW = sharedPreferences.getBoolean(KEY_PREVIEW, true)
@@ -92,6 +96,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading IMMERSIVE_BROWSER: $IMMERSIVE_BROWSER")
             Timber.i("Loading DUAL_PANE: $DUAL_PANE")
             Timber.i("Loading HOME_LAYOUT: $HOME_LAYOUT")
+            Timber.i("Loading KEEP_SCREEN_ON: $KEEP_SCREEN_ON")
             Timber.i("Loading SCALE_TYPE: $SCALE_TYPE")
             Timber.i("Loading PREVIEW: $PREVIEW")
             Timber.i("Loading RTL: $RTL")
@@ -261,6 +266,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveEpubMarginSize() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving EPUB_MARGIN_SIZE: $EPUB_MARGIN_SIZE")
         sharedPreferences.edit().putInt(KEY_EPUB_MARGIN_SIZE, EPUB_MARGIN_SIZE).apply()
+    }
+
+    fun saveKeepScreenOn() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving KEEP_SCREEN_ON: $KEEP_SCREEN_ON")
+        sharedPreferences.edit().putBoolean(KEY_KEEP_SCREEN_ON, KEEP_SCREEN_ON).apply()
     }
 
     fun saveVolumePageTurn() {

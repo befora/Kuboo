@@ -17,6 +17,7 @@ object Settings {
 
     const val DEFAULT_HOME_LAYOUT = 0
 
+    const val DEFAULT_KEEP_SCREEN_ON = false
     const val DEFAULT_VOLUME_PAGE_TURN = false
 
     //----------------------------------------APP_THEME---------------------------------------------
@@ -61,6 +62,7 @@ object Settings {
     var DUAL_PANE = false
     var RTL = false
     var PIP_MODE = false
+    var KEEP_SCREEN_ON = DEFAULT_KEEP_SCREEN_ON
     var VOLUME_PAGE_TURN = DEFAULT_VOLUME_PAGE_TURN
 
     var MAX_PAGE_WIDTH = 1500

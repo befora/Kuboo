@@ -194,6 +194,7 @@
     <string name="settings_finished_items_will_be_darkened">Finished items will be darkened</string>
     <string name="settings_fit_width">Fit Width</string>
     <string name="settings_home">Home</string>
+    <string name="settings_keep_screen_on">Keep Screen On</string>
     <string name="settings_landscape">Landscape</string>
     <string name="settings_layout">Layout</string>
     <string-array name="settings_layout_entries">
@@ -215,6 +216,7 @@
     <string name="settings_preview">Preview</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">Read two pages simultaneously in landscape mode</string>
     <string name="settings_reader">Reader</string>
+    <string name="settings_reader_screen_will_keep_the_device_awake">Reader screen will keep the device awake</string>
     <string name="settings_recent_viewed_plus_latest">Recently Viewed + Latest</string>
     <string name="settings_recently_viewed_only">Recently Viewed Only</string>
     <string name="settings_remaining">remaining</string>

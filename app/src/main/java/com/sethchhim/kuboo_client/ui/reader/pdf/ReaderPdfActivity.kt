@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.WindowManager
 import com.artifex.mupdf.mini.DocumentActivity
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.R
@@ -30,6 +31,7 @@ class ReaderPdfActivity : DocumentActivity() {
         forceOrientationSetting()
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        setKeepScreenOn()
         currentBook = intent.getParcelableExtra(Constants.ARG_BOOK)
         val uri = Uri.fromFile(File(currentBook.filePath))
 
@@ -98,6 +100,8 @@ class ReaderPdfActivity : DocumentActivity() {
     private fun onVolumeUpPressed() {
         goBackward()
     }
+
+    private fun setKeepScreenOn() = window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
     private fun printOutline() {
         flatOutline?.forEachWithIndex { i, item ->

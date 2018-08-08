@@ -34,6 +34,7 @@ object Constants {
     internal const val KEY_FAVORITE = "FAVORITE"
     internal const val KEY_FIRST_DOWNLOAD = "KEY_FIRST_DOWNLOAD"
     internal const val KEY_HOME_LAYOUT = "KEY_HOME_LAYOUT"
+    internal const val KEY_KEEP_SCREEN_ON = "KEY_KEEP_SCREEN_ON"
     internal const val KEY_LOGIN_LIST = "KEY_LOGIN_LIST"
     internal const val KEY_MARK_FINISHED = "KEY_MARK_FINISHED"
     internal const val KEY_MAX_PAGE_WIDTH = "KEY_MAX_PAGE_WIDTH"

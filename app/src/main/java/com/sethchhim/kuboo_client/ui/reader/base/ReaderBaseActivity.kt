@@ -20,6 +20,7 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
         supportPostponeEnterTransition()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.reader_layout_base)
+        setKeepScreenOn()
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
 

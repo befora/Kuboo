@@ -123,6 +123,11 @@
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_volume_buttons_will_turn_page"
             android:title="@string/settings_volume_page_turn"/>
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="settings_keep_screen_on"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_reader_screen_will_keep_the_device_awake"
+            android:title="@string/settings_keep_screen_on"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- ABOUT -->

@@ -20,6 +20,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setReverseLayoutPreference()
         setThemePreference()
         setOrientationPreference()
+        setKeepScreenOn()
         setVolumePageTurnPreference()
 
         setAboutVersionPreference()
@@ -381,6 +382,15 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             1 -> stringArray[1]
             2 -> stringArray[2]
             else -> "ERROR"
+        }
+    }
+
+    private fun setKeepScreenOn() = systemKeepScreenOn.apply {
+        isChecked = Settings.KEEP_SCREEN_ON
+        setOnPreferenceClickListener {
+            Settings.KEEP_SCREEN_ON = !Settings.KEEP_SCREEN_ON
+            sharedPrefsHelper.saveKeepScreenOn()
+            return@setOnPreferenceClickListener true
         }
     }
 
