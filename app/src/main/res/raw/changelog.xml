@@ -2,6 +2,17 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Aug 10, 2018"
+        versionName="1.0.7">
+        <changelogtext>add download screen shows free storage space</changelogtext>
+        <changelogtext>add setting keep screen alive</changelogtext>
+        <changelogtext>add setting version click shows changelog</changelogtext>
+        <changelogtext>fix download notification selection goes to download screen</changelogtext>
+        <changelogtext>update dagger to 2.17 from 2.13</changelogtext>
+        <changelogtext>update gradle build tools to 3.1.4 from 3.1.3</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Aug 3, 2018"
         versionName="1.0.6">
         <changelogtext>add setting volume buttons turn page</changelogtext>
