@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
+
     <string name="about_answer1">The Ubooquity server MUST enable OPDS feed.
     \n \nThe Ubooquity server MUST open the appropriate network port.
     \n \nThe Ubooquity server MUST be allowed through any firewalls.
@@ -108,6 +109,7 @@
     <string name="login_delete_server">Delete Server</string>
     <string name="login_does_not_contain_opds_books_or_opds_comics">Does not contain /opds-books/ or /opds-comics/</string>
     <string name="login_edit_server">Edit Server</string>
+    <string name="login_example">Example</string>
     <string name="login_ip_address">IP Address (Required)</string>
     <string name="login_ip_address_must_not_be_empty">IP Address must not be empty!</string>
     <string name="login_password">Password (Optional)</string>
@@ -244,4 +246,5 @@
     <string name="title_downloads">Downloads</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
+
 </resources>

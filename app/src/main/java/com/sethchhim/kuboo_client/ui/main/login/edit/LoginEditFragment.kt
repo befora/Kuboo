@@ -86,8 +86,12 @@ open class LoginEditFragment : DaggerFragment() {
     private fun onLoginNull() {
         Timber.i("onLoginNull")
         deleteServerButton.gone()
-        editTextNickName.setText("", TextView.BufferType.EDITABLE)
-        editTextServerAddress.setText("", TextView.BufferType.EDITABLE)
+
+        val exampleNickname = getString(R.string.login_example)
+        val exampleServerAddress = "http://192.168.1.100:2202/opds-comics/"
+
+        editTextNickName.setText(exampleNickname, TextView.BufferType.EDITABLE)
+        editTextServerAddress.setText(exampleServerAddress, TextView.BufferType.EDITABLE)
         editTextUsername.setText("", TextView.BufferType.EDITABLE)
         editTextPassword.setText("", TextView.BufferType.EDITABLE)
     }
@@ -137,4 +141,3 @@ open class LoginEditFragment : DaggerFragment() {
     }
 
 }
-
