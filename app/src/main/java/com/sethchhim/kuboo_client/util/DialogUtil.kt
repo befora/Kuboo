@@ -67,16 +67,8 @@ class DialogUtil(val context: Context) {
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_bookmark, null))
     }.create()
 
-    internal fun getDialogBookMargin(context: Context) = getAlertDialogBuilder(context).apply {
-        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_margin, null))
-    }.create()
-
     internal fun getDialogBookSettings(context: Context) = getAlertDialogBuilder(context).apply {
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_book_settings, null))
-    }.create()
-
-    internal fun getDialogBookTextZoom(context: Context) = getAlertDialogBuilder(context).apply {
-        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_text_zoom, null))
     }.create()
 
     internal fun getDialogChangeLog(context: Context) = getAlertDialogBuilder(context, appTheme = 1).apply {
@@ -156,17 +148,6 @@ class DialogUtil(val context: Context) {
 
     internal fun getDialogTrackingLimit(context: Context) = getAlertDialogBuilder(context).apply {
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_tracking_limit, null))
-    }.create()
-
-    internal fun getDialogScaleType(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {
-        setSingleChoiceItems(context.resources.getStringArray(R.array.settings_scale_entries), Settings.SCALE_TYPE) { dialog, which ->
-            when (which) {
-                0 -> onDialogSelect2.onSelect0()
-                1 -> onDialogSelect2.onSelect1()
-                2 -> onDialogSelect2.onSelect2()
-            }
-            dialog.dismiss()
-        }
     }.create()
 
     private fun getAlertDialogBuilder(context: Context, appTheme: Int = APP_THEME): AlertDialog.Builder {

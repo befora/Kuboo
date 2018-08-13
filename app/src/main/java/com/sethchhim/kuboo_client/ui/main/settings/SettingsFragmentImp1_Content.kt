@@ -7,36 +7,30 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-
 open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
     override fun onResume() {
         super.onResume()
-
-        setFavoritePreference()
-        setLoginPreference()
-        setMarkFinishedPreference()
-        setPreviewPreference()
-        setReverseLayoutPreference()
-        setThemePreference()
-        setOrientationPreference()
-        setKeepScreenOn()
-        setVolumePageTurnPreference()
-
         setAboutVersionPreference()
 
-        setEpubTextZoomPreference()
-        setEpubMarginPreference()
-
-        setComicDualPanePreference()
-        setComicRtlPreference()
-        setComicScaleTypePreference()
+        setBrowserFavoritePreference()
+        setBrowserMarkFinishedPreference()
+        setBrowserPreviewPreference()
+        setBrowserReverseLayoutPreference()
 
         setDownloadSavePath()
         setDownloadTrackingLimit()
         setDownloadTrackingInterval()
 
         setHomeLayout()
+
+        setReaderKeepScreenOn()
+        setReaderVolumePageTurnPreference()
+
+        setServerLoginPreference()
+
+        setSystemThemePreference()
+        setSystemOrientationPreference()
     }
 
     private fun setAboutVersionPreference() = aboutVersionPreference.apply {
@@ -44,6 +38,42 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setOnPreferenceClickListener {
             mainActivity.showChangeLog()
             true
+        }
+    }
+
+    private fun setBrowserFavoritePreference() = browserFavoritePreference.apply {
+        isChecked = Settings.FAVORITE
+        setOnPreferenceClickListener {
+            Settings.FAVORITE = !Settings.FAVORITE
+            sharedPrefsHelper.saveFavorite()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setBrowserMarkFinishedPreference() = browserMarkFinishedPreference.apply {
+        isChecked = Settings.MARK_FINISHED
+        setOnPreferenceClickListener {
+            Settings.MARK_FINISHED = !Settings.MARK_FINISHED
+            sharedPrefsHelper.saveMarkFinished()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setBrowserPreviewPreference() = browserPreviewPreference.apply {
+        isChecked = Settings.PREVIEW
+        setOnPreferenceClickListener {
+            Settings.PREVIEW = !Settings.PREVIEW
+            sharedPrefsHelper.savePreview()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setBrowserReverseLayoutPreference() = browserReverseLayoutPreference.apply {
+        isChecked = Settings.REVERSE_LAYOUT
+        setOnPreferenceClickListener {
+            Settings.REVERSE_LAYOUT = !Settings.REVERSE_LAYOUT
+            sharedPrefsHelper.saveReverseLayout()
+            return@setOnPreferenceClickListener true
         }
     }
 
@@ -139,62 +169,6 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-    private fun setEpubTextZoomPreference() = epubTextZoomPreference.apply {
-        summary = "${Settings.EPUB_TEXT_ZOOM} %"
-        setOnPreferenceClickListener {
-            dialogUtil.getDialogBookTextZoom(mainActivity).apply {
-                show()
-
-                val textView = findViewById<TextView>(R.id.dialog_layout_settings_text_zoom_textView0)!!
-                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_text_zoom_button0)!!
-                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_text_zoom_button1)!!
-
-                textView.text = "${Settings.EPUB_TEXT_ZOOM} %"
-                buttonDecrease.onClick {
-                    Settings.EPUB_TEXT_ZOOM -= 5
-                    sharedPrefsHelper.saveEpubTextZoom()
-                    textView.text = "${Settings.EPUB_TEXT_ZOOM} %"
-                    summary = "${Settings.EPUB_TEXT_ZOOM} %"
-                }
-                buttonIncrease.onClick {
-                    Settings.EPUB_TEXT_ZOOM += 5
-                    sharedPrefsHelper.saveEpubTextZoom()
-                    textView.text = "${Settings.EPUB_TEXT_ZOOM} %"
-                    summary = "${Settings.EPUB_TEXT_ZOOM} %"
-                }
-            }
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setEpubMarginPreference() = epubMarginPreference.apply {
-        summary = "${Settings.EPUB_MARGIN_SIZE}"
-        setOnPreferenceClickListener {
-            dialogUtil.getDialogBookMargin(mainActivity).apply {
-                show()
-
-                val textView = findViewById<TextView>(R.id.dialog_layout_settings_margin_textView0)!!
-                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_margin_button0)!!
-                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_margin_button1)!!
-
-                textView.text = "${Settings.EPUB_MARGIN_SIZE}"
-                buttonDecrease.onClick {
-                    Settings.EPUB_MARGIN_SIZE -= 4
-                    sharedPrefsHelper.saveEpubMarginSize()
-                    textView.text = "${Settings.EPUB_MARGIN_SIZE}"
-                    summary = "${Settings.EPUB_MARGIN_SIZE}"
-                }
-                buttonIncrease.onClick {
-                    Settings.EPUB_MARGIN_SIZE += 4
-                    sharedPrefsHelper.saveEpubMarginSize()
-                    textView.text = "${Settings.EPUB_MARGIN_SIZE}"
-                    summary = "${Settings.EPUB_MARGIN_SIZE}"
-                }
-            }
-            return@setOnPreferenceClickListener true
-        }
-    }
-
     private fun setHomeLayout() = homeLayoutPreference.apply {
         val stringArray = resources.getStringArray(R.array.settings_layout_entries)
         summary = when (Settings.HOME_LAYOUT) {
@@ -220,25 +194,25 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-    private fun setComicDualPanePreference() = comicDualPanePreference.apply {
-        isChecked = Settings.DUAL_PANE
+    private fun setReaderKeepScreenOn() = systemKeepScreenOn.apply {
+        isChecked = Settings.KEEP_SCREEN_ON
         setOnPreferenceClickListener {
-            Settings.DUAL_PANE = !Settings.DUAL_PANE
-            sharedPrefsHelper.saveDualPane()
+            Settings.KEEP_SCREEN_ON = !Settings.KEEP_SCREEN_ON
+            sharedPrefsHelper.saveKeepScreenOn()
             return@setOnPreferenceClickListener true
         }
     }
 
-    private fun setFavoritePreference() = browserFavoritePreference.apply {
-        isChecked = Settings.FAVORITE
+    private fun setReaderVolumePageTurnPreference() = systemVolumePageTurnPreference.apply {
+        isChecked = Settings.VOLUME_PAGE_TURN
         setOnPreferenceClickListener {
-            Settings.FAVORITE = !Settings.FAVORITE
-            sharedPrefsHelper.saveFavorite()
+            Settings.VOLUME_PAGE_TURN = !Settings.VOLUME_PAGE_TURN
+            sharedPrefsHelper.saveVolumePageTurn()
             return@setOnPreferenceClickListener true
         }
     }
 
-    private fun setLoginPreference() = serverLoginPreference.apply {
+    private fun setServerLoginPreference() = serverLoginPreference.apply {
         setOnPreferenceClickListener {
             mainActivity.showFragmentLoginBrowser()
             return@setOnPreferenceClickListener true
@@ -261,68 +235,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-    private fun setMarkFinishedPreference() = browserMarkFinishedPreference.apply {
-        isChecked = Settings.MARK_FINISHED
-        setOnPreferenceClickListener {
-            Settings.MARK_FINISHED = !Settings.MARK_FINISHED
-            sharedPrefsHelper.saveMarkFinished()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setPreviewPreference() = browserPreviewPreference.apply {
-        isChecked = Settings.PREVIEW
-        setOnPreferenceClickListener {
-            Settings.PREVIEW = !Settings.PREVIEW
-            sharedPrefsHelper.savePreview()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setReverseLayoutPreference() = browserReverseLayoutPreference.apply {
-        isChecked = Settings.REVERSE_LAYOUT
-        setOnPreferenceClickListener {
-            Settings.REVERSE_LAYOUT = !Settings.REVERSE_LAYOUT
-            sharedPrefsHelper.saveReverseLayout()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setComicRtlPreference() = comicRtlPreference.apply {
-        isChecked = Settings.RTL
-        setOnPreferenceClickListener {
-            Settings.RTL = !Settings.RTL
-            sharedPrefsHelper.saveRtl()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setComicScaleTypePreference() = comicScaleTypePreference.apply {
-        val stringArray = resources.getStringArray(R.array.settings_scale_entries)
-        summary = when (Settings.SCALE_TYPE) {
-            0 -> stringArray[0]
-            1 -> stringArray[1]
-            2 -> stringArray[2]
-            else -> "ERROR"
-        }
-
-        setOnPreferenceClickListener {
-            dialogUtil.getDialogScaleType(mainActivity, object : DialogUtil.OnDialogSelect2 {
-                override fun onSelect0() = saveScaleType(0)
-                override fun onSelect1() = saveScaleType(1)
-                override fun onSelect2() = saveScaleType(2)
-
-                private fun saveScaleType(scaleType: Int) {
-                    Settings.SCALE_TYPE = scaleType
-                    sharedPrefsHelper.saveScaleType()
-                    summary = stringArray[scaleType]
-                }
-            }).show()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setThemePreference() = systemThemePreference.apply {
+    private fun setSystemThemePreference() = systemThemePreference.apply {
         val stringArray = resources.getStringArray(R.array.settings_theme_entries)
         summary = when (Settings.APP_THEME) {
             0 -> stringArray[0]
@@ -353,7 +266,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-    private fun setOrientationPreference() = systemOrientationPreference.apply {
+    private fun setSystemOrientationPreference() = systemOrientationPreference.apply {
         summary = getScreenOrientationSummary()
 
         setOnPreferenceClickListener {
@@ -382,24 +295,6 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             1 -> stringArray[1]
             2 -> stringArray[2]
             else -> "ERROR"
-        }
-    }
-
-    private fun setKeepScreenOn() = systemKeepScreenOn.apply {
-        isChecked = Settings.KEEP_SCREEN_ON
-        setOnPreferenceClickListener {
-            Settings.KEEP_SCREEN_ON = !Settings.KEEP_SCREEN_ON
-            sharedPrefsHelper.saveKeepScreenOn()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setVolumePageTurnPreference() = systemVolumePageTurnPreference.apply {
-        isChecked = Settings.VOLUME_PAGE_TURN
-        setOnPreferenceClickListener {
-            Settings.VOLUME_PAGE_TURN = !Settings.VOLUME_PAGE_TURN
-            sharedPrefsHelper.saveVolumePageTurn()
-            return@setOnPreferenceClickListener true
         }
     }
 

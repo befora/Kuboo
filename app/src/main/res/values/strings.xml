@@ -223,12 +223,6 @@
     <string name="settings_reverse_layout">Reverse Layout</string>
     <string name="settings_reverse_reading_order">Reverse reading order</string>
     <string name="settings_save_path">Save Path</string>
-    <string-array name="settings_scale_entries">
-        <item>@string/settings_aspect_fill</item>
-        <item>@string/settings_aspect_fit</item>
-        <item>@string/settings_fit_width</item>
-    </string-array>
-    <string name="settings_scale_type">Scale Type</string>
     <string name="settings_server">Server</string>
     <string name="settings_show_favorite_buttons">Show favorite buttons</string>
     <string name="settings_show_preview_page_before_reading">Show preview page before reading</string>

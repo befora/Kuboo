@@ -36,14 +36,9 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var browserMarkFinishedPreference: SwitchPreferenceCompat
     protected lateinit var browserPreviewPreference: SwitchPreferenceCompat
     protected lateinit var browserReverseLayoutPreference: SwitchPreferenceCompat
-    protected lateinit var comicScaleTypePreference: Preference
-    protected lateinit var comicDualPanePreference: SwitchPreferenceCompat
-    protected lateinit var comicRtlPreference: SwitchPreferenceCompat
     protected lateinit var downloadSavePath: Preference
     protected lateinit var downloadTrackingLimit: Preference
     protected lateinit var downloadTrackingInterval: Preference
-    protected lateinit var epubTextZoomPreference: Preference
-    protected lateinit var epubMarginPreference: Preference
     protected lateinit var homeLayoutPreference: Preference
     protected lateinit var serverLoginPreference: Preference
     protected lateinit var systemOrientationPreference: Preference
@@ -58,14 +53,9 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         browserMarkFinishedPreference = findPreference("settings_browser_mark_finished") as SwitchPreferenceCompat
         browserPreviewPreference = findPreference("settings_browser_preview") as SwitchPreferenceCompat
         browserReverseLayoutPreference = findPreference("settings_browser_reverse_layout") as SwitchPreferenceCompat
-        comicDualPanePreference = findPreference("settings_comic_dual_pane") as SwitchPreferenceCompat
-        comicRtlPreference = findPreference("settings_comic_rtl") as SwitchPreferenceCompat
-        comicScaleTypePreference = findPreference("settings_comic_scale_type")
         downloadSavePath = findPreference("settings_download_save_path")
         downloadTrackingLimit = findPreference("settings_download_tracking_limit")
         downloadTrackingInterval = findPreference("settings_download_tracking_interval")
-        epubTextZoomPreference = findPreference("settings_epub_text_zoom")
-        epubMarginPreference = findPreference("settings_epub_margin")
         homeLayoutPreference = findPreference("settings_home_layout")
         serverLoginPreference = findPreference("settings_server_login")
         systemOrientationPreference = findPreference("settings_system_orientation")

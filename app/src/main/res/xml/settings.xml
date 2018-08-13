@@ -39,51 +39,15 @@
             android:summary="@string/settings_show_favorite_buttons"
             android:title="@string/settings_favorite"/>
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:key="settings_browser_reverse_layout"
-            android:layout="@layout/settings_item_preference_normal"
-            android:summary="@string/settings_content_starts_from_the_bottom_towards_top"
-            android:title="@string/settings_reverse_layout"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
             android:key="settings_browser_preview"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_show_preview_page_before_reading"
             android:title="@string/settings_preview"/>
-    </android.support.v7.preference.PreferenceCategory>
-
-    <!-- EPUB -->
-    <android.support.v7.preference.PreferenceCategory
-        android:key="category_epub"
-        android:layout="@layout/settings_item_category"
-        android:title="@string/settings_epub">
-        <android.support.v7.preference.Preference
-            android:key="settings_epub_text_zoom"
-            android:layout="@layout/settings_item_preference_normal"
-            android:title="@string/settings_text_zoom"/>
-        <android.support.v7.preference.Preference
-            android:key="settings_epub_margin"
-            android:layout="@layout/settings_item_preference_normal"
-            android:title="@string/settings_margin"/>
-    </android.support.v7.preference.PreferenceCategory>
-
-    <!-- COMIC -->
-    <android.support.v7.preference.PreferenceCategory
-        android:key="category_comic"
-        android:layout="@layout/settings_item_category"
-        android:title="@string/settings_comic">
-        <android.support.v7.preference.Preference
-            android:key="settings_comic_scale_type"
-            android:layout="@layout/settings_item_preference_normal"
-            android:title="@string/settings_scale_type"/>
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:key="settings_comic_dual_pane"
+            android:key="settings_browser_reverse_layout"
             android:layout="@layout/settings_item_preference_normal"
-            android:summary="@string/settings_read_two_pages_simultaneously_in_landscape_mode"
-            android:title="@string/settings_dual_pane_mode"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:key="settings_comic_rtl"
-            android:layout="@layout/settings_item_preference_normal"
-            android:summary="@string/settings_reverse_reading_order"
-            android:title="@string/settings_manga_mode"/>
+            android:summary="@string/settings_content_starts_from_the_bottom_towards_top"
+            android:title="@string/settings_reverse_layout"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- DOWNLOAD -->
@@ -105,6 +69,23 @@
             android:title="@string/settings_tracking_interval"/>
     </android.support.v7.preference.PreferenceCategory>
 
+    <!-- READER -->
+    <android.support.v7.preference.PreferenceCategory
+        android:key="category_reader"
+        android:layout="@layout/settings_item_category"
+        android:title="@string/settings_reader">
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="settings_volume_page_turn"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_volume_buttons_will_turn_page"
+            android:title="@string/settings_volume_page_turn"/>
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="settings_keep_screen_on"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_reader_screen_will_keep_the_device_awake"
+            android:title="@string/settings_keep_screen_on"/>
+    </android.support.v7.preference.PreferenceCategory>
+
     <!-- SYSTEM -->
     <android.support.v7.preference.PreferenceCategory
         android:key="category_system"
@@ -118,16 +99,6 @@
             android:key="settings_system_orientation"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_orientation"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:key="settings_volume_page_turn"
-            android:layout="@layout/settings_item_preference_normal"
-            android:summary="@string/settings_volume_buttons_will_turn_page"
-            android:title="@string/settings_volume_page_turn"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:key="settings_keep_screen_on"
-            android:layout="@layout/settings_item_preference_normal"
-            android:summary="@string/settings_reader_screen_will_keep_the_device_awake"
-            android:title="@string/settings_keep_screen_on"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- ABOUT -->
