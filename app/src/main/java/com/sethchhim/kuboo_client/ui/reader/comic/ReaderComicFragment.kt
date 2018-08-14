@@ -1,6 +1,5 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -72,20 +71,14 @@ open class ReaderComicFragment : DaggerFragment() {
                 .into(this)
     }
 
-    @SuppressLint("NewApi")
     protected fun ImageView.setScaleToPip(singlePane: Boolean) {
-        adjustViewBounds = readerComicActivity.isInPictureInPictureMode && singlePane
+        adjustViewBounds = readerComicActivity.isInPipMode && singlePane
     }
 
-    @SuppressLint("NewApi")
     protected fun SpinKitView.setVisibilityToPip() {
-        if (!readerComicActivity.isInPictureInPictureMode) {
+        if (!readerComicActivity.isInPipMode) {
             visible()
         }
     }
 
 }
-
-
-
-

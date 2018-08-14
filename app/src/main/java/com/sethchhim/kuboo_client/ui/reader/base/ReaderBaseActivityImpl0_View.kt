@@ -50,8 +50,8 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     protected var snackBarEnd: Snackbar? = null
     protected var snackBarNext: Snackbar? = null
 
-    protected var isBackStackLost = false
     internal var isInPipMode = false
+    protected var isBackStackLost = false
 
     internal var pipPosition = 0
     internal var pipWidth = 0
