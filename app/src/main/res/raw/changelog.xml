@@ -2,6 +2,14 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Aug 14, 2018"
+        versionName="1.0.8">
+        <changelogtext>add server example prefill</changelogtext>
+        <changelogtext>fix critical crash on comic load</changelogtext>
+        <changelogtext>settings refactor</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Aug 10, 2018"
         versionName="1.0.7">
         <changelogtext>add download screen shows free storage space</changelogtext>
