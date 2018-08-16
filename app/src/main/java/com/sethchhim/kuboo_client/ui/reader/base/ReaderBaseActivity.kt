@@ -42,6 +42,7 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        hideOverlay(isFadeEnabled = false)
         populateNeighbors()
     }
 
