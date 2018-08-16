@@ -21,9 +21,11 @@ class GlideLocalFetcher internal constructor(private val glideLocal: GlideLocal)
 
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
         viewModel.getLocalImageInputStream(glideLocal.position).observeForever { result ->
-            result?.let {
-                inputStream = it
+            if (result != null) {
+                inputStream = result
                 callback.onDataReady(inputStream)
+            } else {
+                callback.onLoadFailed(Exception("Failed to load!"))
             }
         }
     }
