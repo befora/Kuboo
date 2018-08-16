@@ -62,7 +62,11 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
 
         if (Settings.FAVORITE) {
             val isRootBook = book.content == Constants.TAG_ROOT_BOOK
-            if (isRootBook) newResult.addAll(viewModel.getFavoriteList())
+            if (isRootBook) {
+                viewModel.getFavoriteList().forEach {
+                    if (it.isMatchServer(book)) newResult.add(it)
+                }
+            }
         }
 
         setStateConnected()

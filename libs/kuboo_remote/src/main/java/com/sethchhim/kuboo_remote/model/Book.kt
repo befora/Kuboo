@@ -243,6 +243,8 @@ data class Book(
 
     fun isMatch(book: Book) = this.id == book.id && this.getXmlId() == book.getXmlId() && this.server == book.server
 
+    fun isMatchServer(book: Book) = this.server == book.server
+
     fun isMatchXmlId(book: Book) = this.getXmlId() == book.getXmlId()
 
     fun isMatchCurrentPage(book: Book) = currentPage == book.currentPage
