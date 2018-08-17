@@ -83,21 +83,13 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
                         putExtra(Constants.ARG_TRANSITION_URL, sharedElement?.transitionName)
                     }
 
-                    when (requestFinish) {
+                    val isSharedElementValid = sharedElement?.isVisible() ?: false
+                    when (isSharedElementValid) {
                         true -> {
-                            finishAndRemoveTask()
-                            this@BaseActivityImpl1_Read.startActivity(intent)
+                            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_Read, sharedElement!!, sharedElement!!.transitionName)
+                            startActivity(intent, options.toBundle())
                         }
-                        false -> {
-                            val isSharedElementValid = sharedElement?.isVisible() ?: false
-                            when (isSharedElementValid) {
-                                true -> {
-                                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_Read, sharedElement!!, sharedElement!!.transitionName)
-                                    startActivity(intent, options.toBundle())
-                                }
-                                false -> this@BaseActivityImpl1_Read.startActivity(intent)
-                            }
-                        }
+                        false -> this@BaseActivityImpl1_Read.startActivity(intent)
                     }
                 }
             }

@@ -7,7 +7,6 @@ import com.sethchhim.kuboo_remote.model.Book
 
 data class ReadData(var book: Book,
                     var bookmarksEnabled: Boolean = true,
-                    var requestFinish: Boolean = false,
                     var source: Source,
                     var sharedElement: ImageView? = null,
                     var onLoadCallback: OnLoadCallback? = null)
