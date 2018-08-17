@@ -10,7 +10,7 @@ import com.sethchhim.kuboo_client.data.model.Progress
 
 @Suppress("UNCHECKED_CAST")
 @SuppressLint("Registered")
-open class ReaderBaseActivityImpl2_Content : ReaderBaseActivityImpl1_Overlay() {
+open class ReaderBaseActivityImpl3_Content : ReaderBaseActivityImpl2_Overlay() {
 
     private val dualPaneLiveData = MutableLiveData<Boolean>()
 
@@ -33,13 +33,13 @@ open class ReaderBaseActivityImpl2_Content : ReaderBaseActivityImpl1_Overlay() {
     protected fun isDownload() = source == Source.DOWNLOAD
 
     private fun List<PageUrl>.toLocalDualPaneList() = viewModel.singleToDualLocal(this).apply {
-        (this[0] as MutableLiveData<Progress>).observe(this@ReaderBaseActivityImpl2_Content, Observer { result -> result?.let { handleProgress(it) } })
-        (this[1] as MutableLiveData<List<PageUrl>>).observe(this@ReaderBaseActivityImpl2_Content, Observer { result -> result?.let { handleDualPaneResult(it) } })
+        (this[0] as MutableLiveData<Progress>).observe(this@ReaderBaseActivityImpl3_Content, Observer { result -> result?.let { handleProgress(it) } })
+        (this[1] as MutableLiveData<List<PageUrl>>).observe(this@ReaderBaseActivityImpl3_Content, Observer { result -> result?.let { handleDualPaneResult(it) } })
     }
 
-    private fun List<PageUrl>.toRemoteDualPaneList() = viewModel.singleToDualRemote(this@ReaderBaseActivityImpl2_Content, this).apply {
-        (this[0] as MutableLiveData<Progress>).observe(this@ReaderBaseActivityImpl2_Content, Observer { result -> result?.let { handleProgress(it) } })
-        (this[1] as MutableLiveData<List<PageUrl>>).observe(this@ReaderBaseActivityImpl2_Content, Observer { result -> result?.let { handleDualPaneResult(it) } })
+    private fun List<PageUrl>.toRemoteDualPaneList() = viewModel.singleToDualRemote(this@ReaderBaseActivityImpl3_Content, this).apply {
+        (this[0] as MutableLiveData<Progress>).observe(this@ReaderBaseActivityImpl3_Content, Observer { result -> result?.let { handleProgress(it) } })
+        (this[1] as MutableLiveData<List<PageUrl>>).observe(this@ReaderBaseActivityImpl3_Content, Observer { result -> result?.let { handleDualPaneResult(it) } })
     }
 
     private fun handleDualPaneResult(list: List<PageUrl>) {

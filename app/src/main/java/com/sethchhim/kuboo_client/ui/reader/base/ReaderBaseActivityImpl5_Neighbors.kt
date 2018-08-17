@@ -8,7 +8,7 @@ import com.sethchhim.kuboo_remote.model.Neighbors
 import timber.log.Timber
 
 @SuppressLint("Registered")
-open class ReaderBaseActivityImpl4_Neighbors : ReaderBaseActivityImpl3_Bookmark() {
+open class ReaderBaseActivityImpl5_Neighbors : ReaderBaseActivityImpl4_Bookmark() {
 
     protected fun populateNeighbors() = when (isLocal) {
         true -> populateNeighborsLocal()
@@ -70,10 +70,10 @@ open class ReaderBaseActivityImpl4_Neighbors : ReaderBaseActivityImpl3_Bookmark(
     private fun preloadRemote() = glideUtil.apply {
         if (nextBook.isComic()) {
             //preload next preview image
-            preload(this@ReaderBaseActivityImpl4_Neighbors, nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT))
+            preload(this@ReaderBaseActivityImpl5_Neighbors, nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT))
 
             //preload next first image
-            preload(this@ReaderBaseActivityImpl4_Neighbors, nextBook.server + nextBook.getPse(Settings.MAX_PAGE_WIDTH, 0))
+            preload(this@ReaderBaseActivityImpl5_Neighbors, nextBook.server + nextBook.getPse(Settings.MAX_PAGE_WIDTH, 0))
         }
     }
 

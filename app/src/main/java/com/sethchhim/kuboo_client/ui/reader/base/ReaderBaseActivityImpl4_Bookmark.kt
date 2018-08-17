@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.sethchhim.kuboo_client.Constants
 
 @SuppressLint("Registered")
-open class ReaderBaseActivityImpl3_Bookmark : ReaderBaseActivityImpl2_Content() {
+open class ReaderBaseActivityImpl4_Bookmark : ReaderBaseActivityImpl3_Content() {
 
     protected fun saveEpubBookmark(chapterNumber: Int, progressStart: Float) {
         currentBook.bookMark = "$chapterNumber#$progressStart"

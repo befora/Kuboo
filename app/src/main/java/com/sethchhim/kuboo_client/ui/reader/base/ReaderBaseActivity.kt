@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.MenuItem
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.R
@@ -14,7 +13,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 
 @SuppressLint("Registered")
-open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
+open class ReaderBaseActivity : ReaderBaseActivityImpl6_Tracking() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportPostponeEnterTransition()
@@ -71,26 +70,6 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
         false -> hideOverlaySoftwareNavigation()
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (Settings.VOLUME_PAGE_TURN) {
-            if (event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                if (event.isLongPress)
-                    onVolumeDownLongPressed()
-                else if (event.action == KeyEvent.ACTION_UP)
-                    onVolumeDownPressed()
-                return true
-            }
-            if (event.keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-                if (event.isLongPress)
-                    onVolumeUpLongPressed()
-                else if (event.action == KeyEvent.ACTION_UP)
-                    onVolumeUpPressed()
-                return true
-            }
-        }
-        return super.dispatchKeyEvent(event)
-    }
-
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
         if (Settings.PIP_MODE) startPictureInPictureMode()
@@ -105,22 +84,6 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl5_Tracking() {
             isInPipMode = false
             isBackStackLost = true
         }
-    }
-
-    open fun onVolumeDownLongPressed() {
-        //override in children activity
-    }
-
-    open fun onVolumeDownPressed() {
-        //override in children activity
-    }
-
-    open fun onVolumeUpLongPressed() {
-        //override in children activity
-    }
-
-    open fun onVolumeUpPressed() {
-        //override in children activity
     }
 
 }

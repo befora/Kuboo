@@ -17,7 +17,6 @@ import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.Progress
-import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPreviewImageView
 import com.sethchhim.kuboo_remote.model.Book
@@ -30,7 +29,7 @@ import java.util.concurrent.TimeUnit
 
 
 @SuppressLint("Registered")
-open class ReaderBaseActivityImpl0_View : BaseActivity() {
+open class ReaderBaseActivityImpl1_View : ReaderBaseActivityImpl0_Hardware() {
 
     @BindView(R.id.reader_layout_base_constraintLayout) lateinit var constraintLayout: ConstraintLayout
     @BindView(R.id.reader_layout_base_content_progressBar) lateinit var progressBar: ProgressBar
@@ -113,10 +112,10 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
             val isShowOpenSeries = book.server == viewModel.getActiveServer()
             if (isShowOpenSeries) this.setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_open_series)) { dialog, _ ->
                 dialog.dismiss()
-                Intent(this@ReaderBaseActivityImpl0_View, MainActivity::class.java).apply {
+                Intent(this@ReaderBaseActivityImpl1_View, MainActivity::class.java).apply {
                     putExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, true)
                     putExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD, currentBook)
-                    this@ReaderBaseActivityImpl0_View.startActivity(this)
+                    this@ReaderBaseActivityImpl1_View.startActivity(this)
                 }
             }
             show()

@@ -8,7 +8,7 @@ import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.visible
 
 @SuppressLint("Registered")
-open class ReaderBaseActivityImpl1_Overlay : ReaderBaseActivityImpl0_View() {
+open class ReaderBaseActivityImpl2_Overlay : ReaderBaseActivityImpl1_View() {
 
     internal fun showOverlay(isFadeEnabled: Boolean = true) {
         overlayImageView.visible()

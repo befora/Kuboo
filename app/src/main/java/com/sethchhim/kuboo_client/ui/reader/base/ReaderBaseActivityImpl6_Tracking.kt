@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.sethchhim.kuboo_remote.model.Book
 
 @SuppressLint("Registered")
-open class ReaderBaseActivityImpl5_Tracking : ReaderBaseActivityImpl4_Neighbors() {
+open class ReaderBaseActivityImpl6_Tracking : ReaderBaseActivityImpl5_Neighbors() {
 
     protected fun startDownloadTracking(book: Book) {
         if (isLocal && book.isFavorite) {
