@@ -357,6 +357,8 @@ object Extensions {
         if (visibility != View.VISIBLE) visibility = View.VISIBLE
     }
 
+    internal fun View.isVisible() = visibility == View.VISIBLE
+
     internal fun View.gone() {
         if (visibility != View.GONE) visibility = View.GONE
     }

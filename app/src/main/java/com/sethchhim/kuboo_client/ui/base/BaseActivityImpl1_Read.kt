@@ -14,6 +14,7 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.sethchhim.kuboo_client.Constants
+import com.sethchhim.kuboo_client.Extensions.isVisible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.enum.Source
@@ -87,11 +88,14 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
                             finishAndRemoveTask()
                             this@BaseActivityImpl1_Read.startActivity(intent)
                         }
-                        false -> when (sharedElement == null) {
-                            true -> this@BaseActivityImpl1_Read.startActivity(intent)
-                            false -> {
-                                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_Read, sharedElement!!, sharedElement!!.transitionName)
-                                startActivity(intent, options.toBundle())
+                        false -> {
+                            val isSharedElementValid = sharedElement?.isVisible() ?: false
+                            when (isSharedElementValid) {
+                                true -> {
+                                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl1_Read, sharedElement!!, sharedElement!!.transitionName)
+                                    startActivity(intent, options.toBundle())
+                                }
+                                false -> this@BaseActivityImpl1_Read.startActivity(intent)
                             }
                         }
                     }
