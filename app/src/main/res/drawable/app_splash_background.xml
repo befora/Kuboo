@@ -7,6 +7,6 @@
             android:dither="true"
             android:filter="true"
             android:gravity="center"
-            android:src="@drawable/app_icon"/>
+            android:src="@drawable/app_splash"/>
     </item>
 </layer-list>
