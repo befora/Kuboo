@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-
     <string name="about_answer1">The Ubooquity server MUST enable OPDS feed.
     \n \nThe Ubooquity server MUST open the appropriate network port.
     \n \nThe Ubooquity server MUST be allowed through any firewalls.
@@ -165,6 +164,7 @@
     <string name="reader_aspect_fill">Aspect Fill</string>
     <string name="reader_aspect_fit">Aspect Fit</string>
     <string name="reader_aspect_fit_width">Fit Width</string>
+    <string name="reader_chapters">Chapters</string>
     <string name="reader_dual_pane">Dual Pane</string>
     <string name="reader_end_of_series">End of Series</string>
     <string name="reader_info">Info</string>
@@ -246,5 +246,4 @@
     <string name="title_downloads">Downloads</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
-
 </resources>

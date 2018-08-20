@@ -38,7 +38,7 @@
         android:id="@+id/reader_layout_base_overlay_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Chapters"
+        android:text="@string/reader_chapters"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/reader_layout_comic_dual_content_guideLine"
         app:layout_constraintStart_toStartOf="parent"
