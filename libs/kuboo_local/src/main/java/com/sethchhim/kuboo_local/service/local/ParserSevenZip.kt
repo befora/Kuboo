@@ -1,4 +1,4 @@
-package com.sethchhim.kuboo_local.parser
+package com.sethchhim.kuboo_local.service.local
 
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry
 import org.apache.commons.compress.archivers.sevenz.SevenZFile
@@ -12,8 +12,6 @@ class ParserSevenZip : ParserBase(), Parser {
 
     private lateinit var mEntries: MutableList<SevenZEntry>
 
-    override var filePath = ""
-
     private inner class SevenZEntry(internal val entry: SevenZArchiveEntry, internal val bytes: ByteArray)
 
     @Throws(IOException::class)
@@ -26,10 +24,16 @@ class ParserSevenZip : ParserBase(), Parser {
             if (entry.isDirectory) {
                 continue
             }
-            if (isImage(entry.name)) {
+            val name = entry.name
+            if (isImage(name)) {
                 val content = ByteArray(entry.size.toInt())
                 sevenZFile.read(content)
                 mEntries.add(SevenZEntry(entry, content))
+            }
+            if (isComicInfo(name)) {
+                val content = ByteArray(entry.size.toInt())
+                sevenZFile.read(content)
+                handleComicInfo(ByteArrayInputStream(SevenZEntry(entry, content).bytes))
             }
             entry = sevenZFile.nextEntry
         }

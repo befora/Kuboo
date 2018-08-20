@@ -6,6 +6,8 @@ class LocalRepository(private val kubooLocal: KubooLocal) {
 
     internal fun cleanupParser() = kubooLocal.cleanupParser()
 
+    internal fun getLocalComicInfo() = kubooLocal.getLocalComicInfo()
+
     internal fun getLocalImageInputStream(position: Int) = kubooLocal.getLocalInputStreamAt(position)
 
 }

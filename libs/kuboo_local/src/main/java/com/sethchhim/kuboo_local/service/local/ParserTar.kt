@@ -1,4 +1,4 @@
-package com.sethchhim.kuboo_local.parser
+package com.sethchhim.kuboo_local.service.local
 
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry
@@ -9,8 +9,6 @@ import java.util.*
 class ParserTar : ParserBase(), Parser {
 
     private lateinit var mEntries: MutableList<TarEntry>
-
-    override var filePath = ""
 
     private inner class TarEntry(internal val entry: TarArchiveEntry, internal val bytes: ByteArray)
 

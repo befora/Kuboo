@@ -13,7 +13,7 @@ import timber.log.Timber
 import kotlin.math.roundToInt
 
 @SuppressLint("Registered")
-open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview(), ViewPager.OnPageChangeListener, SeekBar.OnSeekBarChangeListener {
+open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview(), ViewPager.OnPageChangeListener, SeekBar.OnSeekBarChangeListener {
 
     protected fun initListeners() {
         viewPager.clearOnPageChangeListeners()
@@ -30,7 +30,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
 
     protected fun refreshViewpager() {
         val currentItem = viewPager.currentItem
-        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl2_Content)
+        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl3_Content)
         viewPager.currentItem = currentItem
     }
 
@@ -124,7 +124,7 @@ open class ReaderComicActivityImpl2_Content : ReaderComicActivityImpl1_Preview()
     private fun onReaderListChanged() {
         viewModel.setReaderListType()
         setOverlay(viewModel.getReaderListSize())
-        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl2_Content)
+        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl3_Content)
         val position = viewModel.getReaderPositionByTrueIndex(currentBook.currentPage)
         viewPager.currentItem = position
         saveComicBookmark(position)

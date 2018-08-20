@@ -1,4 +1,4 @@
-package com.sethchhim.kuboo_local.parser;
+package com.sethchhim.kuboo_local.util;
 
 import java.security.MessageDigest;
 

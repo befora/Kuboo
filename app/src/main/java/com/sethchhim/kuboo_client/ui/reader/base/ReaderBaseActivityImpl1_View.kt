@@ -38,6 +38,7 @@ open class ReaderBaseActivityImpl1_View : ReaderBaseActivityImpl0_Hardware() {
     @BindView(R.id.reader_layout_base_overlay_guideLine1) lateinit var guidelineHorizontal: Guideline
     @BindView(R.id.reader_layout_comic_dual_content_guideLine) lateinit var guidelineVertical: Guideline
     @BindView(R.id.reader_layout_base_overlay_imageView) lateinit var overlayImageView: ImageView
+    @BindView(R.id.reader_layout_base_overlay_button) lateinit var overlayChapterButton: Button
     @BindView(R.id.reader_layout_base_overlay_linearLayout) lateinit var overlayTextLayout: LinearLayout
     @BindView(R.id.reader_layout_base_overlay_seekBar) lateinit var overlaySeekBar: SeekBar
     @BindView(R.id.reader_layout_base_overlay_textView1) lateinit var overlayTextView1: TextView

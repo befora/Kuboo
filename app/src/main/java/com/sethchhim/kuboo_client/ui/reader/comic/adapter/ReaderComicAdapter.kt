@@ -8,14 +8,14 @@ import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
-import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityImpl2_Content
+import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityImpl3_Content
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragment
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl1_Single
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl2_Dual
 import timber.log.Timber
 import javax.inject.Inject
 
-class ReaderComicAdapter internal constructor(private val readerComicActivityImpl2Content: ReaderComicActivityImpl2_Content) : FragmentStatePagerAdapter(readerComicActivityImpl2Content.supportFragmentManager) {
+class ReaderComicAdapter internal constructor(private val readerComicActivityImpl3Content: ReaderComicActivityImpl3_Content) : FragmentStatePagerAdapter(readerComicActivityImpl3Content.supportFragmentManager) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -24,8 +24,8 @@ class ReaderComicAdapter internal constructor(private val readerComicActivityImp
     @Inject lateinit var viewModel: ViewModel
 
     override fun getItem(position: Int): ReaderComicFragment {
-        val book = readerComicActivityImpl2Content.currentBook
-        val isLocal = readerComicActivityImpl2Content.isLocal
+        val book = readerComicActivityImpl3Content.currentBook
+        val isLocal = readerComicActivityImpl3Content.isLocal
         val isPositionDual = getIsPositionDual(position)
 
         return when (Settings.DUAL_PANE && isPositionDual) {

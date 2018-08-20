@@ -1,4 +1,4 @@
-package com.sethchhim.kuboo_local.parser
+package com.sethchhim.kuboo_local.service.local
 
 import com.github.junrar.Archive
 import com.github.junrar.exception.RarException
@@ -15,8 +15,6 @@ class ParserRar : ParserBase(), Parser {
 
     private lateinit var mArchive: Archive
     private var mSolidFileExtracted = false
-
-    override var filePath = ""
 
     @Throws(IOException::class)
     override fun parse(file: File) {

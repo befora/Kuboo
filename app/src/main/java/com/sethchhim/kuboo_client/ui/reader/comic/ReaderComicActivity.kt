@@ -8,13 +8,14 @@ import android.view.MenuItem
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 
-class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
+class ReaderComicActivity : ReaderComicActivityImpl4_Menu() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initContentUi()
         initListeners()
         populateContent()
+        setOverlayChapterButton()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -25,6 +26,7 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Menu() {
         initContentUi()
         initListeners()
         populateContent()
+        setOverlayChapterButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

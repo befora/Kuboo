@@ -18,7 +18,7 @@ import com.sethchhim.kuboo_client.data.model.GlideLocal
 import timber.log.Timber
 
 @SuppressLint("Registered")
-open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
+open class ReaderComicActivityImpl2_Preview : ReaderComicActivityImpl1_Overlay() {
 
     protected var isPreviewEnabled = true
 
@@ -40,7 +40,7 @@ open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
     }
 
     private fun ImageView.loadOverlayImage(any: Any) =
-            Glide.with(this@ReaderComicActivityImpl1_Preview)
+            Glide.with(this@ReaderComicActivityImpl2_Preview)
                     .load(any)
                     .apply(RequestOptions()
                             .priority(Priority.LOW)
@@ -51,7 +51,7 @@ open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
                     .into(this)
 
     private fun ImageView.loadPreviewImage(any: Any) =
-            Glide.with(this@ReaderComicActivityImpl1_Preview)
+            Glide.with(this@ReaderComicActivityImpl2_Preview)
                     .load(any)
                     .apply(RequestOptions()
                             .priority(Priority.IMMEDIATE)

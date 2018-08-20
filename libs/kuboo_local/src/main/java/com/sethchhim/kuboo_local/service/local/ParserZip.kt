@@ -1,4 +1,4 @@
-package com.sethchhim.kuboo_local.parser
+package com.sethchhim.kuboo_local.service.local
 
 import java.io.File
 import java.io.IOException
@@ -11,8 +11,6 @@ class ParserZip : ParserBase(), Parser {
     private lateinit var mEntries: ArrayList<ZipEntry>
     private lateinit var mZipFile: ZipFile
 
-    override var filePath = ""
-
     @Throws(IOException::class)
     override fun parse(file: File) {
         mZipFile = ZipFile(file.absolutePath)
@@ -20,9 +18,11 @@ class ParserZip : ParserBase(), Parser {
 
         val e = mZipFile.entries()
         while (e.hasMoreElements()) {
-            val ze = e.nextElement()
-            if (!ze.isDirectory && isImage(ze.name)) {
-                mEntries.add(ze)
+            e.nextElement()?.apply {
+                if (!isDirectory) {
+                    if (isImage(name)) mEntries.add(this)
+                    if (isComicInfo(name)) handleComicInfo(mZipFile.getInputStream(this))
+                }
             }
         }
 
