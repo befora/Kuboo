@@ -156,8 +156,7 @@ data class Book(
                 return Integer.parseInt(this.linkXmlPath.substring(0, index))
             }
         } catch (e: Exception) {
-            Timber.e("Failed to get xml id! ${e.message}")
-            e.printStackTrace()
+            //do nothing
         }
         return 0
     }
