@@ -12,9 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.showDelayed
 import com.sethchhim.kuboo_client.Extensions.toGlideUrl
@@ -22,7 +20,6 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.preview.custom.CropTransformation
 import com.sethchhim.kuboo_remote.model.Login
 import timber.log.Timber
-import java.io.File
 
 @SuppressLint("Registered")
 open class PreviewActivityImpl1_Content : PreviewActivityImpl0_View() {
@@ -57,16 +54,22 @@ open class PreviewActivityImpl1_Content : PreviewActivityImpl0_View() {
     protected fun preloadCurrentPage() {
         val stringUrl = viewModel.getActiveServer() + currentBook.getPse(Settings.MAX_PAGE_WIDTH, currentBook.currentPage)
         Glide.with(this)
-                .downloadOnly()
                 .load(stringUrl)
                 .apply(RequestOptions()
                         .priority(Priority.LOW)
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                .into(object : SimpleTarget<File>() {
-                    override fun onResourceReady(resource: File, transition: Transition<in File>?) {
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        Timber.e("Preload failed: $stringUrl")
+                        return false
+                    }
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         Timber.i("Preload success: $stringUrl")
+                        return false
                     }
                 })
+                .preload()
     }
 
     protected fun ImageView.loadImage() {
