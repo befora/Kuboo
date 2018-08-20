@@ -5,6 +5,7 @@ import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.fadeGone
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_client.Extensions.setGuidePercent
 import com.sethchhim.kuboo_client.Extensions.visible
 
 @SuppressLint("Registered")
@@ -54,6 +55,17 @@ open class ReaderBaseActivityImpl2_Overlay : ReaderBaseActivityImpl1_View() {
         hideReaderToolbar()
 
         intent.putExtra(Constants.ARG_OVERLAY, false)
+    }
+
+    protected fun setOverlayGuideLines() {
+        guidelineHorizontal.setGuidePercent(when (systemUtil.isOrientationLandscape()) {
+            true -> 0.5F
+            false -> 0.3F
+        })
+        guidelineVertical.setGuidePercent(when (systemUtil.isOrientationLandscape()) {
+            true -> 0.15F
+            false -> 0.3F
+        })
     }
 
     protected fun setOverlayPageNumberText(progress: Int) {

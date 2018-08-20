@@ -86,4 +86,9 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl6_Tracking() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        setOverlayGuideLines()
+    }
+
 }

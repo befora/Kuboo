@@ -59,14 +59,7 @@ open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
         overlaySeekBar.progress = viewPager.currentItem
         overlaySeekBar.visible()
 
-        guidelineHorizontal.setGuidePercent(when (systemUtil.isOrientationLandscape()) {
-            true -> 0.5F
-            false -> 0.3F
-        })
-        guidelineVertical.setGuidePercent(when (systemUtil.isOrientationLandscape()) {
-            true -> 0.15F
-            false -> 0.3F
-        })
+        setOverlayGuideLines()
     }
 
     private fun showEnterTransition() {
