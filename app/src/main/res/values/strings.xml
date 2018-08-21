@@ -3,7 +3,7 @@
     <string name="about_answer1">The Ubooquity server MUST enable OPDS feed.
     \n \nThe Ubooquity server MUST open the appropriate network port.
     \n \nThe Ubooquity server MUST be allowed through any firewalls.
-    \n \nYou MUST use the following format:\n Example: \"http://192.168.0.1:2202/opds-comics/\</string>
+    \n \nYou MUST use the following format:\n Example: \"http://192.168.0.1:2202/opds-comics/\"</string>
     <string name="about_answer2">Bookmarking is a hybrid system, leveraging both remote and local databases. First the system uses a local bookmark and then searches for a remote bookmark if available. If a remote bookmark is found, it is given preference. This is to support \"legacy\" apps that have not upgraded to Ubooquity 2.0.+ yet.
     \n\nEpub files do not support server side bookmarking.</string>
     <string name="about_answer3">Dual pane forces landscape mode and splits the screen for two pages.
