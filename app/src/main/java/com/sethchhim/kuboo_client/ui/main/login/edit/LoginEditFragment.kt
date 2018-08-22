@@ -97,7 +97,7 @@ open class LoginEditFragment : DaggerFragment() {
     }
 
     private fun onAddServerButtonClicked() {
-        when (editTextServerAddress.text.isEmpty()) {
+        when (editTextServerAddress.text?.isEmpty()) {
             true -> toast(getString(R.string.login_ip_address_must_not_be_empty))
             false -> {
                 login?.let { viewModel.removeLogin(it) }

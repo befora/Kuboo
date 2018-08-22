@@ -1,6 +1,5 @@
 package com.sethchhim.kuboo_client
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.content.Context
@@ -8,9 +7,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.Guideline
-import android.support.design.internal.BottomNavigationItemView
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -53,26 +49,6 @@ import java.util.concurrent.TimeUnit
 object Extensions {
 
     internal fun Any.identify() = System.identityHashCode(this)
-
-    @SuppressLint("RestrictedApi")
-    internal fun BottomNavigationView.disableShiftMode() {
-        val menuView = getChildAt(0) as BottomNavigationMenuView
-        try {
-            val shiftingMode = menuView.javaClass.getDeclaredField("mShiftingMode")
-            shiftingMode.isAccessible = true
-            shiftingMode.setBoolean(menuView, false)
-            shiftingMode.isAccessible = false
-            for (i in 0 until menuView.childCount) {
-                val item = menuView.getChildAt(i) as BottomNavigationItemView
-                item.setShiftingMode(false)
-                item.setChecked(item.itemData.isChecked)
-            }
-        } catch (e: NoSuchFieldException) {
-            Timber.e("Unable to getParser shift mode field")
-        } catch (e: IllegalAccessException) {
-            Timber.e("Unable to change value of shift mode")
-        }
-    }
 
     internal fun Download.toString(): String {
         return "id[$id]" +
@@ -119,12 +95,13 @@ object Extensions {
             }
         } else {
             Timber.i("showFragment: name[$uniqueTag] exists[$isFragmentExist]")
-            beginTransaction()
-                    .show(findFragmentByTag(uniqueTag))
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit()
+            findFragmentByTag(uniqueTag)?.let {
+                beginTransaction()
+                        .show(it)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit()
+            }
         }
-
     }
 
     internal fun FragmentManager.getVisibleFragment(): Fragment {
@@ -278,7 +255,6 @@ object Extensions {
         filteredList.sortBy { it.id }
         return filteredList
     }
-
 
     internal fun MutableList<Download>.getFirstInSeries(download: Download): Download {
         filteredBySeries(download).apply {

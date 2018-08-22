@@ -61,14 +61,14 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
         val state = viewModel.loadRecyclerViewState(book)
         if (state != null) {
             Timber.i("loadRecyclerViewState: title[${book.title}] linkSubsection[${book.linkSubsection}] state[${state.identify()}]")
-            contentRecyclerView.layoutManager.onRestoreInstanceState(state)
+            contentRecyclerView.layoutManager?.onRestoreInstanceState(state)
         }
     }
 
     protected fun resetRecyclerView() {
         viewModel.clearContentList()
         contentRecyclerView.gone()
-        contentRecyclerView.adapter.notifyDataSetChanged()
+        contentRecyclerView.adapter?.notifyDataSetChanged()
         contentRecyclerView.visible()
     }
 

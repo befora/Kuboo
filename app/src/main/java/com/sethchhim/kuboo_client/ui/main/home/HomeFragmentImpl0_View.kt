@@ -51,12 +51,12 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
 
     internal fun scrollToFirstRecent() {
         recentRecyclerView.stopScroll()
-        recentRecyclerView.layoutManager.scrollToPosition(0)
+        recentRecyclerView.layoutManager?.scrollToPosition(0)
     }
 
     protected fun scrollToFirstLatest() {
         latestRecyclerView.stopScroll()
-        latestRecyclerView.layoutManager.scrollToPosition(0)
+        latestRecyclerView.layoutManager?.scrollToPosition(0)
     }
 
     protected fun scrollToHomeTop() {

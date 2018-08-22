@@ -10,7 +10,6 @@ import com.sethchhim.kuboo_remote.model.Book
 @SuppressLint("Registered")
 open class BaseActivity : BaseActivityImpl2_Tracking() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTransitionDuration()

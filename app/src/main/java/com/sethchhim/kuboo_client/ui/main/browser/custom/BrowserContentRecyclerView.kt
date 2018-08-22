@@ -17,8 +17,7 @@ class BrowserContentRecyclerView @JvmOverloads constructor(context: Context, att
     init {
         setHasFixedSize(true)
         layoutManager = gridLayoutManager
-        itemAnimator = SlideInUpAnimator()
-        itemAnimator.moveDuration = 50
+        itemAnimator = SlideInUpAnimator().apply { moveDuration = 50 }
     }
 
     override fun fling(velocityX: Int, velocityY: Int): Boolean {

@@ -3,13 +3,13 @@ package com.sethchhim.kuboo_client.ui.main
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.bottomnavigation.LabelVisibilityMode
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Constants
-import com.sethchhim.kuboo_client.Extensions.disableShiftMode
 import com.sethchhim.kuboo_client.Extensions.getVisibleFragment
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
@@ -32,9 +32,9 @@ open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNa
         setTitle(R.string.title_home)
         setSupportActionBar(toolbar)
 
+        bottomNav.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
         bottomNav.setOnNavigationItemSelectedListener(this)
         bottomNav.setOnNavigationItemReselectedListener(this)
-        bottomNav.disableShiftMode()
 
         if (systemUtil.isFirstRunOfThisVersion()) showChangeLog()
 
