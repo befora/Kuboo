@@ -248,7 +248,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
             //slight delay to prevent loading while fast scrolling
             launch(UI) {
-                delay(Settings.RECYCLERVIEW_DELAY)
+                delay(Settings.RECYCLER_VIEW_DELAY)
                 try {
                     if (holder.bookId == book.id) {
                         itemView.browser_item_content_folder_imageView3.loadFolderThumbnail(holder, book)
@@ -343,7 +343,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                         //set color state remotely
                         launch(UI) {
                             //add delay to prevent remote request while fast scrolling
-                            delay(Settings.RECYCLERVIEW_DELAY)
+                            delay(Settings.RECYCLER_VIEW_DELAY)
                             try {
                                 val firstVisible = layoutManager.findFirstVisibleItemPosition()
                                 val lastVisible = layoutManager.findLastVisibleItemPosition()

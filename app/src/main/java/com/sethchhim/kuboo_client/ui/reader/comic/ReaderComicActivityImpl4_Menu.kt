@@ -5,6 +5,7 @@ import android.view.MenuItem
 import com.sethchhim.kuboo_client.Extensions.setStateDisabled
 import com.sethchhim.kuboo_client.Extensions.setStateEnabled
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.ScaleType
 
 @SuppressLint("Registered")
 open class ReaderComicActivityImpl4_Menu : ReaderComicActivityImpl3_Content() {
@@ -19,9 +20,9 @@ open class ReaderComicActivityImpl4_Menu : ReaderComicActivityImpl3_Content() {
     protected fun setScaleType(menuItem: MenuItem, scaleType: Int) {
         menuItem.isChecked = true
         when (scaleType) {
-            0 -> Settings.SCALE_TYPE = 0
-            1 -> Settings.SCALE_TYPE = 1
-            2 -> Settings.SCALE_TYPE = 2
+            0 -> Settings.SCALE_TYPE = ScaleType.ASPECT_FILL.value
+            1 -> Settings.SCALE_TYPE = ScaleType.ASPECT_FIT.value
+            2 -> Settings.SCALE_TYPE = ScaleType.FIT_WIDTH.value
         }
         sharedPrefsHelper.saveScaleType()
         viewPager.adapter?.notifyDataSetChanged()

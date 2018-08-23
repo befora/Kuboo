@@ -36,6 +36,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_HOME_LAYOUT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
+import com.sethchhim.kuboo_client.Settings.DEFAULT_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Settings.DEFAULT_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_INTERVAL
@@ -84,7 +85,7 @@ class SharedPrefsHelper(val context: Context) {
         RTL = sharedPreferences.getBoolean(KEY_RTL, false)
         REVERSE_LAYOUT = sharedPreferences.getBoolean(KEY_REVERSE_LAYOUT, false)
         SCALE_TYPE = sharedPreferences.getInt(KEY_SCALE_TYPE, DEFAULT_SCALE_TYPE)
-        SCREEN_ORIENTATION = sharedPreferences.getInt(KEY_SCREEN_ORIENTATION, SCREEN_ORIENTATION)
+        SCREEN_ORIENTATION = sharedPreferences.getInt(KEY_SCREEN_ORIENTATION, DEFAULT_SCREEN_ORIENTATION)
         VOLUME_PAGE_TURN = sharedPreferences.getBoolean(KEY_VOLUME_PAGE_TURN, DEFAULT_VOLUME_PAGE_TURN)
         WIFI_ONLY = sharedPreferences.getBoolean(KEY_WIFI_ONLY, false)
 
