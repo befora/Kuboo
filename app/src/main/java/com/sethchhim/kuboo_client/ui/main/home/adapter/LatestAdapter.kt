@@ -12,15 +12,12 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.sethchhim.kuboo_client.BR
 import com.sethchhim.kuboo_client.BaseApplication
-import com.sethchhim.kuboo_client.Extensions.fadeVisible
-import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
@@ -36,7 +33,6 @@ import kotlinx.android.synthetic.main.browser_item_latest.view.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import timber.log.Timber
-import java.io.File
 import javax.inject.Inject
 
 class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Content, val viewModel: ViewModel) : BaseQuickAdapter<Book, LatestAdapter.LatestHolder>(R.layout.browser_item_latest, viewModel.getLatestList()) {
@@ -71,47 +67,37 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
         internal fun loadImage(helper: LatestHolder, item: Book) {
             Glide.with(homeFragmentImpl1Content)
-                    .downloadOnly()
                     .load(item.getPreviewUrl())
-                    .into(object : SimpleTarget<File>() {
-                        override fun onResourceReady(resource: File, transition: Transition<in File>?) {
-                            Glide.with(itemView.context)
-                                    .load(resource)
-                                    .apply(RequestOptions()
-                                            .priority(Priority.HIGH)
-                                            .disallowHardwareConfig()
-                                            .format(DecodeFormat.PREFER_RGB_565)
-                                            .error(Settings.ERROR_DRAWABLE))
-                                    .listener(object : RequestListener<Drawable> {
-                                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                                            setStateInvalid(helper, item)
-                                            return false
-                                        }
+                    .apply(RequestOptions()
+                            .priority(Priority.HIGH)
+                            .disallowHardwareConfig()
+                            .format(DecodeFormat.PREFER_RGB_565)
+                            .error(Settings.ERROR_DRAWABLE))
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            setStateInvalid(helper, item)
+                            return false
+                        }
 
-                                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                                            setStateValid(helper, item)
-                                            return false
-                                        }
-                                    })
-                                    .into(itemView.browser_item_latest_imageView)
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            setStateValid(helper, item)
+                            return false
                         }
                     })
-
+                    .into(itemView.browser_item_latest_imageView)
         }
     }
 
     internal fun setStateValid(helper: LatestHolder, item: Book) {
         helper.itemView.browser_item_latest_imageView.transitionName = item.getPreviewUrl()
         helper.itemView.browser_item_latest_imageView.onClick { startReadAt(helper.adapterPosition, helper.itemView) }
-        helper.itemView.browser_item_latest_progressBar.gone()
-        helper.itemView.browser_item_latest_imageView.fadeVisible()
+        helper.itemView.browser_item_latest_imageView.visible()
     }
 
     internal fun setStateInvalid(helper: LatestHolder, item: Book) {
         helper.itemView.browser_item_latest_imageView.transitionName = item.getPreviewUrl()
         helper.itemView.browser_item_latest_imageView.onClick { startReadAt(helper.adapterPosition, helper.itemView) }
-        helper.itemView.browser_item_latest_progressBar.gone()
-        helper.itemView.browser_item_latest_imageView.fadeVisible()
+        helper.itemView.browser_item_latest_imageView.visible()
     }
 
     private fun startReadAt(adapterPosition: Int, itemView: View) {

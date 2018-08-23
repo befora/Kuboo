@@ -19,9 +19,9 @@
             android:id="@+id/browser_item_recent_imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="W,1:1.5"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toTopOf="@+id/browser_item_recent_progressBar1"
+            app:layout_constraintBottom_toTopOf="@+id/browser_item_recent_progressBar"
+            app:layout_constraintDimensionRatio="W,1:1.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -35,12 +35,12 @@
             android:fontFamily="sans-serif"
             android:text="@string/main_remove"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/browser_item_recent_progressBar1"
+            app:layout_constraintBottom_toTopOf="@id/browser_item_recent_progressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <ProgressBar
-            android:id="@+id/browser_item_recent_progressBar1"
+            android:id="@+id/browser_item_recent_progressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -67,16 +67,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
-
-        <ProgressBar
-            android:id="@+id/browser_item_recent_progressBar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 

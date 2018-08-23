@@ -14,15 +14,14 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.sethchhim.kuboo_client.BR
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.Settings.THUMBNAIL_SIZE_RECENT
@@ -45,7 +44,6 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onLongClick
 import org.jetbrains.anko.toast
 import timber.log.Timber
-import java.io.File
 import javax.inject.Inject
 
 class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Content, val viewModel: ViewModel) : BaseQuickAdapter<Book, RecentAdapter.RecentHolder>(R.layout.browser_item_recent, viewModel.getRecentList()) {
@@ -81,24 +79,22 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         val binding = itemView.getTag(R.id.BaseQuickAdapter_databinding_support) as BrowserItemRecentBinding
 
         internal fun setStateValid() {
-            itemView.browser_item_recent_progressBar2.gone()
-            itemView.browser_item_recent_progressBar1.fadeVisible()
+            itemView.browser_item_recent_progressBar.fadeVisible()
             itemView.browser_item_recent_textView.onClick { openSeries() }
             itemView.browser_item_recent_textView.text = mainActivity.getString(R.string.main_open_series)
             itemView.browser_item_recent_textView.fadeVisible()
-            itemView.browser_item_recent_imageView.fadeVisible()
+            itemView.browser_item_recent_imageView.visible()
 
             itemView.browser_item_recent_imageView.onClick { startReadAt(adapterPosition, itemView) }
             itemView.browser_item_recent_imageView.onLongClick { showRemoveDialog(adapterPosition) }
         }
 
         internal fun setStateInvalid() {
-            itemView.browser_item_recent_progressBar2.gone()
-            itemView.browser_item_recent_progressBar1.gone()
+            itemView.browser_item_recent_progressBar.gone()
             itemView.browser_item_recent_textView.onClick { deleteBookAt(adapterPosition) }
             itemView.browser_item_recent_textView.text = mainActivity.getString(R.string.main_remove)
             itemView.browser_item_recent_textView.fadeVisible()
-            itemView.browser_item_recent_imageView.fadeVisible()
+            itemView.browser_item_recent_imageView.visible()
 
             itemView.browser_item_recent_imageView.onClick { showRemoveDialog(adapterPosition) }
             itemView.browser_item_recent_imageView.onLongClick { showRemoveDialog(adapterPosition) }
@@ -124,31 +120,23 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
         internal fun loadImage(stringUrl: String) {
             Glide.with(homeFragmentImpl1Content)
-                    .downloadOnly()
                     .load(stringUrl)
-                    .into(object : SimpleTarget<File>() {
-                        override fun onResourceReady(resource: File, transition: Transition<in File>?) {
-                            Glide.with(itemView.context)
-                                    .load(resource)
-                                    .apply(RequestOptions()
-                                            .priority(Priority.HIGH)
-                                            .disallowHardwareConfig()
-                                            .format(DecodeFormat.PREFER_RGB_565)
-                                            .error(Settings.ERROR_DRAWABLE))
-                                    .listener(object : RequestListener<Drawable> {
-                                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                                            setStateInvalid()
-                                            return false
-                                        }
+                    .apply(RequestOptions()
+                            .priority(Priority.HIGH)
+                            .disallowHardwareConfig()
+                            .format(DecodeFormat.PREFER_RGB_565)
+                            .error(Settings.ERROR_DRAWABLE))
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            return false
+                        }
 
-                                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                                            setStateValid()
-                                            return false
-                                        }
-                                    })
-                                    .into(itemView.browser_item_recent_imageView)
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            setStateValid()
+                            return false
                         }
                     })
+                    .into(itemView.browser_item_recent_imageView)
         }
     }
 
