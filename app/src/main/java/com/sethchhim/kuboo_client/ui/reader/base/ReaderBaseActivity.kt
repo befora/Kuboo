@@ -41,7 +41,6 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl6_Tracking() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        hideOverlay(isFadeEnabled = false)
         title = currentBook.title
         populateNeighbors()
     }

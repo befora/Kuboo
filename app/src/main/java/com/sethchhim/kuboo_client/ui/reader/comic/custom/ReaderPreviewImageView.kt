@@ -26,8 +26,8 @@ class ReaderPreviewImageView @JvmOverloads constructor(private val ctx: Context,
         }
     }
 
-    internal fun slideOut() = post {
-        when (Settings.RTL) {
+    internal fun slideOut(disableRtl: Boolean = false) = post {
+        when (Settings.RTL && !disableRtl) {
             true -> startAnimation(slideOutRightAnimation)
             false -> startAnimation(slideOutLeftAnimation)
         }

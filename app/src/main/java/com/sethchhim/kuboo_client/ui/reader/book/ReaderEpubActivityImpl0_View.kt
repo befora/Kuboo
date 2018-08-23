@@ -52,7 +52,7 @@ open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
         launch(UI) {
             try {
                 delay(1200)
-                previewImageView.slideOut()
+                previewImageView.slideOut(disableRtl = true)
                 delay(300)
                 previewImageView.isAnimatingTransition = false
             } catch (e: RuntimeException) {
