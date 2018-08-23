@@ -29,19 +29,20 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl6_Tracking() {
         pipWidth = systemUtil.getSystemWidth()
         pipHeight = systemUtil.getSystemHeight()
 
-        title = currentBook.title
         previewImageView.transitionName = transitionUrl
 
         overlayLayout.onClick { hideOverlay() }
         overlayTextView1.onClick { hideOverlay() }
         restoreOverlay()
 
+        title = currentBook.title
         populateNeighbors()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         hideOverlay(isFadeEnabled = false)
+        title = currentBook.title
         populateNeighbors()
     }
 
