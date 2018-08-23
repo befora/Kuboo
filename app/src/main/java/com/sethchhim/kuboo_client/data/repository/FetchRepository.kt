@@ -1,7 +1,9 @@
 package com.sethchhim.kuboo_client.data.repository
 
 import android.arch.lifecycle.MutableLiveData
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.service.NotificationService
+import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
@@ -10,7 +12,7 @@ import com.tonyodev.fetch2.FetchListener
 import com.tonyodev.fetch2.Status
 import timber.log.Timber
 
-class FetchRepository(private val kubooRemote: KubooRemote, val notificationService: NotificationService) : FetchListener {
+class FetchRepository(private val kubooRemote: KubooRemote, val notificationService: NotificationService, val systemUtil: SystemUtil) : FetchListener {
 
     init {
         kubooRemote.addFetchListener(this)
@@ -91,10 +93,19 @@ class FetchRepository(private val kubooRemote: KubooRemote, val notificationServ
 
     internal fun getDownloads() = kubooRemote.getFetchDownloads()
 
-    internal fun resumeDownload(download: Download) = kubooRemote.resume(download)
+    internal fun resumeDownload(download: Download) = when (systemUtil.isNetworkAllowed()) {
+        true -> kubooRemote.resume(download)
+        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+    }
 
-    internal fun retryDownload(download: Download) = kubooRemote.retry(download)
+    internal fun retryDownload(download: Download) = when (systemUtil.isNetworkAllowed()) {
+        true -> kubooRemote.retry(download)
+        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+    }
 
-    internal fun startDownloads(login: Login, list: List<Book>, savePath: String) = kubooRemote.startDownloads(login, list, savePath)
+    internal fun startDownloads(login: Login, list: List<Book>, savePath: String) = when (systemUtil.isNetworkAllowed()) {
+        true -> kubooRemote.startDownloads(login, list, savePath)
+        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+    }
 
 }

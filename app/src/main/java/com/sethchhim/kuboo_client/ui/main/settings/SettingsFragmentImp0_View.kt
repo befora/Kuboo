@@ -44,6 +44,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var systemOrientationPreference: Preference
     protected lateinit var systemThemePreference: Preference
     protected lateinit var systemVolumePageTurnPreference: SwitchPreferenceCompat
+    protected lateinit var systemWifiOnlyPreference: SwitchPreferenceCompat
     protected lateinit var systemKeepScreenOn: SwitchPreferenceCompat
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -62,6 +63,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         systemThemePreference = findPreference("settings_system_theme")
         systemKeepScreenOn = findPreference("settings_keep_screen_on") as SwitchPreferenceCompat
         systemVolumePageTurnPreference = findPreference("settings_volume_page_turn") as SwitchPreferenceCompat
+        systemWifiOnlyPreference = findPreference("settings_wifi_only") as SwitchPreferenceCompat
 
         mainActivity.timeUntilLiveData.observe(this, Observer {
             it?.let {

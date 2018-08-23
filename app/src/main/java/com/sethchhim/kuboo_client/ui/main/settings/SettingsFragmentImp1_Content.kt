@@ -31,6 +31,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
         setSystemThemePreference()
         setSystemOrientationPreference()
+        setSystemWifiOnlyPreference()
     }
 
     private fun setAboutVersionPreference() = aboutVersionPreference.apply {
@@ -295,6 +296,15 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             1 -> stringArray[1]
             2 -> stringArray[2]
             else -> "ERROR"
+        }
+    }
+
+    private fun setSystemWifiOnlyPreference() = systemWifiOnlyPreference.apply {
+        isChecked = Settings.WIFI_ONLY
+        setOnPreferenceClickListener {
+            Settings.WIFI_ONLY = !Settings.WIFI_ONLY
+            sharedPrefsHelper.saveWifiOnly()
+            return@setOnPreferenceClickListener true
         }
     }
 

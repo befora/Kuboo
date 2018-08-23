@@ -59,7 +59,7 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideFetchRepository(kubooRemote: KubooRemote, notificationService: NotificationService) = FetchRepository(kubooRemote, notificationService)
+    fun provideFetchRepository(kubooRemote: KubooRemote, notificationService: NotificationService, systemUtil: SystemUtil) = FetchRepository(kubooRemote, notificationService, systemUtil)
 
     @Provides
     @AppScope
@@ -83,7 +83,7 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideRemoteRepository(kubooRemote: KubooRemote) = RemoteRepository(kubooRemote)
+    fun provideRemoteRepository(kubooRemote: KubooRemote, systemUtil: SystemUtil) = RemoteRepository(kubooRemote, systemUtil)
 
     //<------ Local ------>
     @Provides

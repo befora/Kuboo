@@ -99,6 +99,11 @@
             android:key="settings_system_orientation"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_orientation"/>
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="settings_wifi_only"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_protect_your_mobile_data_limit_with_wifi_only"
+            android:title="@string/settings_wifi_only"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- ABOUT -->
