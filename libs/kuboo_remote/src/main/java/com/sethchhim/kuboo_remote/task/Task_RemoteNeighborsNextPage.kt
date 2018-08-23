@@ -5,15 +5,15 @@ import android.arch.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
+import com.sethchhim.kuboo_remote.model.Neighbors
 import com.sethchhim.kuboo_remote.util.Settings.isDebugOkHttp
-import okhttp3.CacheControl
 import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.SocketTimeoutException
 
-class Task_RemoteSeriesNeighborsNextPage(kubooRemote: KubooRemote, login: Login, stringUrl: String, seriesLimit: Int) {
+class Task_RemoteNeighborsNextPage(kubooRemote: KubooRemote, login: Login, book: Book, stringUrl: String) {
 
-    internal val liveData = MutableLiveData<List<Book>>()
+    internal val liveData = MutableLiveData<Neighbors>()
 
     private val okHttpHelper = kubooRemote.okHttpHelper
     private val parseService = okHttpHelper.parseService
@@ -21,12 +21,12 @@ class Task_RemoteSeriesNeighborsNextPage(kubooRemote: KubooRemote, login: Login,
     init {
         kubooRemote.networkIO.execute {
             try {
-                val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName, CacheControl.FORCE_NETWORK)
+                val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
                 val response = call.execute()
                 val inputStream = response.body()?.byteStream()
                 if (response.isSuccessful && inputStream != null) {
                     val inputAsString = inputStream.bufferedReader().use { it.readText() }
-                    val result = parseService.parseSeriesNeighborsNextPage(login, inputAsString, seriesLimit)
+                    val result = parseService.parseNeighborNextPage(login, book, inputAsString)
                     kubooRemote.mainThread.execute { liveData.value = result }
                     inputStream.close()
                 } else {

@@ -30,6 +30,21 @@ class ParseService {
         return neighbors
     }
 
+    internal fun parseNeighborNextPage(login: Login, book: Book, stringXml: String, maxResults: Int = Int.MAX_VALUE): Neighbors {
+        val neighbors = Neighbors().apply { currentBook = book }
+        try {
+            val saxList = mutableListOf<Book>()
+            getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
+            saxList.searchForNeighborsNextPage(neighbors)
+        } catch (e: SAXException) {
+//            Timber.i(e.message)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return neighbors
+    }
+
+
     internal fun parseSeriesNeighbors(login: Login, book: Book, stringXml: String, seriesLimit: Int, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
         val neighbors = mutableListOf<Book>()
         try {
@@ -135,6 +150,18 @@ class ParseService {
             val nextPosition = position + 1
             neighbors.nextBook = this[nextPosition]
             Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}]")
+        } catch (e: IndexOutOfBoundsException) {
+        }
+
+        return neighbors
+    }
+
+    private fun MutableList<Book>.searchForNeighborsNextPage(neighbors: Neighbors): Neighbors {
+        val position = 0
+
+        try {
+            neighbors.nextBook = this[position]
+            Timber.i("Found nextBook! position[$position] title[${neighbors.nextBook?.title}]")
         } catch (e: IndexOutOfBoundsException) {
         }
 

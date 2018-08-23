@@ -72,6 +72,11 @@ class RemoteRepository(private val kubooRemote: KubooRemote, private val systemU
         false -> MutableLiveData<Neighbors>().apply { this.delayedFail() }
     }
 
+    internal fun getNeighborsNextPage(login: Login, book: Book, stringUrl: String) = when (systemUtil.isNetworkAllowed()) {
+        true -> kubooRemote.getNeighborsNextPage(login, book, stringUrl)
+        false -> MutableLiveData<Neighbors>().apply { this.delayedFail() }
+    }
+
     internal fun getSeriesNeighborsRemote(login: Login, book: Book, stringUrl: String, seriesLimit: Int) = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.getSeriesNeighborsRemote(login, book, stringUrl, seriesLimit)
         false -> MutableLiveData<List<Book>>().apply { this.delayedFail() }

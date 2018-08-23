@@ -27,10 +27,7 @@ class Task_RemoteNeighbors(kubooRemote: KubooRemote, login: Login, book: Book, s
                 if (response.isSuccessful && inputStream != null) {
                     val inputAsString = inputStream.bufferedReader().use { it.readText() }
                     val result = parseService.parseNeighbor(login, book, inputAsString)
-
-                    kubooRemote.mainThread.execute {
-                        liveData.value = result
-                    }
+                    kubooRemote.mainThread.execute { liveData.value = result }
                     inputStream.close()
                 } else {
                     throw NetworkErrorException("Response is not successful! $stringUrl")

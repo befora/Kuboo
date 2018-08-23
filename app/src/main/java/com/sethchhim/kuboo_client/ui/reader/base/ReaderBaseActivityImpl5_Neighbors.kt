@@ -3,7 +3,6 @@ package com.sethchhim.kuboo_client.ui.reader.base
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
 import timber.log.Timber
 
@@ -16,8 +15,8 @@ open class ReaderBaseActivityImpl5_Neighbors : ReaderBaseActivityImpl4_Bookmark(
     }
 
     private fun handlePopulateNeighborResult(result: Neighbors) {
-        previousBook = result.previousBook ?: Book()
-        nextBook = result.nextBook ?: Book()
+        result.previousBook?.let { previousBook = it }
+        result.nextBook?.let { nextBook = it }
 
         if (!nextBook.isEmpty()) {
             when (isLocal) {
@@ -32,12 +31,11 @@ open class ReaderBaseActivityImpl5_Neighbors : ReaderBaseActivityImpl4_Bookmark(
     }
 
     private fun onPopulateNeighborsRemoteSuccess(result: Neighbors) {
-        val isNextBookEmpty = result.nextBook?.isEmpty() == true
+        val isNextBookEmpty = result.nextBook?.isEmpty() ?: true
         val isCurrentBookContainsLinkNext = currentBook.linkNext.isNotEmpty()
-        if (isNextBookEmpty && isCurrentBookContainsLinkNext) {
-            populateNeighborsRemoteAtNextPage()
-        } else {
-            handlePopulateNeighborResult(result)
+        when (isNextBookEmpty && isCurrentBookContainsLinkNext) {
+            true -> populateNeighborsRemoteAtNextPage()
+            false -> handlePopulateNeighborResult(result)
         }
     }
 
@@ -58,8 +56,11 @@ open class ReaderBaseActivityImpl5_Neighbors : ReaderBaseActivityImpl4_Bookmark(
 
     private fun populateNeighborsRemoteAtNextPage() {
         val stringUrl = viewModel.getActiveServer() + currentBook.linkNext
-        viewModel.getNeighborsRemote(currentBook, stringUrl).observe(this, Observer { result ->
-            if (result != null) handlePopulateNeighborResult(result)
+        viewModel.getNeighborsNextPageRemote(currentBook, stringUrl).observe(this, Observer { result ->
+            when (result != null) {
+                true -> handlePopulateNeighborResult(result!!)
+                false -> onPopulateNeighborsFail()
+            }
         })
     }
 

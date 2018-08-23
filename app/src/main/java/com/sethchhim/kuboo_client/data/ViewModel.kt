@@ -246,6 +246,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getNeighborsRemote(book: Book, stringUrl: String) = remoteRepository.getNeighbors(getActiveLogin(), book, stringUrl)
 
+    internal fun getNeighborsNextPageRemote(book: Book, stringUrl: String) = remoteRepository.getNeighborsNextPage(getActiveLogin(), book, stringUrl)
+
     internal fun getNeighborsLocal(book: Book) = downloadsRepository.getDownloadNeighbors(book)
 
     internal fun getSeriesNeighborsRemote(book: Book, stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsRemote(getActiveLogin(), book, stringUrl, seriesLimit)

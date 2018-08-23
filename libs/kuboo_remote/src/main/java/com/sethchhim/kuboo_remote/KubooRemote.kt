@@ -42,6 +42,8 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun getNeighbors(login: Login, book: Book, stringUrl: String) = Task_RemoteNeighbors(this, login, book, stringUrl).liveData
 
+    fun getNeighborsNextPage(login: Login, book: Book, stringUrl: String) = Task_RemoteNeighborsNextPage(this, login, book, stringUrl).liveData
+
     fun getSeriesNeighborsRemote(login: Login, book: Book, stringUrl: String, seriesLimit: Int) = Task_RemoteSeriesNeighbors(this, login, book, stringUrl, seriesLimit).liveData
 
     fun getSeriesNeighborsNextPageRemote(login: Login, stringUrl: String, seriesLimit: Int) = Task_RemoteSeriesNeighborsNextPage(this, login, stringUrl, seriesLimit).liveData
