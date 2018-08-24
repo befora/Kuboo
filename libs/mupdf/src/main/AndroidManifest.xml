@@ -6,34 +6,7 @@
         <activity
             android:name=".DocumentActivity"
             android:label="MuPDF mini"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data android:mimeType="application/pdf"/>
-                <data android:mimeType="application/vnd.ms-xpsdocument"/>
-                <data android:mimeType="application/oxps"/>
-                <data android:mimeType="application/x-cbz"/>
-                <data android:mimeType="application/epub+zip"/>
-                <data android:mimeType="text/xml"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data android:pathPattern=".*\\.pdf"/>
-                <data android:pathPattern=".*\\.xps"/>
-                <data android:pathPattern=".*\\.oxps"/>
-                <data android:pathPattern=".*\\.cbz"/>
-                <data android:pathPattern=".*\\.epub"/>
-                <data android:pathPattern=".*\\.fb2"/>
-            </intent-filter>
+            android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
         <activity
             android:name=".OutlineActivity"
