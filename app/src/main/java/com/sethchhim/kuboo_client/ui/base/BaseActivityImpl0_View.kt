@@ -21,10 +21,7 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
-import com.sethchhim.kuboo_client.util.DialogUtil
-import com.sethchhim.kuboo_client.util.GlideUtil
-import com.sethchhim.kuboo_client.util.SharedPrefsHelper
-import com.sethchhim.kuboo_client.util.SystemUtil
+import com.sethchhim.kuboo_client.util.*
 import com.sethchhim.kuboo_remote.model.Book
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_layout_base.*
@@ -35,6 +32,7 @@ import javax.inject.Inject
 open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
 
     @Inject lateinit var dialogUtil: DialogUtil
+    @Inject lateinit var logUtil: LogUtil
     @Inject lateinit var glideUtil: GlideUtil
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
     @Inject lateinit var systemUtil: SystemUtil

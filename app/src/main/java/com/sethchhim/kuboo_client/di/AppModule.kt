@@ -4,6 +4,8 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.sethchhim.kuboo_client.Constants.DATABASE_NAME
 import com.sethchhim.kuboo_client.data.AppDatabase
+import com.sethchhim.kuboo_client.data.AppDatabaseDao
+import com.sethchhim.kuboo_client.data.AppDatabaseMigrations
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.repository.*
 import com.sethchhim.kuboo_client.service.IntentService
@@ -15,6 +17,8 @@ import com.sethchhim.kuboo_remote.KubooRemote
 import dagger.Module
 import dagger.Provides
 
+
+
 @Module
 class AppModule {
 
@@ -23,7 +27,7 @@ class AppModule {
     @AppScope
     fun provideAppDatabaseDao(context: Context) = Room
             .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-            .fallbackToDestructiveMigration()
+            .addMigrations(AppDatabaseMigrations.MIGRATION_1_2)
             .build()
             .appDatabaseDao()
 
@@ -120,6 +124,10 @@ class AppModule {
     @Provides
     @AppScope
     fun provideGlideUtil() = GlideUtil()
+
+    @Provides
+    @AppScope
+    fun provideLogUtil(appExecutors: AppExecutors, appDatabaseDao:AppDatabaseDao) = LogUtil(appExecutors, appDatabaseDao)
 
     @Provides
     @AppScope

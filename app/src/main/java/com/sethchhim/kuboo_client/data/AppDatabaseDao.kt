@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import com.sethchhim.kuboo_client.data.model.Download
 import com.sethchhim.kuboo_client.data.model.Favorite
+import com.sethchhim.kuboo_client.data.model.Log
 import com.sethchhim.kuboo_client.data.model.Recent
 import com.sethchhim.kuboo_remote.model.Login
 
@@ -82,5 +83,21 @@ interface AppDatabaseDao {
 
     @Query("DELETE FROM Download")
     fun deleteDownloadAll()
+
+    //Log
+    @Query("select * from Log")
+    fun getAllLog(): List<Log>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertLog(log: Log)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateLog(log: Log)
+
+    @Delete
+    fun deleteLog(log: Log)
+
+    @Query("DELETE FROM Log")
+    fun deleteLogAll()
 
 }

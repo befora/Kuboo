@@ -8,7 +8,7 @@ object Constants {
     internal const val TAG_ROOT_BOOK = "TAG_ROOT_BOOK"
 
     internal const val DATABASE_NAME = "ROOM_DATABASE"
-    internal const val DATABASE_VERSION = 1
+    internal const val DATABASE_VERSION = 2
 
     internal const val ARG_BOOK = "ARG_BOOK"
     internal const val ARG_LOCAL = "ARG_LOCAL"
