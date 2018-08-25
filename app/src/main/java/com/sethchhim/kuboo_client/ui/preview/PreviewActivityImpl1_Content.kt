@@ -52,24 +52,26 @@ open class PreviewActivityImpl1_Content : PreviewActivityImpl0_View() {
     }
 
     protected fun preloadCurrentPage() {
-        val stringUrl = viewModel.getActiveServer() + currentBook.getPse(Settings.MAX_PAGE_WIDTH, currentBook.currentPage)
-        Glide.with(this)
-                .load(stringUrl)
-                .apply(RequestOptions()
-                        .priority(Priority.LOW)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Timber.e("Preload failed: $stringUrl")
-                        return false
-                    }
+        if (currentBook.isComic()) {
+            val stringUrl = viewModel.getActiveServer() + currentBook.getPse(Settings.MAX_PAGE_WIDTH, currentBook.currentPage)
+            Glide.with(this)
+                    .load(stringUrl)
+                    .apply(RequestOptions()
+                            .priority(Priority.LOW)
+                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            Timber.e("Preload failed: $stringUrl")
+                            return false
+                        }
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        Timber.i("Preload success: $stringUrl")
-                        return false
-                    }
-                })
-                .preload()
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            Timber.i("Preload success: $stringUrl")
+                            return false
+                        }
+                    })
+                    .preload()
+        }
     }
 
     protected fun ImageView.loadImage() {
