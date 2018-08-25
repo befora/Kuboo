@@ -279,7 +279,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
         }
     }
 
-    private fun preloadBook(readData: ReadData) = viewModel.getFile(readData.book.linkAcquisition, File(cacheDir.path)).observe(this, Observer { result ->
+    private fun preloadBook(readData: ReadData) = viewModel.getRemoteFile(readData.book.linkAcquisition, File(cacheDir.path)).observe(this, Observer { result ->
         result?.let {
             readData.book.filePath = it.path
             onPreloadSuccess(readData)

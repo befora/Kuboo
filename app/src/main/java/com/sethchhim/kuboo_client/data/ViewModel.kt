@@ -242,8 +242,6 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun printReaderList() = readerRepository.printReaderList()
 
     //reader content
-    internal fun getFile(stringUrl1: String, saveDir: File) = remoteRepository.getFile(getActiveLogin(), stringUrl1, saveDir)
-
     internal fun getNeighborsRemote(book: Book, stringUrl: String) = remoteRepository.getNeighbors(getActiveLogin(), book, stringUrl)
 
     internal fun getNeighborsNextPageRemote(book: Book, stringUrl: String) = remoteRepository.getNeighborsNextPage(getActiveLogin(), book, stringUrl)
@@ -257,6 +255,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun getLocalComicInfo() = localRepository.getLocalComicInfo()
 
     internal fun getLocalImageInputStream(position: Int) = localRepository.getLocalImageInputStream(position)
+
+    internal fun getRemoteFile(stringUrl1: String, saveDir: File) = remoteRepository.getRemoteFile(getActiveLogin(), stringUrl1, saveDir)
 
     internal fun cleanupParser() = localRepository.cleanupParser()
 

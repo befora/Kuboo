@@ -87,7 +87,7 @@ class RemoteRepository(private val kubooRemote: KubooRemote, private val systemU
         false -> MutableLiveData<List<Book>>().apply { this.delayedFail() }
     }
 
-    internal fun getFile(login: Login, stringUrl: String, saveDir: File) = when (systemUtil.isNetworkAllowed()) {
+    internal fun getRemoteFile(login: Login, stringUrl: String, saveDir: File) = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.getFile(login, login.server + stringUrl, saveDir)
         false -> MutableLiveData<File>().apply { this.delayedFail() }
     }
