@@ -19,12 +19,16 @@ class Task_LocalImageInputStream(kubooLocal: KubooLocal, position: Int) {
                 kubooLocal.mainThread.execute {
                     val elapsedTime = System.currentTimeMillis() - startTime
                     liveData.value = result
-                    Timber.d("Parse image byte array: position[$position] size[${result}] time[$elapsedTime]")
+                    Timber.d("Parse image byte array: position[$position] size[$result] time[$elapsedTime]")
                 }
             } catch (e: Exception) {
+                Timber.e("message[${e.message}]")
+                kubooLocal.mainThread.execute { liveData.value = null }
+            } catch (e: OutOfMemoryError) {
                 Timber.e("message[${e.message}]")
                 kubooLocal.mainThread.execute { liveData.value = null }
             }
         }
     }
+
 }

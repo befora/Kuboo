@@ -83,23 +83,31 @@ class Task_RemoteDownloadFile(val kubooRemote: KubooRemote, val login: Login, va
     }
 
     private fun File.write(source: BufferedSource, contentLength: Long, fileLiveData: MutableLiveData<File>) {
-        val DOWNLOAD_CHUNK_SIZE = 2048L
+        try {
+            val DOWNLOAD_CHUNK_SIZE = 2048L
 
-        val bufferedSink = Okio.buffer(Okio.sink(this))
+            val bufferedSink = Okio.buffer(Okio.sink(this))
 
-        var read = 0
-        var totalRead = 0
-        while ({ read = source.read(bufferedSink.buffer(), DOWNLOAD_CHUNK_SIZE).toInt(); read }() != -1) {
-            totalRead += read
+            var read = 0
+            var totalRead = 0
+            while ({ read = source.read(bufferedSink.buffer(), DOWNLOAD_CHUNK_SIZE).toInt(); read }() != -1) {
+                totalRead += read
 //            val progress = (totalRead * 100 / contentLength).toInt()
 //            kubooRemote.mainThread.download { onRemoteDownloadFileUpdate.onUpdate(progress) }
-        }
+            }
 
-        bufferedSink.writeAll(source)
-        bufferedSink.flush()
-        bufferedSink.close()
-        kubooRemote.mainThread.execute {
-            fileLiveData.value = this
+            bufferedSink.writeAll(source)
+            bufferedSink.flush()
+            bufferedSink.close()
+            kubooRemote.mainThread.execute {
+                fileLiveData.value = this
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+            kubooRemote.mainThread.execute { fileLiveData.value = null }
+        } catch (e: OutOfMemoryError) {
+            Timber.e(e)
+            kubooRemote.mainThread.execute { fileLiveData.value = null }
         }
     }
 
