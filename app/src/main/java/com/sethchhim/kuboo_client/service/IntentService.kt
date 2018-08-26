@@ -24,24 +24,24 @@ class IntentService : IntentService("KUBOO_NOTIFICATION") {
     }
 
     private fun handleCancel() {
-        Timber.i("CANCEL_ACTION")
+        Timber.i(CANCEL_ACTION)
         kubooRemote.cancelAll()
     }
 
     private fun handlePause() {
-        Timber.i("PAUSE_ACTION")
+        Timber.i(PAUSE_ACTION)
         kubooRemote.pauseAll()
     }
 
     private fun handleResume() {
-        Timber.i("RESUME_ACTION")
+        Timber.i(RESUME_ACTION)
         kubooRemote.resumeAll()
     }
 
     companion object {
-        val CANCEL_ACTION = "CANCEL_ACTION"
-        val PAUSE_ACTION = "PAUSE_ACTION"
-        val RESUME_ACTION = "RESUME_ACTION"
+        const val CANCEL_ACTION = "CANCEL_ACTION"
+        const val PAUSE_ACTION = "PAUSE_ACTION"
+        const val RESUME_ACTION = "RESUME_ACTION"
     }
 
 }
