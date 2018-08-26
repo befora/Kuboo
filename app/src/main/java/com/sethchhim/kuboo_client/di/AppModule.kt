@@ -26,6 +26,7 @@ class AppModule {
     @AppScope
     fun provideAppDatabaseDao(context: Context) = Room
             .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            .fallbackToDestructiveMigration()
             .addMigrations(AppDatabaseMigrations.MIGRATION_1_2)
             .build()
             .appDatabaseDao()
