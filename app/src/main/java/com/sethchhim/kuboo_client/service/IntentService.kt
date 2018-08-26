@@ -14,7 +14,6 @@ class IntentService : IntentService("KUBOO_NOTIFICATION") {
     }
 
     @Inject lateinit var kubooRemote: KubooRemote
-    @Inject lateinit var notificationService: NotificationService
 
     override fun onHandleIntent(intent: Intent) {
         when (intent.action) {

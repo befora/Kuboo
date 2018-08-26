@@ -51,9 +51,7 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(recentAdapter: RecentAdapter)
     fun inject(settingsFragment: SettingsFragmentImp0_View)
     fun inject(task_LocalBase: Task_LocalBase)
-    fun inject(logAdapter: LogAdapter) {
-
-    }
+    fun inject(logAdapter: LogAdapter)
 
     @Component.Builder
     interface Builder {
