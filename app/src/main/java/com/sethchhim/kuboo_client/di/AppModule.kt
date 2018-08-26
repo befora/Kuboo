@@ -18,7 +18,6 @@ import dagger.Module
 import dagger.Provides
 
 
-
 @Module
 class AppModule {
 
@@ -44,10 +43,11 @@ class AppModule {
             fetchRepository: FetchRepository,
             latestRepository: LatestRepository,
             localRepository: LocalRepository,
+            logRepository: LogRepository,
             loginRepository: LoginRepository,
             readerRepository: ReaderRepository,
             recentRepository: RecentRepository,
-            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, latestRepository, localRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
+            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, latestRepository, localRepository, logRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
 
     @Provides
     @AppScope
@@ -72,6 +72,10 @@ class AppModule {
     @Provides
     @AppScope
     fun provideLocalRepository(kubooLocal: KubooLocal) = LocalRepository(kubooLocal)
+
+    @Provides
+    @AppScope
+    fun provideLogRepository() = LogRepository()
 
     @Provides
     @AppScope
@@ -127,7 +131,7 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideLogUtil(appExecutors: AppExecutors, appDatabaseDao:AppDatabaseDao) = LogUtil(appExecutors, appDatabaseDao)
+    fun provideLogUtil(appExecutors: AppExecutors, appDatabaseDao: AppDatabaseDao) = LogUtil(appExecutors, appDatabaseDao)
 
     @Provides
     @AppScope

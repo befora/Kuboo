@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.di.AppComponent
 import com.sethchhim.kuboo_client.di.DaggerAppComponent
+import com.sethchhim.kuboo_client.util.LogUtil
 import com.sethchhim.kuboo_client.util.SharedPrefsHelper
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Login
@@ -15,6 +16,7 @@ class BaseApplication : DaggerApplication() {
 
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
     @Inject lateinit var kubooRemote: KubooRemote
+    @Inject lateinit var logUtil: LogUtil
     @Inject lateinit var viewModel: ViewModel
 
     override fun applicationInjector(): AndroidInjector<out BaseApplication> {
@@ -40,6 +42,11 @@ class BaseApplication : DaggerApplication() {
                         server = "https://192.168.1.100:2202/opds-comics/",
                         username = "",
                         password = ""))
+            }
+
+            //fake data for log activity
+            viewModel.getLogList().observeForever { result ->
+                result?.let { if (it.isEmpty()) logUtil.addMockLogData() }
             }
         }
 

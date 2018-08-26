@@ -8,6 +8,11 @@
             android:id="@+id/main_overflow_about"
             android:title="@string/main_about"
             app:showAsAction="never"/>
+        <item
+            android:id="@+id/main_overflow_log"
+            android:title="@string/main_log"
+            android:visible="false"
+            app:showAsAction="never"/>
     </group>
 
     <item

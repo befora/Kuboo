@@ -19,6 +19,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
                 private val fetchRepository: FetchRepository,
                 private val latestRepository: LatestRepository,
                 private val localRepository: LocalRepository,
+                private val logRepository: LogRepository,
                 private val loginRepository: LoginRepository,
                 private val readerRepository: ReaderRepository,
                 private val recentRepository: RecentRepository,
@@ -283,5 +284,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun putRemoteUserApi(book: Book) = remoteRepository.putRemoteUserApi(getActiveLogin(), book)
 
+    //log
+    internal fun getLogList() = logRepository.getLogList()
 
 }

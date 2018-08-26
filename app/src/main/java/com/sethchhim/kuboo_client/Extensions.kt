@@ -140,6 +140,10 @@ object Extensions {
 
     internal fun ImageView.colorFilterBlack() = setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY)
 
+    internal fun Int.isEven() = (this % 2) == 0
+
+    internal fun Int.isOdd() = !isEven()
+
     internal fun Int.minutesToMilliseconds() = TimeUnit.MINUTES.toMillis(this.toLong())
 
     internal fun Int.toMinimumTwoDigits(): String {

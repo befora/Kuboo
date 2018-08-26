@@ -188,6 +188,7 @@ open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNa
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.main_overflow_about -> showActivityAbout()
+            R.id.main_overflow_log -> showActivityLog()
             R.id.main_action_https -> showDialogHttps()
             R.id.main_action_download -> startSelectionDownload()
             R.id.main_action_mark_finished_add -> startSelectionAddFinished()

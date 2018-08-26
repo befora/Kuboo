@@ -12,6 +12,7 @@ import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import com.sethchhim.kuboo_client.ui.about.adapter.AboutPagerAdapter
 import com.sethchhim.kuboo_client.ui.about.adapter.FaqAdapter
 import com.sethchhim.kuboo_client.ui.about.adapter.LicenseAdapter
+import com.sethchhim.kuboo_client.ui.log.adapter.LogAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadsAdapter
@@ -50,6 +51,9 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(recentAdapter: RecentAdapter)
     fun inject(settingsFragment: SettingsFragmentImp0_View)
     fun inject(task_LocalBase: Task_LocalBase)
+    fun inject(logAdapter: LogAdapter) {
+
+    }
 
     @Component.Builder
     interface Builder {

@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.di
 
 import com.sethchhim.kuboo_client.ui.about.AboutActivity
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
+import com.sethchhim.kuboo_client.ui.log.LogActivity
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.ui.main.MainModule
 import com.sethchhim.kuboo_client.ui.main.MainModuleSub
@@ -21,6 +22,10 @@ abstract class InjectorsModule {
     @BaseScope
     @ContributesAndroidInjector()
     abstract fun baseActivity(): BaseActivity
+
+    @PreviewScope
+    @ContributesAndroidInjector
+    abstract fun logActivity(): LogActivity
 
     @MainScope
     @ContributesAndroidInjector(modules = [(MainModule::class), (MainModuleSub::class)])

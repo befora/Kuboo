@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.data
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.Download
 import com.sethchhim.kuboo_client.data.model.Favorite
 import com.sethchhim.kuboo_client.data.model.Log
@@ -86,7 +87,7 @@ interface AppDatabaseDao {
 
     //Log
     @Query("select * from Log")
-    fun getAllLog(): List<Log>
+    fun getAllLog(): LiveData<List<Log>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLog(log: Log)
@@ -99,5 +100,8 @@ interface AppDatabaseDao {
 
     @Query("DELETE FROM Log")
     fun deleteLogAll()
+
+    @Query("DELETE FROM Log where autoId NOT IN (SELECT autoId from Log ORDER BY autoId DESC LIMIT ${Settings.LOG_LIMIT})")
+    fun deleteLogAtLimit()
 
 }

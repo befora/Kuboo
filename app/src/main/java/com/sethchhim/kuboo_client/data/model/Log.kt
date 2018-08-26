@@ -21,8 +21,18 @@ data class Log(
 
     internal fun getLogTypeItem() = when (logType) {
         1 -> LogType.UI
-        2 -> LogType.NETWORK
-        3 -> LogType.LOCAL
+        2 -> LogType.LOCAL
+        3 -> LogType.REMOTE
         else -> LogType.UNKNOWN
     }
+
+    fun getCurrentTimeString() = currentTimeMilliseconds.toString()
+
+    fun getLogTypeString() = when (logType) {
+        1 -> "UI"
+        2 -> "LOCAL"
+        3 -> "NETWORK"
+        else -> "UNKNOWN"
+    }
+
 }

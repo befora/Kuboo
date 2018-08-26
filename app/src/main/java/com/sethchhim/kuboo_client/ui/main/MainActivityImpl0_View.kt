@@ -14,6 +14,7 @@ import com.sethchhim.kuboo_client.Extensions.show
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.about.AboutActivity
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
+import com.sethchhim.kuboo_client.ui.log.LogActivity
 import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
@@ -125,6 +126,8 @@ open class MainActivityImpl0_View : BaseActivity() {
     }
 
     protected fun showActivityAbout() = startActivity(Intent(this, AboutActivity::class.java))
+
+    protected fun showActivityLog() = startActivity(Intent(this, LogActivity::class.java))
 
     protected fun showDialogHttps() {
         val tlsCipherSuite = viewModel.getTlsCipherSuite()

@@ -30,6 +30,9 @@ object Settings {
     var APP_THEME = DEFAULT_APP_THEME
     val ERROR_DRAWABLE = R.mipmap.ic_launcher
 
+    //----------------------------------DATABASE_PREFERENCES----------------------------------------
+    const val LOG_LIMIT = 1000
+
     //--------------------------------------UI_PREFERENCES------------------------------------------
     var HOME_LAYOUT = DEFAULT_HOME_LAYOUT
     var SCREEN_ORIENTATION = DEFAULT_SCREEN_ORIENTATION

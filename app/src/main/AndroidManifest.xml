@@ -60,6 +60,12 @@
         <!--about-->
         <activity android:name=".ui.about.AboutActivity"/>
 
+        <!--log-->
+        <activity
+            android:name=".ui.log.LogActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"/>
+
         <!--service-->
         <service
             android:name=".service.IntentService"

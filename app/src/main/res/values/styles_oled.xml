@@ -17,6 +17,7 @@
         <item name="android:alertDialogStyle">@style/DialogThemeOled</item>
         <item name="android:dialogPreferenceStyle">@style/DialogThemeOled</item>
         <item name="android:dialogTheme">@style/DialogThemeOled</item>
+        <item name="android:checkboxStyle">@style/CheckBoxStyleDark</item>
     </style>
 
     <style name="DialogThemeOled" parent="BaseAlertDialogTheme">

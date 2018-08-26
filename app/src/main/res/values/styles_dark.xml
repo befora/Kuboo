@@ -18,6 +18,7 @@
         <item name="android:alertDialogStyle">@style/DialogThemeDark</item>
         <item name="android:dialogPreferenceStyle">@style/DialogThemeDark</item>
         <item name="android:dialogTheme">@style/DialogThemeDark</item>
+        <item name="android:checkboxStyle">@style/CheckBoxStyleDark</item>
     </style>
 
     <style name="DialogThemeDark" parent="BaseAlertDialogTheme">
@@ -37,6 +38,10 @@
     </style>
 
     <style name="WindowTitleStyleDark">
+        <item name="android:textColor">@color/primaryTextDark</item>
+    </style>
+
+    <style name="CheckBoxStyleDark" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColor">@color/primaryTextDark</item>
     </style>
 

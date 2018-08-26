@@ -6,12 +6,12 @@
     </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="preferenceTheme">@style/preferenceTheme</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-        <item name="preferenceTheme">@style/preferenceTheme</item>
     </style>
 
     <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
