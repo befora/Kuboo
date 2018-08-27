@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.sethchhim.kuboo_remote.model.Book"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/browser_item_content_media_force_list_constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp">
+
+        <ImageView
+            android:id="@+id/browser_item_content_media_force_list_imageView1"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_folder_circle"
+            android:tint="@color/darkColorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/browser_item_content_media_force_list_imageView2"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_folder"
+            android:tint="@color/md_blue_grey_400"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/browser_item_content_media_force_list_imageView3"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:padding="4dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/browser_item_content_media_force_list_textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@{item.title}"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/browser_item_content_media_force_list_textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

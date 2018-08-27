@@ -42,6 +42,11 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl1_Content() {
         isFirstInstance = false
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mainActivity.hideMenuItemBrowserLayout()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setContentSpanCount(newConfig.orientation, contentRecyclerView.contentType)

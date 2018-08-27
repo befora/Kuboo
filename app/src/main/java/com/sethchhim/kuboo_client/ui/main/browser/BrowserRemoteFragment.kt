@@ -52,7 +52,8 @@ class BrowserRemoteFragment : BrowserBaseFragment() {
         }
     }
 
-    private fun onSwipeRefresh() {
+    override fun onSwipeRefresh() {
+        super.onSwipeRefresh()
         val book = viewModel.getCurrentBook()
         when (book != null) {
             true -> {
@@ -62,5 +63,4 @@ class BrowserRemoteFragment : BrowserBaseFragment() {
             false -> Timber.e("No licenseList available to populate swipe refresh!")
         }
     }
-
 }

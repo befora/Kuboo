@@ -84,6 +84,7 @@ open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNa
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        browserLayoutMenuItem = menu.findItem(R.id.main_action_browser_layout)
         downloadMenuItem = menu.findItem(R.id.main_action_download)
         httpsMenuItem = menu.findItem(R.id.main_action_https)
         markFinishedAddMenuItem = menu.findItem(R.id.main_action_mark_finished_add)
@@ -189,6 +190,7 @@ open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNa
         when (item.itemId) {
             R.id.main_overflow_about -> showActivityAbout()
             R.id.main_overflow_log -> showActivityLog()
+            R.id.main_action_browser_layout -> toggleBrowserLayout()
             R.id.main_action_https -> showDialogHttps()
             R.id.main_action_download -> startSelectionDownload()
             R.id.main_action_mark_finished_add -> startSelectionAddFinished()

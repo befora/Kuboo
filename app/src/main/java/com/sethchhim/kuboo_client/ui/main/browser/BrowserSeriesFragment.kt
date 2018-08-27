@@ -23,15 +23,20 @@ class BrowserSeriesFragment : BrowserBaseFragment() {
         populateSeries()
     }
 
-    private fun onSwipeRefresh() = populateSeries()
+    override fun onSwipeRefresh() {
+        super.onSwipeRefresh()
+        populateSeries()
+    }
 
     private fun populateSeries() {
         setStateLoading()
         resetRecyclerView()
         paginationHandler.reset()
         val stringUrl = viewModel.getActiveServer() + seriesBook.linkXmlPath
-        val book = Book().apply { linkSubsection = seriesBook.linkXmlPath }
-        viewModel.getListByUrl(stringUrl).observe(this, Observer { result -> handleMediaResult(book, result) })
+        viewModel.getListByUrl(stringUrl).observe(this, Observer { result ->
+            val book = Book().apply { linkSubsection = seriesBook.linkXmlPath }
+            handleMediaResult(book, result)
+        })
     }
 
     companion object {

@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
+import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_LIMIT
@@ -27,6 +28,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
+import com.sethchhim.kuboo_client.Settings.BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_LIMIT
@@ -69,6 +71,7 @@ class SharedPrefsHelper(val context: Context) {
 
     fun restoreSettings() {
         APP_THEME = sharedPreferences.getInt(KEY_APP_THEME, DEFAULT_APP_THEME)
+//        BROWSER_MEDIA_FORCE_LIST = sharedPreferences.getBoolean(KEY_BROWSER_MEDIA_FORCE_LIST, false)
         DOWNLOAD_TRACKING_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_LIMIT, DEFAULT_DOWNLOAD_TRACKING_LIMIT)
         DOWNLOAD_TRACKING_INTERVAL = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DEFAULT_DOWNLOAD_TRACKING_INTERVAL)
         DOWNLOAD_SAVE_PATH = sharedPreferences.getString(KEY_DOWNLOAD_SAVE_PATH, context.getExternalFilesDir(null).path)
@@ -277,6 +280,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveVolumePageTurn() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving VOLUME_PAGE_TURN: $VOLUME_PAGE_TURN")
         sharedPreferences.edit().putBoolean(KEY_VOLUME_PAGE_TURN, VOLUME_PAGE_TURN).apply()
+    }
+
+    fun saveBrowserMediaForceList() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving BROWSER_MEDIA_FORCE_LIST: $BROWSER_MEDIA_FORCE_LIST")
+        sharedPreferences.edit().putBoolean(KEY_BROWSER_MEDIA_FORCE_LIST, BROWSER_MEDIA_FORCE_LIST).apply()
     }
 
     private fun Any.toJson() = Gson().toJson(this)

@@ -24,6 +24,7 @@ object Constants {
     internal const val ARG_TRANSITION_URL = "ARG_TRANSITION_URL"
 
     internal const val KEY_APP_THEME = "KEY_APP_THEME"
+    internal const val KEY_BROWSER_MEDIA_FORCE_LIST = "KEY_BROWSER_MEDIA_FORCE_LIST"
     internal const val KEY_BROWSER_IMMERSIVE = "KEY_BROWSER_IMMERSIVE"
     internal const val KEY_DOWNLOAD_SAVE_PATH = "KEY_DOWNLOAD_SAVE_PATH"
     internal const val KEY_DOWNLOAD_TRACKING_INTERVAL = "KEY_DOWNLOAD_TRACKING_INTERVAL"

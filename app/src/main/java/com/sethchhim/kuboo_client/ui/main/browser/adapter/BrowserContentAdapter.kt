@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.ui.main.browser.adapter
 
 import android.arch.lifecycle.Observer
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -37,6 +38,9 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.Browser
+import com.sethchhim.kuboo_client.data.model.Browser.Companion.FOLDER
+import com.sethchhim.kuboo_client.data.model.Browser.Companion.MEDIA
+import com.sethchhim.kuboo_client.data.model.Browser.Companion.MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Content
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentGridLayoutManager
@@ -46,9 +50,12 @@ import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.android.synthetic.main.browser_item_content_folder.view.*
 import kotlinx.android.synthetic.main.browser_item_content_media.view.*
+import kotlinx.android.synthetic.main.browser_item_content_media_force_list.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import timber.log.Timber
@@ -63,6 +70,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
         addItemType(Browser.FOLDER, R.layout.browser_item_content_folder)
         addItemType(Browser.MEDIA, R.layout.browser_item_content_media)
+        addItemType(Browser.MEDIA_FORCE_LIST, R.layout.browser_item_content_media_force_list)
     }
 
     @Inject lateinit var context: Context
@@ -85,6 +93,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         when (holder.itemViewType) {
             Browser.FOLDER -> FolderHandler().process(holder, item)
             Browser.MEDIA -> MediaHandler().process(holder, item)
+            Browser.MEDIA_FORCE_LIST -> MediaForceListHandler().process(holder, item)
         }
     }
 
@@ -102,6 +111,12 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 if (!holder.itemView.browser_item_content_folder_likeButton.isLiked) holder.itemView.browser_item_content_folder_likeButton.isLiked = false
             }
             Browser.MEDIA -> holder.itemView.browser_item_content_media_imageView.colorFilterNull()
+            Browser.MEDIA_FORCE_LIST -> {
+                Glide.with(browserFragment).clear(holder.itemView.browser_item_content_media_force_list_imageView3)
+                holder.itemView.browser_item_content_media_force_list_imageView1.visible()
+                holder.itemView.browser_item_content_media_force_list_imageView2.visible()
+                holder.itemView.browser_item_content_media_force_list_imageView3.invisible()
+            }
         }
     }
 
@@ -136,9 +151,12 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
         private fun onItemSelectedMenuStateIsUnselected() {
             val book = viewModel.getBrowserContentItemAt(adapterPosition)?.book
-            when (book?.isFileType()) {
-                true -> startPreview(book)
-                false -> populateContent(book)
+            book?.let {
+                when (itemViewType) {
+                    FOLDER -> populateContent(it)
+                    MEDIA -> startPreview(it, itemView.browser_item_content_media_imageView)
+                    MEDIA_FORCE_LIST -> startPreview(it, itemView.browser_item_content_media_force_list_imageView3)
+                }
             }
         }
 
@@ -153,16 +171,18 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
         private fun onItemLongSelectedMenuStateIsUnselected() {
             val book = data[adapterPosition].book
-            if (book.isFileType()) {
-                browserFragment.mainActivity.enableSelectionMode(this, book)
+            book.let {
+                when (itemViewType) {
+                    MEDIA -> browserFragment.mainActivity.enableSelectionMode(this, it)
+                    MEDIA_FORCE_LIST -> browserFragment.mainActivity.enableSelectionMode(this, it)
+                }
             }
         }
 
         private fun onItemLongSelectedMenuStateIsSelected() = browserFragment.mainActivity.disableSelectionMode()
 
-        private fun startPreview(book: Book) {
+        private fun startPreview(book: Book, imageView: ImageView) {
             val previewUrl = book.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
-            val imageView = itemView.browser_item_content_media_imageView
             imageView.transitionName = previewUrl
             mainActivity.startPreview(ReadData(book = book, sharedElement = imageView, source = Source.BROWSER))
         }
@@ -332,35 +352,8 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                     }
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        setMediaColorState()
+                        setMediaColorState(holder, book)
                         return false
-                    }
-
-                    private fun setMediaColorState() {
-                        //set color state locally
-                        loadColorState(holder, book)
-
-                        //set color state remotely
-                        launch(UI) {
-                            //add delay to prevent remote request while fast scrolling
-                            delay(Settings.RECYCLER_VIEW_DELAY)
-                            try {
-                                val firstVisible = layoutManager.findFirstVisibleItemPosition()
-                                val lastVisible = layoutManager.findLastVisibleItemPosition()
-                                val currentPosition = holder.adapterPosition
-                                if (currentPosition in firstVisible..lastVisible) {
-                                    viewModel.getRemoteUserApi(book).observe(browserFragment, Observer { result ->
-                                        if (result != null) {
-                                            viewModel.updateBrowserItem(result)
-                                            loadColorState(holder, result)
-                                        }
-                                    })
-                                }
-                            } catch (e: Exception) {
-                                //views could be destroyed during delay, do nothing
-                            }
-                        }
-
                     }
                 })
             }
@@ -386,6 +379,90 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
         }
     }
 
+    private inner class MediaForceListHandler {
+        internal fun process(holder: BrowserHolder, item: Browser) {
+            val itemView = holder.itemView
+            val book = item.book
+
+            val isStateSelected = mainActivity.isMenuStateSelected()
+            if (isStateSelected) mainActivity.disableSelectionMode()
+
+            itemView.browser_item_content_media_force_list_textView1.text = book.title
+            itemView.browser_item_content_media_force_list_textView2.text = when (book.isComic()) {
+                true -> {
+                    when (book.totalPages > 1) {
+                        true -> "${book.totalPages} ${context.getString(R.string.browser_pages)}"
+                        false -> "${book.totalPages} ${context.getString(R.string.browser_page)}"
+                    }
+                }
+                false -> context.getString(R.string.browser_media)
+            }
+
+            //slight delay to prevent loading while fast scrolling
+            launch(UI) {
+                delay(Settings.RECYCLER_VIEW_DELAY)
+                try {
+                    if (holder.bookId == book.id) {
+                        itemView.browser_item_content_media_force_list_imageView3.loadFolderThumbnail(holder, book)
+                    }
+                } catch (e: Exception) {
+                    //views could be destroyed during delay, do nothing
+                }
+            }
+        }
+
+        internal fun ImageView.loadFolderThumbnail(holder: BrowserHolder, book: Book) {
+            val requestOptions = RequestOptions()
+                    .format(DecodeFormat.PREFER_RGB_565)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+            Glide.with(browserFragment)
+                    .load(book.getPreviewUrl())
+                    .apply(requestOptions)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            Timber.e("Thumbnail failed to load! ${book.server}${book.linkThumbnail}")
+                            return false
+                        }
+
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            holder.itemView.browser_item_content_media_force_list_imageView1.invisible()
+                            holder.itemView.browser_item_content_media_force_list_imageView2.invisible()
+                            holder.itemView.browser_item_content_media_force_list_imageView3.fadeVisible()
+                            setMediaColorState(holder, book)
+                            return false
+                        }
+                    })
+                    .into(this)
+        }
+    }
+
+    private fun setMediaColorState(holder: BrowserHolder, book: Book) {
+        //set color state locally
+        loadColorState(holder, book)
+
+        //set color state remotely
+        launch(UI) {
+            //add delay to prevent remote request while fast scrolling
+            delay(Settings.RECYCLER_VIEW_DELAY)
+            try {
+                val firstVisible = layoutManager.findFirstVisibleItemPosition()
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                val currentPosition = holder.adapterPosition
+                if (currentPosition in firstVisible..lastVisible) {
+                    viewModel.getRemoteUserApi(book).observe(browserFragment, Observer { result ->
+                        if (result != null) {
+                            viewModel.updateBrowserItem(result)
+                            loadColorState(holder, result)
+                        }
+                    })
+                }
+            } catch (e: Exception) {
+                //views could be destroyed during delay, do nothing
+            }
+        }
+    }
+
     internal fun update(result: List<Book>) {
         val diffUtilHelper = DiffUtilHelper(this)
         diffUtilHelper.liveData.observe(browserFragment, Observer {
@@ -396,17 +473,34 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
     private fun onDiffUtilUpdateFinished(result: List<Book>) = viewModel.setBrowserContentList(result)
 
-    internal fun loadColorState(holder: BrowserHolder, book: Book) = holder.itemView.browser_item_content_media_imageView.apply {
-        when (viewModel.isSelected(book)) {
-            true -> colorFilterRed()
-            false ->
-                when (Settings.MARK_FINISHED) {
-                    true -> when (book.isFinished && holder.bookId == book.id) {
-                        true -> colorFilterGrey()
+    internal fun loadColorState(holder: BrowserHolder, book: Book) {
+        holder.itemView.browser_item_content_media_imageView?.apply {
+            when (viewModel.isSelected(book)) {
+                true -> colorFilterRed()
+                false ->
+                    when (Settings.MARK_FINISHED) {
+                        true -> when (book.isFinished && holder.bookId == book.id) {
+                            true -> colorFilterGrey()
+                            false -> colorFilterNull()
+                        }
                         false -> colorFilterNull()
                     }
+            }
+        }
+        holder.itemView.browser_item_content_media_force_list_imageView3?.apply {
+            when (Settings.MARK_FINISHED) {
+                true -> when (book.isFinished && holder.bookId == book.id) {
+                    true -> colorFilterGrey()
                     false -> colorFilterNull()
                 }
+                false -> colorFilterNull()
+            }
+        }
+        holder.itemView.browser_item_content_media_force_list_constraintLayout?.apply {
+            when (viewModel.isSelected(book)) {
+                true -> backgroundColor = Color.RED
+                false -> backgroundResource = 0
+            }
         }
     }
 
@@ -416,6 +510,13 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 .forEachWithIndex { _, viewHolder ->
                     if (viewHolder.itemViewType == Browser.MEDIA) {
                         viewHolder.itemView.browser_item_content_media_imageView?.let {
+                            val data = (browserContentRecyclerView.adapter as BrowserContentAdapter).data
+                            val book = data[viewHolder.adapterPosition].book
+                            loadColorState(viewHolder, book)
+                        }
+                    }
+                    if (viewHolder.itemViewType == Browser.MEDIA_FORCE_LIST) {
+                        viewHolder.itemView.browser_item_content_media_force_list_imageView3?.let {
                             val data = (browserContentRecyclerView.adapter as BrowserContentAdapter).data
                             val book = data[viewHolder.adapterPosition].book
                             loadColorState(viewHolder, book)

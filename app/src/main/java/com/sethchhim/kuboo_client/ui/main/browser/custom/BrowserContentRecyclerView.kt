@@ -5,8 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.FOLDER
-import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA
+import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.*
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class BrowserContentRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
@@ -27,32 +26,36 @@ class BrowserContentRecyclerView @JvmOverloads constructor(context: Context, att
 
     internal fun setSpanCountPortrait(browserContentType: BrowserContentType) {
         when (browserContentType) {
-            MEDIA -> setSpanCount(3)
             FOLDER -> setSpanCount(1)
+            MEDIA_FORCE_LIST -> setSpanCount(1)
+            MEDIA -> setSpanCount(3)
         }
         this.contentType = browserContentType
     }
 
     internal fun setSpanCountLandscape(browserContentType: BrowserContentType) {
         when (browserContentType) {
-            MEDIA -> setSpanCount(5)
             FOLDER -> setSpanCount(2)
+            MEDIA_FORCE_LIST -> setSpanCount(2)
+            MEDIA -> setSpanCount(5)
         }
         this.contentType = browserContentType
     }
 
     internal fun setSpanCountPortraitHiDpi(browserContentType: BrowserContentType) {
         when (browserContentType) {
+            FOLDER -> setSpanCount(1)
+            MEDIA_FORCE_LIST -> setSpanCount(1)
             MEDIA -> setSpanCount(4)
-            FOLDER -> setSpanCount(2)
         }
         this.contentType = browserContentType
     }
 
     internal fun setSpanCountLandscapeHiDpi(browserContentType: BrowserContentType) {
         when (browserContentType) {
+            FOLDER -> setSpanCount(2)
+            MEDIA_FORCE_LIST -> setSpanCount(2)
             MEDIA -> setSpanCount(5)
-            FOLDER -> setSpanCount(3)
         }
         this.contentType = browserContentType
     }

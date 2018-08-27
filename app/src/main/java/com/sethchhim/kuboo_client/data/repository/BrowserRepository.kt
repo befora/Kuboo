@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.data.repository
 
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.Extensions.isFileType
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.Browser
 import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
@@ -15,7 +16,10 @@ class BrowserRepository {
         contentList.clear()
         list.forEach {
             when (it.isFileType()) {
-                true -> contentList.add(Browser(Browser.MEDIA, it))
+                true -> when (Settings.BROWSER_MEDIA_FORCE_LIST) {
+                    true -> contentList.add(Browser(Browser.MEDIA_FORCE_LIST, it))
+                    false -> contentList.add(Browser(Browser.MEDIA, it))
+                }
                 false -> contentList.add(Browser(Browser.FOLDER, it))
             }
         }

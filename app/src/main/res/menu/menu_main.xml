@@ -31,6 +31,11 @@
         app:showAsAction="always|collapseActionView"/>
 
     <item
+        android:id="@+id/main_action_browser_layout"
+        android:visible="false"
+        app:showAsAction="always|collapseActionView"/>
+
+    <item
         android:id="@+id/main_action_mark_finished_add"
         android:icon="@drawable/ic_visibility_white_24dp"
         android:title="@string/main_downloads"

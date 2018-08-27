@@ -10,6 +10,7 @@ class Browser(var type: Int, var book: Book) : MultiItemEntity {
     companion object {
         const val FOLDER = 1
         const val MEDIA = 2
+        const val MEDIA_FORCE_LIST = 3
     }
 
     override fun getItemType(): Int {

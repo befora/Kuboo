@@ -3,7 +3,9 @@ package com.sethchhim.kuboo_client.ui.main.browser
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
+import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_remote.model.Book
 
 class BrowserRecentFragment : BrowserBaseFragment() {
 
@@ -22,9 +24,14 @@ class BrowserRecentFragment : BrowserBaseFragment() {
         setStateLoading()
         resetRecyclerView()
         paginationHandler.reset()
-        viewModel.getRecentListFromDao().observe(this, Observer { handleMediaResult(null, it) })
+        viewModel.getRecentListFromDao().observe(this, Observer {
+            val book = Book().apply { linkSubsection = Constants.URL_PATH_GRID_DIRECTORY }
+            handleMediaResult(book, it)
+        })
     }
 
-    private fun onSwipeRefresh() = populateRecent()
-
+    override fun onSwipeRefresh() {
+        super.onSwipeRefresh()
+        populateRecent()
+    }
 }

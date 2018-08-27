@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
@@ -12,10 +13,12 @@ import android.widget.TextView
 import butterknife.BindView
 import com.sethchhim.kuboo_client.Extensions.show
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.about.AboutActivity
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.log.LogActivity
 import com.sethchhim.kuboo_client.ui.main.browser.*
+import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragmentImpl1_Content
@@ -50,6 +53,7 @@ open class MainActivityImpl0_View : BaseActivity() {
     @BindView(R.id.main_layout_base_toolBar) lateinit var toolbar: Toolbar
     @BindView(R.id.main_layout_base_frameLayout) lateinit var frameLayout: FrameLayout
 
+    internal lateinit var browserLayoutMenuItem: MenuItem
     internal lateinit var downloadMenuItem: MenuItem
     internal lateinit var httpsMenuItem: MenuItem
     internal lateinit var markFinishedAddMenuItem: MenuItem
@@ -76,12 +80,14 @@ open class MainActivityImpl0_View : BaseActivity() {
     }
 
     internal fun setStateDisconnected(response: Response?) {
+        hideMenuItemBrowserLayout()
         hideMenuItemSearch()
         hideMenuItemHttps()
         showFragmentFail(response)
     }
 
     internal fun setStateLoading() {
+        hideMenuItemBrowserLayout()
         hideMenuItemSearch()
         hideMenuItemHttps()
         showFragmentLoading()
@@ -182,6 +188,10 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     protected fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
 
+    internal fun hideMenuItemBrowserLayout() {
+        if (::browserLayoutMenuItem.isInitialized && browserLayoutMenuItem.isVisible) browserLayoutMenuItem.isVisible = false
+    }
+
     protected fun hideMenuItemHttps() {
         if (::httpsMenuItem.isInitialized && httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
     }
@@ -192,6 +202,10 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     private fun showFragmentFail(response: Response?) = supportFragmentManager.show(FailFragment.newInstance(response), R.id.main_layout_base_frameLayout)
 
+    private fun showMenuItemBrowserLayout() {
+        if (::browserLayoutMenuItem.isInitialized && !browserLayoutMenuItem.isVisible) browserLayoutMenuItem.isVisible = true
+    }
+
     private fun showMenuItemHttps() {
         if (::httpsMenuItem.isInitialized && !httpsMenuItem.isVisible) httpsMenuItem.isVisible = true
     }
@@ -200,9 +214,38 @@ open class MainActivityImpl0_View : BaseActivity() {
         if (::searchMenuItem.isInitialized && !searchMenuItem.isVisible) searchMenuItem.isVisible = true
     }
 
+    internal fun toggleMenuItemBrowserLayout(browserContentType: BrowserContentType) {
+        if (::browserLayoutMenuItem.isInitialized) {
+            when (browserContentType) {
+                BrowserContentType.MEDIA -> {
+                    browserLayoutMenuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_view_list_white_24dp)
+                    showMenuItemBrowserLayout()
+                }
+                BrowserContentType.MEDIA_FORCE_LIST -> {
+                    browserLayoutMenuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_view_module_white_24dp)
+                    showMenuItemBrowserLayout()
+                }
+                else -> hideMenuItemBrowserLayout()
+            }
+        }
+    }
+
     protected fun toggleMenuItemHttps() = when (viewModel.isConnectedEncrypted()) {
         true -> showMenuItemHttps()
         false -> hideMenuItemHttps()
+    }
+
+    protected fun toggleBrowserLayout() {
+        Settings.BROWSER_MEDIA_FORCE_LIST = !Settings.BROWSER_MEDIA_FORCE_LIST
+        sharedPrefsHelper.saveBrowserMediaForceList()
+        (getCurrentFragment() as? BrowserBaseFragment)?.let {
+            it.contentRecyclerView.contentType = when (Settings.BROWSER_MEDIA_FORCE_LIST) {
+                true -> BrowserContentType.MEDIA_FORCE_LIST
+                false -> BrowserContentType.MEDIA
+            }
+            toggleMenuItemBrowserLayout(it.contentRecyclerView.contentType)
+            it.onSwipeRefresh()
+        }
     }
 
 }

@@ -10,6 +10,7 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA
+import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.ui.main.browser.handler.PaginationHandler
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Pagination
@@ -70,7 +71,10 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         }
 
         setStateConnected()
-        setContentSpanCount(resources.configuration.orientation, book.getBrowserContentType())
+
+        val browserContentType = book.getBrowserContentType()
+        setContentSpanCount(resources.configuration.orientation, browserContentType)
+        mainActivity.toggleMenuItemBrowserLayout(browserContentType)
         populatePaginationLinks(book, newResult)
         contentAdapter.update(newResult)
         if (loadState) loadRecyclerViewState(book)
@@ -106,8 +110,15 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
     private fun onPopulateMediaSuccess(book: Book?, result: List<Book>) {
         Timber.i("onPopulateMediaSuccess result: ${result.size}")
         setStateConnected()
-        setContentSpanCount(resources.configuration.orientation, MEDIA)
-        book?.let { populatePaginationLinks(it, result) }
+        setContentSpanCount(resources.configuration.orientation, when (Settings.BROWSER_MEDIA_FORCE_LIST) {
+            true -> MEDIA_FORCE_LIST
+            false -> MEDIA
+        })
+
+        book?.let {
+            populatePaginationLinks(it, result)
+            mainActivity.toggleMenuItemBrowserLayout(book.getBrowserContentType())
+        }
         contentAdapter.update(result)
     }
 
@@ -131,6 +142,10 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
                 if (isValid) onPopulatePaginationLinksSuccess(book, result!!, list)
             })
         }
+    }
+
+    open fun onSwipeRefresh() {
+        //override in children
     }
 
 }

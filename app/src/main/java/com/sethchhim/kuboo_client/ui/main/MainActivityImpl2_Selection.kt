@@ -89,6 +89,8 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     private fun resetAllColorState() = (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.resetAllColorState()
 
+    private fun getBrowserContentType() = (getCurrentFragment() as? BrowserBaseFragment)?.contentRecyclerView?.contentType
+
     private fun setSelectionMenuStateSelected() {
         title = getSelectedBrowserTitle()
         downloadMenuItem.visible()
@@ -96,6 +98,7 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         markFinishedDeleteMenuItem.visible()
         markFinishedAddMenuItem.visible()
 
+        hideMenuItemBrowserLayout()
         hideMenuItemHttps()
     }
 
@@ -106,6 +109,7 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         markFinishedDeleteMenuItem.gone()
         markFinishedAddMenuItem.gone()
 
+        getBrowserContentType()?.let { toggleMenuItemBrowserLayout(it) }
         toggleMenuItemHttps()
     }
 

@@ -407,7 +407,10 @@ object Extensions {
 
     internal fun Book.getBrowserContentType() =
             when (isBrowserMediaType()) {
-                true -> BrowserContentType.MEDIA
+                true -> when (Settings.BROWSER_MEDIA_FORCE_LIST) {
+                    true -> BrowserContentType.MEDIA_FORCE_LIST
+                    false -> BrowserContentType.MEDIA
+                }
                 false -> BrowserContentType.FOLDER
             }
 

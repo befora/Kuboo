@@ -1,5 +1,5 @@
 package com.sethchhim.kuboo_client.ui.main.browser.custom
 
 enum class BrowserContentType {
-    MEDIA, FOLDER
+    FOLDER, MEDIA, MEDIA_FORCE_LIST
 }
