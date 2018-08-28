@@ -2,6 +2,16 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Aug 28, 2018"
+        versionName="1.0.10">
+        <changelogtext>add browser option to show media as a list</changelogtext>
+        <changelogtext>fix preview activity can't preload epub or pdf asset</changelogtext>
+        <changelogtext>fix out of memory crashes</changelogtext>
+        <changelogtext>remove intent filter for epublibdroid</changelogtext>
+        <changelogtext>remove permission READ_EXTERNAL_STORAGE</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Aug 23, 2018"
         versionName="1.0.9">
         <changelogtext>add local comic reader support for comicinfo.xml chapter jump</changelogtext>
@@ -10,7 +20,9 @@
         <changelogtext>fix epub reader cover animation no longer applies manga mode direction
         </changelogtext>
         <changelogtext>fix failed to find next book due to pagination</changelogtext>
-        <changelogtext>fix glide simple targets are deprecated, remove fade animation, remove progressbar</changelogtext>
+        <changelogtext>fix glide simple targets are deprecated, remove fade animation, remove
+            progressbar
+        </changelogtext>
         <changelogtext>fix gradle okhttp integration update</changelogtext>
         <changelogtext>fix local input stream error handling</changelogtext>
         <changelogtext>fix overlay guidelines did not adjust on orientation change</changelogtext>
