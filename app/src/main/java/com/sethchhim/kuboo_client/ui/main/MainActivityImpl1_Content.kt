@@ -11,8 +11,6 @@ import timber.log.Timber
 @SuppressLint("Registered")
 open class MainActivityImpl1_Content : MainActivityImpl0_View() {
 
-    protected var isRequestDownloadFragment = false
-    protected var isRequestRemoteBrowserFragment = false
     protected var loginLiveData = MutableLiveData<Login>()
 
     protected fun onActiveLoginChanged(it: Login?) {

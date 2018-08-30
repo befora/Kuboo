@@ -88,7 +88,7 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
     private fun getSelectionIntent(): PendingIntent? {
         val intent = Intent(context, MainActivity::class.java)
         intent.putExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
-        return PendingIntent.getActivity(context, 0, intent, 0)
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getCancelFetchIntent(): PendingIntent {

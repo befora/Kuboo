@@ -11,6 +11,9 @@ import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.TextView
 import butterknife.BindView
+import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT
+import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT
+import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD
 import com.sethchhim.kuboo_client.Extensions.show
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
@@ -33,6 +36,7 @@ import com.sethchhim.kuboo_client.ui.state.WelcomeFragment
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.model.Response
+import timber.log.Timber
 import javax.inject.Inject
 
 @SuppressLint("Registered")
@@ -59,8 +63,34 @@ open class MainActivityImpl0_View : BaseActivity() {
     internal lateinit var markFinishedAddMenuItem: MenuItem
     internal lateinit var markFinishedDeleteMenuItem: MenuItem
     internal lateinit var searchMenuItem: MenuItem
-
     internal lateinit var searchView: SearchView
+
+    private var isRequestDownloadFragment = false
+    private var isRequestRemoteBrowserFragment = false
+
+    protected fun handleIntentRequest(intent: Intent) {
+        isRequestDownloadFragment = intent.getBooleanExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, false)
+        isRequestRemoteBrowserFragment = intent.getBooleanExtra(ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, false)
+        when {
+            isRequestDownloadFragment -> {
+                Timber.i("Intent request is found [DOWNLOAD_FRAGMENT].")
+                selectDownloads()
+                intent.removeExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT)
+            }
+            isRequestRemoteBrowserFragment -> {
+                Timber.i("Intent request is found [REMOTE_BROWSER_FRAGMENT].")
+                val payload = intent.getParcelableExtra<Book>(ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD)
+                when (payload != null) {
+                    true -> showFragmentBrowserSeries(payload)
+                    false -> showToastError()
+                }
+                intent.removeExtra(ARG_REQUEST_REMOTE_BROWSER_FRAGMENT)
+                intent.removeExtra(ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD)
+            }
+        }
+
+
+    }
 
     internal fun isMenuStateSelected() = downloadMenuItem.isVisible
 

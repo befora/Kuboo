@@ -9,7 +9,6 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.ButterKnife
-import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.getVisibleFragment
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
@@ -20,8 +19,6 @@ import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
-import com.sethchhim.kuboo_remote.model.Book
-import timber.log.Timber
 
 
 open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
@@ -49,32 +46,17 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
         startService(Intent(this, OnClearFromRecentService::class.java))
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        viewModel.clearPathList()
-
-        isRequestDownloadFragment = intent.getBooleanExtra(Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT, false)
-        isRequestRemoteBrowserFragment = intent.getBooleanExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, false)
-        when {
-            isRequestDownloadFragment -> {
-                Timber.i("Download fragment is requested from intent.")
-                selectDownloads()
-            }
-            isRequestRemoteBrowserFragment -> {
-                Timber.i("Remote browser fragment is requested from intent.")
-                val payload = intent.getParcelableExtra<Book>(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD)
-                when (payload != null) {
-                    true -> showFragmentBrowserSeries(payload)
-                    false -> showToastError()
-                }
-            }
-        }
-    }
-
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         setStateLoading()
         setActiveLogin()
+        handleIntentRequest(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        viewModel.clearPathList()
+        handleIntentRequest(intent)
     }
 
     override fun onResume() {
