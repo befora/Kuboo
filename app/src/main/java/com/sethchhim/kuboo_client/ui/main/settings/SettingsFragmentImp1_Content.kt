@@ -1,7 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.settings
 
 import android.widget.TextView
-import com.sethchhim.kuboo_client.Extensions.toHourMinuteSecond
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
@@ -99,6 +98,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         summary = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
         setOnPreferenceClickListener {
             dialogUtil.getDialogTrackingLimit(mainActivity).apply {
+                setOnDismissListener { mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin()) }
                 show()
 
                 val textView = findViewById<TextView>(R.id.dialog_layout_settings_tracking_limit_textView0)!!
@@ -125,45 +125,37 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
     }
 
     private fun setDownloadTrackingInterval() = downloadTrackingInterval.apply {
+        val minHours = 6
+        val maxHours = 24
+        //previous version used minutes so we need to reset values to reflect hours
+        if (Settings.DOWNLOAD_TRACKING_INTERVAL < minHours || Settings.DOWNLOAD_TRACKING_INTERVAL >= maxHours) {
+            Settings.DOWNLOAD_TRACKING_INTERVAL = Settings.DEFAULT_DOWNLOAD_TRACKING_INTERVAL
+            sharedPrefsHelper.saveDownloadTrackingInterval()
+        }
+        summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
         setOnPreferenceClickListener {
             dialogUtil.getDialogTrackingInterval(mainActivity).apply {
-                setOnDismissListener { mainActivity.setDownloadTrackingService() }
-
+                setOnDismissListener { mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin()) }
                 show()
                 val textView = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_textView0)!!
                 val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_button0)!!
                 val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_button1)!!
 
-                textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)}"
+                textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
                 buttonDecrease.onClick {
-                    when (Settings.DOWNLOAD_TRACKING_INTERVAL <= 10) {
-                        true -> {
-                            Settings.DOWNLOAD_TRACKING_INTERVAL -= 1
-                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 1) Settings.DOWNLOAD_TRACKING_INTERVAL = 1
-                        }
-                        false -> {
-                            Settings.DOWNLOAD_TRACKING_INTERVAL -= 10
-                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 10) Settings.DOWNLOAD_TRACKING_INTERVAL = 10
-                        }
-                    }
+                    Settings.DOWNLOAD_TRACKING_INTERVAL -= 1
+                    if (Settings.DOWNLOAD_TRACKING_INTERVAL < minHours) Settings.DOWNLOAD_TRACKING_INTERVAL = minHours
                     sharedPrefsHelper.saveDownloadTrackingInterval()
-                    textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)}"
-                    summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)} (${mainActivity.timeUntilLiveData.value?.toHourMinuteSecond()} ${getString(R.string.settings_remaining)})"
+                    textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
+                    summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
                 }
                 buttonIncrease.onClick {
-                    when (Settings.DOWNLOAD_TRACKING_INTERVAL < 10) {
-                        true -> {
-                            Settings.DOWNLOAD_TRACKING_INTERVAL += 1
-                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 1) Settings.DOWNLOAD_TRACKING_INTERVAL = 1
-                        }
-                        false -> {
-                            Settings.DOWNLOAD_TRACKING_INTERVAL += 10
-                            if (Settings.DOWNLOAD_TRACKING_INTERVAL < 10) Settings.DOWNLOAD_TRACKING_INTERVAL = 10
-                        }
-                    }
+                    Settings.DOWNLOAD_TRACKING_INTERVAL += 1
+                    if (Settings.DOWNLOAD_TRACKING_INTERVAL < minHours) Settings.DOWNLOAD_TRACKING_INTERVAL = minHours
+                    else if (Settings.DOWNLOAD_TRACKING_INTERVAL >= maxHours) Settings.DOWNLOAD_TRACKING_INTERVAL = maxHours
                     sharedPrefsHelper.saveDownloadTrackingInterval()
-                    textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)}"
-                    summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)} (${mainActivity.timeUntilLiveData.value?.toHourMinuteSecond()} ${getString(R.string.settings_remaining)})"
+                    textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
+                    summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
                 }
             }
             return@setOnPreferenceClickListener true

@@ -20,6 +20,7 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
+import com.sethchhim.kuboo_client.service.TrackingService
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.util.*
 import com.sethchhim.kuboo_remote.model.Book
@@ -36,6 +37,7 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
     @Inject lateinit var glideUtil: GlideUtil
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
     @Inject lateinit var systemUtil: SystemUtil
+    @Inject lateinit var trackingService: TrackingService
     @Inject lateinit var viewModel: ViewModel
 
     internal lateinit var currentBook: Book

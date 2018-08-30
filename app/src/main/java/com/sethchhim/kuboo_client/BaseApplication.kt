@@ -35,13 +35,13 @@ class BaseApplication : DaggerApplication() {
             if (viewModel.isLoginListEmpty()) {
                 viewModel.addLogin(Login(nickname = "Books Server",
                         server = "https://192.168.1.100:2202/opds-books/",
-                        username = "",
-                        password = ""))
+                        username = "abcd",
+                        password = "abcd"))
 
                 viewModel.addLogin(Login(nickname = "Comics Server",
                         server = "https://192.168.1.100:2202/opds-comics/",
-                        username = "",
-                        password = ""))
+                        username = "abcd",
+                        password = "abcd"))
             }
 
             //fake data for log activity
@@ -62,7 +62,7 @@ class BaseApplication : DaggerApplication() {
         }
 
         //restore downloaded items
-        viewModel.getDownloadsListFromAppDatabase().observeForever { result ->
+        viewModel.getDownloadsListFromDao().observeForever { result ->
             result?.let {
                 Timber.i("Loading downloaded items: size[${it.size}]")
                 viewModel.setDownloadList(it)

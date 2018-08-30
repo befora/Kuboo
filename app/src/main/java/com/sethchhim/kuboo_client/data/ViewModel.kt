@@ -176,9 +176,11 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     //downloads
     internal fun getDownloadList() = downloadsRepository.downloadsList
 
+    internal fun getDownloadsListFromDao() = downloadsRepository.getDownloadsListFromDao()
+
     internal fun getDownloadListFavoriteCompressed() = downloadsRepository.getDownloadListFavoriteCompressed()
 
-    internal fun getDownloadsListFromAppDatabase() = downloadsRepository.getDownloadsListFromAppDatabase()
+    internal fun getDownloadListFavoriteCompressedFromDao() = downloadsRepository.getDownloadListFavoriteCompressedFromDao()
 
     internal fun getFirstDownloadInSeries(book: Book) = downloadsRepository.getFirstDownloadInSeries(book)
 
@@ -193,8 +195,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun setDownloadList(list: List<Book>) = downloadsRepository.setDownloadList(list)
 
     //fetch
-    internal fun startDownloads(list: List<Book>, savePath: String) {
-        fetchRepository.startDownloads(getActiveLogin(), list, savePath)
+    internal fun startDownloads(login: Login, list: List<Book>, savePath: String) {
+        fetchRepository.startDownloads(login, list, savePath)
         downloadsRepository.addDownloads(list, savePath)
     }
 
@@ -249,9 +251,9 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getNeighborsLocal(book: Book) = downloadsRepository.getDownloadNeighbors(book)
 
-    internal fun getSeriesNeighborsRemote(book: Book, stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsRemote(getActiveLogin(), book, stringUrl, seriesLimit)
+    internal fun getSeriesNeighborsRemote(login: Login, book: Book, stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsRemote(login, book, stringUrl, seriesLimit)
 
-    internal fun getSeriesNeighborsNextPageRemote(stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsNextPageRemote(getActiveLogin(), stringUrl, seriesLimit)
+    internal fun getSeriesNeighborsNextPageRemote(login: Login, stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsNextPageRemote(login, stringUrl, seriesLimit)
 
     internal fun getLocalComicInfo() = localRepository.getLocalComicInfo()
 

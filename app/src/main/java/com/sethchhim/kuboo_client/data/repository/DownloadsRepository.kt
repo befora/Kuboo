@@ -19,7 +19,9 @@ class DownloadsRepository {
 
     internal fun getDownloadNeighbors(book: Book) = Task_DownloadNeighbors(book).neighbors
 
-    internal fun getDownloadsListFromAppDatabase() = Task_DownloadGetAll().liveData
+    internal fun getDownloadsListFromDao() = Task_DownloadGetAll().liveData
+
+    internal fun getDownloadListFavoriteCompressedFromDao() = Task_DownloadGetFavoriteCompressed().liveData
 
     internal fun getDownloadListFavoriteCompressed(): MutableList<Book> {
         val favoriteCompressedList = mutableListOf<Book>()

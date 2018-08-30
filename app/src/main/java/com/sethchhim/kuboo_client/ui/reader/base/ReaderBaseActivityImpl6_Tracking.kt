@@ -9,7 +9,7 @@ open class ReaderBaseActivityImpl6_Tracking : ReaderBaseActivityImpl5_Neighbors(
     protected fun startDownloadTracking(book: Book) {
         if (isLocal && book.isFavorite) {
             viewModel.deleteDownloadsBefore(book)
-            startTrackingByBook(book)
+            trackingService.startTrackingByBook(viewModel.getActiveLogin(), book)
         }
     }
 

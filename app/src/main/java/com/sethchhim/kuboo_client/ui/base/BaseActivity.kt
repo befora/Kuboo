@@ -8,7 +8,7 @@ import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_remote.model.Book
 
 @SuppressLint("Registered")
-open class BaseActivity : BaseActivityImpl2_Tracking() {
+open class BaseActivity : BaseActivityImpl1_Read() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -21,7 +21,7 @@ object Settings {
     const val DEFAULT_MAX_PAGE_WIDTH = 1500
 
     const val DEFAULT_DOWNLOAD_TRACKING_LIMIT = 3
-    const val DEFAULT_DOWNLOAD_TRACKING_INTERVAL = 180 //minutes
+    const val DEFAULT_DOWNLOAD_TRACKING_INTERVAL = 12 //hours
 
     const val DEFAULT_KEEP_SCREEN_ON = false
     const val DEFAULT_VOLUME_PAGE_TURN = false

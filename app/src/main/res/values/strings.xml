@@ -199,6 +199,7 @@
     <string name="settings_finished_items_will_be_darkened">Finished items will be darkened</string>
     <string name="settings_fit_width">Fit Width</string>
     <string name="settings_home">Home</string>
+    <string name="settings_hours">hours</string>
     <string name="settings_keep_screen_on">Keep Screen On</string>
     <string name="settings_landscape">Landscape</string>
     <string name="settings_layout">Layout</string>
@@ -209,7 +210,6 @@
     <string name="settings_manga_mode">Manga Mode</string>
     <string name="settings_margin">Margin</string>
     <string name="settings_mark_finished">Mark Finished</string>
-    <string name="settings_minutes">minutes</string>
     <string name="settings_none">NONE</string>
     <string name="settings_orientation">Orientation</string>
     <string-array name="settings_orientation_entries">

@@ -13,6 +13,7 @@ import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.getVisibleFragment
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
 import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
@@ -23,7 +24,7 @@ import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
 
 
-open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
+open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +46,7 @@ open class MainActivity : MainActivityImpl3_Service(), BottomNavigationView.OnNa
             observe(this@MainActivity, Observer { result -> onActiveLoginChanged(result) })
         }
 
-        setDownloadTrackingService()
-        setOnClearFromRecentService()
+        startService(Intent(this, OnClearFromRecentService::class.java))
     }
 
     override fun onNewIntent(intent: Intent) {

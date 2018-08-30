@@ -1,20 +1,18 @@
 package com.sethchhim.kuboo_client.ui.main.settings
 
-import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.support.v7.preference.SwitchPreferenceCompat
 import com.sethchhim.kuboo_client.BaseApplication
-import com.sethchhim.kuboo_client.Extensions.toHourMinuteSecond
 import com.sethchhim.kuboo_client.R
-import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.SharedPrefsHelper
 import com.sethchhim.kuboo_client.util.SystemUtil
+import com.sethchhim.kuboo_remote.KubooRemote
 import javax.inject.Inject
 
 
@@ -25,6 +23,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     }
 
     @Inject lateinit var dialogUtil: DialogUtil
+    @Inject lateinit var kubooRemote: KubooRemote
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
     @Inject lateinit var systemUtil: SystemUtil
     @Inject lateinit var viewModel: ViewModel
@@ -64,12 +63,6 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         systemKeepScreenOn = findPreference("settings_keep_screen_on") as SwitchPreferenceCompat
         systemVolumePageTurnPreference = findPreference("settings_volume_page_turn") as SwitchPreferenceCompat
         systemWifiOnlyPreference = findPreference("settings_wifi_only") as SwitchPreferenceCompat
-
-        mainActivity.timeUntilLiveData.observe(this, Observer {
-            it?.let {
-                downloadTrackingInterval.summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_minutes)} (${it.toHourMinuteSecond()} ${getString(R.string.settings_remaining)})"
-            }
-        })
     }
 
     override fun onAttach(context: Context) {

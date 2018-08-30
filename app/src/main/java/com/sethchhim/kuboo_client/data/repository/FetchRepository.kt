@@ -12,7 +12,7 @@ import com.tonyodev.fetch2.FetchListener
 import com.tonyodev.fetch2.Status
 import timber.log.Timber
 
-class FetchRepository(private val kubooRemote: KubooRemote, val notificationService: NotificationService, val systemUtil: SystemUtil) : FetchListener {
+class FetchRepository(private val kubooRemote: KubooRemote, private val notificationService: NotificationService, val systemUtil: SystemUtil) : FetchListener {
 
     init {
         kubooRemote.addFetchListener(this)

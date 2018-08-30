@@ -57,9 +57,9 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
     }
 
     private fun onActiveLoginValid() {
-        Timber.i("onActiveLoginValid")
         setStateLoading()
         selectHome()
+        trackingService.startPeriodicTrackingService()
     }
 
 }

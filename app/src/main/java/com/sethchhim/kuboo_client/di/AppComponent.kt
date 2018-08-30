@@ -9,6 +9,7 @@ import com.sethchhim.kuboo_client.data.glide.GlideRemoteFetcher
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_client.service.IntentService
 import com.sethchhim.kuboo_client.service.OnClearFromRecentService
+import com.sethchhim.kuboo_client.service.TrackingService
 import com.sethchhim.kuboo_client.ui.about.adapter.AboutPagerAdapter
 import com.sethchhim.kuboo_client.ui.about.adapter.FaqAdapter
 import com.sethchhim.kuboo_client.ui.about.adapter.LicenseAdapter
@@ -45,18 +46,20 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(intentService: IntentService)
     fun inject(latestAdapter: LatestAdapter)
     fun inject(licenseAdapter: LicenseAdapter)
+    fun inject(logAdapter: LogAdapter)
     fun inject(loginAdapter: LoginAdapter)
     fun inject(onClearFromRecentService: OnClearFromRecentService)
     fun inject(readerComicAdapter: ReaderComicAdapter)
     fun inject(recentAdapter: RecentAdapter)
     fun inject(settingsFragment: SettingsFragmentImp0_View)
     fun inject(task_LocalBase: Task_LocalBase)
-    fun inject(logAdapter: LogAdapter)
+    fun inject(trackingService: TrackingService)
 
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun context(context: Context): Builder
+
         fun build(): AppComponent
     }
 

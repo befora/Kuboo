@@ -144,7 +144,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                 observe(downloadsFragment, Observer {
                     it?.let {
                         downloadsFragment.handleResult(it)
-                        mainActivity.startTrackingByBook(book)
+                        mainActivity.trackingService.startTrackingByBook(viewModel.getActiveLogin(), book)
                     }
                 })
             })
@@ -159,7 +159,15 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                     }
                 })
             })
-            mainActivity.stopTrackingByBook(book)
+            viewModel.getDownloadList()
+                    .filter { it.getXmlId() == book.getXmlId() }
+                    .sortedBy { it.id }
+                    .filterIndexed { i, _ -> i != 0 }
+                    .forEach {
+                        viewModel.getFetchDownload(it).observe(mainActivity, Observer {
+                            it?.let { viewModel.deleteFetchDownload(it) }
+                        })
+                    }
         }
     }
 

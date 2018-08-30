@@ -165,7 +165,7 @@ object Extensions {
 
     internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }.sortedBy { it.tag }
 
-    internal fun List<com.sethchhim.kuboo_client.data.model.Download>.downloadListToBookList(): List<Book>? {
+    internal fun List<com.sethchhim.kuboo_client.data.model.Download>.downloadListToBookList(): List<Book> {
         val bookList = mutableListOf<Book>()
         forEach { bookList.add(it.toBook()) }
         return bookList

@@ -6,6 +6,7 @@ object Constants {
     internal const val GITHUB_URL = "https://github.com/sethchhim/Kuboo"
 
     internal const val TAG_ROOT_BOOK = "TAG_ROOT_BOOK"
+    internal const val TAG_TRACKING_SERVICE = "TAG_TRACKING_SERVICE"
 
     internal const val DATABASE_NAME = "ROOM_DATABASE"
     internal const val DATABASE_VERSION = 2
@@ -37,6 +38,10 @@ object Constants {
     internal const val KEY_HOME_LAYOUT = "KEY_HOME_LAYOUT"
     internal const val KEY_KEEP_SCREEN_ON = "KEY_KEEP_SCREEN_ON"
     internal const val KEY_LOGIN_LIST = "KEY_LOGIN_LIST"
+    internal const val KEY_LOGIN_NICKNAME = "KEY_LOGIN_NICKNAME"
+    internal const val KEY_LOGIN_PASSWORD = "KEY_LOGIN_PASSWORD"
+    internal const val KEY_LOGIN_SERVER = "KEY_LOGIN_SERVER"
+    internal const val KEY_LOGIN_USERNAME = "KEY_LOGIN_USERNAME"
     internal const val KEY_MARK_FINISHED = "KEY_MARK_FINISHED"
     internal const val KEY_MAX_PAGE_WIDTH = "KEY_MAX_PAGE_WIDTH"
     internal const val KEY_PREVIEW = "KEY_PREVIEW"
@@ -60,4 +65,5 @@ object Constants {
 
     internal const val HI_DPI_VALUE = 2560
     internal const val PAGE_NOT_FOUND_LENGTH = 10796L
+
 }

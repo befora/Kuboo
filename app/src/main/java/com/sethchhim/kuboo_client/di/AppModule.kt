@@ -10,6 +10,7 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.repository.*
 import com.sethchhim.kuboo_client.service.IntentService
 import com.sethchhim.kuboo_client.service.NotificationService
+import com.sethchhim.kuboo_client.service.TrackingService
 import com.sethchhim.kuboo_client.ui.scope.AppScope
 import com.sethchhim.kuboo_client.util.*
 import com.sethchhim.kuboo_local.KubooLocal
@@ -112,6 +113,10 @@ class AppModule {
     @Provides
     @AppScope
     fun provideIntentService() = IntentService()
+
+    @Provides
+    @AppScope
+    fun provideTrackingService() = TrackingService()
 
     //<------ Util ------>
     @Provides
