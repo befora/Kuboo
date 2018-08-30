@@ -20,7 +20,7 @@ class OnClearFromRecentService : Service() {
 
     override fun onTaskRemoved(rootIntent: Intent) {
         super.onTaskRemoved(rootIntent)
-        notificationService.stopNotification()
+        notificationService.cancelProgress()
         stopSelf()
     }
 

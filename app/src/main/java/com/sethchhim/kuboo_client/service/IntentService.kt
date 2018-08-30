@@ -14,12 +14,15 @@ class IntentService : IntentService("KUBOO_NOTIFICATION") {
     }
 
     @Inject lateinit var kubooRemote: KubooRemote
+    @Inject lateinit var notificationService: NotificationService
 
     override fun onHandleIntent(intent: Intent) {
         when (intent.action) {
             CANCEL_ACTION -> handleCancel()
             PAUSE_ACTION -> handlePause()
             RESUME_ACTION -> handleResume()
+            RESET_COMPLETED_COUNT_ACTION -> handleResetCompletedCount()
+            DISMISS_COMPLETED_ACTION -> handleDismissCompleted()
         }
     }
 
@@ -38,10 +41,22 @@ class IntentService : IntentService("KUBOO_NOTIFICATION") {
         kubooRemote.resumeAll()
     }
 
+    private fun handleResetCompletedCount() {
+        Timber.i(RESET_COMPLETED_COUNT_ACTION)
+        notificationService.clearCompletedCount()
+    }
+
+    private fun handleDismissCompleted() {
+        Timber.i(DISMISS_COMPLETED_ACTION)
+        notificationService.cancelCompleted()
+    }
+
     companion object {
         const val CANCEL_ACTION = "CANCEL_ACTION"
         const val PAUSE_ACTION = "PAUSE_ACTION"
         const val RESUME_ACTION = "RESUME_ACTION"
+        const val RESET_COMPLETED_COUNT_ACTION = "RESET_COMPLETED_COUNT_ACTION"
+        const val DISMISS_COMPLETED_ACTION = "DISMISS_COMPLETED_ACTION"
     }
 
 }

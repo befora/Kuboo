@@ -70,6 +70,7 @@
     <string name="dialog_open_series">Open Series</string>
     <string name="dialog_please_restart_to_apply_changes">Please restart to apply changes.</string>
     <string name="dialog_please_wait">Please wait…</string>
+    <string name="dialog_rate">Rate</string>
     <string name="dialog_remote_file">Remote File</string>
     <string name="dialog_remove">REMOVE</string>
     <string name="dialog_remove_recently_viewed">Remove recently viewed?</string>
@@ -155,10 +156,15 @@
     <string name="main_start_reading_to_add_items">Start reading to add items!</string>
     <string name="main_text_copied_to_clipboard">Text copied to clipboard</string>
 
+    <string name="notification_browse">Browse</string>
     <string name="notification_cancel">Cancel</string>
+    <string name="notification_dismiss">Dismiss</string>
     <string name="notification_download_in_progress">Download in progress…</string>
     <string name="notification_download_in_progress_remaining">Download in progress… %1$s remaining</string>
     <string name="notification_download_service_paused">Download service paused.</string>
+    <string name="notification_finished_download_of">Finished download of</string>
+    <string name="notification_item">item</string>
+    <string name="notification_items">items</string>
     <string name="notification_loading">LOADING</string>
     <string name="notification_pause">PAUSE</string>
     <string name="notification_please_wait">Please wait…</string>
@@ -251,5 +257,4 @@
     <string name="title_downloads">Downloads</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
-    <string name="dialog_rate">Rate</string>
 </resources>

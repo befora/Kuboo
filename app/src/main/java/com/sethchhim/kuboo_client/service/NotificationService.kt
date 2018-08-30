@@ -22,14 +22,55 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
 
     private val NOTIFICATION_CHANNEL = "NOTIFICATION_CHANNEL"
     private val NOTIFICATION_NAME = "KUBOO_NOTIFICATION"
-    private val NOTIFICATION_ID = 8675309
-    private val NOTIFICATION_TAG = context.getString(R.string.app_label)
+    private val NOTIFICATION_PROGRESS_TAG = "NOTIFICATION_PROGRESS_TAG"
+    private val NOTIFICATION_COMPLETED_TAG = "NOTIFICATION_COMPLETED_TAG"
+    private val NOTIFICATION_PROGRESS_ID = 8675309
+    private val NOTIFICATION_COMPLETED_ID = 8675310
 
-    private val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL).apply {
+    private var completedCount = 0
+
+    internal fun startProgress(download: Download, downloadsCount: Int) {
+        val notification = getStartNotification(download, downloadsCount)
+        notificationManager.notify(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID, notification)
+    }
+
+    internal fun pauseProgress() {
+        val notification = getPauseNotification()
+        notificationManager.notify(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID, notification)
+    }
+
+    internal fun cancelProgress() = notificationManager.cancel(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID)
+
+    internal fun cancelCompleted() {
+        clearCompletedCount()
+        notificationManager.cancel(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID)
+    }
+
+    internal fun startCompleted(download: Download) {
+        val notification = getCompletedNotification(download)
+        notificationManager.notify(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID, notification)
+    }
+
+    internal fun clearCompletedCount() {
+        completedCount = 0
+    }
+
+    internal fun increaseCompletedCount() {
+        completedCount += 1
+    }
+
+    private val progressNotificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL).apply {
         priority = NotificationCompat.PRIORITY_MAX
         setWhen(0)
-        setAutoCancel(true)
         setContentIntent(getSelectionIntent())
+        setOngoing(true)
+    }
+
+    private val completedNotificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL).apply {
+        priority = NotificationCompat.PRIORITY_MAX
+        setWhen(0)
+        setContentIntent(getSelectionIntent())
+        setOngoing(false)
     }
     private val notificationManager = (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).apply {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -51,25 +92,37 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
     }
 
     private fun getCancelFetchIntent(): PendingIntent {
-        val cancelIntent = Intent(context, IntentService::class.java)
-        cancelIntent.action = IntentService.CANCEL_ACTION
-        return PendingIntent.getService(context, 0, cancelIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.CANCEL_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getPauseFetchIntent(): PendingIntent {
-        val pauseIntent = Intent(context, IntentService::class.java)
-        pauseIntent.action = IntentService.PAUSE_ACTION
-        return PendingIntent.getService(context, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.PAUSE_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getResumeFetchIntent(): PendingIntent {
-        val resumeIntent = Intent(context, IntentService::class.java)
-        resumeIntent.action = IntentService.RESUME_ACTION
-        return PendingIntent.getService(context, 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.RESUME_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getResetCompletedCountIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.RESET_COMPLETED_COUNT_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getDismissCompletedIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.DISMISS_COMPLETED_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getStartNotification(download: Download, downloadsCount: Int): Notification {
-        notificationBuilder.apply {
+        progressNotificationBuilder.apply {
             setContentTitle(download.request.url.guessFilename())
             setSmallIcon(android.R.drawable.stat_sys_download)
             setProgress(100, download.progress, false)
@@ -85,12 +138,30 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
             addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_cancel), getCancelFetchIntent())
             addAction(R.drawable.ic_pause_white_24dp, context.getString(R.string.notification_pause), getPauseFetchIntent())
         }
-        return notificationBuilder.build()
+        return progressNotificationBuilder.build()
+    }
+
+    private fun getCompletedNotification(download: Download): Notification {
+        completedNotificationBuilder.apply {
+            val itemString = when (completedCount > 1) {
+                true -> R.string.notification_items
+                false -> R.string.notification_item
+            }
+            setContentTitle("${context.getString(R.string.notification_finished_download_of)} $completedCount ${context.getString(itemString)}!")
+            setContentText(null)
+            setSmallIcon(android.R.drawable.stat_sys_download_done)
+            setProgress(0, 0, false)
+            setDeleteIntent(getResetCompletedCountIntent())
+            mActions.clear()
+            addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_browse), getSelectionIntent())
+            addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_dismiss), getDismissCompletedIntent())
+        }
+        return completedNotificationBuilder.build()
     }
 
     private fun getPauseNotification(): Notification {
         val pauseBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ic_play_arrow_white_24dp)
-        notificationBuilder.apply {
+        progressNotificationBuilder.apply {
             setContentTitle(context.getString(R.string.app_label))
             setContentText(context.getString(R.string.notification_download_service_paused))
             setSmallIcon(R.drawable.ic_pause_white_24dp)
@@ -101,21 +172,7 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
             addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_cancel), getCancelFetchIntent())
             addAction(R.drawable.ic_play_arrow_white_24dp, context.getString(R.string.notification_resume), getResumeFetchIntent())
         }
-        return notificationBuilder.build()
+        return progressNotificationBuilder.build()
     }
-
-    internal fun startNotification(download: Download, downloadsCount: Int) {
-        val notification = getStartNotification(download, downloadsCount)
-        notification.flags = NotificationCompat.FLAG_NO_CLEAR and NotificationCompat.FLAG_LOCAL_ONLY
-        notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notification)
-    }
-
-    internal fun pauseNotification() {
-        val notification = getPauseNotification()
-        notification.flags = NotificationCompat.FLAG_NO_CLEAR and NotificationCompat.FLAG_LOCAL_ONLY
-        notificationManager.notify(NOTIFICATION_TAG, NOTIFICATION_ID, notification)
-    }
-
-    internal fun stopNotification() = notificationManager.cancelAll()
 
 }

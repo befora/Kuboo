@@ -20,21 +20,25 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
 
     override fun onCancelled(download: Download) {
         Timber.i("onCancelled $download")
-        notificationService.stopNotification()
+        notificationService.cancelProgress()
     }
 
     override fun onCompleted(download: Download) {
         Timber.i("onCompleted $download")
+        notificationService.increaseCompletedCount()
         kubooRemote.isQueueEmpty(MutableLiveData<Boolean>().apply {
             observeForever { result ->
-                if (result == true) notificationService.stopNotification()
+                if (result == true) {
+                    notificationService.cancelProgress()
+                    notificationService.startCompleted(download)
+                }
             }
         })
     }
 
     override fun onDeleted(download: Download) {
         Timber.i("onDeleted $download")
-        notificationService.stopNotification()
+        notificationService.cancelProgress()
     }
 
     override fun onError(download: Download) {
@@ -46,7 +50,7 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
         Timber.i("onPaused $download")
         kubooRemote.isPauseEmpty(MutableLiveData<Boolean>().apply {
             observeForever { result ->
-                if (result == false) notificationService.pauseNotification()
+                if (result == false) notificationService.pauseProgress()
             }
         })
     }
@@ -58,7 +62,7 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
             result?.forEach { if (it.status == Status.QUEUED) downloadsCount++ }
 
             kubooRemote.getFetchDownload(download).observeForever {
-                if (it?.status == Status.DOWNLOADING) notificationService.startNotification(download, downloadsCount)
+                if (it?.status == Status.DOWNLOADING) notificationService.startProgress(download, downloadsCount)
             }
         }
     }
@@ -75,7 +79,7 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
 
     override fun onRemoved(download: Download) {
         Timber.i("onRemoved $download")
-        notificationService.stopNotification()
+        notificationService.cancelProgress()
     }
 
     override fun onResumed(download: Download) {
