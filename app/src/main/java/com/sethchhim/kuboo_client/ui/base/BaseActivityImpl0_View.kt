@@ -149,6 +149,8 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
     private fun showToolbar() = main_layout_base_toolBar.visible()
 
     internal fun showChangeLog() = dialogUtil.getDialogChangeLog(this).apply {
+        setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.dialog_dismiss)) { dialogInterface, _ -> dialogInterface.dismiss() }
+        setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_rate)) { _, _ -> systemUtil.launchPlayStore() }
         show()
         window.attributes = WindowManager.LayoutParams().apply {
             val systemWidth = systemUtil.getSystemWidth()

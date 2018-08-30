@@ -157,8 +157,8 @@ class SystemUtil(private val context: Context) {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
             context.startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            val URL_GOOGLE_PLAY_STORE = "http://play.google.com/store/apps/details?id="
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_GOOGLE_PLAY_STORE + appPackageName))
+            val playStoreUrl = "https://play.google.com/store/apps/details?id="
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playStoreUrl + appPackageName))
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
             context.startActivity(intent)
         }

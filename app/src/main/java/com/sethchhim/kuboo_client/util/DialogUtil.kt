@@ -72,7 +72,6 @@ class DialogUtil(val context: Context) {
     }.create()
 
     internal fun getDialogChangeLog(context: Context) = getAlertDialogBuilder(context, appTheme = 1).apply {
-        setPositiveButton(R.string.dialog_dismiss) { dialog, _ -> dialog.dismiss() }
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_changelog, null))
     }.create()
 
