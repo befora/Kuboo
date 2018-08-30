@@ -19,8 +19,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.like.LikeButton
-import com.like.OnLikeListener
 import com.matrixxun.starry.badgetextview.MaterialBadgeTextView
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.colorFilterGrey
@@ -48,6 +46,7 @@ import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentRecyclerV
 import com.sethchhim.kuboo_client.util.DiffUtilHelper
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
+import com.varunest.sparkbutton.SparkEventListener
 import kotlinx.android.synthetic.main.browser_item_content_folder.view.*
 import kotlinx.android.synthetic.main.browser_item_content_media.view.*
 import kotlinx.android.synthetic.main.browser_item_content_media_force_list.view.*
@@ -108,7 +107,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 holder.itemView.browser_item_content_folder_imageView2.visible()
                 holder.itemView.browser_item_content_folder_imageView3.invisible()
                 holder.itemView.browser_item_content_folder_materialBadgeTextView.invisible()
-                if (!holder.itemView.browser_item_content_folder_likeButton.isLiked) holder.itemView.browser_item_content_folder_likeButton.isLiked = false
+                if (!holder.itemView.browser_item_content_folder_sparkButton.isChecked) holder.itemView.browser_item_content_folder_sparkButton.isChecked = false
             }
             Browser.MEDIA -> holder.itemView.browser_item_content_media_imageView.colorFilterNull()
             Browser.MEDIA_FORCE_LIST -> {
@@ -211,7 +210,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
             }
         }
 
-        internal fun setLikeButtonVisibility() = itemView.browser_item_content_folder_likeButton?.let { if (!Settings.FAVORITE) it.gone() }
+        internal fun setLikeButtonVisibility() = itemView.browser_item_content_folder_sparkButton?.let { if (!Settings.FAVORITE) it.gone() }
     }
 
     private inner class FolderHandler {
@@ -243,24 +242,27 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 }
             }
 
-            itemView.browser_item_content_folder_likeButton.apply {
+            itemView.browser_item_content_folder_sparkButton.apply {
                 if (Settings.FAVORITE) {
-                    isLiked = when (isFavorite) {
+                    isChecked = when (isFavorite) {
                         true -> true
                         false -> false
                     }
 
-                    setOnLikeListener(object : OnLikeListener {
-                        override fun liked(likeButton: LikeButton) {
-                            viewModel.addFavorite(book).observe(browserFragment, Observer { result ->
-                                result?.let { viewModel.setFavoriteList(it) }
-                            })
-                        }
+                    setEventListener(object : SparkEventListener {
+                        override fun onEventAnimationStart(button: ImageView, buttonState: Boolean) {}
 
-                        override fun unLiked(likeButton: LikeButton) {
-                            viewModel.removeFavorite(book).observe(browserFragment, Observer { result ->
-                                result?.let { viewModel.setFavoriteList(it) }
-                            })
+                        override fun onEventAnimationEnd(button: ImageView, buttonState: Boolean) {}
+
+                        override fun onEvent(button: ImageView, buttonState: Boolean) {
+                            when (buttonState) {
+                                true -> viewModel.addFavorite(book).observe(browserFragment, Observer { result ->
+                                    result?.let { viewModel.setFavoriteList(it) }
+                                })
+                                false -> viewModel.removeFavorite(book).observe(browserFragment, Observer { result ->
+                                    result?.let { viewModel.setFavoriteList(it) }
+                                })
+                            }
                         }
                     })
                 }
@@ -524,7 +526,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                     }
                 }
     } catch (e: Exception) {
-        Timber.e("${e.message}")
+        Timber.e("$e")
     }
 
 }

@@ -4,10 +4,9 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.like.LikeButton
-import com.like.OnLikeListener
 import com.sethchhim.kuboo_client.BR
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.R
@@ -16,6 +15,8 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.databinding.LoginItemBinding
 import com.sethchhim.kuboo_client.ui.main.MainActivityImpl0_View
 import com.sethchhim.kuboo_remote.model.Login
+import com.varunest.sparkbutton.SparkButton
+import com.varunest.sparkbutton.SparkEventListener
 import kotlinx.android.synthetic.main.login_item.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
@@ -41,7 +42,7 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
     override fun convert(helper: LoginHolder, item: Login) {
         val binding = helper.binding
         binding.setVariable(BR.item, item)
-        helper.itemView.login_item_likeButton.isLiked = viewModel.isActiveLogin(item)
+        helper.itemView.login_item_sparkButton.isChecked = viewModel.isActiveLogin(item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoginHolder {
@@ -49,7 +50,7 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
         holder.itemView.onClick { holder.onItemSelected() }
         holder.itemView.onLongClick { holder.editItem() }
         holder.itemView.login_item_imageView.onClick { holder.editItem() }
-        holder.itemView.login_item_likeButton.setOnLikeListener(getOnLikeListener(holder))
+        holder.itemView.login_item_sparkButton.setEventListener(getEventListener(holder))
 
         holder.itemView.login_item_imageView.imageResource = when (Settings.APP_THEME) {
             0 -> R.drawable.ic_edit_black_24dp
@@ -106,39 +107,42 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
         //unlike all buttons
         (0..size)
                 .mapNotNull { findViewHolderForAdapterPosition(it) }
-                .forEach { it.itemView.login_item_likeButton.isLiked = false }
+                .forEach { it.itemView.login_item_sparkButton.isChecked = false }
 
         //like button at position
         (0..size)
                 .mapNotNull { findViewHolderForAdapterPosition(it) }
                 .forEach {
-                    val likeButton = it.itemView.login_item_likeButton
+                    val sparkButton = it.itemView.login_item_sparkButton
                     if (it.adapterPosition == position) {
                         //workaround to getParser animation
-                        likeButton.disable()
-                        likeButton.performClick()
-                        likeButton.enable(it as LoginHolder)
+                        sparkButton.disable()
+                        sparkButton.performClick()
+                        sparkButton.enable(it as LoginHolder)
                     }
                 }
     }
 
-    private fun LikeButton.disable() {
+    private fun SparkButton.disable() {
         isSoundEffectsEnabled = false
-        setOnLikeListener(null)
+        setEventListener(null)
     }
 
-    private fun LikeButton.enable(holder: LoginHolder) {
+    private fun SparkButton.enable(holder: LoginHolder) {
         isSoundEffectsEnabled = true
-        setOnLikeListener(getOnLikeListener(holder))
+        setEventListener(getEventListener(holder))
     }
 
-    private fun getOnLikeListener(holder: LoginHolder) = object : OnLikeListener {
-        override fun liked(likeButton: LikeButton) {
-            holder.onLiked()
-        }
+    private fun getEventListener(holder: LoginHolder) = object : SparkEventListener {
+        override fun onEventAnimationStart(button: ImageView, buttonState: Boolean) {}
 
-        override fun unLiked(likeButton: LikeButton) {
-            holder.onUnLiked()
+        override fun onEventAnimationEnd(button: ImageView, buttonState: Boolean) {}
+
+        override fun onEvent(button: ImageView, buttonState: Boolean) {
+            when (buttonState) {
+                true -> holder.onLiked()
+                false -> holder.onUnLiked()
+            }
         }
     }
 

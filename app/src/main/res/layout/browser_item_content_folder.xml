@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/browser_item_content_folder_imageView2"
             android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_height="0dp"
             android:scaleType="center"
             android:src="@drawable/ic_folder"
             android:tint="@color/md_blue_grey_400"
@@ -40,7 +40,7 @@
         <ImageView
             android:id="@+id/browser_item_content_folder_imageView3"
             android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_height="0dp"
             android:padding="4dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,14 +75,12 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginStart="76dp"
-            android:layout_marginTop="0dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/browser_item_content_folder_likeButton"
+            app:layout_constraintEnd_toStartOf="@+id/browser_item_content_folder_sparkButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <TextView
@@ -100,16 +98,17 @@
                 android:textSize="10sp"/>
         </LinearLayout>
 
-        <com.like.LikeButton
-            android:id="@+id/browser_item_content_folder_likeButton"
-            android:layout_width="wrap_content"
+        <com.varunest.sparkbutton.SparkButton
+            android:id="@+id/browser_item_content_folder_sparkButton"
+            android:layout_width="72dp"
             android:layout_height="0dp"
-            android:padding="8dp"
-            app:icon_size="17dp"
-            app:icon_type="star"
+            android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:sparkbutton_activeImage="@drawable/ic_star_on"
+            app:sparkbutton_iconSize="18dp"
+            app:sparkbutton_inActiveImage="@drawable/ic_star_off"/>
 
     </android.support.constraint.ConstraintLayout>
 

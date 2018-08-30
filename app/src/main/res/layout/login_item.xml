@@ -34,7 +34,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/login_item_likeButton"
+            app:layout_constraintEnd_toStartOf="@+id/login_item_sparkButton"
             app:layout_constraintStart_toEndOf="@id/login_item_imageView"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -57,16 +57,17 @@
 
         </LinearLayout>
 
-        <com.like.LikeButton
-            android:id="@+id/login_item_likeButton"
-            android:layout_width="wrap_content"
+        <com.varunest.sparkbutton.SparkButton
+            android:id="@+id/login_item_sparkButton"
+            android:layout_width="72dp"
             android:layout_height="0dp"
-            android:padding="8dp"
-            app:icon_size="17dp"
-            app:icon_type="star"
+            android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:sparkbutton_activeImage="@drawable/ic_star_on"
+            app:sparkbutton_iconSize="18dp"
+            app:sparkbutton_inActiveImage="@drawable/ic_star_off"/>
 
     </android.support.constraint.ConstraintLayout>
 
