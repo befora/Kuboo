@@ -13,6 +13,7 @@ import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
 import com.sethchhim.kuboo_client.ui.scope.*
+import com.sethchhim.kuboo_client.ui.splash.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -26,6 +27,10 @@ abstract class InjectorsModule {
     @PreviewScope
     @ContributesAndroidInjector
     abstract fun logActivity(): LogActivity
+
+    @BaseScope
+    @ContributesAndroidInjector()
+    abstract fun splashActivity(): SplashActivity
 
     @MainScope
     @ContributesAndroidInjector(modules = [(MainModule::class), (MainModuleSub::class)])

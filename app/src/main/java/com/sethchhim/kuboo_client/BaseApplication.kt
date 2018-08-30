@@ -29,45 +29,7 @@ class BaseApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
 
-            if (viewModel.isLoginListEmpty()) {
-                viewModel.addLogin(Login(nickname = "Books Server",
-                        server = "https://192.168.1.100:2202/opds-books/",
-                        username = "abcd",
-                        password = "abcd"))
-
-                viewModel.addLogin(Login(nickname = "Comics Server",
-                        server = "https://192.168.1.100:2202/opds-comics/",
-                        username = "abcd",
-                        password = "abcd"))
-            }
-
-            //fake data for log activity
-            viewModel.getLogList().observeForever { result ->
-                result?.let { if (it.isEmpty()) logUtil.addMockLogData() }
-            }
-        }
-
-        //restore settings
-        sharedPrefsHelper.restoreSettings()
-
-        //restore favorite items
-        viewModel.getFavoriteListFromDao().observeForever { result ->
-            result?.let {
-                Timber.i("Loading favorite items: size[${it.size}]")
-                viewModel.setFavoriteList(it)
-            }
-        }
-
-        //restore downloaded items
-        viewModel.getDownloadsListFromDao().observeForever { result ->
-            result?.let {
-                Timber.i("Loading downloaded items: size[${it.size}]")
-                viewModel.setDownloadList(it)
-            }
-        }
     }
 
     companion object {
