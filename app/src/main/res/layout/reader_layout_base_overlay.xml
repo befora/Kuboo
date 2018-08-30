@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="@string/reader_chapters"
         android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/reader_layout_comic_dual_content_guideLine"
+        app:layout_constraintEnd_toEndOf="@id/reader_layout_comic_dual_content_guideLine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/reader_layout_base_overlay_guideLine1"/>
 
@@ -81,8 +81,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:mirrorForRtl="true"
-        android:paddingEnd="64dp"
-        android:paddingStart="64dp"
+        android:paddingEnd="56dp"
+        android:paddingStart="56dp"
         android:progressTint="@color/md_blue_400"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_linearLayout"
@@ -94,6 +94,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:visibility="invisible"
