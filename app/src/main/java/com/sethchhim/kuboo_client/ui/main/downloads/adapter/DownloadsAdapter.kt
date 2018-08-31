@@ -75,6 +75,11 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         this.recyclerview = recyclerView
     }
 
+    override fun onViewRecycled(holder: DownloadHolder) {
+        super.onViewRecycled(holder)
+        holder.itemView.browser_item_download_materialBadgeTextView.gone()
+    }
+
     override fun convert(holder: DownloadHolder, book: Book) {
         viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
             it?.let { setStateStart(holder, it, book.isFavorite) }
@@ -291,7 +296,6 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
-        holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_queued)
         holder.itemView.browser_item_download_materialBadgeTextView.gone()
     }
@@ -357,11 +361,11 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                             text = "+$count"
                             fadeVisible()
                         }
-                        false -> fadeGone()
+                        false -> gone()
                     }
                 }
             })
-            false -> fadeGone()
+            false -> gone()
         }
     }
 
