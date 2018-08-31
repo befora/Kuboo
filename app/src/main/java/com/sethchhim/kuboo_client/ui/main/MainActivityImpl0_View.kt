@@ -246,17 +246,18 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     internal fun toggleMenuItemBrowserLayout(browserContentType: BrowserContentType) {
         if (::browserLayoutMenuItem.isInitialized) {
-            when (browserContentType) {
-                BrowserContentType.MEDIA -> {
-                    browserLayoutMenuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_view_list_white_24dp)
-                    showMenuItemBrowserLayout()
+            if (!isMenuStateSelected())
+                when (browserContentType) {
+                    BrowserContentType.MEDIA -> {
+                        browserLayoutMenuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_view_list_white_24dp)
+                        showMenuItemBrowserLayout()
+                    }
+                    BrowserContentType.MEDIA_FORCE_LIST -> {
+                        browserLayoutMenuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_view_module_white_24dp)
+                        showMenuItemBrowserLayout()
+                    }
+                    else -> hideMenuItemBrowserLayout()
                 }
-                BrowserContentType.MEDIA_FORCE_LIST -> {
-                    browserLayoutMenuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_view_module_white_24dp)
-                    showMenuItemBrowserLayout()
-                }
-                else -> hideMenuItemBrowserLayout()
-            }
         }
     }
 
