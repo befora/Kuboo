@@ -29,34 +29,10 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
 
     private var completedCount = 0
 
-    internal fun startProgress(download: Download, downloadsCount: Int) {
-        val notification = getStartNotification(download, downloadsCount)
-        notificationManager.notify(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID, notification)
-    }
-
-    internal fun pauseProgress() {
-        val notification = getPauseNotification()
-        notificationManager.notify(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID, notification)
-    }
-
-    internal fun cancelProgress() = notificationManager.cancel(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID)
-
-    internal fun cancelCompleted() {
-        clearCompletedCount()
-        notificationManager.cancel(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID)
-    }
-
-    internal fun startCompleted(download: Download) {
-        val notification = getCompletedNotification(download)
-        notificationManager.notify(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID, notification)
-    }
-
-    internal fun clearCompletedCount() {
-        completedCount = 0
-    }
-
-    internal fun increaseCompletedCount() {
-        completedCount += 1
+    private val notificationManager = (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(getNotificationChannel())
+        }
     }
 
     private val progressNotificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL).apply {
@@ -72,10 +48,35 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
         setContentIntent(getSelectionIntent())
         setOngoing(false)
     }
-    private val notificationManager = (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).apply {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(getNotificationChannel())
-        }
+
+    internal fun startProgress(download: Download, downloadsCount: Int) {
+        val notification = getStartNotification(download, downloadsCount)
+        notificationManager.notify(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID, notification)
+    }
+
+    internal fun pauseProgress() {
+        val notification = getPauseNotification()
+        notificationManager.notify(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID, notification)
+    }
+
+    internal fun cancelProgress() = notificationManager.cancel(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID)
+
+    internal fun startCompleted(download: Download) {
+        val notification = getCompletedNotification(download)
+        notificationManager.notify(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID, notification)
+    }
+
+    internal fun cancelCompleted() {
+        clearCompletedCount()
+        notificationManager.cancel(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID)
+    }
+
+    internal fun clearCompletedCount() {
+        completedCount = 0
+    }
+
+    internal fun increaseCompletedCount() {
+        completedCount += 1
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -83,42 +84,6 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
         enableLights(true)
         lightColor = Color.GREEN
         enableVibration(false)
-    }
-
-    private fun getSelectionIntent(): PendingIntent? {
-        val intent = Intent(context, SplashActivity::class.java)
-        intent.putExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
-        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    }
-
-    private fun getCancelFetchIntent(): PendingIntent {
-        val intent = Intent(context, IntentService::class.java)
-        intent.action = IntentService.CANCEL_ACTION
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    }
-
-    private fun getPauseFetchIntent(): PendingIntent {
-        val intent = Intent(context, IntentService::class.java)
-        intent.action = IntentService.PAUSE_ACTION
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    }
-
-    private fun getResumeFetchIntent(): PendingIntent {
-        val intent = Intent(context, IntentService::class.java)
-        intent.action = IntentService.RESUME_ACTION
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    }
-
-    private fun getResetCompletedCountIntent(): PendingIntent {
-        val intent = Intent(context, IntentService::class.java)
-        intent.action = IntentService.RESET_COMPLETED_COUNT_ACTION
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    }
-
-    private fun getDismissCompletedIntent(): PendingIntent {
-        val intent = Intent(context, IntentService::class.java)
-        intent.action = IntentService.DISMISS_COMPLETED_ACTION
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getStartNotification(download: Download, downloadsCount: Int): Notification {
@@ -173,6 +138,44 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
             addAction(R.drawable.ic_play_arrow_white_24dp, context.getString(R.string.notification_resume), getResumeFetchIntent())
         }
         return progressNotificationBuilder.build()
+    }
+
+    //======================================INTENT==================================================
+
+    private fun getSelectionIntent(): PendingIntent? {
+        val intent = Intent(context, SplashActivity::class.java)
+        intent.putExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getCancelFetchIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.CANCEL_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getPauseFetchIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.PAUSE_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getResumeFetchIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.RESUME_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getResetCompletedCountIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.RESET_COMPLETED_COUNT_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getDismissCompletedIntent(): PendingIntent {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = IntentService.DISMISS_COMPLETED_ACTION
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
 }
