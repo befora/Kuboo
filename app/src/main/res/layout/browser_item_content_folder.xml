@@ -68,7 +68,7 @@
             android:background="@color/md_green_500"
             android:textColor="@color/md_white_1000"
             android:textSize="10sp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/browser_item_content_folder_imageView3"
             app:layout_constraintEnd_toEndOf="@id/browser_item_content_folder_imageView3"/>
 

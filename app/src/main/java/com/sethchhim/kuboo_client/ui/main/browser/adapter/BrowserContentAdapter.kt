@@ -106,7 +106,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 holder.itemView.browser_item_content_folder_imageView1.visible()
                 holder.itemView.browser_item_content_folder_imageView2.visible()
                 holder.itemView.browser_item_content_folder_imageView3.invisible()
-                holder.itemView.browser_item_content_folder_materialBadgeTextView.invisible()
+                holder.itemView.browser_item_content_folder_materialBadgeTextView.gone()
                 if (!holder.itemView.browser_item_content_folder_sparkButton.isChecked) holder.itemView.browser_item_content_folder_sparkButton.isChecked = false
             }
             Browser.MEDIA -> holder.itemView.browser_item_content_media_imageView.colorFilterNull()
@@ -332,8 +332,8 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                         result?.let {
                             if (holder.bookId == book.id) {
                                 holder.itemView.browser_item_content_folder_materialBadgeTextView.setBadgeCount(result.toInt())
-                                holder.itemView.browser_item_content_folder_imageView4.fadeInvisible()
                                 holder.itemView.browser_item_content_folder_materialBadgeTextView.fadeVisible()
+                                holder.itemView.browser_item_content_folder_imageView4.fadeInvisible()
                             }
                         }
                     })
