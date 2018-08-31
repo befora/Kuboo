@@ -11,10 +11,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.R
-import com.sethchhim.kuboo_client.ui.splash.SplashActivity
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.tonyodev.fetch2.Download
 
@@ -38,15 +36,17 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
     private val progressNotificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL).apply {
         priority = NotificationCompat.PRIORITY_MAX
         setWhen(0)
-        setContentIntent(getSelectionIntent())
+        setContentIntent(getSelectionIntent(cancelCompleted = false))
         setOngoing(true)
+        setAutoCancel(false)
     }
 
     private val completedNotificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL).apply {
         priority = NotificationCompat.PRIORITY_MAX
         setWhen(0)
-        setContentIntent(getSelectionIntent())
+        setContentIntent(getSelectionIntent(cancelCompleted = true))
         setOngoing(false)
+        setAutoCancel(false)
     }
 
     internal fun startProgress(download: Download, downloadsCount: Int) {
@@ -118,7 +118,7 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
             setProgress(0, 0, false)
             setDeleteIntent(getResetCompletedCountIntent())
             mActions.clear()
-            addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_browse), getSelectionIntent())
+            addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_browse), getSelectionIntent(cancelCompleted = true))
             addAction(R.drawable.ic_delete_white_24dp, context.getString(R.string.notification_dismiss), getDismissCompletedIntent())
         }
         return completedNotificationBuilder.build()
@@ -142,10 +142,13 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
 
     //======================================INTENT==================================================
 
-    private fun getSelectionIntent(): PendingIntent? {
-        val intent = Intent(context, SplashActivity::class.java)
-        intent.putExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
-        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    private fun getSelectionIntent(cancelCompleted: Boolean): PendingIntent? {
+        val intent = Intent(context, IntentService::class.java)
+        intent.action = when (cancelCompleted) {
+            true -> IntentService.DOWNLOAD_FRAGMENT_ACTION_AND_CANCEL_COMPLETED
+            false -> IntentService.DOWNLOAD_FRAGMENT_ACTION
+        }
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getCancelFetchIntent(): PendingIntent {

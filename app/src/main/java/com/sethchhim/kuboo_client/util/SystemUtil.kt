@@ -75,6 +75,8 @@ class SystemUtil(private val context: Context) {
         context.inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
     }
 
+    internal fun collapseNotifications() = context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
+
     internal fun getOrientation() = context.resources.configuration.orientation
 
     internal fun isOrientationLandscape(): Boolean =
