@@ -45,7 +45,7 @@ object Settings {
     var BROWSER_MEDIA_FORCE_LIST = true
 
     const val SHARED_ELEMENT_TRANSITION_DURATION = 350L //Screen rotation delay before animation.
-    const val RECYCLER_VIEW_DELAY = 600L
+    const val RECYCLER_VIEW_DELAY = 350L
 
     //-----------------------------------CONNECTION_PREFERENCES-------------------------------------
     var WIFI_ONLY = false

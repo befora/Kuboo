@@ -397,6 +397,8 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 false -> context.getString(R.string.browser_media)
             }
 
+            setMediaColorState(holder, book)
+
             //slight delay to prevent loading while fast scrolling
             launch(UI) {
                 delay(Settings.RECYCLER_VIEW_DELAY)
@@ -428,7 +430,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                             holder.itemView.browser_item_content_media_force_list_imageView1.invisible()
                             holder.itemView.browser_item_content_media_force_list_imageView2.invisible()
                             holder.itemView.browser_item_content_media_force_list_imageView3.fadeVisible()
-                            setMediaColorState(holder, book)
                             return false
                         }
                     })
