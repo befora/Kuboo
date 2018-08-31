@@ -73,9 +73,22 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
             }
         }
 
-        requestList.forEach {
-            fetch.enqueue(it, Func { request -> onRequestQueueSuccess(request) }, Func { error -> onRequestQueueFail(error) })
+        requestList.forEach { request ->
+            containsRequest(request).observeForever { isContainsRequest ->
+                isContainsRequest?.let {
+                    //only enqueue if there is no matching request
+                    if (!isContainsRequest) fetch.enqueue(request, Func { r -> onRequestQueueSuccess(r) }, Func { e -> onRequestQueueFail(e) })
+                }
+            }
         }
+    }
+
+    private fun containsRequest(request: Request): MutableLiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        fetch.getDownloads(Func { result ->
+            liveData.value = result.any { it.url == request.url && it.group == request.groupId && it.tag == request.tag }
+        })
+        return liveData
     }
 
     internal fun addListener(listener: FetchListener) = fetch.addListener(listener)
