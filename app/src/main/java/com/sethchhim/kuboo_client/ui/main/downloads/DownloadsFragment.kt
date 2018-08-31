@@ -22,12 +22,12 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setBottomNavigation()
+        downloadsAdapter = DownloadsAdapter(this, viewModel)
+        contentRecyclerView.adapter = downloadsAdapter
         contentSwipeRefreshLayout.setOnRefreshListener {
-            downloadsAdapter = DownloadsAdapter(this, viewModel)
-            contentRecyclerView.adapter = downloadsAdapter
             populateDownloads()
             setNumberProgressBar()
         }
@@ -35,8 +35,6 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
 
     override fun onResume() {
         super.onResume()
-        downloadsAdapter = DownloadsAdapter(this, viewModel)
-        contentRecyclerView.adapter = downloadsAdapter
         populateDownloads()
         setNumberProgressBar()
     }

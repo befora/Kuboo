@@ -16,16 +16,12 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl1_Content() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         contentAdapter = BrowserContentAdapter(this, viewModel)
-        contentSwipeRefreshLayout.setColorSchemeResources(R.color.lightColorAccent)
-        paginationHandler = PaginationHandler(this, view)
         pathAdapter = BrowserPathAdapter(this, view, viewModel)
-        pathRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         contentRecyclerView.adapter = contentAdapter
         pathRecyclerView.adapter = pathAdapter
+        pathRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        contentSwipeRefreshLayout.setColorSchemeResources(R.color.lightColorAccent)
+        paginationHandler = PaginationHandler(this, view)
     }
 
     override fun onPause() {
