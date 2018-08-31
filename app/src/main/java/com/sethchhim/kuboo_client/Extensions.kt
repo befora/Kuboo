@@ -75,7 +75,12 @@ object Extensions {
         fragment.retainInstance = true
         val uniqueTag = fragment.javaClass.simpleName
         val backStateName = fragment.javaClass.name
-        val isFragmentPopped = popBackStackImmediate(backStateName, 0)
+        val isFragmentPopped = try {
+            popBackStackImmediate(backStateName, 0)
+        } catch (e: Exception) {
+            Timber.e(e)
+            false
+        }
         val isFragmentExist = findFragmentByTag(uniqueTag) != null
         if (!isFragmentPopped) {
             val isLoadingFragment = fragment is LoadingFragment
