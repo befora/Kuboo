@@ -113,7 +113,7 @@ class BrowserRepository {
     internal fun getSelectedListSize() = selectedList.size
 
     internal fun addSelected(book: Book) {
-        selectedList.add(book)
+        selectedList.add(book.apply { currentPage = 0 })
         Timber.i("Selected licenseList add ${book.title}")
     }
 
