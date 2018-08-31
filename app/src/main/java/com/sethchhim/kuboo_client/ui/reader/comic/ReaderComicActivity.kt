@@ -8,7 +8,7 @@ import android.view.MenuItem
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 
-class ReaderComicActivity : ReaderComicActivityImpl4_Menu() {
+class ReaderComicActivity : ReaderComicActivityImpl3_Content() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +20,6 @@ class ReaderComicActivity : ReaderComicActivityImpl4_Menu() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        updateDualPaneMenuItemState()
-        updateMangaModeMenuItemState()
-
         initContentUi()
         initListeners()
         populateContent()

@@ -1,11 +1,14 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
 import android.annotation.SuppressLint
+import android.view.MenuItem
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
-import com.sethchhim.kuboo_client.Extensions.setGuidePercent
+import com.sethchhim.kuboo_client.Extensions.setStateDisabled
+import com.sethchhim.kuboo_client.Extensions.setStateEnabled
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderViewPagerImpl1_Edge
@@ -19,6 +22,14 @@ import java.util.concurrent.TimeUnit
 open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
 
     protected lateinit var viewPager: ReaderViewPagerImpl1_Edge
+
+    protected lateinit var aspectFillMenuItem: MenuItem
+    protected lateinit var aspectFitMenuItem: MenuItem
+    protected lateinit var fitWidthMenuItem: MenuItem
+    protected lateinit var dualPaneMenuItem: MenuItem
+    protected lateinit var mangaModeMenuItem: MenuItem
+    protected lateinit var localMenuItem: MenuItem
+
 
     protected fun initContentUi() {
         val contentView = layoutInflater.inflate(R.layout.reader_layout_comic_content, null, false)
@@ -90,6 +101,16 @@ open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
                 }
             }
         }
+    }
+
+    protected fun updateDualPaneMenuItemState() = when (Settings.DUAL_PANE) {
+        true -> dualPaneMenuItem.setStateEnabled(this)
+        false -> dualPaneMenuItem.setStateDisabled(this)
+    }
+
+    protected fun updateMangaModeMenuItemState() = when (Settings.RTL) {
+        true -> mangaModeMenuItem.setStateEnabled(this)
+        false -> mangaModeMenuItem.setStateDisabled(this)
     }
 
     private fun showViewPager() {

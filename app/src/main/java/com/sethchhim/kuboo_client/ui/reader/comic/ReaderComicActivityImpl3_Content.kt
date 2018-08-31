@@ -3,10 +3,12 @@ package com.sethchhim.kuboo_client.ui.reader.comic
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.support.v4.view.ViewPager
+import android.view.MenuItem
 import android.view.View
 import android.widget.SeekBar
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.ScaleType
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
 import timber.log.Timber
@@ -69,6 +71,7 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
         sharedPrefsHelper.saveDualPane()
         isPreviewEnabled = false
         startActivity(intent)
+        updateDualPaneMenuItemState()
     }
 
     protected fun toggleMangaMode() {
@@ -76,6 +79,7 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
         sharedPrefsHelper.saveRtl()
         isPreviewEnabled = false
         startActivity(intent)
+        updateMangaModeMenuItemState()
     }
 
     private fun startNextBook() {
@@ -195,6 +199,17 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
             val smallPercentage = 74.77
             Timber.d("PipDimensions: position[$pipPosition] width[$pipWidth] widthMedium[${pipWidth.calculatePercentage(mediumPercentage)}] widthSmall[${pipWidth.calculatePercentage(smallPercentage)}] height[$pipHeight] heightMedium[${pipHeight.calculatePercentage(mediumPercentage)}] heightSmall[${pipHeight.calculatePercentage(smallPercentage)}]")
         }
+    }
+
+    protected fun setScaleType(menuItem: MenuItem, scaleType: Int) {
+        menuItem.isChecked = true
+        when (scaleType) {
+            0 -> Settings.SCALE_TYPE = ScaleType.ASPECT_FILL.value
+            1 -> Settings.SCALE_TYPE = ScaleType.ASPECT_FIT.value
+            2 -> Settings.SCALE_TYPE = ScaleType.FIT_WIDTH.value
+        }
+        sharedPrefsHelper.saveScaleType()
+        viewPager.adapter?.notifyDataSetChanged()
     }
 
 }
