@@ -13,6 +13,7 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.tonyodev.fetch2.Download
 
@@ -62,8 +63,10 @@ class NotificationService(val context: Context, val kubooRemote: KubooRemote) {
     internal fun cancelProgress() = notificationManager.cancel(NOTIFICATION_PROGRESS_TAG, NOTIFICATION_PROGRESS_ID)
 
     internal fun startCompleted(download: Download) {
-        val notification = getCompletedNotification(download)
-        notificationManager.notify(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID, notification)
+        if (Settings.DOWNLOAD_FINISHED_NOTIFICATION) {
+            val notification = getCompletedNotification(download)
+            notificationManager.notify(NOTIFICATION_COMPLETED_TAG, NOTIFICATION_COMPLETED_ID, notification)
+        }
     }
 
     internal fun cancelCompleted() {

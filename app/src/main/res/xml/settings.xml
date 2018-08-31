@@ -67,6 +67,11 @@
             android:key="settings_download_tracking_interval"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_tracking_interval"/>
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="settings_download_show_finished_notification"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_show_a_notification_after_downloads_are_finished"
+            android:title="@string/settings_finished_notification"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- READER -->

@@ -17,6 +17,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setBrowserPreviewPreference()
         setBrowserReverseLayoutPreference()
 
+        setDownloadFinishedNotification()
         setDownloadSavePath()
         setDownloadTrackingLimit()
         setDownloadTrackingInterval()
@@ -73,6 +74,15 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setOnPreferenceClickListener {
             Settings.REVERSE_LAYOUT = !Settings.REVERSE_LAYOUT
             sharedPrefsHelper.saveReverseLayout()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setDownloadFinishedNotification() = downloadFinishedNotification.apply {
+        isChecked = Settings.DOWNLOAD_FINISHED_NOTIFICATION
+        setOnPreferenceClickListener {
+            Settings.DOWNLOAD_FINISHED_NOTIFICATION = !Settings.DOWNLOAD_FINISHED_NOTIFICATION
+            sharedPrefsHelper.saveFinishedNotification()
             return@setOnPreferenceClickListener true
         }
     }

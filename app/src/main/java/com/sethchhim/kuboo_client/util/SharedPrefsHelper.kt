@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_MEDIA_FORCE_LIST
+import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_LIMIT
@@ -30,6 +31,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
+import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_LIMIT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_MARGIN_SIZE
@@ -40,6 +42,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Settings.DEFAULT_VOLUME_PAGE_TURN
+import com.sethchhim.kuboo_client.Settings.DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_LIMIT
@@ -75,6 +78,7 @@ class SharedPrefsHelper(val context: Context) {
         DOWNLOAD_TRACKING_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_LIMIT, DEFAULT_DOWNLOAD_TRACKING_LIMIT)
         DOWNLOAD_TRACKING_INTERVAL = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DEFAULT_DOWNLOAD_TRACKING_INTERVAL)
         DOWNLOAD_SAVE_PATH = sharedPreferences.getString(KEY_DOWNLOAD_SAVE_PATH, context.getExternalFilesDir(null).path)
+        DOWNLOAD_FINISHED_NOTIFICATION = sharedPreferences.getBoolean(KEY_DOWNLOAD_FINISHED_NOTIFICATION, DEFAULT_DOWNLOAD_FINISHED_NOTIFICATION)
         DUAL_PANE = sharedPreferences.getBoolean(KEY_DUAL_PANE, false)
         EPUB_TEXT_ZOOM = sharedPreferences.getInt(KEY_EPUB_TEXT_ZOOM, DEFAULT_EPUB_TEXT_ZOOM)
         EPUB_MARGIN_SIZE = sharedPreferences.getInt(KEY_EPUB_MARGIN_SIZE, DEFAULT_EPUB_MARGIN_SIZE)
@@ -108,6 +112,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading MAX_PAGE_WIDTH: $MAX_PAGE_WIDTH")
             Timber.i("Loading SCREEN_ORIENTATION: $SCREEN_ORIENTATION")
             Timber.i("Loading VOLUME_PAGE_TURN: $VOLUME_PAGE_TURN")
+            Timber.i("Loading DOWNLOAD_FINISHED_NOTIFICATION: $DOWNLOAD_FINISHED_NOTIFICATION")
             Timber.i("Loading DOWNLOAD_SAVE_PATH: $DOWNLOAD_SAVE_PATH")
             Timber.i("Loading DOWNLOAD_TRACKING_INTERVAL: $DOWNLOAD_TRACKING_INTERVAL")
             Timber.i("Loading DOWNLOAD_TRACKING_LIMIT: $DOWNLOAD_TRACKING_LIMIT")
@@ -245,6 +250,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveServerList(serverList: MutableList<Login>) {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving SERVER_LIST: size[${serverList.size}]")
         sharedPreferences.edit().putString(KEY_LOGIN_LIST, serverList.toJson()).apply()
+    }
+
+    fun saveFinishedNotification() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving DOWNLOAD_FINISHED_NOTIFICATION: $DOWNLOAD_FINISHED_NOTIFICATION")
+        sharedPreferences.edit().putBoolean(KEY_DOWNLOAD_FINISHED_NOTIFICATION, DOWNLOAD_FINISHED_NOTIFICATION).apply()
     }
 
     fun saveDownloadSavePath() {
