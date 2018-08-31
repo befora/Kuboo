@@ -10,7 +10,9 @@ import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadsAdapter
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.tonyodev.fetch2.Download
+import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.FetchListener
+import com.tonyodev.fetch2core.DownloadBlock
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -22,6 +24,9 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
     protected lateinit var downloadsAdapter: DownloadsAdapter
 
     protected val fetchListener = object : FetchListener {
+        override fun onAdded(download: Download) {}
+
+        override fun onStarted(download: Download, downloadBlocks: List<DownloadBlock>, totalBlocks: Int) {}
 
         override fun onCancelled(download: Download) {
             updatePosition(download)
@@ -35,7 +40,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
             setNumberProgressBar()
         }
 
-        override fun onError(download: Download) {
+        override fun onError(download: Download, error: Error, throwable: Throwable?) {
             updatePosition(download)
         }
 
@@ -47,11 +52,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
             updatePosition(download)
         }
 
-//        override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
-//            updatePosition(download)
-//        }
-
-        override fun onQueued(download: Download) {
+        override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
             updatePosition(download)
         }
 
@@ -62,6 +63,10 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         override fun onResumed(download: Download) {
             updatePosition(download)
         }
+
+        override fun onDownloadBlockUpdated(download: Download, downloadBlock: DownloadBlock, totalBlocks: Int) {}
+
+        override fun onWaitingNetwork(download: Download) {}
 
         private fun updatePosition(download: Download) {
             setNumberProgressBar()

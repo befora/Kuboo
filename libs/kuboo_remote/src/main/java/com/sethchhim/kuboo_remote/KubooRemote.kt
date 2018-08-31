@@ -88,7 +88,7 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun deleteSeries(download: Download) = fetchService.deleteGroup(download.group)
 
-    fun deleteSeries(book: Book, keepBook: Boolean) =
+    fun deleteSeries(book: Book, keepBook: Boolean): Any =
             when (keepBook) {
                 true -> fetchService.getDownloads().observeForever {
                     it?.let {

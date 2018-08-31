@@ -8,8 +8,10 @@ import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.tonyodev.fetch2.Download
+import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.FetchListener
 import com.tonyodev.fetch2.Status
+import com.tonyodev.fetch2core.DownloadBlock
 import timber.log.Timber
 
 class FetchRepository(private val kubooRemote: KubooRemote, private val notificationService: NotificationService, val systemUtil: SystemUtil) : FetchListener {
@@ -36,14 +38,18 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
         })
     }
 
+    override fun onAdded(download: Download) {}
+
+    override fun onStarted(download: Download, downloadBlocks: List<DownloadBlock>, totalBlocks: Int) {}
+
     override fun onDeleted(download: Download) {
         Timber.i("onDeleted $download")
         notificationService.cancelProgress()
     }
 
-    override fun onError(download: Download) {
+    override fun onError(download: Download, error: Error, throwable: Throwable?) {
         Timber.i("onError $download")
-        //TODO notification.showError
+        notificationService.cancelProgress()
     }
 
     override fun onPaused(download: Download) {
@@ -67,15 +73,10 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
         }
     }
 
-    override fun onQueued(download: Download) {
+    override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
         Timber.i("onQueued $download")
         //no notification required
     }
-
-//    override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
-//        Timber.i("onQueued $download")
-//        //no notification required
-//    }
 
     override fun onRemoved(download: Download) {
         Timber.i("onRemoved $download")
@@ -87,6 +88,10 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
         //no notification required
     }
 
+    override fun onWaitingNetwork(download: Download) {}
+
+    override fun onDownloadBlockUpdated(download: Download, downloadBlock: DownloadBlock, totalBlocks: Int) {}
+
     internal fun deleteSeries(book: Book, keepBook: Boolean) = kubooRemote.deleteSeries(book, keepBook)
 
     internal fun deleteDownload(download: Download) = kubooRemote.deleteDownload(download)
@@ -97,12 +102,12 @@ class FetchRepository(private val kubooRemote: KubooRemote, private val notifica
 
     internal fun getDownloads() = kubooRemote.getFetchDownloads()
 
-    internal fun resumeDownload(download: Download) = when (systemUtil.isNetworkAllowed()) {
+    internal fun resumeDownload(download: Download): Any = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.resume(download)
         false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
     }
 
-    internal fun retryDownload(download: Download) = when (systemUtil.isNetworkAllowed()) {
+    internal fun retryDownload(download: Download): Any = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.retry(download)
         false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
     }

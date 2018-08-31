@@ -94,11 +94,9 @@ dependencies {
     implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
 
     //fetch
-    final fetch_version = "2.0.0-RC22"
-//    final fetch_version = "2.1.0-RC7"
+    final fetch_version = "2.2.0-RC11"
     implementation "com.tonyodev.fetch2:fetch2:$fetch_version"
-    implementation "com.tonyodev.fetch2downloaders:fetch2downloaders:$fetch_version"
-//    implementation "com.tonyodev.fetch2okhttp:fetch2okhttp:$fetch_version"
+    implementation "com.tonyodev.fetch2okhttp:fetch2okhttp:$fetch_version"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.booking:rtlviewpager:1.0.1'
