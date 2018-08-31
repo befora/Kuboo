@@ -391,11 +391,9 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
 
             itemView.browser_item_content_media_force_list_textView1.text = book.title
             itemView.browser_item_content_media_force_list_textView2.text = when (book.isComic()) {
-                true -> {
-                    when (book.totalPages > 1) {
-                        true -> "${book.totalPages} ${context.getString(R.string.browser_pages)}"
-                        false -> "${book.totalPages} ${context.getString(R.string.browser_page)}"
-                    }
+                true -> when (book.totalPages > 1) {
+                    true -> "${book.totalPages} ${context.getString(R.string.browser_pages)}"
+                    false -> "${book.totalPages} ${context.getString(R.string.browser_page)}"
                 }
                 false -> context.getString(R.string.browser_media)
             }
