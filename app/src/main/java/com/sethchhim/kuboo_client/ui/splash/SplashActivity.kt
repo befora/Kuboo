@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.ui.splash.preload.*
@@ -34,8 +35,18 @@ class SplashActivity : BaseActivity() {
 
     private fun onPreloadDataComplete() {
         Timber.i("Preload of application is finished: [$preloadTime ms]")
-        startActivity(Intent(this, MainActivity::class.java))
+
+        val mainActivityIntent = Intent(this, MainActivity::class.java).apply { handleIntentRequest(intent) }
+        startActivity(mainActivityIntent)
         finish()
+    }
+
+    private fun Intent.handleIntentRequest(intent: Intent) {
+        //forward request to main activity
+        when {
+            intent.getBooleanExtra(Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT, false) -> putExtra(Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
+            intent.getBooleanExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, false) -> putExtra(Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT, true)
+        }
     }
 
 }
