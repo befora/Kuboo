@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.Typeface
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Handler
@@ -84,6 +85,11 @@ class SystemUtil(private val context: Context) {
     internal fun isHardwareNavigation() = !isSoftwareNavigation()
 
     internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && isWifiEnabled()
+
+    internal fun isNetworkAvailable(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected)
+    }
 
     internal fun isWifiEnabled() = (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager).isWifiEnabled
 
