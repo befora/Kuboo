@@ -47,6 +47,7 @@ import kotlinx.android.synthetic.main.browser_item_download.view.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onLongClick
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -177,10 +178,19 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
     }
 
     private fun ProgressBar.loadProgress(holder: DownloadHolder) {
-        val book = data[holder.adapterPosition]
-        max = book.totalPages - 1
-        progress = book.currentPage
-        visible()
+        val book = try {
+            data[holder.adapterPosition]
+        } catch (e: Exception) {
+            Timber.e(e)
+            null
+        }
+
+        book?.let {
+            max = it.totalPages - 1
+            progress = it.currentPage
+            visible()
+        }
+
     }
 
     private fun ImageView.loadFolderThumbnail(holder: DownloadsAdapter.DownloadHolder, download: Download) {
