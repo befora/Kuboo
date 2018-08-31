@@ -115,6 +115,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 holder.itemView.browser_item_content_media_force_list_imageView1.visible()
                 holder.itemView.browser_item_content_media_force_list_imageView2.visible()
                 holder.itemView.browser_item_content_media_force_list_imageView3.invisible()
+                holder.itemView.browser_item_content_media_force_list_constraintLayout?.setColorState(isSelected = false)
             }
         }
     }
@@ -221,6 +222,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
             //load new data
             val isFavorite = viewModel.isFavorite(book)
 
+            //selection mode is not allowed for folder type
             val isStateSelected = mainActivity.isMenuStateSelected()
             if (isStateSelected) mainActivity.disableSelectionMode()
 
@@ -386,9 +388,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
             val itemView = holder.itemView
             val book = item.book
 
-            val isStateSelected = mainActivity.isMenuStateSelected()
-            if (isStateSelected) mainActivity.disableSelectionMode()
-
             itemView.browser_item_content_media_force_list_textView1.text = book.title
             itemView.browser_item_content_media_force_list_textView2.text = when (book.isComic()) {
                 true -> when (book.totalPages > 1) {
@@ -496,11 +495,13 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Conten
                 false -> colorFilterNull()
             }
         }
-        holder.itemView.browser_item_content_media_force_list_constraintLayout?.apply {
-            when (viewModel.isSelected(book)) {
-                true -> backgroundColor = Color.RED
-                false -> backgroundResource = 0
-            }
+        holder.itemView.browser_item_content_media_force_list_constraintLayout?.setColorState(isSelected = viewModel.isSelected(book))
+    }
+
+    private fun View.setColorState(isSelected: Boolean) {
+        when (isSelected) {
+            true -> backgroundColor = Color.RED
+            false -> backgroundResource = 0
         }
     }
 
