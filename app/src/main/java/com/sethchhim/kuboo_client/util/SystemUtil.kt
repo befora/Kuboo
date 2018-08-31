@@ -2,10 +2,8 @@ package com.sethchhim.kuboo_client.util
 
 import android.annotation.SuppressLint
 import android.content.*
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.Typeface
 import android.net.Uri
@@ -14,13 +12,11 @@ import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.defaultSharedPreferences
-import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.io.File
@@ -34,7 +30,7 @@ class SystemUtil(private val context: Context) {
     val robotoCondensedItalic: Typeface by lazy { Typeface.createFromAsset(context.assets, "roboto_condensed_italic.ttf") }
     val robotoCondensedRegular: Typeface by lazy { Typeface.createFromAsset(context.assets, "roboto_condensed_regular.ttf") }
 
-    fun isFirstRunOfThisVersion(): Boolean {
+    internal fun isFirstRunOfThisVersion(): Boolean {
         val sharedPreferences = context.defaultSharedPreferences
         val versionCode = getVersionCode()
         if (sharedPreferences.getBoolean(versionCode, true)) {
@@ -44,46 +40,33 @@ class SystemUtil(private val context: Context) {
         return false
     }
 
-    fun getVersionCode(): String {
-        val pInfo: PackageInfo
+    private fun getVersionCode(): String {
         try {
-            pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            return pInfo.versionCode.toString()
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            return packageInfo.versionCode.toString()
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
         return "ERROR"
     }
 
-    fun getVersionName(): String {
-        val pInfo: PackageInfo
+    internal fun getVersionName(): String {
         try {
-            pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            return pInfo.versionName.toString()
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            return packageInfo.versionName.toString()
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
         return "ERROR"
-    }
-
-    fun hideKeyboard() {
-        context.inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
-
-    fun showKeyboard() {
-        //TODO this doesn't work?
-        context.inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
     }
 
     internal fun collapseNotifications() = context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
-    internal fun getOrientation() = context.resources.configuration.orientation
+    internal fun isOrientationLandscape() = getOrientation() == Configuration.ORIENTATION_LANDSCAPE
 
-    internal fun isOrientationLandscape(): Boolean =
-            getOrientation() == Configuration.ORIENTATION_LANDSCAPE
+    internal fun isOrientationPortrait() = getOrientation() == Configuration.ORIENTATION_PORTRAIT
 
-    internal fun isOrientationPortrait(): Boolean =
-            getOrientation() == Configuration.ORIENTATION_PORTRAIT
+    private fun getOrientation() = context.resources.configuration.orientation
 
     @SuppressLint("PrivateApi")
     private fun isSoftwareNavigation() = try {
@@ -106,9 +89,9 @@ class SystemUtil(private val context: Context) {
 
     //==============================================================================================
 
-    fun getDensity() = context.resources.displayMetrics.density
+    internal fun getDensity() = context.resources.displayMetrics.density
 
-    fun getSystemWidth(): Int {
+    internal fun getSystemWidth(): Int {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val size = Point()
@@ -116,24 +99,12 @@ class SystemUtil(private val context: Context) {
         return size.x
     }
 
-    fun getSystemHeight(): Int {
+    internal fun getSystemHeight(): Int {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getRealSize(size)
         return size.y
-    }
-
-    fun convertPixelsToDp(px: Float): Float {
-        val metrics = Resources.getSystem().displayMetrics
-        val dp = px / (metrics.densityDpi / 160f)
-        return Math.round(dp).toFloat()
-    }
-
-    fun convertDpToPixel(dp: Float): Float {
-        val metrics = Resources.getSystem().displayMetrics
-        val px = dp * (metrics.densityDpi / 160f)
-        return Math.round(px).toFloat()
     }
 
     //==============================================================================================
@@ -152,7 +123,7 @@ class SystemUtil(private val context: Context) {
         }
     }
 
-    fun launchPlayStore() {
+    internal fun launchPlayStore() {
         val appPackageName = context.packageName
         try {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
@@ -166,7 +137,7 @@ class SystemUtil(private val context: Context) {
         }
     }
 
-    fun openLink(url: String) {
+    internal fun openLink(url: String) {
         val uriUrl = Uri.parse(url)
         val launchBrowser = Intent(Intent.ACTION_VIEW, uriUrl).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -183,7 +154,7 @@ class SystemUtil(private val context: Context) {
 
     //==============================================================================================
 
-    internal fun getCacheDir() = context.cacheDir
+    private fun getCacheDir() = context.cacheDir
 
     private fun getCacheSize(): String {
         var size: Long = 0
@@ -272,7 +243,7 @@ class SystemUtil(private val context: Context) {
         return directory.delete()
     }
 
-    fun requestExitApplication() {
+    internal fun requestExitApplication() {
         if (isExitRequestConfirmed) {
             val intent = Intent(Intent.ACTION_MAIN)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -285,7 +256,7 @@ class SystemUtil(private val context: Context) {
         Handler().postDelayed({ isExitRequestConfirmed = false }, 2000)
     }
 
-    fun getPrimaryTextColor() = when (Settings.APP_THEME) {
+    internal fun getPrimaryTextColor() = when (Settings.APP_THEME) {
         0 -> ContextCompat.getColor(context, R.color.primaryTextLight)
         else -> ContextCompat.getColor(context, R.color.primaryTextDark)
     }

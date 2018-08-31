@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.support.constraint.ConstraintLayout
@@ -50,26 +51,23 @@ object Extensions {
 
     internal fun Any.identify() = System.identityHashCode(this)
 
-    internal fun Download.toString(): String {
-        return "id[$id]" +
-                " url[$url]" +
-                " file[$file]" +
-                " group[$group]" +
-                " priority[$priority]" +
-                " downloaded[$downloaded]" +
-                " total[$total]" +
-                " status[$status]" +
-                " error[$error]" +
-                " networkType[$networkType]" +
-                " position[$progress]" +
-                " created[$created]"
-    }
-
     private fun Double.limitDecimalTwo() = DecimalFormat("#.00").format(this)
 
     internal fun Download.isMatch(download: Download) = this.id == download.id
 
     internal fun Download.isMatchSeries(download: Download) = this.group == download.group
+
+    internal fun Float.convertPixelsToDp(): Float {
+        val metrics = Resources.getSystem().displayMetrics
+        val dp = this / (metrics.densityDpi / 160f)
+        return Math.round(dp).toFloat()
+    }
+
+    internal fun Float.convertDpToPixel(): Float {
+        val metrics = Resources.getSystem().displayMetrics
+        val px = this * (metrics.densityDpi / 160f)
+        return Math.round(px).toFloat()
+    }
 
     internal fun FragmentManager.show(fragment: Fragment, containerViewId: Int) {
         fragment.retainInstance = true
