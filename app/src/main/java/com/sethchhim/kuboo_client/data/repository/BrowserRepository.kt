@@ -114,7 +114,7 @@ class BrowserRepository {
 
     internal fun addSelected(book: Book) {
         selectedList.add(book.apply { currentPage = 0 })
-        Timber.i("Selected licenseList add ${book.title}")
+        Timber.i("Selected list add ${book.title}")
     }
 
     internal fun removeSelected(book: Book) {
@@ -123,7 +123,7 @@ class BrowserRepository {
             forEach {
                 if (it.isMatch(book)) {
                     removeList.add(it)
-                    Timber.i("Selected licenseList remove ${book.title}")
+                    Timber.i("Selected list remove ${book.title}")
                 }
             }
             removeAll(removeList)
@@ -132,7 +132,7 @@ class BrowserRepository {
 
     internal fun clearSelectedList() {
         selectedList.clear()
-        Timber.i("Selected licenseList clear")
+        Timber.i("Selected list clear")
     }
 
     internal fun isSelected(book: Book): Boolean {
