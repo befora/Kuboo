@@ -34,6 +34,7 @@ class IntentService : IntentService("KUBOO_NOTIFICATION") {
 
     private fun handleDownloadFragment(cancelCompleted: Boolean) {
         val intent = Intent(applicationContext, SplashActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra(ARG_REQUEST_DOWNLOAD_FRAGMENT, true)
         applicationContext.startActivity(intent)
         if (cancelCompleted) {
