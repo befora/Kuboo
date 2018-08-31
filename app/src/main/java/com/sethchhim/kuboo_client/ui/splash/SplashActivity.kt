@@ -10,32 +10,36 @@ import timber.log.Timber
 
 class SplashActivity : BaseActivity() {
 
+    private val preloadTaskList = mutableListOf<Task_PreloadBase>()
     private var preloadFinishCount = 0
-    private var preloadTaskCount = 6
     private var preloadTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Task_PreloadDebugServers(this).doPreload()
-        Task_PreloadDownload(this).doPreload()
-        Task_PreloadFavorite(this).doPreload()
-        Task_PreloadLog(this).doPreload()
-        Task_PreloadRecentlyViewed(this).doPreload()
-        Task_PreloadSharedPrefs(this).doPreload()
+        preloadTaskList.populate()
+        preloadTaskList.execute()
     }
 
     internal fun onPreloadTaskFinished(simpleName: String, size: Int?, elapsedTime: Long) {
         Timber.i("$simpleName preload finished: size[$size] [$elapsedTime ms]")
         preloadFinishCount += 1
         preloadTime += elapsedTime
-        val isPreloadComplete = preloadTaskCount == preloadFinishCount
+        val isPreloadComplete = preloadFinishCount == preloadTaskList.size
         if (isPreloadComplete) onPreloadDataComplete()
     }
 
+    private fun MutableList<Task_PreloadBase>.populate() {
+        add(Task_PreloadDebugServers(this@SplashActivity))
+        add(Task_PreloadDownload(this@SplashActivity))
+        add(Task_PreloadFavorite(this@SplashActivity))
+        add(Task_PreloadRecentlyViewed(this@SplashActivity))
+        add(Task_PreloadSharedPrefs(this@SplashActivity))
+    }
+
+    private fun MutableList<Task_PreloadBase>.execute() = forEach { it.doPreload() }
+
     private fun onPreloadDataComplete() {
         Timber.i("Preload of application is finished: [$preloadTime ms]")
-
         val mainActivityIntent = Intent(this, MainActivity::class.java).apply { handleIntentRequest(intent) }
         startActivity(mainActivityIntent)
         finish()
