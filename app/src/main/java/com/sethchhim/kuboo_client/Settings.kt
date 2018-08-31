@@ -20,6 +20,8 @@ object Settings {
     const val DEFAULT_EPUB_TEXT_ZOOM = 120
     const val DEFAULT_MAX_PAGE_WIDTH = 1500
 
+    const val DEFAULT_BROWSER_MEDIA_FORCE_LIST = true
+
     const val DEFAULT_DOWNLOAD_FINISHED_NOTIFICATION = true
     const val DEFAULT_DOWNLOAD_TRACKING_LIMIT = 3
     const val DEFAULT_DOWNLOAD_TRACKING_INTERVAL = 12 //hours
@@ -43,7 +45,7 @@ object Settings {
     var MARK_FINISHED = false
     var PREVIEW = true
     var REVERSE_LAYOUT = false
-    var BROWSER_MEDIA_FORCE_LIST = true
+    var BROWSER_MEDIA_FORCE_LIST = DEFAULT_BROWSER_MEDIA_FORCE_LIST
 
     const val SHARED_ELEMENT_TRANSITION_DURATION = 350L //Screen rotation delay before animation.
     const val RECYCLER_VIEW_DELAY = 350L

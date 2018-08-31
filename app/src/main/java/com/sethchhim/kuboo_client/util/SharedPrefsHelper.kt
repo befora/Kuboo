@@ -31,6 +31,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
+import com.sethchhim.kuboo_client.Settings.DEFAULT_BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_INTERVAL
 import com.sethchhim.kuboo_client.Settings.DEFAULT_DOWNLOAD_TRACKING_LIMIT
@@ -74,7 +75,7 @@ class SharedPrefsHelper(val context: Context) {
 
     fun restoreSettings() {
         APP_THEME = sharedPreferences.getInt(KEY_APP_THEME, DEFAULT_APP_THEME)
-//        BROWSER_MEDIA_FORCE_LIST = sharedPreferences.getBoolean(KEY_BROWSER_MEDIA_FORCE_LIST, false)
+        BROWSER_MEDIA_FORCE_LIST = sharedPreferences.getBoolean(KEY_BROWSER_MEDIA_FORCE_LIST, DEFAULT_BROWSER_MEDIA_FORCE_LIST)
         DOWNLOAD_TRACKING_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_LIMIT, DEFAULT_DOWNLOAD_TRACKING_LIMIT)
         DOWNLOAD_TRACKING_INTERVAL = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DEFAULT_DOWNLOAD_TRACKING_INTERVAL)
         DOWNLOAD_SAVE_PATH = sharedPreferences.getString(KEY_DOWNLOAD_SAVE_PATH, context.getExternalFilesDir(null).path)
