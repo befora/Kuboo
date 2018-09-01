@@ -18,13 +18,13 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         setNumberProgressBar()
         setStateLoading()
         contentRecyclerView.saveState()
-        appDatabaseDao.getAllBookDownloadLiveData().observe(this, Observer {
-            handleResult(it?.downloadListToBookList() ?: listOf())
+
+        viewModel.getDownloadListLiveData().observe(this, Observer {
+            it?.let { handleResult(it.downloadListToBookList()) }
         })
     }
 
     internal fun handleResult(result: List<Book>) {
-        viewModel.setDownloadList(result)
         when (result.isEmpty()) {
             true -> onPopulateContentEmpty()
             false -> onPopulateContentSuccess(result)

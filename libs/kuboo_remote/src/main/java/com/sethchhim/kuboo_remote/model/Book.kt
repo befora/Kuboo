@@ -248,6 +248,8 @@ data class Book(
 
     fun isMatchCurrentPage(book: Book) = currentPage == book.currentPage
 
+    fun isMatchPreview(book: Book) = getPreviewUrl() == book.getPreviewUrl()
+
     fun getAcquisitionUrl() = server + linkAcquisition
 
     fun getPreviewUrl() = server + linkThumbnail

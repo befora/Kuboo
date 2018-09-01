@@ -44,7 +44,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
         showLoadingDialog(loadingStage = LoadingStage.PING)
 
         //If remote book, ping for response before starting reader activity.
-        val isDownload = readData.book.isLocal() && viewModel.isDownloadContains(readData.book)
+        val isDownload = readData.book.isLocal()
         when (isDownload) {
             true -> when (readData.book.isLocalValid()) {
                 true -> startPreload(readData)
@@ -142,7 +142,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
     }
 
     private fun handleLocalBookmark(readData: ReadData, localBookmark: Book?) {
-        val isDownload = readData.book.isLocal() && viewModel.isDownloadContains(readData.book)
+        val isDownload = readData.book.isLocal()
         when (isDownload) {
             true -> startPreload(when (localBookmark != null) {
                 true -> readData.copyProgress(localBookmark)
@@ -269,7 +269,7 @@ open class BaseActivityImpl1_Read : BaseActivityImpl0_View() {
     private fun startPreload(readData: ReadData) {
         showLoadingDialog(loadingStage = LoadingStage.ASSET)
 
-        val isDownload = readData.book.isLocal() && viewModel.isDownloadContains(readData.book)
+        val isDownload = readData.book.isLocal()
         when (isDownload) {
             true -> startReaderActivity(readData)
             false -> when (readData.book.isComic()) {

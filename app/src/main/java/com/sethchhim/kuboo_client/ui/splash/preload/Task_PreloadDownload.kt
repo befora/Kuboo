@@ -5,8 +5,8 @@ import com.sethchhim.kuboo_client.ui.splash.SplashActivity
 class Task_PreloadDownload(splashActivity: SplashActivity) : Task_PreloadBase(splashActivity) {
 
     override fun doPreload() {
-        viewModel.getDownloadListFavoriteCompressedFromDao().observeForever { result ->
-            result?.let { viewModel.setDownloadList(it) }
+        viewModel.getDownloadList(favoriteCompressed = true).observeForever { result ->
+            result?.let {  }
             splashActivity.onPreloadTaskFinished(javaClass.simpleName, result?.size, getElapsedTime())
         }
     }

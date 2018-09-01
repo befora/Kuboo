@@ -58,7 +58,7 @@ class TrackingService : Worker() {
     }
 
     internal fun startOneTimeTrackingService(login: Login) {
-        viewModel.getDownloadListFavoriteCompressedFromDao().observeForever {
+        viewModel.getDownloadList(favoriteCompressed = true).observeForever {
             it?.let {
                 it
                         .filter { it.isFavorite }

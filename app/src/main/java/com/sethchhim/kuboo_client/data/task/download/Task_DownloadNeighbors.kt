@@ -1,32 +1,37 @@
 package com.sethchhim.kuboo_client.data.task.download
 
+import android.arch.lifecycle.MutableLiveData
+import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
 import org.jetbrains.anko.collections.forEachWithIndex
 import timber.log.Timber
 
-class Task_DownloadNeighbors(book: Book) : Task_LocalBase() {
+class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
 
-    internal val neighbors = Neighbors().apply { currentBook = book }
+    internal val liveData = MutableLiveData<Neighbors>()
+
+    private val neighbors = Neighbors().apply { currentBook = book }
 
     init {
+        viewModel.getDownloadListLiveData().observeForever {
+            it?.let { searchForNeighbors(it.downloadListToBookList()) }
+        }
+    }
+
+    private fun searchForNeighbors(result: List<Book>) {
         var position = -2
 
-        val downloadList = viewModel.getDownloadList()
+        val downloadList = result
                 .filter { it.getXmlId() == book.getXmlId() }
                 .sortedBy { it.id }
 
         downloadList.forEachWithIndex { i, b ->
-            Timber.d("AASSDD ${b.isMatch(book)} ${b.title} ${book.title}")
             if (b.isMatch(book)) {
                 position = i
                 return@forEachWithIndex
             }
-        }
-
-        downloadList.forEach {
-            Timber.d(it.title)
         }
 
         try {
@@ -46,6 +51,8 @@ class Task_DownloadNeighbors(book: Book) : Task_LocalBase() {
         } catch (e: IndexOutOfBoundsException) {
             Timber.e("Failed to find next download neighbor!")
         }
+
+        liveData.value = neighbors
     }
 
 }

@@ -1,7 +1,6 @@
 package com.sethchhim.kuboo_client.data
 
 import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.Constants
@@ -174,21 +173,16 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun setPathPosition(position: Int) = browserRepository.setPathPosition(position)
 
     //downloads
-    internal fun getDownloadList() = downloadsRepository.downloadsList
 
-    internal fun getDownloadListFavoriteCompressed() = downloadsRepository.getDownloadListFavoriteCompressed()
+    internal fun getDownloadListLiveData() = downloadsRepository.getDownloadListLiveData()
 
-    internal fun getDownloadListFavoriteCompressedFromDao() = downloadsRepository.getDownloadListFavoriteCompressedFromDao()
-
-    internal fun isDownloadContains(book: Book) = downloadsRepository.isDownloadContains(book)
+    internal fun getDownloadList(favoriteCompressed: Boolean = false) = downloadsRepository.getDownloadList(favoriteCompressed)
 
     internal fun addDownload(book: Book) = downloadsRepository.addDownload(book)
 
-    internal fun deleteDownload(book: Book, liveData: MutableLiveData<List<Book>>? = null) = downloadsRepository.deleteDownload(book, liveData)
+    internal fun deleteDownload(book: Book) = downloadsRepository.deleteDownload(book)
 
-    internal fun deleteDownloadSeries(book: Book, keepBook: Boolean = false, liveData: MutableLiveData<List<Book>>) = downloadsRepository.deleteDownloadSeries(book, keepBook, liveData)
-
-    internal fun setDownloadList(list: List<Book>) = downloadsRepository.setDownloadList(list)
+    internal fun deleteDownloadSeries(book: Book, keepBook: Boolean = false) = downloadsRepository.deleteDownloadSeries(book, keepBook)
 
     //fetch
     internal fun startDownloads(login: Login, list: List<Book>, savePath: String) {
@@ -245,7 +239,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getNeighborsNextPageRemote(book: Book, stringUrl: String) = remoteRepository.getNeighborsNextPage(getActiveLogin(), book, stringUrl)
 
-    internal fun getNeighborsLocal(book: Book) = downloadsRepository.getDownloadNeighbors(book)
+    internal fun getNeighborsDownload(book: Book) = downloadsRepository.getDownloadNeighbors(book)
 
     internal fun getSeriesNeighborsRemote(login: Login, book: Book, stringUrl: String, seriesLimit: Int) = remoteRepository.getSeriesNeighborsRemote(login, book, stringUrl, seriesLimit)
 

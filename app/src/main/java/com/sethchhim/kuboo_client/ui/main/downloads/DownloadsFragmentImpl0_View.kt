@@ -66,7 +66,6 @@ open class DownloadsFragmentImpl0_View : BrowserBaseFragment() {
         private fun updatePosition(download: Download) {
             setNumberProgressBar()
             (contentRecyclerView.adapter as DownloadListAdapter).apply {
-                val list = viewModel.getDownloadListFavoriteCompressed()
                 val dataFilteredByUrl = list.filter { it.server + it.linkAcquisition == download.url }
                 when (dataFilteredByUrl.isEmpty()) {
                     true -> list.filter { it.getXmlId() == download.group }.forEach { updatePosition(it, download) }

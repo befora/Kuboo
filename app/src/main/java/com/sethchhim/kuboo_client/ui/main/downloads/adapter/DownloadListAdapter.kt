@@ -1,6 +1,5 @@
 package com.sethchhim.kuboo_client.ui.main.downloads.adapter
 
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -63,6 +62,8 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
     private val mainActivity = downloadsFragment.mainActivity
     private val viewModel = downloadsFragment.viewModel
 
+    internal var list = mutableListOf<Book>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val holder = ItemViewHolder(parent.context.layoutInflater.inflate(R.layout.browser_item_download, parent, false))
         holder.itemView.onClick { holder.onItemSelected() }
@@ -82,7 +83,12 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_materialBadgeTextView.gone()
     }
 
-    override fun getItemId(position: Int) = viewModel.getDownloadList()[position].id.toLong()
+    override fun submitList(list: MutableList<Book>?) {
+        super.submitList(list)
+        list?.let { this.list = list }
+    }
+
+    override fun getItemId(position: Int) = getItem(position).id.toLong()
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal fun onItemSelected() {
@@ -104,20 +110,12 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
                 private fun onDeleteSingle() {
                     viewModel.getFetchDownload(book).observe(downloadsFragment, Observer { it?.let { viewModel.deleteFetchDownload(it) } })
-                    viewModel.deleteDownload(book = book, liveData = MutableLiveData<List<Book>>().apply {
-                        observe(downloadsFragment, Observer {
-                            it?.let { downloadsFragment.handleResult(it) }
-                        })
-                    })
+                    viewModel.deleteDownload(book = book)
                 }
 
                 private fun onDeleteFavorite() {
                     viewModel.deleteFetchSeries(book = book, keepBook = false)
-                    viewModel.deleteDownloadSeries(book = book, keepBook = false, liveData = MutableLiveData<List<Book>>().apply {
-                        observe(downloadsFragment, Observer {
-                            it?.let { downloadsFragment.handleResult(it) }
-                        })
-                    })
+                    viewModel.deleteDownloadSeries(book = book, keepBook = false)
                 }
             })
 
@@ -127,42 +125,37 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
                 findViewById<Switch>(R.id.dialog_layout_download_item_settings_switch1)?.apply {
                     setTextColor(mainActivity.getAppThemeTextColor())
                     isChecked = book.isFavorite
-                    onCheckedChange { _, isChecked ->
-                        book.isFavorite = isChecked
-                        viewModel.addDownload(book)
-                        when (isChecked) {
-                            true -> onStartDownloadTracking(book)
-                            false -> onStopDownloadTracking(book)
-                        }
-                    }
+                    onCheckedChange { _, isChecked -> onDownloadTrackingToggled(book, isChecked) }
                 }
             }
         }
 
-        private fun onStartDownloadTracking(book: Book) {
-            viewModel.deleteFetchSeries(book = book, keepBook = true)
-            viewModel.deleteDownloadSeries(book = book, keepBook = true, liveData = MutableLiveData<List<Book>>().apply {
-                observe(downloadsFragment, Observer {
-                    it?.let {
-                        downloadsFragment.handleResult(it)
-                        mainActivity.trackingService.startTrackingByBook(viewModel.getActiveLogin(), book)
-                    }
-                })
+        private fun onDownloadTrackingToggled(book: Book, isChecked: Boolean) {
+            book.isFavorite = isChecked
+
+            //update adapter
+            viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
+                it?.let { updatePosition(book, it) }
+            })
+
+            //update database and trigger download tracking
+            viewModel.addDownload(book).observe(downloadsFragment, Observer {
+                when (isChecked) {
+                    true -> onDownloadTrackingStart(book)
+                    false -> onDownloadTrackingStop(book)
+                }
             })
         }
 
-        private fun onStopDownloadTracking(book: Book) {
-            viewModel.deleteDownloadSeries(book, keepBook = true, liveData = MutableLiveData<List<Book>>().apply {
-                observe(downloadsFragment, Observer {
-                    it?.let {
-                        val firstItem = viewModel.getDownloadList()
-                                .filter { it.getXmlId() == book.getXmlId() }
-                                .sortedBy { it.id }[0]
-                        viewModel.getFetchDownload(firstItem).observe(downloadsFragment, Observer { it?.let { updatePosition(firstItem, it) } })
-                    }
-                })
-            })
-            viewModel.getDownloadList()
+        private fun onDownloadTrackingStart(book: Book) {
+            viewModel.deleteFetchSeries(book = book, keepBook = true)
+            viewModel.deleteDownloadSeries(book = book, keepBook = true)
+            mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+        }
+
+        private fun onDownloadTrackingStop(book: Book) {
+            viewModel.deleteDownloadSeries(book, keepBook = true)
+            list
                     .filter { it.getXmlId() == book.getXmlId() }
                     .sortedBy { it.id }
                     .filterIndexed { i, _ -> i != 0 }
@@ -174,7 +167,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         }
     }
 
-    private fun ProgressBar.loadProgress(holder: ItemViewHolder) {
+    private fun ProgressBar.loadProgress(holder: DownloadListAdapter.ItemViewHolder) {
         val book = try {
             getItem(holder.adapterPosition)
         } catch (e: Exception) {
@@ -187,7 +180,6 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
             progress = it.currentPage
             visible()
         }
-
     }
 
     private fun ImageView.loadFolderThumbnail(holder: ItemViewHolder, download: Download) {
@@ -332,7 +324,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
     }
 
     internal fun updatePosition(book: Book, download: com.tonyodev.fetch2.Download) {
-        val index = viewModel.getDownloadList().indexOf(book)
+        val index = list.indexOf(book)
         val viewHolder = recyclerView.findViewHolderForAdapterPosition(index)
         if (viewHolder != null) setStateConditional(viewHolder as ItemViewHolder, download, book.isFavorite)
     }
@@ -362,14 +354,10 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
             false -> gone()
         }
     }
-}
 
-class DiffCallback : DiffUtil.ItemCallback<Book>() {
-    override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
-        return oldItem.id == newItem.id
+    class DiffCallback : DiffUtil.ItemCallback<Book>() {
+        override fun areItemsTheSame(oldItem: Book, newItem: Book) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Book, newItem: Book) = oldItem.isMatch(newItem)
     }
 
-    override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
-        return oldItem == newItem
-    }
 }
