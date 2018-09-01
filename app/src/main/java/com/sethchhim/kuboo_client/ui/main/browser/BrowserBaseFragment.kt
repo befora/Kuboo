@@ -12,7 +12,6 @@ import com.sethchhim.kuboo_client.ui.main.browser.handler.PaginationHandler
 open class BrowserBaseFragment : BrowserBaseFragmentImpl3_Path() {
 
     protected var isCustomImplementation = false
-    private var isFirstInstance = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.browser_layout_base, container, false)
@@ -28,8 +27,7 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl3_Path() {
 
     override fun onResume() {
         super.onResume()
-        enableSelection(isCustomImplementation, isFirstInstance)
-        isFirstInstance = false
+        enableSelection(isCustomImplementation)
     }
 
     override fun onDestroy() {

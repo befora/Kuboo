@@ -123,8 +123,8 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
         populateContent(book, addPath = false)
     }
 
-    protected fun enableSelection(isCustomImplementation: Boolean, isFirstInstance: Boolean) {
-        if (!isCustomImplementation && isFirstInstance) {
+    protected fun enableSelection(isCustomImplementation: Boolean) {
+        if (!isCustomImplementation) {
             contentAdapter.resetAllColorState()
             mainActivity.enableSelectionMenuState()
         }
