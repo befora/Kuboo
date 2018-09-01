@@ -5,6 +5,10 @@ apply plugin: 'kotlin-kapt'
 
 androidExtensions { experimental = true }
 android {
+    ext {
+        APP_LABEL = "@string/app_label"
+        APP_LABEL_DEBUG = "@string/app_label_debug"
+    }
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -24,14 +28,18 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [applicationLabel: APP_LABEL]
         }
 
         debug {
+            applicationIdSuffix ".debug"
+            debuggable true
             crunchPngs false
             splits.abi.enable false
             splits.density.enable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [applicationLabel: APP_LABEL_DEBUG]
         }
     }
     packagingOptions {

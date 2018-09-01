@@ -26,6 +26,7 @@ import com.sethchhim.kuboo_client.util.*
 import com.sethchhim.kuboo_remote.model.Book
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_layout_base.*
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -113,6 +114,10 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                 or View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+    }
+
+    internal fun showToastDebug() {
+        if (systemUtil.isDebugBuild()) longToast("DEBUG")
     }
 
     internal fun showToastError() = toast(R.string.login_something_went_wrong)

@@ -9,7 +9,7 @@
         android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:label="@string/app_label"
+        android:label="${applicationLabel}"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/BaseTheme"

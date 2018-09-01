@@ -13,6 +13,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
+import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
@@ -60,6 +61,8 @@ class SystemUtil(private val context: Context) {
         }
         return "ERROR"
     }
+
+    internal fun isDebugBuild() = BuildConfig.APPLICATION_ID.endsWith("debug", ignoreCase = true)
 
     internal fun collapseNotifications() = context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 

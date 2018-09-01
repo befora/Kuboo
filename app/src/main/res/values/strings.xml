@@ -36,6 +36,7 @@
     <string name="about_question4">Why are my thumbnails pixelated?</string>
 
     <string name="app_label">Kuboo</string>
+    <string name="app_label_debug">Kuboo Debug</string>
 
     <string name="browser_favorite">Favorite</string>
     <string name="browser_folder">Folder</string>

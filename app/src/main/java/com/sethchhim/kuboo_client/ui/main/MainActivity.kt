@@ -44,6 +44,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
         }
 
         startService(Intent(this, OnClearFromRecentService::class.java))
+        showToastDebug()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
