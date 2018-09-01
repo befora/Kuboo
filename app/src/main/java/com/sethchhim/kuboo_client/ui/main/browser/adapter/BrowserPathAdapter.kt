@@ -21,11 +21,10 @@ import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Conte
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.android.synthetic.main.browser_item_path.view.*
-import kotlinx.android.synthetic.main.browser_layout_path.view.*
 import org.jetbrains.anko.layoutInflater
 import javax.inject.Inject
 
-class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl1_Content, val view: View, val viewModel: ViewModel) : BaseQuickAdapter<Book, BrowserPathAdapter.PathHolder>(R.layout.browser_item_path, viewModel.getPathList()) {
+class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl1_Content,  val viewModel: ViewModel) : BaseQuickAdapter<Book, BrowserPathAdapter.PathHolder>(R.layout.browser_item_path, viewModel.getPathList()) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -34,8 +33,6 @@ class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl1_C
 
     @Inject lateinit var context: Context
     @Inject lateinit var systemUtil: SystemUtil
-
-    private val pathHorizontalScrollView = view.browser_layout_path_horizontalScrollView
 
     override fun convert(helper: PathHolder, item: Book) {
         val itemView = helper.itemView
@@ -53,7 +50,7 @@ class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl1_C
                 itemView.browser_item_path_textView.textSize = 14F
                 itemView.browser_item_path_textView.setTextColor(ContextCompat.getColor(context, R.color.lightColorAccent))
                 itemView.browser_item_path_textView.animateGrow()
-                pathHorizontalScrollView.smoothScrollTo(helper.itemView.left, 0)
+                browserFragment.pathHorizontalScrollView.smoothScrollTo(helper.itemView.left, 0)
             }
         } else {
             itemView.browser_item_path_textView.setTypeface(null, Typeface.NORMAL)

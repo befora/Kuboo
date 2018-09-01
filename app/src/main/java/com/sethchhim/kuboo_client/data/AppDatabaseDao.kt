@@ -70,6 +70,9 @@ interface AppDatabaseDao {
     @Query("select * from Download")
     fun getAllBookDownload(): List<Download>
 
+    @Query("select * from Download")
+    fun getAllBookDownloadLiveData(): LiveData<List<Download>>
+
     @Query("select * from Download where id = :id")
     fun findDownloadById(id: Long): Download
 

@@ -6,6 +6,7 @@ import com.sethchhim.kuboo_client.data.glide.GlideLocalFetcher
 import com.sethchhim.kuboo_client.data.glide.GlideModule
 import com.sethchhim.kuboo_client.data.glide.GlidePassthroughFetcher
 import com.sethchhim.kuboo_client.data.glide.GlideRemoteFetcher
+import com.sethchhim.kuboo_client.data.repository.FetchRepository
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_client.service.IntentService
 import com.sethchhim.kuboo_client.service.OnClearFromRecentService
@@ -16,7 +17,7 @@ import com.sethchhim.kuboo_client.ui.about.adapter.LicenseAdapter
 import com.sethchhim.kuboo_client.ui.log.adapter.LogAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
-import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadsAdapter
+import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadListAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
@@ -38,8 +39,9 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(aboutPagerAdapter: AboutPagerAdapter)
     fun inject(browserContentAdapter: BrowserContentAdapter)
     fun inject(browserPathAdapter: BrowserPathAdapter)
-    fun inject(downloadsAdapter: DownloadsAdapter)
+    fun inject(downloadListAdapter: DownloadListAdapter)
     fun inject(faqAdapter: FaqAdapter)
+    fun inject(fetchRepository: FetchRepository)
     fun inject(glideLocalFetcher: GlideLocalFetcher)
     fun inject(glideModule: GlideModule)
     fun inject(glidePassthroughFetcher: GlidePassthroughFetcher)

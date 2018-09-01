@@ -1,7 +1,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentSwipeRefreshLayout
         android:id="@+id/browser_layout_content_swipeRefreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -23,7 +23,7 @@
             <include layout="@layout/state_error"/>
         </FrameLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentSwipeRefreshLayout>
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/browser_layout_content_spinKitView"

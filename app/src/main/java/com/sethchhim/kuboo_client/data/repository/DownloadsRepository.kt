@@ -14,12 +14,10 @@ class DownloadsRepository {
 
     internal fun setDownloadList(newData: List<Book>) {
         downloadsList.clear()
-        downloadsList.addAll(newData.sortedBy { it.id })
+        downloadsList.addAll(newData)
     }
 
     internal fun getDownloadNeighbors(book: Book) = Task_DownloadNeighbors(book).neighbors
-
-    internal fun getDownloadsListFromDao() = Task_DownloadGetAll().liveData
 
     internal fun getDownloadListFavoriteCompressedFromDao() = Task_DownloadGetFavoriteCompressed().liveData
 
@@ -48,29 +46,20 @@ class DownloadsRepository {
     internal fun addDownload(book: Book): MutableLiveData<List<Book>> {
         val liveData = MutableLiveData<List<Book>>()
         Task_DownloadInsert(book).liveData.observeForever {
-            it?.let {
-                setDownloadList(it)
-                liveData.value = getDownloadListFavoriteCompressed()
-            }
+            it?.let { liveData.value = getDownloadListFavoriteCompressed() }
         }
         return liveData
     }
 
     internal fun deleteDownload(book: Book, liveData: MutableLiveData<List<Book>>? = null) {
         Task_DownloadDelete(book).liveData.observeForever {
-            it?.let {
-                setDownloadList(it)
-                liveData?.value = getDownloadListFavoriteCompressed()
-            }
+            it?.let { liveData?.value = getDownloadListFavoriteCompressed() }
         }
     }
 
     internal fun deleteDownloadSeries(book: Book, keepBook: Boolean, liveData: MutableLiveData<List<Book>>) {
         Task_DownloadDeleteSeries(book, keepBook).liveData.observeForever {
-            it?.let {
-                setDownloadList(it)
-                liveData.value = getDownloadListFavoriteCompressed()
-            }
+            it?.let { liveData.value = getDownloadListFavoriteCompressed() }
         }
     }
 
@@ -81,10 +70,6 @@ class DownloadsRepository {
                 isMatchSeries && isBefore
             }
             .forEach { deleteDownload(it) }
-
-    internal fun getFirstDownloadInSeries(book: Book) = downloadsList
-            .filter { it.getXmlId() == book.getXmlId() }
-            .sortedBy { it.id }[0]
 
     internal fun isDownloadContains(book: Book): Boolean {
         downloadsList.forEach {

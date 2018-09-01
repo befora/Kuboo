@@ -165,6 +165,21 @@ object Extensions {
             TimeUnit.MILLISECONDS.toMinutes(this) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(this)),
             TimeUnit.MILLISECONDS.toSeconds(this) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(this)))
 
+    internal fun List<Book>.compressFavorite(): MutableList<Book> {
+        val favoriteCompressedList = mutableListOf<Book>()
+        this
+                .sortedWith(compareBy({ it.getXmlId() }, { it.id }))
+                .forEach {
+                    val isFavorite = it.isFavorite
+                    val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
+                    when (isFavorite) {
+                        true -> if (isNotContainsSeries) favoriteCompressedList.add(it)
+                        false -> favoriteCompressedList.add(it)
+                    }
+                }
+        return favoriteCompressedList
+    }
+
     internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }.sortedBy { it.tag }
 
     internal fun List<com.sethchhim.kuboo_client.data.model.Download>.downloadListToBookList(): List<Book> {
@@ -379,17 +394,17 @@ object Extensions {
         startAnimation(fadeOutAnimation)
     }
 
-    internal fun View.setConstraintBottomToTop(viewId: Int) {
+    internal fun View.setConstraintBottomToTopOf(view: View) {
         var layoutParams = layoutParams as ConstraintLayout.LayoutParams
         layoutParams = ConstraintLayout.LayoutParams(layoutParams)
-        layoutParams.bottomToTop = viewId
+        layoutParams.bottomToTop = view.id
         this.layoutParams = layoutParams
     }
 
-    internal fun View.setConstraintEndToStart(viewId: Int) {
+    internal fun View.setConstraintEndToStartOf(view: View) {
         var layoutParams = layoutParams as ConstraintLayout.LayoutParams
         layoutParams = ConstraintLayout.LayoutParams(layoutParams)
-        layoutParams.endToStart = viewId
+        layoutParams.endToStart = view.id
         this.layoutParams = layoutParams
     }
 

@@ -65,7 +65,7 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideFetchRepository(kubooRemote: KubooRemote, notificationService: NotificationService, systemUtil: SystemUtil) = FetchRepository(kubooRemote, notificationService, systemUtil)
+    fun provideFetchRepository() = FetchRepository()
 
     @Provides
     @AppScope

@@ -4,6 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +20,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
 import com.matrixxun.starry.badgetextview.MaterialBadgeTextView
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.fadeGone
@@ -32,26 +32,24 @@ import com.sethchhim.kuboo_client.Extensions.invisible
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
-import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragmentImpl1_Content
 import com.sethchhim.kuboo_client.util.DialogUtil
-import com.sethchhim.kuboo_client.util.DiffUtilHelper
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.Status
 import kotlinx.android.synthetic.main.browser_item_download.view.*
+import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onLongClick
 import timber.log.Timber
 import javax.inject.Inject
 
-
-class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Content, val viewModel: ViewModel) : BaseQuickAdapter<Book, DownloadsAdapter.DownloadHolder>(R.layout.browser_item_download, viewModel.getDownloadListFavoriteCompressed()) {
+class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content) : ListAdapter<Book, DownloadListAdapter.ItemViewHolder>(DiffCallback()) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -61,44 +59,41 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
     @Inject lateinit var context: Context
     @Inject lateinit var systemUtil: SystemUtil
 
-    private lateinit var recyclerview: RecyclerView
+    private val recyclerView = downloadsFragment.contentRecyclerView
     private val mainActivity = downloadsFragment.mainActivity
+    private val viewModel = downloadsFragment.viewModel
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DownloadHolder {
-        val holder = super.onCreateViewHolder(parent, viewType)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val holder = ItemViewHolder(parent.context.layoutInflater.inflate(R.layout.browser_item_download, parent, false))
         holder.itemView.onClick { holder.onItemSelected() }
         holder.itemView.onLongClick { holder.onItemLongSelected() }
         return holder
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        this.recyclerview = recyclerView
-    }
-
-    override fun onViewRecycled(holder: DownloadHolder) {
-        super.onViewRecycled(holder)
-        holder.itemView.browser_item_download_materialBadgeTextView.gone()
-    }
-
-    override fun convert(holder: DownloadHolder, book: Book) {
+    override fun onBindViewHolder(holder: DownloadListAdapter.ItemViewHolder, position: Int) {
+        val book = getItem(position)
         viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
             it?.let { setStateStart(holder, it, book.isFavorite) }
         })
     }
 
-    override fun getItemId(position: Int) = data[position].id.toLong()
+    override fun onViewRecycled(holder: ItemViewHolder) {
+        super.onViewRecycled(holder)
+        holder.itemView.browser_item_download_materialBadgeTextView.gone()
+    }
 
-    inner class DownloadHolder(view: View) : BaseViewHolder(view) {
+    override fun getItemId(position: Int) = viewModel.getDownloadList()[position].id.toLong()
+
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal fun onItemSelected() {
-            val book = data[adapterPosition]
+            val book = getItem(adapterPosition)
             viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {
                 if (it?.status == Status.COMPLETED) mainActivity.startReader(ReadData(book = book, source = Source.DOWNLOAD))
             })
         }
 
         internal fun onItemLongSelected() {
-            val book = data[adapterPosition]
+            val book = getItem(adapterPosition)
             val deleteDialog = mainActivity.dialogUtil.getDialogDownloadItemSettings(mainActivity, book, object : DialogUtil.OnDialogSelect0 {
                 override fun onSelect0() {
                     when (book.isFavorite) {
@@ -160,7 +155,9 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
             viewModel.deleteDownloadSeries(book, keepBook = true, liveData = MutableLiveData<List<Book>>().apply {
                 observe(downloadsFragment, Observer {
                     it?.let {
-                        val firstItem = viewModel.getFirstDownloadInSeries(book)
+                        val firstItem = viewModel.getDownloadList()
+                                .filter { it.getXmlId() == book.getXmlId() }
+                                .sortedBy { it.id }[0]
                         viewModel.getFetchDownload(firstItem).observe(downloadsFragment, Observer { it?.let { updatePosition(firstItem, it) } })
                     }
                 })
@@ -177,9 +174,9 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         }
     }
 
-    private fun ProgressBar.loadProgress(holder: DownloadHolder) {
+    private fun ProgressBar.loadProgress(holder: ItemViewHolder) {
         val book = try {
-            data[holder.adapterPosition]
+            getItem(holder.adapterPosition)
         } catch (e: Exception) {
             Timber.e(e)
             null
@@ -193,7 +190,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
 
     }
 
-    private fun ImageView.loadFolderThumbnail(holder: DownloadsAdapter.DownloadHolder, download: Download) {
+    private fun ImageView.loadFolderThumbnail(holder: ItemViewHolder, download: Download) {
         val isMatchServer = download.url.contains(viewModel.getActiveServer())
         val requestOptions = RequestOptions()
                 .fitCenter()
@@ -226,7 +223,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
                 .into(this)
     }
 
-    private fun setStateStart(holder: DownloadsAdapter.DownloadHolder, download: Download, favorite: Boolean) {
+    private fun setStateStart(holder: ItemViewHolder, download: com.tonyodev.fetch2.Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download)
         holder.itemView.browser_item_download_textView5.gone()
@@ -241,7 +238,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         setStateConditional(holder, download)
     }
 
-    private fun setStateConditional(holder: DownloadsAdapter.DownloadHolder, download: Download, favorite: Boolean = false) {
+    private fun setStateConditional(holder: ItemViewHolder, download: Download, favorite: Boolean = false) {
         when (download.status) {
             Status.QUEUED -> setStateLoading(holder, download, favorite)
             Status.DOWNLOADING -> setStateDownloading(holder, download)
@@ -252,7 +249,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         }
     }
 
-    private fun setStatePaused(holder: DownloadHolder, download: Download, favorite: Boolean) {
+    private fun setStatePaused(holder: ItemViewHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.visible()
         holder.itemView.browser_item_download_textView5.gone()
@@ -263,7 +260,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView4.onClick { viewModel.resumeFetchDownload(download) }
     }
 
-    private fun setStateCancelled(holder: DownloadHolder, download: Download, favorite: Boolean) {
+    private fun setStateCancelled(holder: ItemViewHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.visible()
         holder.itemView.browser_item_download_textView5.gone()
@@ -274,7 +271,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView4.onClick { viewModel.retryFetchDownload(download) }
     }
 
-    private fun setStateFail(holder: DownloadHolder, download: Download, favorite: Boolean) {
+    private fun setStateFail(holder: ItemViewHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.visible()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
@@ -301,7 +298,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView3.onClick { viewModel.retryFetchDownload(download) }
     }
 
-    private fun setStateLoading(holder: DownloadHolder, download: Download, favorite: Boolean) {
+    private fun setStateLoading(holder: ItemViewHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
@@ -310,7 +307,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_materialBadgeTextView.gone()
     }
 
-    private fun setStateDownloading(holder: DownloadHolder, download: Download) {
+    private fun setStateDownloading(holder: ItemViewHolder, download: Download) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.gone()
@@ -322,7 +319,7 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView2.text = "$downloaded $of $total"
     }
 
-    private fun setStateCompleted(holder: DownloadHolder, download: Download, favorite: Boolean) {
+    private fun setStateCompleted(holder: ItemViewHolder, download: Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.visible()
@@ -334,26 +331,13 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
         holder.itemView.browser_item_download_textView2.text = "$downloaded $of $total"
     }
 
-    internal fun updatePosition(book: Book, download: Download) {
-        val index = data.indexOf(book)
-        val viewHolder = recyclerview.findViewHolderForAdapterPosition(index)
-        if (viewHolder != null) setStateConditional(viewHolder as DownloadHolder, download, book.isFavorite)
+    internal fun updatePosition(book: Book, download: com.tonyodev.fetch2.Download) {
+        val index = viewModel.getDownloadList().indexOf(book)
+        val viewHolder = recyclerView.findViewHolderForAdapterPosition(index)
+        if (viewHolder != null) setStateConditional(viewHolder as ItemViewHolder, download, book.isFavorite)
     }
 
-    internal fun updateData(result: List<Book>) {
-        val diffUtilHelper = DiffUtilHelper(this)
-        diffUtilHelper.liveData.observe(downloadsFragment, Observer {
-            if (it == true) onDiffUtilUpdateFinished(result)
-        })
-        diffUtilHelper.updateBookList(data, result)
-    }
-
-    private fun onDiffUtilUpdateFinished(result: List<Book>) {
-        data.clear()
-        data.addAll(result)
-    }
-
-    private fun MaterialBadgeTextView.loadCount(download: Download, favorite: Boolean) {
+    private fun MaterialBadgeTextView.loadCount(download: com.tonyodev.fetch2.Download, favorite: Boolean) {
         when (favorite) {
             true -> viewModel.getFetchDownloads().observe(downloadsFragment, Observer {
                 it?.let {
@@ -378,5 +362,14 @@ class DownloadsAdapter(private val downloadsFragment: DownloadsFragmentImpl1_Con
             false -> gone()
         }
     }
+}
 
+class DiffCallback : DiffUtil.ItemCallback<Book>() {
+    override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
+        return oldItem == newItem
+    }
 }

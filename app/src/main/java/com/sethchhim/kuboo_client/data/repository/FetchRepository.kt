@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_client.data.repository
 
 import android.arch.lifecycle.MutableLiveData
+import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.service.NotificationService
 import com.sethchhim.kuboo_client.util.SystemUtil
@@ -13,12 +14,18 @@ import com.tonyodev.fetch2.FetchListener
 import com.tonyodev.fetch2.Status
 import com.tonyodev.fetch2core.DownloadBlock
 import timber.log.Timber
+import javax.inject.Inject
 
-class FetchRepository(private val kubooRemote: KubooRemote, private val notificationService: NotificationService, val systemUtil: SystemUtil) : FetchListener {
+class FetchRepository : FetchListener {
 
     init {
+        BaseApplication.appComponent.inject(this)
         kubooRemote.addFetchListener(this)
     }
+
+    @Inject lateinit var kubooRemote: KubooRemote
+    @Inject lateinit var notificationService: NotificationService
+    @Inject lateinit var systemUtil: SystemUtil
 
     override fun onCancelled(download: Download) {
         Timber.i("onCancelled $download")

@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.ui.main.browser
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
+import android.widget.ListAdapter
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.getBrowserContentType
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
@@ -18,6 +19,7 @@ import timber.log.Timber
 
 open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
 
+    protected lateinit var contentListAdapter: ListAdapter
     internal lateinit var contentAdapter: BrowserContentAdapter
     protected lateinit var pathAdapter: BrowserPathAdapter
 
@@ -80,7 +82,7 @@ open class BrowserBaseFragmentImpl1_Content : BrowserBaseFragmentImpl0_View() {
         if (loadState) loadRecyclerViewState(book)
     }
 
-    private fun onPopulateContentEmpty() {
+    protected fun onPopulateContentEmpty() {
         Timber.w("onPopulateContentEmpty")
         setStateEmpty()
     }

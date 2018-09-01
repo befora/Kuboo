@@ -176,13 +176,9 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     //downloads
     internal fun getDownloadList() = downloadsRepository.downloadsList
 
-    internal fun getDownloadsListFromDao() = downloadsRepository.getDownloadsListFromDao()
-
     internal fun getDownloadListFavoriteCompressed() = downloadsRepository.getDownloadListFavoriteCompressed()
 
     internal fun getDownloadListFavoriteCompressedFromDao() = downloadsRepository.getDownloadListFavoriteCompressedFromDao()
-
-    internal fun getFirstDownloadInSeries(book: Book) = downloadsRepository.getFirstDownloadInSeries(book)
 
     internal fun isDownloadContains(book: Book) = downloadsRepository.isDownloadContains(book)
 

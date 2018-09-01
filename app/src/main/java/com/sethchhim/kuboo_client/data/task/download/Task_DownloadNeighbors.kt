@@ -18,6 +18,7 @@ class Task_DownloadNeighbors(book: Book) : Task_LocalBase() {
                 .sortedBy { it.id }
 
         downloadList.forEachWithIndex { i, b ->
+            Timber.d("AASSDD ${b.isMatch(book)} ${b.title} ${book.title}")
             if (b.isMatch(book)) {
                 position = i
                 return@forEachWithIndex
