@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Constants.ARG_BOOK
+import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_remote.model.Book
 
 class BrowserSeriesFragment : BrowserBaseFragment() {
@@ -17,6 +18,8 @@ class BrowserSeriesFragment : BrowserBaseFragment() {
     override fun onButterKnifeBind(view: View) {
         super.onButterKnifeBind(view)
         contentSwipeRefreshLayout.setOnRefreshListener { onSwipeRefresh() }
+        contentAdapter = BrowserContentAdapter(this, viewModel)
+        contentRecyclerView.adapter = contentAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
