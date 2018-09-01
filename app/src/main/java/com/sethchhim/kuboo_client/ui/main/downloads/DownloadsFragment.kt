@@ -28,8 +28,8 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         downloadsTabLayout.visible()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         populateDownloads()
     }
 
@@ -37,4 +37,5 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         super.onDestroy()
         kubooRemote.removeFetchListener(fetchListener)
     }
+
 }

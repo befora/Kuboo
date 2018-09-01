@@ -6,7 +6,6 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_remote.model.Book
 import org.jetbrains.anko.support.v4.toast
-import timber.log.Timber
 
 class BrowserRemoteFragment : BrowserBaseFragment() {
 
@@ -19,13 +18,7 @@ class BrowserRemoteFragment : BrowserBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("ssaa onViewCreated")
         populateRemote()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Timber.d("ssaa onStart")
     }
 
     override fun onSwipeRefresh() {

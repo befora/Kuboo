@@ -22,8 +22,8 @@ class BrowserSearchFragment : BrowserBaseFragment() {
         contentRecyclerView.adapter = contentAdapter
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         stringQuery = arguments?.getString(Constants.ARG_SEARCH) ?: ""
         mainActivity.title = stringQuery
         mainActivity.collapseMenuItemSearch()

@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.browser
 
 import android.arch.lifecycle.Observer
+import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Constants.URL_PATH_LATEST
 import com.sethchhim.kuboo_remote.model.Book
@@ -16,8 +17,8 @@ class BrowserLatestFragment : BrowserBaseFragment() {
         contentSwipeRefreshLayout.setOnRefreshListener { onSwipeRefresh() }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         populateLatest()
     }
 
