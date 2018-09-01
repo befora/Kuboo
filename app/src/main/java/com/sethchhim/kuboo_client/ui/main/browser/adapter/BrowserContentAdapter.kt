@@ -40,7 +40,7 @@ import com.sethchhim.kuboo_client.data.model.Browser.Companion.FOLDER
 import com.sethchhim.kuboo_client.data.model.Browser.Companion.MEDIA
 import com.sethchhim.kuboo_client.data.model.Browser.Companion.MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.data.model.ReadData
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Content
+import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl2_Content
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentGridLayoutManager
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentRecyclerView
 import com.sethchhim.kuboo_client.util.DiffUtilHelper
@@ -61,7 +61,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl1_Content, val viewModel: ViewModel) : BaseMultiItemQuickAdapter<Browser, BrowserContentAdapter.BrowserHolder>(viewModel.browserRepository.contentList) {
+class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Content, val viewModel: ViewModel) : BaseMultiItemQuickAdapter<Browser, BrowserContentAdapter.BrowserHolder>(viewModel.browserRepository.contentList) {
 
     init {
         BaseApplication.appComponent.inject(this)

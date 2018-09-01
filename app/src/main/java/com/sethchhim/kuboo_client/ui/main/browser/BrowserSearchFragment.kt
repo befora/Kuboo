@@ -4,30 +4,29 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Constants
-import com.sethchhim.kuboo_client.Constants.ARG_SEARCH
-import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_remote.model.Book
 
 class BrowserSearchFragment : BrowserBaseFragment() {
 
+    init {
+        isPathEnabled = false
+    }
+
     private lateinit var stringQuery: String
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onButterKnifeBind(view: View) {
+        super.onButterKnifeBind(view)
         contentSwipeRefreshLayout.setOnRefreshListener { onSwipeRefresh() }
+        contentAdapter = BrowserContentAdapter(this, viewModel)
+        contentRecyclerView.adapter = contentAdapter
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        stringQuery = arguments?.getString(ARG_SEARCH) ?: ""
+    override fun onStart() {
+        super.onStart()
+        stringQuery = arguments?.getString(Constants.ARG_SEARCH) ?: ""
         mainActivity.title = stringQuery
         mainActivity.collapseMenuItemSearch()
-        pathHorizontalScrollView.gone()
-        populateSearch()
-    }
-
-    override fun onSwipeRefresh() {
-        super.onSwipeRefresh()
         populateSearch()
     }
 
@@ -41,9 +40,13 @@ class BrowserSearchFragment : BrowserBaseFragment() {
         })
     }
 
+    override fun onSwipeRefresh() {
+        populateSearch()
+    }
+
     companion object {
         fun newInstance(stringQuery: String) = BrowserSearchFragment().apply {
-            arguments = Bundle().apply { putString(ARG_SEARCH, stringQuery) }
+            arguments = Bundle().apply { putString(Constants.ARG_SEARCH, stringQuery) }
         }
     }
 

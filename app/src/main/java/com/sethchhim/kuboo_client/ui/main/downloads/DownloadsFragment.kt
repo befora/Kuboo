@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.main.downloads
 import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Extensions.setConstraintBottomToTopOf
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadListAdapter
 
 class DownloadsFragment : DownloadsFragmentImpl1_Content() {
@@ -10,6 +11,7 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
     init {
         isPathEnabled = false
         isPaginationEnabled = false
+        isCustomImplementation = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,7 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         contentSwipeRefreshLayout.setOnRefreshListener { populateDownloads() }
         contentRecyclerView.adapter = DownloadListAdapter(this)
         downloadsTabLayout.addOnTabSelectedListener(onTabSelectedListener)
+        downloadsTabLayout.visible()
     }
 
     override fun onStart() {

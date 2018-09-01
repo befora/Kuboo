@@ -4,27 +4,24 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Constants.ARG_BOOK
-import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_remote.model.Book
 
 class BrowserSeriesFragment : BrowserBaseFragment() {
 
+    init {
+        isPathEnabled = false
+    }
+
     private lateinit var seriesBook: Book
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onButterKnifeBind(view: View) {
+        super.onButterKnifeBind(view)
         contentSwipeRefreshLayout.setOnRefreshListener { onSwipeRefresh() }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        seriesBook = arguments?.getParcelable(ARG_BOOK) as Book
-        pathHorizontalScrollView.gone()
-        populateSeries()
-    }
-
-    override fun onSwipeRefresh() {
-        super.onSwipeRefresh()
+    override fun onStart() {
+        super.onStart()
+        seriesBook = arguments?.getParcelable(ARG_BOOK) ?: Book()
         populateSeries()
     }
 
@@ -37,6 +34,10 @@ class BrowserSeriesFragment : BrowserBaseFragment() {
             val book = Book().apply { linkSubsection = seriesBook.linkXmlPath }
             handleMediaResult(book, result)
         })
+    }
+
+    override fun onSwipeRefresh() {
+        populateSeries()
     }
 
     companion object {

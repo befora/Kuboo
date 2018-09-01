@@ -17,14 +17,14 @@ import com.sethchhim.kuboo_client.Constants.URL_PATH_ROOT
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.databinding.BrowserItemPathBinding
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Content
+import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl2_Content
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.android.synthetic.main.browser_item_path.view.*
 import org.jetbrains.anko.layoutInflater
 import javax.inject.Inject
 
-class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl1_Content,  val viewModel: ViewModel) : BaseQuickAdapter<Book, BrowserPathAdapter.PathHolder>(R.layout.browser_item_path, viewModel.getPathList()) {
+class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl2_Content, val viewModel: ViewModel) : BaseQuickAdapter<Book, BrowserPathAdapter.PathHolder>(R.layout.browser_item_path, viewModel.getPathList()) {
 
     init {
         BaseApplication.appComponent.inject(this)

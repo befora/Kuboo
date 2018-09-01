@@ -2,22 +2,16 @@ package com.sethchhim.kuboo_client.ui.main.browser
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
-import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.R
-import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.handler.PaginationHandler
 
-open class BrowserBaseFragment : BrowserBaseFragmentImpl1_Content() {
+open class BrowserBaseFragment : BrowserBaseFragmentImpl3_Path() {
 
-    protected var isPathEnabled = true
-    protected var isPaginationEnabled = true
-
+    protected var isCustomImplementation = false
     private var isFirstInstance = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,24 +21,14 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl1_Content() {
         return view
     }
 
-    protected open fun onButterKnifeBind(view: View) {
-        contentRecyclerView.setContent()
-        pathRecyclerView.setPath()
-        setPagination(isPaginationEnabled)
-        paginationHandler = PaginationHandler(this, view)
-    }
-
     override fun onPause() {
         super.onPause()
-        mainActivity.disableSelectionMenuState()
+        disableSelection(isCustomImplementation)
     }
 
     override fun onResume() {
         super.onResume()
-        if (!isFirstInstance) {
-//            contentAdapter.resetAllColorState()
-            mainActivity.enableSelectionMenuState()
-        }
+        enableSelection(isCustomImplementation, isFirstInstance)
         isFirstInstance = false
     }
 
@@ -58,18 +42,10 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl1_Content() {
         setContentSpanCount(newConfig.orientation, contentRecyclerView.contentType)
     }
 
-    private fun RecyclerView.setPath() = when (isPathEnabled) {
-        true -> {
-            pathAdapter = BrowserPathAdapter(this@BrowserBaseFragment, viewModel)
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = pathAdapter
-        }
-        false ->  gone()
-    }
-
-    private fun RecyclerView.setContent() {
-//        contentAdapter = BrowserContentAdapter(this@BrowserBaseFragment, viewModel)
-//        contentRecyclerView.adapter = contentAdapter
+    protected open fun onButterKnifeBind(view: View) {
+        setPath()
+        setPagination()
+        paginationHandler = PaginationHandler(this, view)
     }
 
 }

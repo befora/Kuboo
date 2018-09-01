@@ -48,19 +48,6 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
     @BindView(R.id.state_empty_constraintLayout) lateinit var emptyLayout: ConstraintLayout
     @BindView(R.id.state_error_constraintLayout) lateinit var errorLayout: ConstraintLayout
 
-    protected fun setPagination(isPaginationEnabled: Boolean) = when (isPaginationEnabled) {
-        true -> paginationLayout.visible()
-        false -> paginationLayout.gone()
-    }
-
-    protected fun loadRecyclerViewState(book: Book) {
-        val state = viewModel.loadRecyclerViewState(book)
-        if (state != null) {
-            Timber.i("loadRecyclerViewState: title[${book.title}] linkSubsection[${book.linkSubsection}] state[${state.identify()}]")
-            contentRecyclerView.layoutManager?.onRestoreInstanceState(state)
-        }
-    }
-
     protected fun resetRecyclerView() {
         viewModel.clearContentList()
         contentRecyclerView.gone()
@@ -76,6 +63,14 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
                 Timber.i("saveRecyclerViewState: title[${book.title}] linkSubsection[${book.linkSubsection}] state[${state.identify()}]")
                 viewModel.saveRecyclerViewState(book, state)
             }
+        }
+    }
+
+    protected fun loadRecyclerViewState(book: Book) {
+        val state = viewModel.loadRecyclerViewState(book)
+        if (state != null) {
+            Timber.i("loadRecyclerViewState: title[${book.title}] linkSubsection[${book.linkSubsection}] state[${state.identify()}]")
+            contentRecyclerView.layoutManager?.onRestoreInstanceState(state)
         }
     }
 
@@ -123,6 +118,10 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
         contentSwipeRefreshLayout.dismissDelayed()
         emptyLayout.invisible()
         errorLayout.invisible()
+    }
+
+    internal open fun onSwipeRefresh(){
+        //override in child fragments
     }
 
 }

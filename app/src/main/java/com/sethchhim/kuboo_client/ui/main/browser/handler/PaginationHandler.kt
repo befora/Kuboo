@@ -7,13 +7,13 @@ import com.sethchhim.kuboo_client.Constants.URL_PATH_GRID_INDEX
 import com.sethchhim.kuboo_client.Extensions.fadeInvisible
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.invisible
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl1_Content
+import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragmentImpl2_Content
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Pagination
 import kotlinx.android.synthetic.main.browser_layout_content.view.*
 import kotlinx.android.synthetic.main.browser_layout_pagination.view.*
 
-class PaginationHandler(private val browserFragment: BrowserBaseFragmentImpl1_Content, val view: View) {
+class PaginationHandler(private val browserFragment: BrowserBaseFragmentImpl2_Content, val view: View) {
 
     private val contentRecyclerView = view.browser_layout_content_browserContentRecyclerView
     private val nextButton = view.browser_layout_pagination_button2
