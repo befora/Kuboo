@@ -54,8 +54,6 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun isConnectedEncrypted() = Task_RemoteIsConnectionEncrypted(okHttpHelper).isConnectionEncrypted()
 
-    fun getDownloadsList() = fetchService.getDownloads()
-
     fun cancel(download: Download) = fetchService.cancel(download)
 
     fun addFetchListener(fetchListener: FetchListener) = fetchService.addListener(fetchListener)
@@ -65,8 +63,6 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
     fun resume(download: Download) = fetchService.resume(download)
 
     fun retry(download: Download) = fetchService.retry(download)
-
-    fun download(login: Login, list: List<Book>, savePath: String) = fetchService.download(login, list, savePath)
 
     fun resumeAll() = fetchService.resumeAll()
 
@@ -127,12 +123,15 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
     fun isImageWide(loginItem: Login, stringUrl: String) = Task_RemoteIsImageWide(this, loginItem, stringUrl).liveData
 
     fun getFetchDownload(book: Book) = fetchService.getDownload(book)
-    fun getFetchDownload(download: Download) = fetchService.getDownload(download)
-    fun getFetchDownloads() = fetchService.getDownloads()
-    fun deleteDownload(download: Download) = fetchService.delete(download)
-    fun startDownloads(login: Login, list: List<Book>, savePath: String) = fetchService.download(login, list, savePath)
-    fun deleteDownloadsBefore(book: Book) = fetchService.deleteBefore(book)
 
-//    fun getDownload(book: Book, func2: Func2<Download?>) = fetchService.getDownload(book, func2)
+    fun getFetchDownload(download: Download) = fetchService.getDownload(download)
+
+    fun getFetchDownloads() = fetchService.getDownloads()
+
+    fun deleteDownload(download: Download) = fetchService.delete(download)
+
+    fun startDownloads(login: Login, list: List<Book>, savePath: String) = fetchService.download(login, list, savePath)
+
+    fun deleteDownloadsBefore(book: Book) = fetchService.deleteBefore(book)
 
 }
