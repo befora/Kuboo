@@ -18,6 +18,7 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
+import com.sethchhim.kuboo_client.ui.main.home.custom.RecentRecyclerView
 import com.sethchhim.kuboo_client.util.SystemUtil
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -30,7 +31,7 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
 
     @BindView(R.id.home_layout_recent_textView2) lateinit var recentMoreTextView: TextView
     @BindView(R.id.home_layout_recent_textView3) lateinit var recentEmptyTextView: TextView
-    @BindView(R.id.home_layout_recent_recyclerView) lateinit var recentRecyclerView: RecyclerView
+    @BindView(R.id.home_layout_recent_recyclerView) lateinit var recentRecyclerView: RecentRecyclerView
 
     lateinit var constraintLayout: ConstraintLayout
     lateinit var guideline: Guideline

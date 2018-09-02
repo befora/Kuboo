@@ -4,19 +4,27 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import android.view.animation.OvershootInterpolator
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.*
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+import jp.wasabeef.recyclerview.animators.FadeInUpAnimator
 
 class BrowserContentRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
 
-    private val gridLayoutManager = BrowserContentGridLayoutManager(context, 1, LinearLayoutManager.VERTICAL, Settings.REVERSE_LAYOUT)
     internal var contentType = FOLDER
+    private val gridLayoutManager = BrowserContentGridLayoutManager(context, 1, LinearLayoutManager.VERTICAL, Settings.REVERSE_LAYOUT)
+    private val fadeInUpAnimator = FadeInUpAnimator().apply {
+        removeDuration = 0
+        addDuration = 275
+        moveDuration = 275
+        changeDuration = 275
+        setInterpolator(OvershootInterpolator())
+    }
 
     init {
         setHasFixedSize(true)
+        itemAnimator = fadeInUpAnimator
         layoutManager = gridLayoutManager
-        itemAnimator = SlideInUpAnimator().apply { moveDuration = 50 }
     }
 
     override fun fling(velocityX: Int, velocityY: Int): Boolean {

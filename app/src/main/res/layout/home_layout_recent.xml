@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/home_layout_recent_textView1"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <android.support.v7.widget.RecyclerView
+    <com.sethchhim.kuboo_client.ui.main.home.custom.RecentRecyclerView
         android:id="@+id/home_layout_recent_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"

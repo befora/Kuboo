@@ -54,6 +54,13 @@ class BrowserRepository {
 
     internal fun getPathSize() = pathList.size
 
+    internal fun getPathItemId(position: Int) = try {
+        pathList[position].id.toLong()
+    } catch (e: Exception) {
+        Timber.e("Failed to find path item id!")
+        0L
+    }
+
     internal fun getCurrentBook() = if (pathList.isNotEmpty()) pathList[pathPosition - 1] else null
 
     internal fun getPreviousBook() = if (pathPosition > 1) pathList[pathPosition - 2] else null

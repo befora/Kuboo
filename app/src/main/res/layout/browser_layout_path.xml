@@ -14,7 +14,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserPathRecyclerView
         android:id="@+id/browser_layout_path_recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

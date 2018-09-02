@@ -158,6 +158,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getPathSize() = browserRepository.getPathSize()
 
+    internal fun getPathItemId(position: Int) = browserRepository.getPathItemId(position)
+
     internal fun getCurrentBook() = browserRepository.getCurrentBook()
 
     internal fun getPreviousBook() = browserRepository.getPreviousBook()

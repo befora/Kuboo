@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.main.browser.adapter
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -370,7 +371,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .error(R.mipmap.ic_launcher)
                     .fitCenter()
-                    .dontAnimate()
+                    .placeholder(ColorDrawable(Color.TRANSPARENT))
                     .dontTransform()
                     .disallowHardwareConfig()
 

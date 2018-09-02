@@ -80,6 +80,8 @@ class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl2_C
         return view
     }
 
+    override fun getItemId(position: Int) = viewModel.getPathItemId(position)
+
     inner class PathHolder(view: View) : BaseViewHolder(view) {
         val binding = itemView.getTag(R.id.BaseQuickAdapter_databinding_support) as BrowserItemPathBinding
     }

@@ -9,15 +9,12 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.home.custom.LatestLinearLayoutManager
-import com.sethchhim.kuboo_client.ui.main.home.custom.RecentLinearLayoutManager
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class HomeFragment : HomeFragmentImpl1_Content() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        recentRecyclerView.layoutManager = RecentLinearLayoutManager(activity!!)
-        recentRecyclerView.setHasFixedSize(true)
         recentAdapter = RecentAdapter(this, viewModel)
         if (isHomeRequireLatest()) {
             view?.let {

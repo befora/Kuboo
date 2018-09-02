@@ -2,7 +2,6 @@ package com.sethchhim.kuboo_client.ui.main.browser
 
 import android.content.res.Configuration
 import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -10,7 +9,6 @@ import butterknife.BindView
 import com.daimajia.numberprogressbar.NumberProgressBar
 import com.sethchhim.kuboo_client.Extensions.dismissDelayed
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
-import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.identify
 import com.sethchhim.kuboo_client.Extensions.invisible
 import com.sethchhim.kuboo_client.Extensions.visible
@@ -21,6 +19,7 @@ import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentRecyclerView
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentSwipeRefreshLayout
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType
+import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserPathRecyclerView
 import com.sethchhim.kuboo_client.ui.main.downloads.custom.DownloadsTabLayout
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.SystemUtil
@@ -44,15 +43,13 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
     @BindView(R.id.browser_layout_download_numberProgressBar) lateinit var downloadsNumberProgressBar: NumberProgressBar
     @BindView(R.id.browser_layout_downloads_tabLayout) lateinit var downloadsTabLayout: DownloadsTabLayout
     @BindView(R.id.browser_layout_path_horizontalScrollView) lateinit var pathHorizontalScrollView: HorizontalScrollView
-    @BindView(R.id.browser_layout_path_recyclerView) lateinit var pathRecyclerView: RecyclerView
+    @BindView(R.id.browser_layout_path_recyclerView) lateinit var pathRecyclerView: BrowserPathRecyclerView
     @BindView(R.id.state_empty_constraintLayout) lateinit var emptyLayout: ConstraintLayout
     @BindView(R.id.state_error_constraintLayout) lateinit var errorLayout: ConstraintLayout
 
     protected fun resetRecyclerView() {
         viewModel.clearContentList()
-        contentRecyclerView.gone()
         contentRecyclerView.adapter?.notifyDataSetChanged()
-        contentRecyclerView.visible()
     }
 
     protected fun saveRecyclerViewState() {
@@ -120,7 +117,7 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
         errorLayout.invisible()
     }
 
-    internal open fun onSwipeRefresh(){
+    internal open fun onSwipeRefresh() {
         //override in child fragments
     }
 
