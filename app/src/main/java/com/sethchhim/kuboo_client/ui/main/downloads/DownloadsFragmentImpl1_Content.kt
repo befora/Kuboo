@@ -17,8 +17,8 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
     protected fun populateDownloads() {
         setNumberProgressBar()
         setStateLoading()
+        resetRecyclerView()
         contentRecyclerView.saveState()
-
         viewModel.getDownloadListLiveData().observe(this, Observer {
             it?.let { handleResult(it.downloadListToBookList()) }
         })
