@@ -7,6 +7,7 @@ import com.sethchhim.kuboo_client.Extensions.getBrowserContentType
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.Temporary
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA
@@ -134,4 +135,18 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
         if (!isCustomImplementation) mainActivity.disableSelectionMenuState()
     }
 
+    protected fun handleNeededAdapterUpdate() {
+        if (::contentAdapter.isInitialized) {
+            contentAdapter.apply {
+                if (Temporary.USER_API_UPDATE_LIST.isNotEmpty()) {
+                    Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
+                        viewModel.getBrowserContentList().forEachIndexed { index, browser ->
+                            if (browser.book.isMatch(queueBook)) contentAdapter.updateMediaColorStateFromRemoteUserApi(index, browser.book)
+                        }
+                    }
+                    Temporary.USER_API_UPDATE_LIST.clear()
+                }
+            }
+        }
+    }
 }

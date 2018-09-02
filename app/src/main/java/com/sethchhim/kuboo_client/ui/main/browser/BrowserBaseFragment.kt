@@ -28,6 +28,7 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl3_Path() {
     override fun onResume() {
         super.onResume()
         enableSelection(isCustomImplementation)
+        handleNeededAdapterUpdate()
     }
 
     override fun onDestroy() {

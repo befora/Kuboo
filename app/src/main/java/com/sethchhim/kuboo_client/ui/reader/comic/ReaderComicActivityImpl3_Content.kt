@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.SeekBar
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.Temporary
 import com.sethchhim.kuboo_client.data.enum.ScaleType
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
@@ -85,6 +86,7 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
     private fun startNextBook() {
         isPreviewEnabled = true
 
+        Temporary.USER_API_UPDATE_LIST.add(currentBook)
         viewModel.addFinish(currentBook)
         viewModel.clearReaderLists()
         if (isLocal) viewModel.cleanupParser()
@@ -97,6 +99,7 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
     }
 
     private fun finishBook() {
+        Temporary.USER_API_UPDATE_LIST.add(currentBook)
         viewModel.addFinish(currentBook)
         startDownloadTracking(currentBook)
         showExitTransition()

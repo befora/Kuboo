@@ -530,4 +530,9 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
         Timber.e("$e")
     }
 
+    fun updateMediaColorStateFromRemoteUserApi(position: Int, book: Book) {
+        val viewHolder = browserContentRecyclerView.findViewHolderForAdapterPosition(position) as? BrowserHolder
+        if (viewHolder != null) setMediaColorState(viewHolder, book)
+    }
+
 }
