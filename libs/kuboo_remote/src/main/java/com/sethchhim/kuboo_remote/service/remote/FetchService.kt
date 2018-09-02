@@ -21,7 +21,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
 
     private val CONCURRENT_LIMIT = 1
     private val NAMESPACE = "kuboo_fetch"
-    private val REPORTING_INTERVAL = 1000L
+    private val REPORTING_INTERVAL = 500L
 
     private val fetchConfiguration = FetchConfiguration.Builder(context)
             .setHttpDownloader(OkHttpDownloader(okHttpClient))
