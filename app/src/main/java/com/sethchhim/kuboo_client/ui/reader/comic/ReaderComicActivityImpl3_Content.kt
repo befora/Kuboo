@@ -98,8 +98,8 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
 
     private fun finishBook() {
         viewModel.addFinish(currentBook)
-        finish()
         startDownloadTracking(currentBook)
+        showExitTransition()
     }
 
     private fun startSinglePaneMode() {
