@@ -38,6 +38,7 @@ class OkHttpClient(private val context: Context) : OkHttpClient() {
 
     override fun interceptors(): MutableList<Interceptor> {
         val interceptorList = mutableListOf<Interceptor>()
+        interceptorList.add(sslHandshakeInterceptor)
 
         if (isHttpLoggingEnabled) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -48,7 +49,6 @@ class OkHttpClient(private val context: Context) : OkHttpClient() {
         if (isSimulateLag) {
             val delayInterceptor = DelayInterceptor(2000L, TimeUnit.MILLISECONDS)
             interceptorList.add(delayInterceptor)
-            interceptorList.add(sslHandshakeInterceptor)
         }
 
         return interceptorList

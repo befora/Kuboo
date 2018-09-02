@@ -21,7 +21,7 @@ import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 
 
-open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener, SearchView.OnQueryTextListener {
+open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,20 +65,6 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
         forceOrientationSetting()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        browserLayoutMenuItem = menu.findItem(R.id.main_action_browser_layout)
-        downloadMenuItem = menu.findItem(R.id.main_action_download)
-        httpsMenuItem = menu.findItem(R.id.main_action_https)
-        markFinishedAddMenuItem = menu.findItem(R.id.main_action_mark_finished_add)
-        markFinishedDeleteMenuItem = menu.findItem(R.id.main_action_mark_finish_delete)
-        searchMenuItem = menu.findItem(R.id.main_action_search).apply {
-            searchView = actionView as SearchView
-            searchView.setOnQueryTextListener(this@MainActivity)
-        }
-        return true
-    }
-
     override fun onBackPressed() {
         when (getCurrentFragment()) {
             is BrowserLatestFragment -> supportFragmentManager.popBackStackImmediate()
@@ -95,6 +81,40 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 R.id.navigation_downloads -> selectHome()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        browserLayoutMenuItem = menu.findItem(R.id.main_action_browser_layout)
+        downloadMenuItem = menu.findItem(R.id.main_action_download)
+        httpsMenuItem = menu.findItem(R.id.main_action_https)
+        markFinishedAddMenuItem = menu.findItem(R.id.main_action_mark_finished_add)
+        markFinishedDeleteMenuItem = menu.findItem(R.id.main_action_mark_finish_delete)
+        searchMenuItem = menu.findItem(R.id.main_action_search).apply {
+            searchView = actionView as SearchView
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String) = true
+
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    showFragmentBrowserSearch(query)
+                    return true
+                }
+            })
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.main_overflow_about -> showActivityAbout()
+            R.id.main_overflow_log -> showActivityLog()
+            R.id.main_action_browser_layout -> toggleBrowserLayout()
+            R.id.main_action_https -> showDialogHttps()
+            R.id.main_action_download -> startSelectionDownload()
+            R.id.main_action_mark_finished_add -> startSelectionAddFinished()
+            R.id.main_action_mark_finish_delete -> startSelectionDeleteFinished()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -167,26 +187,6 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 }
             }
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.main_overflow_about -> showActivityAbout()
-            R.id.main_overflow_log -> showActivityLog()
-            R.id.main_action_browser_layout -> toggleBrowserLayout()
-            R.id.main_action_https -> showDialogHttps()
-            R.id.main_action_download -> startSelectionDownload()
-            R.id.main_action_mark_finished_add -> startSelectionAddFinished()
-            R.id.main_action_mark_finish_delete -> startSelectionDeleteFinished()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onQueryTextChange(newText: String?) = true
-
-    override fun onQueryTextSubmit(query: String): Boolean {
-        showFragmentBrowserSearch(query)
-        return true
     }
 
 }

@@ -9,11 +9,11 @@ import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.FrameLayout
-import android.widget.TextView
 import butterknife.BindView
 import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_DOWNLOAD_FRAGMENT
 import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT
 import com.sethchhim.kuboo_client.Constants.ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD
+import com.sethchhim.kuboo_client.Extensions.setMessageTextSize
 import com.sethchhim.kuboo_client.Extensions.show
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
@@ -168,8 +168,8 @@ open class MainActivityImpl0_View : BaseActivity() {
     protected fun showDialogHttps() {
         val tlsCipherSuite = viewModel.getTlsCipherSuite()
         dialogUtil.getDialogHttps(this, tlsCipherSuite).apply {
-            findViewById<TextView>(android.R.id.message)?.textSize = 9f
             show()
+            setMessageTextSize(9f)
         }
     }
 

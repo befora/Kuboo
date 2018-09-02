@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AlertDialog
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -26,6 +27,7 @@ import android.view.animation.OvershootInterpolator
 import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.sethchhim.kuboo_client.data.model.Favorite
@@ -50,6 +52,10 @@ import java.util.concurrent.TimeUnit
 object Extensions {
 
     internal fun Any.identify() = System.identityHashCode(this)
+
+    internal fun AlertDialog.setMessageTextSize(size: Float) {
+        findViewById<TextView>(android.R.id.message)?.textSize = size
+    }
 
     private fun Double.limitDecimalTwo() = DecimalFormat("#.00").format(this)
 
