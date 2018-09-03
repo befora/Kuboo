@@ -77,7 +77,10 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
             containsRequest(request).observeForever { isContainsRequest ->
                 isContainsRequest?.let {
                     //only enqueue if there is no matching request
-                    if (!isContainsRequest) fetch.enqueue(request, Func { r -> onRequestQueueSuccess(r) }, Func { e -> onRequestQueueFail(e) })
+                    when (isContainsRequest) {
+                        true -> Timber.w("Request already exists, will not enqueue! url[${request.url}] file[${request.file}]")
+                        false -> fetch.enqueue(request, Func { r -> onRequestQueueSuccess(r) }, Func { e -> onRequestQueueFail(e) })
+                    }
                 }
             }
         }
