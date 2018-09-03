@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.data.repository
 import com.sethchhim.kuboo_client.Extensions.guessFileName
 import com.sethchhim.kuboo_client.data.task.download.*
 import com.sethchhim.kuboo_remote.model.Book
+import com.tonyodev.fetch2.Download
 import java.io.File
 import java.net.URL
 
@@ -27,5 +28,14 @@ class DownloadsRepository {
     internal fun addDownload(book: Book) = Task_DownloadInsert(book).liveData
 
     internal fun deleteDownload(book: Book) = Task_DownloadDelete(book).liveData
+
+    internal fun deleteDownload(download: Download) {
+        getDownloadList(favoriteCompressed = false).observeForever {
+            it?.forEach {
+                val isMatch = it.filePath == download.file
+                if (isMatch) deleteDownload(it)
+            }
+        }
+    }
 
 }

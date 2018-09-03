@@ -53,7 +53,7 @@ class FetchRepository : FetchListener {
     override fun onDeleted(download: Download) {
         Timber.i("onDeleted $download")
         notificationService.cancelProgress()
-        deleteDownloadFromDao(download)
+        downloadsRepository.deleteDownload(download)
     }
 
     override fun onError(download: Download, error: Error, throwable: Throwable?) {
@@ -127,15 +127,6 @@ class FetchRepository : FetchListener {
     internal fun startDownloads(login: Login, list: List<Book>, savePath: String) = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.startDownloads(login, list, savePath)
         false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
-    }
-
-    private fun deleteDownloadFromDao(download: Download) {
-        downloadsRepository.getDownloadList(favoriteCompressed = false).observeForever {
-            it?.forEach {
-                val isMatch = it.filePath == download.file
-                if (isMatch) downloadsRepository.deleteDownload(it)
-            }
-        }
     }
 
 }
