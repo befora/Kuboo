@@ -10,10 +10,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="${applicationLabel}"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/BaseTheme"
-        tools:replace="android:label">
+        tools:replace="android:label"
+        tools:targetApi="n">
 
         <!--splash-->
         <activity
