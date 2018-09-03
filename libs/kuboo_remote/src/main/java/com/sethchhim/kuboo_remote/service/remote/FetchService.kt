@@ -21,7 +21,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
 
     private val CONCURRENT_LIMIT = 1
     private val NAMESPACE = "kuboo_fetch"
-    private val REPORTING_INTERVAL = 500L
+    private val REPORTING_INTERVAL = 800L
 
     private val fetchConfiguration = FetchConfiguration.Builder(context)
             .setHttpDownloader(OkHttpDownloader(okHttpClient))
@@ -125,6 +125,13 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
     internal fun pauseGroup(group: Int) = fetch.pauseGroup(group)
 
     internal fun delete(download: Download) = fetch.delete(download.id)
+
+    internal fun delete(book: Book) = fetch.getDownloads(Func { result ->
+        result.forEach {
+            val isMatchSeries = it.group == book.getXmlId()
+            if (isMatchSeries) delete(it)
+        }
+    })
 
     internal fun deleteGroup(group: Int) = fetch.deleteGroup(group)
 

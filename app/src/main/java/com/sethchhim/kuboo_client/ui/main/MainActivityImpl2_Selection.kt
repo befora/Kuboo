@@ -53,7 +53,7 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         val selectedList = viewModel.getSelectedList()
         dialogUtil.getDialogDownloadStart(this, selectedList).apply {
             setButton(AlertDialog.BUTTON_POSITIVE, "${context.getString(R.string.dialog_download)} (${selectedList.size})") { _, _ ->
-                viewModel.startDownloads(viewModel.getActiveLogin(), selectedList, savePath = Settings.DOWNLOAD_SAVE_PATH)
+                viewModel.startFetchDownloads(viewModel.getActiveLogin(), selectedList, savePath = Settings.DOWNLOAD_SAVE_PATH)
                 disableSelectionMode()
             }
             setButton(AlertDialog.BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }

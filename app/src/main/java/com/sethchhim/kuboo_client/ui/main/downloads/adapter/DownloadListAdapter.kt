@@ -41,6 +41,9 @@ import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.Status
 import kotlinx.android.synthetic.main.browser_item_download.view.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -110,12 +113,10 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
                 private fun onDeleteSingle() {
                     viewModel.getFetchDownload(book).observe(downloadsFragment, Observer { it?.let { viewModel.deleteFetchDownload(it) } })
-                    viewModel.deleteDownload(book = book)
                 }
 
                 private fun onDeleteFavorite() {
                     viewModel.deleteFetchSeries(book = book, keepBook = false)
-                    viewModel.deleteDownloadSeries(book = book, keepBook = false)
                 }
             })
 
@@ -149,21 +150,16 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
         private fun onDownloadTrackingStart(book: Book) {
             viewModel.deleteFetchSeries(book = book, keepBook = true)
-            viewModel.deleteDownloadSeries(book = book, keepBook = true)
-            mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+
+            //artificial delay otherwise tracking will not trigger
+            launch(UI) {
+                delay(1000)
+                mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+            }
         }
 
         private fun onDownloadTrackingStop(book: Book) {
-            viewModel.deleteDownloadSeries(book, keepBook = true)
-            list
-                    .filter { it.getXmlId() == book.getXmlId() }
-                    .sortedBy { it.id }
-                    .filterIndexed { i, _ -> i != 0 }
-                    .forEach {
-                        viewModel.getFetchDownload(it).observe(mainActivity, Observer {
-                            it?.let { viewModel.deleteFetchDownload(it) }
-                        })
-                    }
+            viewModel.deleteFetchSeries(book = book, keepBook = true)
         }
     }
 

@@ -7,6 +7,10 @@ import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadListAdapter
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
+import com.tonyodev.fetch2.Download
+import com.tonyodev.fetch2.Error
+import com.tonyodev.fetch2.FetchListener
+import com.tonyodev.fetch2core.DownloadBlock
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,7 +28,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         })
     }
 
-    internal fun handleResult(result: List<Book>) {
+    private fun handleResult(result: List<Book>) {
         when (result.isEmpty()) {
             true -> onPopulateContentEmpty()
             false -> onPopulateContentSuccess(result)
@@ -55,6 +59,53 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
                 1 -> mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
             }
         }
+    }
+
+    protected val fetchListener = object : FetchListener {
+        override fun onAdded(download: Download) {}
+
+        override fun onStarted(download: Download, downloadBlocks: List<DownloadBlock>, totalBlocks: Int) {}
+
+        override fun onCancelled(download: Download) {
+            updateContent(download)
+        }
+
+        override fun onCompleted(download: Download) {
+            updateContent(download)
+        }
+
+        override fun onDeleted(download: Download) {
+            updateContent(download)
+            setNumberProgressBar()
+        }
+
+        override fun onError(download: Download, error: Error, throwable: Throwable?) {
+            updateContent(download)
+        }
+
+        override fun onPaused(download: Download) {
+            updateContent(download)
+        }
+
+        override fun onProgress(download: Download, etaInMilliSeconds: Long, downloadedBytesPerSecond: Long) {
+            updateContent(download)
+        }
+
+        override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
+            updateContent(download)
+        }
+
+        override fun onRemoved(download: Download) {
+            updateContent(download)
+        }
+
+        override fun onResumed(download: Download) {
+            updateContent(download)
+        }
+
+        override fun onDownloadBlockUpdated(download: Download, downloadBlock: DownloadBlock, totalBlocks: Int) {}
+
+        override fun onWaitingNetwork(download: Download) {}
     }
 
 }

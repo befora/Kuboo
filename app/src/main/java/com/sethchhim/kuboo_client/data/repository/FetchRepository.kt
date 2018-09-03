@@ -23,6 +23,7 @@ class FetchRepository : FetchListener {
         kubooRemote.addFetchListener(this)
     }
 
+    @Inject lateinit var downloadsRepository: DownloadsRepository
     @Inject lateinit var kubooRemote: KubooRemote
     @Inject lateinit var notificationService: NotificationService
     @Inject lateinit var systemUtil: SystemUtil
@@ -52,6 +53,7 @@ class FetchRepository : FetchListener {
     override fun onDeleted(download: Download) {
         Timber.i("onDeleted $download")
         notificationService.cancelProgress()
+        deleteDownloadFromDao(download)
     }
 
     override fun onError(download: Download, error: Error, throwable: Throwable?) {
@@ -99,9 +101,12 @@ class FetchRepository : FetchListener {
 
     override fun onDownloadBlockUpdated(download: Download, downloadBlock: DownloadBlock, totalBlocks: Int) {}
 
-    internal fun deleteSeries(book: Book, keepBook: Boolean) = kubooRemote.deleteSeries(book, keepBook)
 
     internal fun deleteDownload(download: Download) = kubooRemote.deleteDownload(download)
+
+    internal fun deleteDownload(book: Book) = kubooRemote.deleteDownload(book)
+
+    internal fun deleteSeries(book: Book, keepBook: Boolean) = kubooRemote.deleteSeries(book, keepBook)
 
     internal fun deleteDownloadsBefore(book: Book) = kubooRemote.deleteDownloadsBefore(book)
 
@@ -122,6 +127,15 @@ class FetchRepository : FetchListener {
     internal fun startDownloads(login: Login, list: List<Book>, savePath: String) = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.startDownloads(login, list, savePath)
         false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+    }
+
+    private fun deleteDownloadFromDao(download: Download) {
+        downloadsRepository.getDownloadList(favoriteCompressed = false).observeForever {
+            it?.forEach {
+                val isMatch = it.filePath == download.file
+                if (isMatch) downloadsRepository.deleteDownload(it)
+            }
+        }
     }
 
 }

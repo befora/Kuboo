@@ -1,6 +1,5 @@
 package com.sethchhim.kuboo_client.data.repository
 
-import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
 import com.sethchhim.kuboo_client.Extensions.guessFileName
 import com.sethchhim.kuboo_client.data.task.download.*
 import com.sethchhim.kuboo_remote.model.Book
@@ -28,18 +27,5 @@ class DownloadsRepository {
     internal fun addDownload(book: Book) = Task_DownloadInsert(book).liveData
 
     internal fun deleteDownload(book: Book) = Task_DownloadDelete(book).liveData
-
-    internal fun deleteDownloadSeries(book: Book, keepBook: Boolean) = Task_DownloadDeleteSeries(book, keepBook).liveData
-
-    internal fun deleteDownloadsBefore(book: Book) = getDownloadListLiveData().observeForever {
-        it?.let {
-            it.downloadListToBookList().filter {
-                val isMatchSeries = it.getXmlId() == book.getXmlId()
-                val isBefore = it.id < book.id
-                isMatchSeries && isBefore
-            }
-                    .forEach { deleteDownload(it) }
-        }
-    }
 
 }

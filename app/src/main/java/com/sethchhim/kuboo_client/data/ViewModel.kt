@@ -184,17 +184,14 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun deleteDownload(book: Book) = downloadsRepository.deleteDownload(book)
 
-    internal fun deleteDownloadSeries(book: Book, keepBook: Boolean = false) = downloadsRepository.deleteDownloadSeries(book, keepBook)
-
     //fetch
-    internal fun startDownloads(login: Login, list: List<Book>, savePath: String) {
+    internal fun startFetchDownloads(login: Login, list: List<Book>, savePath: String) {
         fetchRepository.startDownloads(login, list, savePath)
         downloadsRepository.addDownloads(list, savePath)
     }
 
-    internal fun deleteDownloadsBefore(book: Book) {
+    internal fun deleteFetchDownloadsBefore(book: Book) {
         fetchRepository.deleteDownloadsBefore(book)
-        downloadsRepository.deleteDownloadsBefore(book)
     }
 
     internal fun getFetchDownload(book: Book) = fetchRepository.getDownload(book)
@@ -206,6 +203,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun retryFetchDownload(download: Download) = fetchRepository.retryDownload(download)
 
     internal fun deleteFetchSeries(book: Book, keepBook: Boolean) = fetchRepository.deleteSeries(book, keepBook)
+
+    internal fun deleteFetchDownload(book: Book) = fetchRepository.deleteDownload(book)
 
     internal fun deleteFetchDownload(download: Download) = fetchRepository.deleteDownload(download)
 
