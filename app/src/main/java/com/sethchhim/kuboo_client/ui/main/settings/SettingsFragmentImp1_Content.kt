@@ -88,9 +88,9 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-    private fun setDownloadSavePath() = downloadSavePath.apply {
-        summary = Settings.DOWNLOAD_SAVE_PATH
-        setOnPreferenceClickListener {
+    private fun setDownloadSavePath() {
+        downloadSavePath.summary = Settings.DOWNLOAD_SAVE_PATH
+        downloadSavePath.setOnPreferenceClickListener {
             val storageList = mainActivity.systemUtil.getStorageList()
             val storageListFormatted = mainActivity.systemUtil.getStorageListFormatted()
             var path = Settings.DOWNLOAD_SAVE_PATH
