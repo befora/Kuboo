@@ -19,6 +19,7 @@ import com.sethchhim.kuboo_remote.model.Response
 import org.jetbrains.anko.collections.forEachWithIndex
 import java.io.File
 
+
 class DialogUtil(val context: Context) {
 
     internal fun getSnackBarDeleteRecent(view: View, book: Book) = getSnackBar(view, "Removed: " + book.title, 5000, isAlert = true)
@@ -99,6 +100,11 @@ class DialogUtil(val context: Context) {
         setSingleChoiceItems(storageListFormatted, checkedItem) { dialog, which ->
             onDialogSelectSingleChoice.onSelect(which)
         }
+    }.create()
+
+    internal fun getDialogDownloadSavePathConfirm(context: Context) = getAlertDialogBuilder(context).apply {
+        setTitle("WARNING")
+        setMessage("Changing save path will reset all download tracking items!")
     }.create()
 
     internal fun getDialogHomeLayout(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {

@@ -1,5 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.settings
 
+import android.support.v7.app.AlertDialog
 import android.widget.TextView
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
@@ -92,16 +93,30 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setOnPreferenceClickListener {
             val storageList = mainActivity.systemUtil.getStorageList()
             val storageListFormatted = mainActivity.systemUtil.getStorageListFormatted()
-            dialogUtil.getDialogDownloadSavePath(mainActivity, storageList, storageListFormatted, object : DialogUtil.OnDialogSelectSingleChoice {
+            var path = Settings.DOWNLOAD_SAVE_PATH
+            val dialog = dialogUtil.getDialogDownloadSavePath(mainActivity, storageList, storageListFormatted, object : DialogUtil.OnDialogSelectSingleChoice {
                 override fun onSelect(which: Int) {
-                    val path = storageList[which]
-                    Settings.DOWNLOAD_SAVE_PATH = path
-                    sharedPrefsHelper.saveDownloadSavePath()
-                    summary = Settings.DOWNLOAD_SAVE_PATH
+                    path = storageList[which]
                 }
-            }).show()
+            })
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.settings_apply)) { _, _ -> showDownloadSavePathConfirmDialog(path) }
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.settings_cancel)) { dialogInterface, _ -> dialogInterface.dismiss() }
+            dialog.show()
             return@setOnPreferenceClickListener true
         }
+    }
+
+    private fun showDownloadSavePathConfirmDialog(path: String) {
+        val confirmDialog = dialogUtil.getDialogDownloadSavePathConfirm(mainActivity)
+        confirmDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.settings_confirm)) { dialog, _ ->
+            Settings.DOWNLOAD_SAVE_PATH = path
+            sharedPrefsHelper.saveDownloadSavePath()
+            downloadSavePath.summary = Settings.DOWNLOAD_SAVE_PATH
+            mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+            dialog.dismiss()
+        }
+        confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.settings_cancel)) { dialog, _ -> dialog.dismiss() }
+        confirmDialog.show()
     }
 
     private fun setDownloadTrackingLimit() = downloadTrackingLimit.apply {

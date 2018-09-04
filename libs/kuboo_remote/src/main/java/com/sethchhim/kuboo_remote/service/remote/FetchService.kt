@@ -40,58 +40,41 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         Timber.d("onRequestQueueSuccess $request")
     }
 
-    private fun getRequest(login: Login, stringUrl: String, savePath: String, id: String, xmlId: Int): Request {
-        return Request(stringUrl, savePath).apply {
-            enqueueAction = EnqueueAction.DO_NOT_ENQUEUE_IF_EXISTING
-            addHeader(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
-            this.groupId = xmlId
-            this.tag = id
-        }
-    }
-
-    private fun getFilePath(stringUrl: String): String {
-        val downloadPath = context.filesDir.path
-        val fileName = URL(stringUrl).guessFileName()
-        val file = File(downloadPath + File.separator + fileName)
-        return file.absolutePath ?: ""
-    }
-
     private fun URL.guessFileName(): String {
         val fileExtension = MimeTypeMap.getFileExtensionFromUrl(this.toString())
         return URLUtil.guessFileName(this.toString(), null, fileExtension)
     }
 
-    internal fun download(login: Login, list: List<Book>, savePath: String) {
-        val requestList = mutableListOf<Request>().apply {
-            list.forEach {
-                val stringUrl = it.server + it.linkAcquisition
-                val fileName = URL(stringUrl).guessFileName()
-                val saveFilePath = "$savePath${File.separator}$fileName"
-                val id = "${it.id}"
-                val xmlId = it.getXmlId()
-                add(getRequest(login, stringUrl, saveFilePath, id, xmlId))
-            }
-        }
+    internal fun download(login: Login, downloadList: List<Book>, savePath: String) {
+        downloadList.forEach {
+            val request = createRequest(login, it, savePath)
 
-        requestList.forEach { request ->
-            containsRequest(request).observeForever { isContainsRequest ->
-                isContainsRequest?.let {
-                    //only enqueue if there is no matching request
-                    when (isContainsRequest) {
-                        true -> Timber.w("Request already exists, will not enqueue! url[${request.url}] file[${request.file}]")
-                        false -> fetch.enqueue(request, Func { r -> onRequestQueueSuccess(r) }, Func { e -> onRequestQueueFail(e) })
-                    }
+            deleteMatchingRequestsWithDifferentFileName(request)
+            fetch.enqueue(request, Func { r -> onRequestQueueSuccess(r) }, Func { e -> onRequestQueueFail(e) })
+        }
+    }
+
+    private fun deleteMatchingRequestsWithDifferentFileName(request: Request) {
+        getDownloads().observeForever {
+            it?.let {
+                it.forEach {
+                    val isRequestExistWithDifferentFileName = it.url == request.url && it.file != request.file
+                    if (isRequestExistWithDifferentFileName) delete(it)
                 }
             }
         }
     }
 
-    private fun containsRequest(request: Request): MutableLiveData<Boolean> {
-        val liveData = MutableLiveData<Boolean>()
-        fetch.getDownloads(Func { result ->
-            liveData.value = result.any { it.url == request.url && it.group == request.groupId && it.tag == request.tag }
-        })
-        return liveData
+    private fun createRequest(login: Login, book: Book, savePath: String): Request {
+        val stringUrl = book.server + book.linkAcquisition
+        val stringFileName = URL(stringUrl).guessFileName()
+        val stringSavePath = "$savePath${File.separator}$stringFileName"
+        return Request(stringUrl, stringSavePath).apply {
+            enqueueAction = EnqueueAction.DO_NOT_ENQUEUE_IF_EXISTING
+            addHeader(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
+            this.groupId = book.getXmlId()
+            this.tag = "${book.id}"
+        }
     }
 
     internal fun addListener(listener: FetchListener) = fetch.addListener(listener)
