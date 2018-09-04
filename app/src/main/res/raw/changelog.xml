@@ -3,6 +3,12 @@
 
     <changelogversion
         changeDate="Sep 4, 2018"
+        versionName="1.1.0_v2">
+        <changelogtext>fix download now checks for valid save path</changelogtext>
+    </changelogversion>
+
+    <changelogversion
+        changeDate="Sep 4, 2018"
         versionName="1.1.0">
         <changelogtext>add application preload tasking</changelogtext>
         <changelogtext>add google play rate button to changelog dialog</changelogtext>
