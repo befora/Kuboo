@@ -48,7 +48,6 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
     internal fun download(login: Login, downloadList: List<Book>, savePath: String) {
         downloadList.forEach {
             val request = createRequest(login, it, savePath)
-
             deleteMatchingRequestsWithDifferentFileName(request)
             fetch.enqueue(request, Func { r -> onRequestQueueSuccess(r) }, Func { e -> onRequestQueueFail(e) })
         }

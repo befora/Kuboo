@@ -10,6 +10,7 @@ import com.sethchhim.kuboo_client.data.repository.*
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.tonyodev.fetch2.Download
+import timber.log.Timber
 import java.io.File
 
 class ViewModel(internal val browserRepository: BrowserRepository,
@@ -186,8 +187,14 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     //fetch
     internal fun startFetchDownloads(login: Login, list: List<Book>, savePath: String) {
-        fetchRepository.startDownloads(login, list, savePath)
-        downloadsRepository.addDownloads(list, savePath)
+        val isSavePathValid = savePath.isNotEmpty()
+        when (isSavePathValid) {
+            true -> {
+                fetchRepository.startDownloads(login, list, savePath)
+                downloadsRepository.addDownloads(list, savePath)
+            }
+            false -> Timber.e("Fetch download cancelled because save path is not valid! size[${list.size}] savePath[$savePath]")
+        }
     }
 
     internal fun deleteFetchDownloadsBefore(book: Book) {
