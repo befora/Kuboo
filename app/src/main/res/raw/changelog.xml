@@ -2,6 +2,60 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Sep 4, 2018"
+        versionName="1.1.0">
+        <changelogtext>add application preload tasking</changelogtext>
+        <changelogtext>add google play rate button to changelog dialog</changelogtext>
+        <changelogtext>add notification for file download completion and bug fixes</changelogtext>
+        <changelogtext>add setting finished download notification toggle</changelogtext>
+        <changelogtext>change reader overlay seekbar length</changelogtext>
+        <changelogtext>fix animations</changelogtext>
+        <changelogtext>fix browser did not update finished items on resume</changelogtext>
+        <changelogtext>fix browser fragment regression</changelogtext>
+        <changelogtext>fix browser item badge to use gone instead of invisible since nothing is
+            anchored to it
+        </changelogtext>
+        <changelogtext>fix browser media as list selection bug</changelogtext>
+        <changelogtext>fix browser media as list toggle did not restore on new instance
+        </changelogtext>
+        <changelogtext>fix browser media menu toggle sometimes showed during selection mode
+        </changelogtext>
+        <changelogtext>fix browser media unnecessary delay</changelogtext>
+        <changelogtext>fix browser menu state regression</changelogtext>
+        <changelogtext>fix browser star icon size bug in android 9</changelogtext>
+        <changelogtext>fix crash at download adapter on invalid data</changelogtext>
+        <changelogtext>fix crash during fragment transaction</changelogtext>
+        <changelogtext>fix download fragment did not reset before populate</changelogtext>
+        <changelogtext>fix download fragment now updates downloads faster</changelogtext>
+        <changelogtext>fix download fragment regression</changelogtext>
+        <changelogtext>fix download tracking badge was still visible after view holder is recycled
+        </changelogtext>
+        <changelogtext>fix download tracking enqueue same item multiple times after changing save
+            path
+        </changelogtext>
+        <changelogtext>fix download tracking no longer requires app to be open</changelogtext>
+        <changelogtext>fix downloaded items will no longer keep bookmark</changelogtext>
+        <changelogtext>fix downloads deletion is reactionary and more reliable</changelogtext>
+        <changelogtext>fix https secure menu icon did not show</changelogtext>
+        <changelogtext>fix network fail to connect on android 9</changelogtext>
+        <changelogtext>fix notification selection intent did not create new task</changelogtext>
+        <changelogtext>fix notification selection intent to target splashActivity instead of
+            mainActivity
+        </changelogtext>
+        <changelogtext>fix notification selection intent was not reliable</changelogtext>
+        <changelogtext>fix reader finish action was missing exit transition</changelogtext>
+        <changelogtext>fix save path change now resets all download tracking to prevent corruption
+        </changelogtext>
+        <changelogtext>fix slow fragment transition</changelogtext>
+        <changelogtext>fix splash lower case letters and icon size</changelogtext>
+        <changelogtext>refactor browser fragments</changelogtext>
+        <changelogtext>refactor downloads fragment to use listadapter</changelogtext>
+        <changelogtext>refactor splash preload</changelogtext>
+        <changelogtext>update constraint-layout to 1.1.3 from 1.1.2</changelogtext>
+        <changelogtext>update fetch to 2.2.0-RC11 from 2.0.0-RC22</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Aug 28, 2018"
         versionName="1.0.10">
         <changelogtext>add browser option to show media as a list</changelogtext>
