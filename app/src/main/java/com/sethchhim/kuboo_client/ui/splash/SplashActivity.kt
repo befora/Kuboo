@@ -33,7 +33,6 @@ class SplashActivity : BaseActivity() {
         add(Task_PreloadDownload(this@SplashActivity))
         add(Task_PreloadFavorite(this@SplashActivity))
         add(Task_PreloadRecentlyViewed(this@SplashActivity))
-        add(Task_PreloadSharedPrefs(this@SplashActivity))
     }
 
     private fun MutableList<Task_PreloadBase>.execute() = forEach { it.doPreload() }
