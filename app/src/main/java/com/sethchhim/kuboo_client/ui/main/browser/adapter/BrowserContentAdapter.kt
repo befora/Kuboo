@@ -333,7 +333,11 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             //populate recently viewed items for debug purposes
             if (BuildConfig.DEBUG) {
                 viewModel.getRecentListFromDao().observe(browserFragment, Observer {
-                    it?.let { if (it.size < 30) viewModel.addRecent(result)}
+                    it?.let {
+                        val isRecentListSizeLow = it.size < 30
+                        val isResultValid = !result.isBannedFromRecent()
+                        if (isRecentListSizeLow && isResultValid) viewModel.addRecent(result)
+                    }
                 })
             }
         }
