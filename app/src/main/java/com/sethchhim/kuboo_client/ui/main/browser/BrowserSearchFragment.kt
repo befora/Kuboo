@@ -25,7 +25,6 @@ class BrowserSearchFragment : BrowserBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         stringQuery = arguments?.getString(Constants.ARG_SEARCH) ?: ""
-        mainActivity.title = stringQuery
         mainActivity.collapseMenuItemSearch()
         populateSearch()
     }
@@ -37,6 +36,7 @@ class BrowserSearchFragment : BrowserBaseFragment() {
         viewModel.getListByQuery(stringQuery).observe(this, Observer { result ->
             val book = Book().apply { linkSubsection = "${Constants.URL_PATH_SEARCH}$stringQuery" }
             handleMediaResult(book, result)
+            mainActivity.title = stringQuery
         })
     }
 
