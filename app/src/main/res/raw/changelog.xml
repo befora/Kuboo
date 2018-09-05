@@ -5,9 +5,9 @@
         changeDate="Sep 4, 2018"
         versionName="1.1.0_v3">
         <changelogtext>fix shared prefs moved to base application level instead of splash preload
+        </changelogtext>
         <changelogtext>update android-maven-gradle-plugin to 2.1 from 2.0</changelogtext>
         <changelogtext>update kotlin-gradle-plugin to 1.8.1 from 1.7.3</changelogtext>
-        </changelogtext>
     </changelogversion>
 
     <changelogversion
