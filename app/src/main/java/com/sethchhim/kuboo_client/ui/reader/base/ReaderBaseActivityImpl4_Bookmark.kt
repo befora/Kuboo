@@ -17,6 +17,14 @@ open class ReaderBaseActivityImpl4_Bookmark : ReaderBaseActivityImpl3_Content() 
         updateBookmark()
     }
 
+    protected fun savePdfBookmark(position: Int) {
+        currentBook.currentPage = viewModel.getReaderTrueIndexAt(position)
+        intent.putExtra(Constants.ARG_BOOK, currentBook)
+        updateBookmark()
+    }
+
+
+
     protected fun getChapterFromEpubBookmark(bookmark: String): Int {
         return when (bookmark.contains("#")) {
             true -> bookmark.substringBeforeLast("#").toInt()

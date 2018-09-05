@@ -47,7 +47,7 @@ class ReaderRepository(private val systemUtil: SystemUtil, private val kubooLoca
     }
 
     private fun MutableList<PageUrl>.sortByRtl(): MutableList<PageUrl> {
-        //rtl mode needs to switch page positions if non-single
+        //rtl mode needs to switch currentPage positions if non-single
         forEach {
             if (it.page1 != KEY_SINGLE) {
                 val pageUrlList = mutableListOf<String>()
@@ -133,12 +133,12 @@ class ReaderRepository(private val systemUtil: SystemUtil, private val kubooLoca
     internal fun isReaderDualPaneListEmpty() = dualPaneList.isEmpty()
 
     private fun MutableList<PageUrl>.format(): MutableList<PageUrl> {
-        //fix zeros to single digit page numbers
+        //fix zeros to single digit currentPage numbers
         forEach {
             for (index in 0..9) {
 
                 //remote formatting
-                it.page0 = it.page0.replace("?page=$index&width=", "?page=0$index&width=")
+                it.page0 = it.page0.replace("?currentPage=$index&width=", "?currentPage=0$index&width=")
 
                 //local formatting
                 it.page0 = when (it.page0) {

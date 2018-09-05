@@ -37,9 +37,9 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
         viewPager.currentItem = currentItem
     }
 
-    internal fun onSwipeOutOfBoundsStart() = Timber.i("onSwipeOutOfBoundsStart")
+    override fun onSwipeOutOfBoundsStart() = Timber.i("onSwipeOutOfBoundsStart")
 
-    internal fun onSwipeOutOfBoundsEnd() {
+    override fun onSwipeOutOfBoundsEnd() {
         Timber.i("onSwipeOutOfBoundsEnd")
         val isBannedFromRecent = currentBook.isBannedFromRecent()
         val isLastInSeries = nextBook.isEmpty()
@@ -138,23 +138,29 @@ open class ReaderComicActivityImpl3_Content : ReaderComicActivityImpl2_Preview()
         hideLoadingDialog()
     }
 
-    internal fun goToFirstPage() {
+    override fun goToFirstPage() {
         viewPager.currentItem = 0
     }
 
-    internal fun goToLastPage() = viewPager.adapter?.let {
-        viewPager.currentItem = it.count - 1
+    override fun goToLastPage() {
+        viewPager.adapter?.let {
+            viewPager.currentItem = it.count - 1
+        }
     }
 
-    internal fun goToPreviousPage() = when (viewPager.currentItem == 0) {
-        true -> onSwipeOutOfBoundsStart()
-        false -> viewPager.currentItem = viewPager.currentItem - 1
+    override fun goToPreviousPage() {
+        when (viewPager.currentItem == 0) {
+            true -> onSwipeOutOfBoundsStart()
+            false -> viewPager.currentItem = viewPager.currentItem - 1
+        }
     }
 
-    internal fun goToNextPage() = viewPager.adapter?.let {
-        when (viewPager.currentItem == it.count - 1) {
-            true -> onSwipeOutOfBoundsEnd()
-            false -> viewPager.currentItem = viewPager.currentItem + 1
+    override fun goToNextPage() {
+        viewPager.adapter?.let {
+            when (viewPager.currentItem == it.count - 1) {
+                true -> onSwipeOutOfBoundsEnd()
+                false -> viewPager.currentItem = viewPager.currentItem + 1
+            }
         }
     }
 

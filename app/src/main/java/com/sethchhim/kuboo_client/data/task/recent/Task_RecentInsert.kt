@@ -23,7 +23,7 @@ class Task_RecentInsert(login: Login, book: Book, setTimeAccessed: Boolean) : Ta
                     false -> appDatabaseDao.deleteAllThatMatchBook(book)
                 }
                 appDatabaseDao.insertRecent(book.toRecent())
-                Timber.d("Recent insert: title[${book.title}]  page[${book.currentPage}] bookMark[${book.bookMark}]")
+                Timber.d("Recent insert: title[${book.title}]  currentPage[${book.currentPage}] bookMark[${book.bookMark}]")
                 val result = appDatabaseDao.getAllBookRecent()
                         .filter { it.server == login.server }
                         .sortedByDescending { it.timeAccessed }

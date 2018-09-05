@@ -148,4 +148,13 @@ open class ReaderBaseActivityImpl1_View : ReaderBaseActivityImpl0_Hardware() {
         }
     }
 
+
+    open fun onSwipeOutOfBoundsStart() {
+        //override in children
+    }
+
+    open fun onSwipeOutOfBoundsEnd() {
+        //override in children
+    }
+
 }

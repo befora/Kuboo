@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.Guideline
 import android.support.design.widget.FloatingActionButton
@@ -43,6 +44,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import timber.log.Timber
+import java.io.File
 import java.net.URL
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -62,6 +64,8 @@ object Extensions {
     internal fun Download.isMatch(download: Download) = this.id == download.id
 
     internal fun Download.isMatchSeries(download: Download) = this.group == download.group
+
+    internal fun File.toUri() = Uri.fromFile(this)
 
     internal fun Float.convertPixelsToDp(): Float {
         val metrics = Resources.getSystem().displayMetrics

@@ -5,11 +5,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.sethchhim.kuboo_client.Settings.RTL
-import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
+import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
 
 open class ReaderViewPagerImpl1_Edge(context: Context, attrs: AttributeSet) : ReaderViewPagerImp0_Rtl(context, attrs) {
 
-    private val readerComicActivity = context as ReaderComicActivity
+    private val readerBaseActivity = context as ReaderBaseActivity
     private var mStartDragX: Float = 0.toFloat()
 
     override fun onInterceptTouchEvent(motionEvent: MotionEvent): Boolean {
@@ -36,9 +36,9 @@ open class ReaderViewPagerImpl1_Edge(context: Context, attrs: AttributeSet) : Re
         }
     }
 
-    private fun onEndEdgeSwipe() = readerComicActivity.onSwipeOutOfBoundsStart()
+    private fun onEndEdgeSwipe() = readerBaseActivity.onSwipeOutOfBoundsStart()
 
-    private fun onStartEdgeSwipe() = readerComicActivity.onSwipeOutOfBoundsEnd()
+    private fun onStartEdgeSwipe() = readerBaseActivity.onSwipeOutOfBoundsEnd()
 
     private fun MotionEvent.searchHorizontalEdges() {
         when (action and MotionEvent.ACTION_MASK) {

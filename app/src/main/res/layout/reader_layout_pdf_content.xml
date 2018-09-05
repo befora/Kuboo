@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderViewPagerImpl1_Edge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reader_layout_pdf_content_readerViewPagerImpl1_Edge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>

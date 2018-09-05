@@ -17,7 +17,7 @@ import android.widget.ImageView
 import android.widget.OverScroller
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
-import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
+import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
 import timber.log.Timber
 
 class ReaderPageImageView : AppCompatImageView {
@@ -25,6 +25,8 @@ class ReaderPageImageView : AppCompatImageView {
     private val ZOOM_DURATION = 200
     private var mViewMode = PageViewMode.ASPECT_FIT
     private val isLandscape = context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    private val SWIPE_THRESHOLD = 100
+    private val SWIPE_VELOCITY_THRESHOLD = 100
 
     private val m = FloatArray(9)
     private val mMatrix = Matrix()
@@ -149,7 +151,7 @@ class ReaderPageImageView : AppCompatImageView {
                 mMatrix.postTranslate(0f, 0f)
             }
 
-        // calculate min/max scale
+            // calculate min/max scale
         }
 
         // calculate min/max scale
@@ -207,6 +209,39 @@ class ReaderPageImageView : AppCompatImageView {
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+//            captureSwipe(e1, e2, velocityX, velocityY)
+            fling(velocityX, velocityY)
+            return true
+        }
+
+        private fun captureSwipe(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            var result = false
+            try {
+                val diffY = e2.y - e1.y
+                val diffX = e2.x - e1.x
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+                            onSwipeRight()
+                        } else {
+                            onSwipeLeft()
+                        }
+                    }
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffY > 0) {
+                        onSwipeBottom()
+                    } else {
+                        onSwipeTop()
+                    }
+                }
+                result = true
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+            }
+            return result
+        }
+
+        private fun fling(velocityX: Float, velocityY: Float) {
             val imageSize = computeCurrentImageSize()
             val offset = computeCurrentOffset()
 
@@ -229,7 +264,25 @@ class ReaderPageImageView : AppCompatImageView {
                     velocityX.toInt(), velocityY.toInt(),
                     minX, maxX, minY, maxY)
             ViewCompat.postInvalidateOnAnimation(this@ReaderPageImageView)
-            return true
+        }
+
+        private fun onSwipeTop() {
+            Timber.d("onSwipeTop")
+
+        }
+
+        private fun onSwipeBottom() {
+            Timber.d("onSwipeBottom")
+        }
+
+        private fun onSwipeLeft() {
+            Timber.d("onSwipeLeft")
+            if (context is ReaderPdfActivity) (context as ReaderPdfActivity).goToPreviousPage()
+        }
+
+        private fun onSwipeRight() {
+            Timber.d("onSwipeRight")
+            if (context is ReaderPdfActivity) (context as ReaderPdfActivity).goToNextPage()
         }
 
         override fun onDoubleTapEvent(e: MotionEvent): Boolean {
@@ -245,22 +298,22 @@ class ReaderPageImageView : AppCompatImageView {
             val rightValue = (width * 0.9).toInt()
             if (Settings.DUAL_PANE) when (navigationButtonType) {
                 0 -> when {
-                    e.x < leftValue -> (context as ReaderComicActivity).goToPreviousPage()
-                    e.x > rightValue -> (context as ReaderComicActivity).goToNextPage()
+                    e.x < leftValue -> (context as ReaderBaseActivity).goToPreviousPage()
+                    e.x > rightValue -> (context as ReaderBaseActivity).goToNextPage()
                     else -> (context as ReaderBaseActivity).showOverlay()
                 }
                 1 -> when {
-                    e.x < leftValue -> (context as ReaderComicActivity).goToPreviousPage()
+                    e.x < leftValue -> (context as ReaderBaseActivity).goToPreviousPage()
                     else -> (context as ReaderBaseActivity).showOverlay()
                 }
                 2 -> when {
-                    e.x > rightValue -> (context as ReaderComicActivity).goToNextPage()
+                    e.x > rightValue -> (context as ReaderBaseActivity).goToNextPage()
                     else -> (context as ReaderBaseActivity).showOverlay()
                 }
                 else -> Timber.e("Failed to find navigationButtonType!")
             } else when {
-                e.x < leftValue -> (context as ReaderComicActivity).goToPreviousPage()
-                e.x > rightValue -> (context as ReaderComicActivity).goToNextPage()
+                e.x < leftValue -> (context as ReaderBaseActivity).goToPreviousPage()
+                e.x > rightValue -> (context as ReaderBaseActivity).goToNextPage()
                 else -> (context as ReaderBaseActivity).showOverlay()
             }
             return super.onSingleTapConfirmed(e)
@@ -354,10 +407,12 @@ class ReaderPageImageView : AppCompatImageView {
             val imageHeight = computeCurrentImageSize().y.toFloat()
             val offsetY = computeCurrentOffset().y.toFloat()
             if (offsetY >= 0 && direction < 0) {
-//                Timber.d("$offsetY >= 0 && $direction < 0")
+                Timber.d("$offsetY >= 0 && $direction < 0")
+                onCanNotScrollLeft()
                 return false
             } else if (Math.abs(offsetY) + height >= imageHeight && direction > 0) {
-//                Timber.d("Math.abs($offsetY) + $height >= $imageHeight && $direction > 0")
+                Timber.d("Math.abs($offsetY) + $height >= $imageHeight && $direction > 0")
+                onCanNotScrollRight()
                 return false
             }
 //            Timber.d("imageHeight[$imageHeight] height[$height] offsetY[$offsetY] direction[$direction]")
@@ -366,15 +421,27 @@ class ReaderPageImageView : AppCompatImageView {
             val offsetX = computeCurrentOffset().x.toFloat()
 
             if (offsetX >= 0 && direction < 0) {
-//                Timber.d("$offsetX >= 0 && $direction < 0")
+                Timber.d("$offsetX >= 0 && $direction < 0")
+                onCanNotScrollLeft()
                 return false
             } else if (Math.abs(offsetX) + width >= imageWidth && direction > 0) {
-//                Timber.d("Math.abs($offsetX) + $width >= $imageWidth && $direction > 0")
+                Timber.d("Math.abs($offsetX) + $width >= $imageWidth && $direction > 0")
+                onCanNotScrollRight()
                 return false
             }
 //            Timber.d("imageWidth[$imageWidth] width[$width] offsetX[$offsetX] direction[$direction]")
         }
         return true
+    }
+
+    private fun onCanNotScrollLeft() {
+        Timber.d("onCanNotScrollLeft")
+//        if (context is ReaderPdfActivity) (context as ReaderPdfActivity).goToPreviousPage()
+    }
+
+    private fun onCanNotScrollRight() {
+        Timber.d("onCanNotScrollRight")
+//        if (context is ReaderPdfActivity) (context as ReaderPdfActivity).goToNextPage()
     }
 
     private inner class ZoomAnimation internal constructor(internal var mX: Float, internal var mY: Float, internal var mScale: Float) : Runnable {

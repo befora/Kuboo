@@ -3,12 +3,22 @@ package com.sethchhim.kuboo_client.ui.reader.base
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragment
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl1_Single
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl2_Dual
+import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfFragment
+import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfFragmentImpl1_Single
 import com.sethchhim.kuboo_client.ui.scope.ComicScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 internal abstract class ReaderModuleSub {
+
+    @ComicScope
+    @ContributesAndroidInjector
+    internal abstract fun readerPdfFragment(): ReaderPdfFragment
+
+    @ComicScope
+    @ContributesAndroidInjector
+    internal abstract fun readerPdfFragmentImpl1_Single(): ReaderPdfFragmentImpl1_Single
 
     @ComicScope
     @ContributesAndroidInjector

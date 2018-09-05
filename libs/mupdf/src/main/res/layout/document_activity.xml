@@ -3,13 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
     >
-    <com.artifex.mupdf.mini.PageView
-        android:id="@+id/page_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000"
-        android:keepScreenOn="true"
-        />
+
     <LinearLayout
         android:id="@+id/action_bar"
         android:layout_width="match_parent"

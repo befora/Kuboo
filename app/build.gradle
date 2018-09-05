@@ -124,4 +124,6 @@ dependencies {
     implementation project(path: ':kuboo_local')
     implementation project(path: ':kuboo_remote')
     implementation project(path: ':mupdf')
+
+    implementation 'com.artifex.mupdf:fitz:1.13.0'
 }

@@ -23,6 +23,7 @@ import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragmentImp0_View
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
+import com.sethchhim.kuboo_client.ui.reader.pdf.adapter.ReaderPdfAdapter
 import com.sethchhim.kuboo_client.ui.scope.AppScope
 import com.sethchhim.kuboo_client.ui.splash.preload.Task_PreloadBase
 import dagger.BindsInstance
@@ -54,6 +55,7 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(onClearFromRecentService: OnClearFromRecentService)
     fun inject(taskPreloadBase: Task_PreloadBase)
     fun inject(readerComicAdapter: ReaderComicAdapter)
+    fun inject(readerPdfAdapter: ReaderPdfAdapter)
     fun inject(recentAdapter: RecentAdapter)
     fun inject(settingsFragment: SettingsFragmentImp0_View)
     fun inject(task_LocalBase: Task_LocalBase)
@@ -63,7 +65,6 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     interface Builder {
         @BindsInstance
         fun context(context: Context): Builder
-
         fun build(): AppComponent
     }
 

@@ -47,4 +47,20 @@ open class ReaderBaseActivityImpl3_Content : ReaderBaseActivityImpl2_Overlay() {
         dualPaneLiveData.value = true
     }
 
+    internal open fun goToFirstPage() {
+        //override in children
+    }
+
+    internal open fun goToLastPage() {
+        //override in children
+    }
+
+    internal open fun goToPreviousPage() {
+        //override in children
+    }
+
+    internal open fun goToNextPage() {
+        //override in children
+    }
+
 }

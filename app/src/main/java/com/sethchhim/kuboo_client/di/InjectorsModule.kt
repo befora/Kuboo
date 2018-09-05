@@ -49,7 +49,7 @@ abstract class InjectorsModule {
     abstract fun readerComicActivity(): ReaderComicActivity
 
     @ReaderScope
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = [(ReaderModule::class), (ReaderModuleSub::class)])
     abstract fun readerPdfActivity(): ReaderPdfActivity
 
     @AboutScope

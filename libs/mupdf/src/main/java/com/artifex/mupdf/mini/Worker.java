@@ -17,7 +17,7 @@ public class Worker implements Runnable {
     private LinkedBlockingQueue<Task> queue;
     private boolean alive;
 
-    Worker(Activity act) {
+    public Worker(Activity act) {
         activity = act;
         queue = new LinkedBlockingQueue<Task>();
     }

@@ -3,11 +3,7 @@
           package="com.artifex.mupdf.mini">
 
     <application>
-        <activity
-            android:name=".DocumentActivity"
-            android:label="MuPDF mini"
-            android:configChanges="orientation|screenSize|keyboardHidden">
-        </activity>
+
         <activity
             android:name=".OutlineActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
