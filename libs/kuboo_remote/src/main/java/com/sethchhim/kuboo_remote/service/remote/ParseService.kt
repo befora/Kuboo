@@ -16,93 +16,120 @@ import javax.xml.parsers.SAXParserFactory
 
 class ParseService {
 
+    private val isDebugParse = false
+
     internal fun parseNeighbor(login: Login, book: Book, stringXml: String, maxResults: Int = Int.MAX_VALUE): Neighbors {
+        val startTime = System.currentTimeMillis()
         val neighbors = Neighbors().apply { currentBook = book }
         try {
             val saxList = mutableListOf<Book>()
             getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
             saxList.searchForNeighbors(neighbors)
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse neighbor complete [$endTime ms]")
         }
         return neighbors
     }
 
     internal fun parseNeighborNextPage(login: Login, book: Book, stringXml: String, maxResults: Int = Int.MAX_VALUE): Neighbors {
+        val startTime = System.currentTimeMillis()
         val neighbors = Neighbors().apply { currentBook = book }
         try {
             val saxList = mutableListOf<Book>()
             getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
             saxList.searchForNeighborsNextPage(neighbors)
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse neighbor next page complete [$endTime ms]")
         }
         return neighbors
     }
 
 
     internal fun parseSeriesNeighbors(login: Login, book: Book, stringXml: String, seriesLimit: Int, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
+        val startTime = System.currentTimeMillis()
         val neighbors = mutableListOf<Book>()
         try {
             val saxList = mutableListOf<Book>()
             getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
             saxList.searchForSeriesNeighbors(book, neighbors, seriesLimit)
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse series neighbor complete [$endTime ms]")
         }
         return neighbors
     }
 
     internal fun parseSeriesNeighborsNextPage(login: Login, stringXml: String, seriesLimit: Int, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
+        val startTime = System.currentTimeMillis()
         val neighbors = mutableListOf<Book>()
         try {
             val saxList = mutableListOf<Book>()
             getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
             saxList.searchForSeriesNeighborsNextPage(neighbors, seriesLimit)
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse series neighbor next page complete [$endTime ms]")
         }
         return neighbors
     }
 
     internal fun parseOpds(login: Login, stringXml: String, maxResults: Int = Int.MAX_VALUE): MutableList<Book> {
+        val startTime = System.currentTimeMillis()
         val saxList = mutableListOf<Book>()
         try {
             getSaxParser().parse(getInputSource(stringXml), HandlerOpds(login, saxList, maxResults))
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse opds complete [$endTime ms]")
         }
         return saxList
     }
 
     internal fun parsePagination(stringXml: String): Pagination {
+        val startTime = System.currentTimeMillis()
         val pagination = Pagination()
         try {
             getSaxParser().parse(getInputSource(stringXml), HandlerPagination(pagination))
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse pagination complete [$endTime ms]")
         }
         return pagination
     }
 
     internal fun parseItemCount(stringXml: String): String {
+        val startTime = System.currentTimeMillis()
         val itemCount = mutableListOf<String>()
         try {
             getSaxParser().parse(getInputSource(stringXml), HandlerItemCount(itemCount))
         } catch (e: SAXException) {
-//            Timber.i(e.message)
+            // do nothing
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -111,6 +138,9 @@ class ParseService {
             return itemCount[0]
         } catch (e: IndexOutOfBoundsException) {
             e.printStackTrace()
+        } finally {
+            val endTime = System.currentTimeMillis() - startTime
+            if (isDebugParse) Timber.i("Parse item count complete [$endTime ms]")
         }
         return "0"
 
@@ -142,14 +172,14 @@ class ParseService {
         try {
             val previousPosition = position - 1
             neighbors.previousBook = this[previousPosition]
-            Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}]")
+            if (isDebugParse) Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}]")
         } catch (e: IndexOutOfBoundsException) {
         }
 
         try {
             val nextPosition = position + 1
             neighbors.nextBook = this[nextPosition]
-            Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}]")
+            if (isDebugParse) Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}]")
         } catch (e: IndexOutOfBoundsException) {
         }
 
@@ -161,7 +191,7 @@ class ParseService {
 
         try {
             neighbors.nextBook = this[position]
-            Timber.i("Found nextBook! position[$position] title[${neighbors.nextBook?.title}]")
+            if (isDebugParse) Timber.i("Found nextBook! position[$position] title[${neighbors.nextBook?.title}]")
         } catch (e: IndexOutOfBoundsException) {
         }
 
