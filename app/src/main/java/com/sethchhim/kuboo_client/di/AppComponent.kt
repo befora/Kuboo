@@ -2,10 +2,7 @@ package com.sethchhim.kuboo_client.di
 
 import android.content.Context
 import com.sethchhim.kuboo_client.BaseApplication
-import com.sethchhim.kuboo_client.data.glide.GlideLocalFetcher
-import com.sethchhim.kuboo_client.data.glide.GlideModule
-import com.sethchhim.kuboo_client.data.glide.GlidePassthroughFetcher
-import com.sethchhim.kuboo_client.data.glide.GlideRemoteFetcher
+import com.sethchhim.kuboo_client.data.glide.*
 import com.sethchhim.kuboo_client.data.repository.FetchRepository
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_client.service.IntentService
@@ -46,6 +43,7 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(glideLocalFetcher: GlideLocalFetcher)
     fun inject(glideModule: GlideModule)
     fun inject(glidePassthroughFetcher: GlidePassthroughFetcher)
+    fun inject(glidePdfFetcher: GlidePdfFetcher)
     fun inject(glideRemoteFetcher: GlideRemoteFetcher)
     fun inject(intentService: IntentService)
     fun inject(latestAdapter: LatestAdapter)

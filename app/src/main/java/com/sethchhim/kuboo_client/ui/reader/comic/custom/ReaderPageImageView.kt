@@ -407,11 +407,11 @@ class ReaderPageImageView : AppCompatImageView {
             val imageHeight = computeCurrentImageSize().y.toFloat()
             val offsetY = computeCurrentOffset().y.toFloat()
             if (offsetY >= 0 && direction < 0) {
-                Timber.d("$offsetY >= 0 && $direction < 0")
+//                Timber.d("$offsetY >= 0 && $direction < 0")
                 onCanNotScrollLeft()
                 return false
             } else if (Math.abs(offsetY) + height >= imageHeight && direction > 0) {
-                Timber.d("Math.abs($offsetY) + $height >= $imageHeight && $direction > 0")
+//                Timber.d("Math.abs($offsetY) + $height >= $imageHeight && $direction > 0")
                 onCanNotScrollRight()
                 return false
             }
@@ -421,11 +421,11 @@ class ReaderPageImageView : AppCompatImageView {
             val offsetX = computeCurrentOffset().x.toFloat()
 
             if (offsetX >= 0 && direction < 0) {
-                Timber.d("$offsetX >= 0 && $direction < 0")
+//                Timber.d("$offsetX >= 0 && $direction < 0")
                 onCanNotScrollLeft()
                 return false
             } else if (Math.abs(offsetX) + width >= imageWidth && direction > 0) {
-                Timber.d("Math.abs($offsetX) + $width >= $imageWidth && $direction > 0")
+//                Timber.d("Math.abs($offsetX) + $width >= $imageWidth && $direction > 0")
                 onCanNotScrollRight()
                 return false
             }
@@ -435,13 +435,11 @@ class ReaderPageImageView : AppCompatImageView {
     }
 
     private fun onCanNotScrollLeft() {
-        Timber.d("onCanNotScrollLeft")
-//        if (context is ReaderPdfActivity) (context as ReaderPdfActivity).goToPreviousPage()
+
     }
 
     private fun onCanNotScrollRight() {
-        Timber.d("onCanNotScrollRight")
-//        if (context is ReaderPdfActivity) (context as ReaderPdfActivity).goToNextPage()
+
     }
 
     private inner class ZoomAnimation internal constructor(internal var mX: Float, internal var mY: Float, internal var mScale: Float) : Runnable {

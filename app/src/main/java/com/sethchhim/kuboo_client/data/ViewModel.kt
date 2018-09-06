@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.data.model.Dimension
+import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.repository.*
 import com.sethchhim.kuboo_remote.model.Book
@@ -21,6 +22,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
                 private val localRepository: LocalRepository,
                 private val logRepository: LogRepository,
                 private val loginRepository: LoginRepository,
+                private val pdfRepository: PdfRepository,
                 private val readerRepository: ReaderRepository,
                 private val recentRepository: RecentRepository,
                 private val remoteRepository: RemoteRepository) : ViewModel() {
@@ -286,5 +288,16 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     //log
     internal fun getLogList() = logRepository.getLogList()
+
+    //pdf
+    internal fun initPdf(filePath: String) = pdfRepository.initPdf(filePath)
+
+    internal fun getPdfDocument() = pdfRepository.document
+
+    internal fun getPdfImageInputStream(glidePdf: GlidePdf) = pdfRepository.getPdfImageInputStream(glidePdf)
+
+    internal fun getPdfOutline() = pdfRepository.getPdfOutline()
+
+    internal fun getPdfPageCount() = pdfRepository.getPdfPageCount()
 
 }

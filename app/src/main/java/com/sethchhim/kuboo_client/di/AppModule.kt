@@ -47,9 +47,10 @@ class AppModule {
             localRepository: LocalRepository,
             logRepository: LogRepository,
             loginRepository: LoginRepository,
+            pdfRepository: PdfRepository,
             readerRepository: ReaderRepository,
             recentRepository: RecentRepository,
-            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, latestRepository, localRepository, logRepository, loginRepository, readerRepository, recentRepository, remoteRepository)
+            remoteRepository: RemoteRepository) = ViewModel(browserRepository, downloadsRepository, favoriteRepository, fetchRepository, latestRepository, localRepository, logRepository, loginRepository, pdfRepository, readerRepository, recentRepository, remoteRepository)
 
     @Provides
     @AppScope
@@ -82,6 +83,10 @@ class AppModule {
     @Provides
     @AppScope
     fun provideLoginRepository(sharedPrefsHelper: SharedPrefsHelper) = LoginRepository(sharedPrefsHelper)
+
+    @Provides
+    @AppScope
+    fun providePdfRepository() = PdfRepository()
 
     @Provides
     @AppScope

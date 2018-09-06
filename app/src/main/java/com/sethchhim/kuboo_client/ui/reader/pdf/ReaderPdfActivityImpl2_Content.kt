@@ -2,7 +2,7 @@ package com.sethchhim.kuboo_client.ui.reader.pdf
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
 import android.text.method.PasswordTransformationMethod
@@ -11,13 +11,11 @@ import android.widget.EditText
 import android.widget.SeekBar
 import com.artifex.mupdf.fitz.Document
 import com.artifex.mupdf.mini.R
-import com.sethchhim.kuboo_client.Extensions.toUri
 import com.sethchhim.kuboo_client.data.model.OutlineItem
 import com.sethchhim.kuboo_client.ui.reader.pdf.adapter.ReaderPdfAdapter
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.io.File
-import java.io.IOException
 import java.util.*
 
 @SuppressLint("Registered")
@@ -30,42 +28,26 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
     protected fun populateContent() {
         val file = File(currentBook.filePath)
         when (file.exists()) {
-            true -> loadUri(file.toUri())
+            true -> loadUri()
             false -> onFileIsInvalid()
         }
     }
 
-    private fun loadUri(uri: Uri) {
-        mimetype = intent.type
-        key = uri.toString()
-        if (uri.scheme == "file") {
-            title = uri.lastPathSegment
-            path = uri.path
-        } else {
-            title = uri.toString()
-            try {
-                val stm = contentResolver.openInputStream(uri)
-                buffer = stm?.readBytes()
-            } catch (e: IOException) {
-                Timber.e(e)
+    private fun loadUri() {
+        currentPage = currentBook.currentPage
+        searchHitPage = -1
+        val file = File(currentBook.filePath)
+        when (file.exists()) {
+            true -> openDocument()
+            false -> {
+                Timber.e("Pdf file does not exist! filePath[${file.path}]")
+                finish()
             }
         }
-
-        prefs = getPreferences(Context.MODE_PRIVATE)
-        layoutEm = prefs!!.getFloat("layoutEm", 8f)
-        fitPage = prefs!!.getBoolean("fitPage", false)
-        currentPage = prefs!!.getInt(key, 0)
-        searchHitPage = -1
-        hasLoaded = false
-
-        openDocument()
     }
 
     private fun openDocument() {
-        document = when (path != null) {
-            true -> Document.openDocument(path)
-            false -> Document.openDocument(buffer, mimetype)
-        }
+        val document = viewModel.initPdf(currentBook.filePath)
         val needsPassword: Boolean = document.needsPassword()
         if (needsPassword)
             askPassword(R.string.dlog_password_message)
@@ -89,11 +71,21 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
     }
 
     private fun checkPassword(password: String) {
-        val passwordOkay = document.authenticatePassword(password)
+        val passwordOkay = viewModel.getPdfDocument().authenticatePassword(password)
         if (passwordOkay)
             loadDocument()
         else
             askPassword(R.string.dlog_password_retry)
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar, p1: Int, p2: Boolean) {
+
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar) {
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar) {
     }
 
     protected fun resetSearch() {
@@ -142,25 +134,22 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
         if (searchNeedle!!.isEmpty())
             searchNeedle = null
         if (searchNeedle != null)
-            if (startPage in 0..(pageCount - 1))
+            if (startPage in 0..(viewModel.getPdfPageCount() - 1))
                 runSearch(startPage, direction, searchNeedle!!)
     }
 
     private fun loadDocument() {
         try {
+            val document = viewModel.getPdfDocument()
+            val pageCount = viewModel.getPdfPageCount()
             val metaTitle = document.getMetaData(Document.META_INFO_TITLE)
-            if (metaTitle != null)
-                title = metaTitle
+            if (metaTitle != null) title = metaTitle
             isReflowable = document.isReflowable
-            if (isReflowable) {
-                document.layout(layoutW, layoutH, layoutEm)
-            }
-            pageCount = document.countPages()
+            if (isReflowable) document.layout(layoutW, layoutH, 0f)
             if (currentPage < 0 || currentPage >= pageCount) currentPage = 0
             loadOutline()
             onLoadDocumentSuccess()
         } catch (e: Exception) {
-            pageCount = 1
             currentPage = 0
             onLoadDocumentFail()
         }
@@ -171,75 +160,42 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
     }
 
     private fun onLoadDocumentSuccess() {
-        Timber.d("onLoadDocumentSuccess ${document.countPages()}")
-        viewPager.adapter = ReaderPdfAdapter(this)
+        viewPager.adapter = ReaderPdfAdapter(this, viewModel)
     }
 
-//    protected fun relayoutDocument() {
+    protected fun relayoutDocument() {
 //        isRequestRelay = true
 //        try {
+//            val document = viewModel.getPdfDocument()
 //            val mark = document.makeBookmark(currentPage)
-//            document.layout(layoutW, layoutH, layoutEm)
-//            pageCount = document.countPages()
+//            document.layout(layoutW, layoutH, 0f)
 //            currentPage = document.findBookmark(mark)
 //        } catch (x: Throwable) {
-//            pageCount = 1
 //            currentPage = 0
 //            throw x
 //        }
 //        loadOutline()
 //        loadPage()
-//    }
 
-    private fun loadOutline() {
-        val outline = document.loadOutline()
-        if (outline != null) {
-            flatOutline = ArrayList()
-            flattenOutline(outline, "")
-            flatOutline!!.sortWith(Comparator { o1, o2 -> o1.currentPage - o2.currentPage })
-            loadOutlineTotal()
-        } else {
-            flatOutline = null
-        }
-
-        if (flatOutline != null) {
-            if (!isRequestRelay) onLoadOutlineSuccess()
-        } else {
-            if (!isRequestRelay) onLoadOutlineFail()
-        }
     }
 
-    private fun flattenOutline(outline: Array<com.artifex.mupdf.fitz.Outline>, indent: String) {
-
-        for (node in outline) {
-            if (node.title != null)
-                flatOutline!!.add(OutlineItem(indent + node.title, node.page, 1))
-            if (node.down != null)
-                flattenOutline(node.down, "$indent    ")
+    private fun loadOutline() = viewModel.getPdfOutline().observe(this, Observer {
+        when (it == null) {
+            true -> onLoadOutlineSuccess(it!!)
+            false -> onLoadOutlineFail()
         }
+    })
+
+    private fun onLoadOutlineSuccess(outlineList: ArrayList<OutlineItem>) {
+        Timber.d("Pdf outline load successful. size[${outlineList.size}]")
     }
 
-    private fun loadOutlineTotal() {
-        for (i in flatOutline!!.indices) {
-            if (i != flatOutline!!.size - 1) {
-                val currentStart = flatOutline!![i].currentPage
-                val nextPosition = i + 1
-                val currentEnd = flatOutline!![nextPosition].currentPage - 1
-                flatOutline!![i].totalPages = currentEnd - (currentStart - 1)
-            } else {
-                val currentStart = flatOutline!![i].currentPage
-                val currentEnd = document.countPages() - 1
-                flatOutline!![i].totalPages = currentEnd - (currentStart - 1)
-            }
-        }
+    private fun onLoadOutlineFail() {
+        Timber.e("Pdf outline failed to load!")
     }
 
-    protected fun onLoadOutlineSuccess() {}
 
-    protected fun onLoadOutlineFail() {}
-
-
-    protected fun onFileIsInvalid() {
+    private fun onFileIsInvalid() {
         toast(getString(com.sethchhim.kuboo_client.R.string.reader_something_went_wrong))
         finish()
     }
@@ -250,7 +206,7 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
     }
 
     override fun goToLastPage() {
-        currentPage = pageCount - 1
+        currentPage = viewModel.getPdfPageCount() - 1
         viewPager.currentItem = currentPage
     }
 
@@ -262,14 +218,14 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
     }
 
     override fun goToNextPage() {
-        if (currentPage < pageCount - 1) {
+        if (currentPage < viewModel.getPdfPageCount() - 1) {
             currentPage++
             viewPager.currentItem = currentPage
         }
     }
 
     fun gotoPage(p: Int) {
-        if (p >= 0 && p < pageCount && p != currentPage) {
+        if (p >= 0 && p < viewModel.getPdfPageCount() && p != currentPage) {
             currentPage = p
             viewPager.currentItem = currentPage
         }
@@ -283,16 +239,6 @@ open class ReaderPdfActivityImpl2_Content : ReaderPdfActivityImpl1_View(), SeekB
         } catch (x: Throwable) {
 
         }
-    }
-
-    override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-
-    }
-
-    override fun onStartTrackingTouch(p0: SeekBar?) {
-    }
-
-    override fun onStopTrackingTouch(p0: SeekBar?) {
     }
 
 }

@@ -5,11 +5,12 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
 import android.view.ViewGroup
 import com.sethchhim.kuboo_client.BaseApplication
+import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivityImpl2_Content
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfFragmentImpl1_Single
 import timber.log.Timber
 
-class ReaderPdfAdapter internal constructor(private val readerPdfActivity: ReaderPdfActivityImpl2_Content) : FragmentStatePagerAdapter(readerPdfActivity.supportFragmentManager) {
+class ReaderPdfAdapter internal constructor(private val readerPdfActivity: ReaderPdfActivityImpl2_Content, private val viewModel: ViewModel) : FragmentStatePagerAdapter(readerPdfActivity.supportFragmentManager) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -23,7 +24,7 @@ class ReaderPdfAdapter internal constructor(private val readerPdfActivity: Reade
 
     override fun getItemPosition(`object`: Any) = PagerAdapter.POSITION_NONE
 
-    override fun getCount() = readerPdfActivity.document.countPages()
+    override fun getCount() = viewModel.getPdfDocument().countPages()
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         try {

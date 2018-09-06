@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.ui.reader.pdf
 
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,8 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.artifex.mupdf.fitz.Rect
-import com.artifex.mupdf.fitz.android.AndroidDrawDevice
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.github.ybq.android.spinkit.SpinKitView
 import com.sethchhim.kuboo_client.Constants.ARG_BOOK
 import com.sethchhim.kuboo_client.Constants.ARG_LOCAL
@@ -23,6 +26,7 @@ import com.sethchhim.kuboo_client.Extensions.enable
 import com.sethchhim.kuboo_client.Extensions.fadeGone
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPageImageView
 import com.sethchhim.kuboo_remote.model.Book
 import org.jetbrains.anko.support.v4.onRefresh
@@ -49,42 +53,36 @@ class ReaderPdfFragmentImpl1_Single : ReaderPdfFragment() {
         swipeRefreshLayout.onRefresh { imageView.loadImage() }
     }
 
-    protected fun ImageView.loadImage() {
-        appExecutors.diskIO.execute {
-            val bitmap: Bitmap?
-            val hits: Array<Rect>
-            try {
-                val page = readerPdfActivity.document.loadPage(position)
-                val matrix = when (readerPdfActivity.fitPage) {
-                    true -> AndroidDrawDevice.fitPage(page, readerPdfActivity.canvasW, readerPdfActivity.canvasH)
-                    false -> AndroidDrawDevice.fitPageWidth(page, readerPdfActivity.canvasW)
-                }
-                bitmap = AndroidDrawDevice.drawPage(page, matrix)
+    private fun ImageView.loadImage() {
+        Glide.with(this)
+                .load(GlidePdf(book, position, readerPdfActivity.canvasW, readerPdfActivity.canvasH))
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        onLoadImageFail(e?.message)
+                        return false
+                    }
 
-                if (readerPdfActivity.searchNeedle != null) {
-                    hits = page.search(readerPdfActivity.searchNeedle)
-                    if (hits != null)
-                        for (hit in hits)
-                            hit.transform(matrix)
-                }
-                if (bitmap != null) {
-                    appExecutors.mainThread.execute { onLoadImageSuccess(bitmap) }
-                }
-            } catch (e: Exception) {
-                appExecutors.mainThread.execute { onLoadImageFail(e.message) }
-            }
-        }
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        onLoadImageSuccess()
+                        return false
+                    }
+                })
+                .into(this)
     }
 
-    private fun onLoadImageSuccess(bitmap: Bitmap) {
-        Timber.d("onLoadImageSuccess")
-        imageView.setImageBitmap(bitmap)
+    private fun onLoadImageSuccess() {
         spinKitView.fadeGone()
         imageView.fadeVisible()
 
         failConstraintLayout.fadeGone()
         swipeRefreshLayout.dismissDelayed()
         swipeRefreshLayout.disable()
+
+        //TODO ???
+//        if (readerPdfActivity.searchNeedle != null) {
+//            val hits = page.search(readerPdfActivity.searchNeedle)
+//            hits?.let { for (hit in hits) hit.transform(matrix) }
+//        }
     }
 
     private fun onLoadImageFail(message: String?) {

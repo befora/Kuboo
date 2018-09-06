@@ -12,6 +12,7 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.data.model.GlideLocal
+import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_remote.KubooRemote
 import java.io.InputStream
 import javax.inject.Inject
@@ -34,6 +35,9 @@ class GlideModule : AppGlideModule() {
 
         val passthroughFactory = GlidePassthroughLoader.Factory()
         registry.prepend(InputStream::class.java, InputStream::class.java, passthroughFactory)
+
+        val pdfFactory = GlidePdfLoader.Factory()
+        registry.replace(GlidePdf::class.java, InputStream::class.java, pdfFactory)
 
         val remoteFactory = GlideRemoteLoader.Factory(kubooRemote.getOkHttpClient())
         registry.replace(GlideUrl::class.java, InputStream::class.java, remoteFactory)
