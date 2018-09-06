@@ -1,13 +1,13 @@
 package com.sethchhim.kuboo_local.service.local
 
-import com.sethchhim.kuboo_local.model.ComicInfo
+import com.sethchhim.kuboo_local.model.ChapterInfo
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
 interface Parser {
 
-    var comicInfo: ComicInfo
+    var chapterInfo: ChapterInfo
     var filePath: String
 
     @Throws(IOException::class)

@@ -5,16 +5,17 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
 import android.view.ViewGroup
 import com.sethchhim.kuboo_client.BaseApplication
-import com.sethchhim.kuboo_client.data.ViewModel
-import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivityImpl2_Content
+import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivityImpl4_Content
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfFragmentImpl1_Single
 import timber.log.Timber
 
-class ReaderPdfAdapter internal constructor(private val readerPdfActivity: ReaderPdfActivityImpl2_Content, private val viewModel: ViewModel) : FragmentStatePagerAdapter(readerPdfActivity.supportFragmentManager) {
+class ReaderPdfAdapter internal constructor(private val readerPdfActivity: ReaderPdfActivityImpl4_Content) : FragmentStatePagerAdapter(readerPdfActivity.supportFragmentManager) {
 
     init {
         BaseApplication.appComponent.inject(this)
     }
+
+    val viewModel = readerPdfActivity.viewModel
 
     override fun getItem(position: Int): ReaderPdfFragmentImpl1_Single {
         val book = readerPdfActivity.currentBook

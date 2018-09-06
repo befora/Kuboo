@@ -8,7 +8,7 @@ import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_remote.model.Book
 
 @SuppressLint("Registered")
-open class BaseActivity : BaseActivityImpl1_Read() {
+open class BaseActivity : BaseActivityImpl2_Read() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,6 @@ open class BaseActivity : BaseActivityImpl1_Read() {
         previousBook = Book()
         nextBook = Book()
         transitionUrl = getStringExtra(Constants.ARG_TRANSITION_URL) ?: ""
-        isLocal = currentBook.isLocal()
     }
 
 }

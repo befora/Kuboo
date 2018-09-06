@@ -54,8 +54,10 @@ class ReaderPdfFragmentImpl1_Single : ReaderPdfFragment() {
     }
 
     private fun ImageView.loadImage() {
+        val width = readerPdfActivity.systemUtil.getSystemWidth()
+        val height = readerPdfActivity.systemUtil.getSystemHeight()
         Glide.with(this)
-                .load(GlidePdf(book, position, readerPdfActivity.canvasW, readerPdfActivity.canvasH))
+                .load(GlidePdf(book, position, width, height))
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         onLoadImageFail(e?.message)

@@ -56,7 +56,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
             Log.d("onCreateActionMode", "triggered")
             mActionMode = mode
             textSelectionMode = true
-            epubReaderListener.OnTextSelectionModeChangeListener(true)
+            epubReaderListener.onTextSelectionModeChangeListener(true)
             return true
         }
 
@@ -72,7 +72,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
 
         override fun onDestroyActionMode(mode: android.view.ActionMode) {
             Log.d("onDestroyActionMode", "triggered")
-            epubReaderListener.OnTextSelectionModeChangeListener(false)
+            epubReaderListener.onTextSelectionModeChangeListener(false)
             textSelectionMode = false
         }
     }
@@ -124,7 +124,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
     }
 
     fun loadPosition(chapterNumber: Int, chapterProgress: Float) {
-        epubReaderListener.OnPositionLoading()
+        epubReaderListener.onPositionLoading()
         validate(chapterNumber, chapterProgress)
 
         val htmlData = chapterList[this.chapterNumber].content.formatHtmlContent()
@@ -141,15 +141,14 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
                     //apply all javascript based styling here
                     applyMargin(Settings.MARGIN_SIZE)
 
-
-                    delay(800)
+                    delay(1000)
                     scrollToCurrentPosition()
-                    epubReaderListener.OnLoadPositionSuccess()
+                    epubReaderListener.onLoadPositionSuccess()
                 }
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-                epubReaderListener.OnLinkClicked(request.url.toString())
+                epubReaderListener.onLinkClicked(request.url.toString())
                 return true
             }
         }
@@ -158,16 +157,16 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
     fun goToNextPage() {
         if (!isLoading) {
             val pageHeight = getPageHeight()
-            val TotalHeight = getTotalContentHeight()
-            if (TotalHeight > this.scrollY + this.height) {
+            val totalHeight = getTotalContentHeight()
+            if (totalHeight > this.scrollY + this.height) {
                 isLoading = true
-                progress = (this.scrollY + pageHeight).toFloat() / TotalHeight
+                progress = (this.scrollY + pageHeight).toFloat() / totalHeight
                 pageNumber = (this.scrollY + pageHeight) / pageHeight
                 //this.scrollTo(0, pageNumber * pageHeight);
                 val anim = ObjectAnimator.ofInt(this, "scrollY", (pageNumber - 1) * pageHeight, pageNumber * pageHeight)
                 anim.duration = SCROLL_DURATION.toLong()
                 anim.start()
-                epubReaderListener.OnPageChangeListener(chapterNumber, pageNumber, this.getProgressStart(), this.getProgressEnd())
+                epubReaderListener.onPageChangeListener(chapterNumber, pageNumber, this.getProgressStart(), this.getProgressEnd())
                 isLoading = false
             } else {
                 loadNextChapter()
@@ -178,11 +177,11 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
     fun goToPreviousPage() {
         if (!isLoading) {
             val pageHeight = getPageHeight()
-            val TotalHeight = getTotalContentHeight()
+            val totalHeight = getTotalContentHeight()
             //Log.d("epubPagePre", this.getScrollY() + "\t" + pageHeight);
             if (this.scrollY - pageHeight >= 0) {
                 isLoading = true
-                progress = (this.scrollY - pageHeight).toFloat() / TotalHeight
+                progress = (this.scrollY - pageHeight).toFloat() / totalHeight
                 //Log.d("EpubReaderProgress", progress + " " + pageHeight + " " + this.getScrollY() + " " + TotalHeight);
                 pageNumber = (this.scrollY - pageHeight) / pageHeight
                 //this.scrollTo(0, ((int) (pageNumber * pageHeight)));
@@ -190,7 +189,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
                         (pageNumber + 1) * pageHeight, pageNumber * pageHeight)
                 anim.duration = SCROLL_DURATION.toLong()
                 anim.start()
-                epubReaderListener.OnPageChangeListener(chapterNumber, pageNumber, this.getProgressStart(), this.getProgressEnd())
+                epubReaderListener.onPageChangeListener(chapterNumber, pageNumber, this.getProgressStart(), this.getProgressEnd())
                 isLoading = false
             } else if (this.scrollY > 0) {
                 isLoading = true
@@ -200,7 +199,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
                 val anim = ObjectAnimator.ofInt(this, "scrollY", (pageNumber + 1) * pageHeight, pageNumber * pageHeight)
                 anim.duration = SCROLL_DURATION.toLong()
                 anim.start()
-                epubReaderListener.OnPageChangeListener(chapterNumber, pageNumber, this.getProgressStart(), this.getProgressEnd())
+                epubReaderListener.onPageChangeListener(chapterNumber, pageNumber, this.getProgressStart(), this.getProgressEnd())
                 isLoading = false
             } else {
                 loadPreviousChapter()
@@ -208,23 +207,23 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
         }
     }
 
-    fun loadNextChapter() {
+    private fun loadNextChapter() {
         if (chapterList.size > chapterNumber + 1 && !isLoading) {
             isLoading = true
             loadPosition(chapterNumber + 1, 0f)
             isLoading = false
         } else if (chapterList.size <= chapterNumber + 1) {
-            epubReaderListener.OnBookEndReached()
+            epubReaderListener.onBookEndReached()
         }
     }
 
-    fun loadPreviousChapter() {
+    private fun loadPreviousChapter() {
         if (chapterNumber - 1 >= 0 && !isLoading) {
             isLoading = true
             loadPosition(chapterNumber - 1, 1f)
             isLoading = false
         } else if (chapterNumber - 1 < 0) {
-            epubReaderListener.OnBookStartReached()
+            epubReaderListener.onBookStartReached()
         }
     }
 
@@ -278,7 +277,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
         anim.start()
 
         scrollTo(0, pageNumber * pageHeight)
-        epubReaderListener.OnPageChangeListener(this@EpubReaderViewImpl1_Content.chapterNumber, this@EpubReaderViewImpl1_Content.pageNumber, this@EpubReaderViewImpl1_Content.progress, this@EpubReaderViewImpl1_Content.getProgressEnd())
+        epubReaderListener.onPageChangeListener(this@EpubReaderViewImpl1_Content.chapterNumber, this@EpubReaderViewImpl1_Content.pageNumber, this@EpubReaderViewImpl1_Content.progress, this@EpubReaderViewImpl1_Content.getProgressEnd())
     }
 
     private fun downloadResource(directory: String) {
@@ -411,8 +410,8 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
             //Log.v("EpubReader", "SELECTION_P>19:" +  value.substring(1,value.length()-1).replaceAll("\\\\\"","\"").replaceAll("\\\\\\\\\"","\\\\\"").replaceAll("\\\\\\\"","\\\\\"").replaceAll("\\\\\\\\\\\"","\\\\\""));
             var text = ""
             try {
-                val parse_json = value.substring(1, value.length - 1).replace("\\\\\"".toRegex(), "\"").replace("\\\\\\\\\"".toRegex(), "\\\\\"").replace("\\\\\\\"".toRegex(), "\\\\\"").replace("\\\\\\\\\\\"".toRegex(), "\\\\\"")
-                val `object` = JSONObject(parse_json)
+                val json = value.substring(1, value.length - 1).replace("\\\\\"".toRegex(), "\"").replace("\\\\\\\\\"".toRegex(), "\\\\\"").replace("\\\\\\\"".toRegex(), "\\\\\"").replace("\\\\\\\\\\\"".toRegex(), "\\\\\"")
+                val `object` = JSONObject(json)
                 text = `object`.getString("selectedText")
             } catch (e: Exception) {
                 e.printStackTrace()

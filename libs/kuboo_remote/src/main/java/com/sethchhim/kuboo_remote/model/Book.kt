@@ -131,6 +131,10 @@ data class Book(
         return isComic() || isEpub() || isPdf()
     }
 
+    fun isBannedFromPreview() = !isComic() && !isEpub()
+
+    fun isBannedFromTransition() = !isComic() && !isEpub()
+
     fun isBannedFromRecent(): Boolean {
         return this.linkXmlPath.equals("all", ignoreCase = true) or
                 this.linkXmlPath.equals("?latest=true", ignoreCase = true) or

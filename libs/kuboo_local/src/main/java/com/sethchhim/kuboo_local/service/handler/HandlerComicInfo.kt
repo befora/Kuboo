@@ -1,11 +1,11 @@
 package com.sethchhim.kuboo_local.service.handler
 
-import com.sethchhim.kuboo_local.model.ComicInfo
+import com.sethchhim.kuboo_local.model.ChapterInfo
 import org.xml.sax.Attributes
 import org.xml.sax.SAXException
 import org.xml.sax.helpers.DefaultHandler
 
-class HandlerComicInfo(private val comicInfo: ComicInfo) : DefaultHandler() {
+class HandlerComicInfo(private val chapterInfo: ChapterInfo) : DefaultHandler() {
 
     private var entry = false
     private var pages = false
@@ -29,7 +29,7 @@ class HandlerComicInfo(private val comicInfo: ComicInfo) : DefaultHandler() {
                 } catch (e: NumberFormatException) {
                     0
                 }
-                comicInfo.bookmarks.add(Pair(positionInt, bookmark))
+                chapterInfo.bookmarks.add(Pair(positionInt, bookmark))
             }
         }
     }

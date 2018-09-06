@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_local
 
-import com.sethchhim.kuboo_local.model.ComicInfo
+import com.sethchhim.kuboo_local.model.ChapterInfo
 import com.sethchhim.kuboo_local.service.local.Parser
 import com.sethchhim.kuboo_local.task.Task_LocalFileParser
 import com.sethchhim.kuboo_local.task.Task_LocalImageInputStream
@@ -17,11 +17,11 @@ class KubooLocal(val diskIO: Executor, val mainThread: Executor) {
 
     fun cleanupParser() {
         parser.filePath = ""
-        parser.comicInfo = ComicInfo()
+        parser.chapterInfo = ChapterInfo()
         parser.destroy()
     }
 
-    fun getLocalComicInfo() = parser.comicInfo
+    fun getLocalComicInfo() = parser.chapterInfo
 
     fun getLocalInputStreamAt(position: Int) = Task_LocalImageInputStream(this, position).liveData
 

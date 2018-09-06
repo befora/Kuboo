@@ -20,5 +20,4 @@ class PdfRepository {
 
     internal fun getPdfOutline() = Task_GetPdfOutline(document).liveData
 
-
 }

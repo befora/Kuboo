@@ -13,7 +13,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 
 @SuppressLint("Registered")
-open class ReaderBaseActivity : ReaderBaseActivityImpl6_Tracking() {
+open class ReaderBaseActivity : ReaderBaseActivityImpl7_Hardware() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportPostponeEnterTransition()
@@ -36,12 +36,14 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl6_Tracking() {
         restoreOverlay()
 
         title = currentBook.title
+        isLocal = currentBook.isLocal()
         populateNeighbors()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         title = currentBook.title
+        isLocal = currentBook.isLocal()
         populateNeighbors()
     }
 

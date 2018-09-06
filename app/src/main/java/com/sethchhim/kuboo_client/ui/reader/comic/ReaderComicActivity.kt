@@ -8,27 +8,24 @@ import android.view.MenuItem
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 
-class ReaderComicActivity : ReaderComicActivityImpl3_Content() {
+class ReaderComicActivity : ReaderComicActivityImpl6_Hardware() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initContentUi()
+        initUi()
         initListeners()
         populateContent()
-        setOverlayChapterButton()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        initContentUi()
+        initUi()
         initListeners()
         populateContent()
-        setOverlayChapterButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_reader_comic, menu)
-
         aspectFillMenuItem = menu.findItem(R.id.reader_aspect_fill)
         aspectFitMenuItem = menu.findItem(R.id.reader_aspect_fit)
         fitWidthMenuItem = menu.findItem(R.id.reader_aspect_fit_width)
@@ -65,26 +62,6 @@ class ReaderComicActivity : ReaderComicActivityImpl3_Content() {
             hideSnackBarEnd()
             hideSnackBarNext()
         }
-    }
-
-    override fun onVolumeDownLongPressed() {
-        goToLastPage()
-    }
-
-    override fun onVolumeDownPressed() {
-        when {
-            snackBarEnd?.isShownOrQueued ?: false -> onSnackBarEndAction()
-            snackBarNext?.isShownOrQueued ?: false -> onSnackBarNextAction()
-            else -> goToNextPage()
-        }
-    }
-
-    override fun onVolumeUpLongPressed() {
-        goToFirstPage()
-    }
-
-    override fun onVolumeUpPressed() {
-        goToPreviousPage()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {

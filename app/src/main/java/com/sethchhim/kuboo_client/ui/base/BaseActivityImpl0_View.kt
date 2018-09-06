@@ -2,14 +2,10 @@ package com.sethchhim.kuboo_client.ui.base
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
@@ -21,13 +17,10 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.service.TrackingService
-import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.util.*
 import com.sethchhim.kuboo_remote.model.Book
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_layout_base.*
-import org.jetbrains.anko.longToast
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 @SuppressLint("Registered")
@@ -46,13 +39,6 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
     protected lateinit var nextBook: Book
     protected lateinit var source: Source
     protected lateinit var transitionUrl: String
-
-    protected lateinit var bookmarkDialog: AlertDialog
-    protected lateinit var loadingDialog: AlertDialog
-
-    internal var isLocal = false
-    protected var isLoadingCancelled = false
-    protected var isLoadingRequired = true
 
     internal fun forceOrientationSetting() {
         when (Settings.SCREEN_ORIENTATION) {
@@ -116,18 +102,6 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
     }
 
-    internal fun showToastDebug() {
-        if (systemUtil.isDebugBuild()) longToast("DEBUG")
-    }
-
-    internal fun showToastError() = toast(R.string.login_something_went_wrong)
-
-    internal fun showToastFailedToLoadImageAssets() = toast(R.string.main_failed_to_load_assets)
-
-    internal fun showToastFileDoesNotExist() = toast(R.string.dialog_file_does_not_exist)
-
-    internal fun showToastFileTypeNotSupported() = toast(R.string.main_file_type_not_supported)
-
     protected fun getAppTheme() = when (Settings.APP_THEME) {
         0 -> R.style.AppThemeLight
         1 -> R.style.AppThemeDark
@@ -145,66 +119,12 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
         setDuration(Settings.SHARED_ELEMENT_TRANSITION_DURATION).interpolator = DecelerateInterpolator()
     }
 
-    private fun hideBottomNavigation() = main_layout_base_bottomNavigationView.gone()
-
-    private fun hideToolbar() = main_layout_base_toolBar.gone()
-
     private fun showBottomNavigation() = main_layout_base_bottomNavigationView.visible()
+
+    private fun hideBottomNavigation() = main_layout_base_bottomNavigationView.gone()
 
     private fun showToolbar() = main_layout_base_toolBar.visible()
 
-    internal fun showChangeLog() = dialogUtil.getDialogChangeLog(this).apply {
-        setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.dialog_dismiss)) { dialogInterface, _ -> dialogInterface.dismiss() }
-        setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_rate)) { _, _ -> systemUtil.launchPlayStore() }
-        show()
-        window.attributes = WindowManager.LayoutParams().apply {
-            val systemWidth = systemUtil.getSystemWidth()
-            val systemHeight = systemUtil.getSystemHeight()
-            val newSize = (Math.min(systemWidth, systemHeight) * 0.9f).toInt()
-            width = newSize
-            height = ViewGroup.LayoutParams.WRAP_CONTENT
-        }
-    }
-
-    protected fun showLoadingDialog(loadingStage: LoadingStage) = loadingDialog.apply {
-        isLoadingCancelled = false
-        isLoadingRequired = true
-        val isReader = loadingStage == LoadingStage.SINGLE || loadingStage == LoadingStage.DUAL
-
-        setMessage(when (loadingStage) {
-            LoadingStage.PING -> getString(R.string.dialog_connecting_to_server)
-            LoadingStage.BOOKMARK -> getString(R.string.dialog_loading_bookmark)
-            LoadingStage.ASSET -> getString(R.string.dialog_loading_assets)
-            LoadingStage.SINGLE -> getString(R.string.dialog_loading_single_pane_mode)
-            LoadingStage.DUAL -> getString(R.string.dialog_loading_dual_pane_mode)
-        })
-
-        if (!isShowing) {
-            setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.dialog_cancel)) { _, _ -> onLoadingDialogCancel(isReader) }
-
-            if (isReader) {
-                setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.dialog_single_pane)) { _, _ -> onLoadingDialogSinglePane() }
-            }
-
-            if (isLoadingRequired) show()
-        }
-    }
-
-    private fun Dialog.onLoadingDialogCancel(isReader: Boolean) {
-        isLoadingCancelled = true
-        if (isShowing) dismiss()
-        if (isReader) finish()
-    }
-
-    private fun Dialog.onLoadingDialogSinglePane() {
-        if (isShowing) dismiss()
-        Settings.DUAL_PANE = false
-        sharedPrefsHelper.saveDualPane()
-        recreate()
-    }
-
-    protected fun hideLoadingDialog() = loadingDialog.apply {
-        if (isShowing) dismiss()
-    }
+    private fun hideToolbar() = main_layout_base_toolBar.gone()
 
 }

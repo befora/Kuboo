@@ -80,6 +80,8 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$android_lifecycle_version"
     implementation "android.arch.work:work-runtime:1.0.0-alpha08"
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -106,7 +108,7 @@ dependencies {
     implementation "com.tonyodev.fetch2:fetch2:$fetch_version"
     implementation "com.tonyodev.fetch2okhttp:fetch2okhttp:$fetch_version"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.artifex.mupdf:fitz:1.13.0'
     implementation 'com.booking:rtlviewpager:1.0.1'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     implementation 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
@@ -123,7 +125,5 @@ dependencies {
     implementation project(path: ':epublibdroid-kotlin')
     implementation project(path: ':kuboo_local')
     implementation project(path: ':kuboo_remote')
-    implementation project(path: ':mupdf')
 
-    implementation 'com.artifex.mupdf:fitz:1.13.0'
 }

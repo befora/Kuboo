@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import com.github.ybq.android.spinkit.SpinKitView
 import com.sethchhim.epublibdroid_kotlin.EpubReaderView
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
-import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.invisible
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
@@ -12,7 +11,6 @@ import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
-import org.jetbrains.anko.toast
 
 @SuppressLint("Registered")
 open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
@@ -37,18 +35,7 @@ open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
         epubReaderView.invisible()
     }
 
-    protected fun onLoadPreviewSuccess() {
-        supportStartPostponedEnterTransition()
-        showEnterTransition()
-    }
-
-    protected fun onLoadPreviewFail() {
-        supportStartPostponedEnterTransition()
-        previewImageView.isAnimatingTransition = false
-        previewImageView.gone()
-    }
-
-    private fun showEnterTransition() {
+    override fun showEnterTransition() {
         launch(UI) {
             try {
                 delay(1200)
@@ -59,11 +46,6 @@ open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
                 e.printStackTrace()
             }
         }
-    }
-
-    protected fun onFileNotFound() {
-        toast("File not found!")
-        finish()
     }
 
 }

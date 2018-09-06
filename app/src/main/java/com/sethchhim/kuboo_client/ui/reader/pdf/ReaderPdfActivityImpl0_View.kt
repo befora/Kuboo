@@ -1,40 +1,37 @@
-package com.sethchhim.kuboo_client.ui.reader.comic
+package com.sethchhim.kuboo_client.ui.reader.pdf
 
 import android.annotation.SuppressLint
-import com.sethchhim.kuboo_client.Extensions.fadeVisible
+import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.data.model.OutlineItem
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderViewPagerImpl1_Edge
 import timber.log.Timber
+import java.util.*
 
 @SuppressLint("Registered")
-open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
+open class ReaderPdfActivityImpl0_View : ReaderBaseActivity() {
+
+    protected var isReflowable: Boolean = false
+    protected var flatOutline: ArrayList<OutlineItem>? = null
+    protected var layoutW: Float = 0.toFloat()
+    protected var layoutH: Float = 0.toFloat()
 
     protected lateinit var viewPager: ReaderViewPagerImpl1_Edge
 
+    protected var currentPage: Int = 0
+
+    protected var isRequestRelay = false
+
     protected fun initUi() {
-        val contentView = layoutInflater.inflate(R.layout.reader_layout_comic_content, null, false)
+        previewImageView.isAnimatingTransition = false
+        previewImageView.gone()
+
+        val contentView = layoutInflater.inflate(R.layout.reader_layout_pdf_content, null, false)
         contentFrameLayout.removeAllViews()
         contentFrameLayout.addView(contentView)
 
-        viewPager = findViewById(R.id.reader_layout_base_content_readerViewPagerImpl1_Edge)
-        viewPager.offscreenPageLimit = getOffScreenPageLimit()
-    }
-
-    override fun onEnterTransitionFinished() {
-        forceOrientation()
-        viewPager.fadeVisible()
-    }
-
-    private fun getOffScreenPageLimit() = when (systemUtil.isOrientationPortrait()) {
-        true -> when (isLocal) {
-            true -> 4
-            false -> 2
-        }
-        false -> when (isLocal) {
-            true -> 2
-            false -> 1
-        }
+        viewPager = findViewById(R.id.reader_layout_pdf_content_readerViewPagerImpl1_Edge)
     }
 
     override fun onSwipeOutOfBoundsStart() = Timber.i("onSwipeOutOfBoundsStart")
@@ -48,4 +45,5 @@ open class ReaderComicActivityImpl0_View : ReaderBaseActivity() {
             false -> showSnackBarNext()
         }
     }
+
 }

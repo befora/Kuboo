@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_local.service.local
 
-import com.sethchhim.kuboo_local.model.ComicInfo
+import com.sethchhim.kuboo_local.model.ChapterInfo
 import com.sethchhim.kuboo_local.service.handler.HandlerComicInfo
 import org.xml.sax.InputSource
 import org.xml.sax.SAXException
@@ -15,7 +15,7 @@ import kotlin.experimental.or
 open class ParserBase {
 
     var filePath = ""
-    var comicInfo = ComicInfo()
+    var chapterInfo = ChapterInfo()
 
     fun isImage(filename: String) = filename.toLowerCase().matches(".*\\.(jpg|jpeg|bmp|gif|png|webp)$".toRegex())
 
@@ -24,7 +24,7 @@ open class ParserBase {
     fun handleComicInfo(inputStream: InputStream) {
         val comicInfoString = inputStream.bufferedReader().use { it.readText() }
         try {
-            SAXParserFactory.newInstance().newSAXParser().parse(InputSource(StringReader(comicInfoString)), HandlerComicInfo(comicInfo))
+            SAXParserFactory.newInstance().newSAXParser().parse(InputSource(StringReader(comicInfoString)), HandlerComicInfo(chapterInfo))
         } catch (e: SAXException) {
             e.printStackTrace()
         } catch (e: Exception) {

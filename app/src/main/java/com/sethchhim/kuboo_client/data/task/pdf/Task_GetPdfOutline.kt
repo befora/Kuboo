@@ -23,10 +23,8 @@ open class Task_GetPdfOutline(private val document: Document) : Task_LocalBase()
                     flattenOutline(outline, "", flatOutline)
                     flatOutline.sortWith(Comparator { o1, o2 -> o1.currentPage - o2.currentPage })
                     loadOutlineTotal(flatOutline)
-                } else {
-                    throw NullPointerException()
+                    executors.mainThread.execute { liveData.value = flatOutline }
                 }
-                executors.mainThread.execute { liveData.value = flatOutline }
             } catch (e: Exception) {
                 Timber.e(e)
                 executors.mainThread.execute { liveData.value = null }

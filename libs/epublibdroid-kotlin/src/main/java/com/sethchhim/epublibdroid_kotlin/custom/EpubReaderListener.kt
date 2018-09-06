@@ -1,19 +1,19 @@
 package com.sethchhim.epublibdroid_kotlin.custom
 
 interface EpubReaderListener {
-    fun OnPageChangeListener(ChapterNumber: Int, PageNumber: Int, ProgressStart: Float, ProgressEnd: Float)
+    fun onPageChangeListener(ChapterNumber: Int, PageNumber: Int, ProgressStart: Float, ProgressEnd: Float)
 
-    fun OnTextSelectionModeChangeListener(mode: Boolean?)
+    fun onTextSelectionModeChangeListener(mode: Boolean?)
 
-    fun OnLinkClicked(url: String)
+    fun onLinkClicked(url: String)
 
-    fun OnBookStartReached()
+    fun onBookStartReached()
 
-    fun OnBookEndReached()
+    fun onBookEndReached()
 
-    fun OnPositionLoading()
+    fun onPositionLoading()
 
-    fun OnLoadPositionSuccess()
+    fun onLoadPositionSuccess()
 
     fun onClickEpubReaderView()
 
