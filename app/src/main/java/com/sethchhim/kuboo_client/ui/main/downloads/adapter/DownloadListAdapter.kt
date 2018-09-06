@@ -233,7 +233,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
             Status.COMPLETED -> setStateCompleted(holder, download, favorite)
             Status.PAUSED -> setStatePaused(holder, download, favorite)
             Status.CANCELLED -> setStateCancelled(holder, download, favorite)
-            else -> if (download.error != com.tonyodev.fetch2.Error.NONE) setStateFail(holder, download, favorite)
+            else -> if (download.error != Error.NONE) setStateFail(holder, download, favorite)
         }
     }
 
@@ -266,23 +266,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_numberProgressBar.invisible()
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
-        when (download.error) {
-            Error.UNKNOWN -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_unknown)
-            Error.FILE_NOT_CREATED -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_file_not_created)
-            Error.CONNECTION_TIMED_OUT -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_connection_timed_out)
-            Error.UNKNOWN_HOST -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_uknown_host)
-            Error.HTTP_NOT_FOUND -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_http_not_found)
-            Error.WRITE_PERMISSION_DENIED -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_write_permission_denied)
-            Error.NO_STORAGE_SPACE -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_no_storage_space)
-            Error.NO_NETWORK_CONNECTION -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_no_network_connection)
-            Error.EMPTY_RESPONSE_FROM_SERVER -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_empty_response_from_server)
-            Error.REQUEST_ALREADY_EXIST -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_request_already_exist)
-            Error.DOWNLOAD_NOT_FOUND -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_download_not_found)
-            Error.FETCH_DATABASE_ERROR -> holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_fetch_database_error)
-            else -> {
-                //ayyy lmao
-            }
-        }
+        holder.itemView.browser_item_download_textView2.text = download.error.name
         holder.itemView.browser_item_download_textView3.onClick { viewModel.retryFetchDownload(download) }
     }
 
