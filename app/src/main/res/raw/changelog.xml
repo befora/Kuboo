@@ -2,6 +2,17 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Sep 12, 2018"
+        versionName="1.1.1">
+        <changelogtext>add spanish translation</changelogtext>
+        <changelogtext>add french translation</changelogtext>
+        <changelogtext>fix download error missing text update</changelogtext>
+        <changelogtext>fix preview play fab now uses correct icon</changelogtext>
+        <changelogtext>fix search browser did not show title as query</changelogtext>
+        <changelogtext>refactor pdf activity</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Sep 4, 2018"
         versionName="1.1.0_v3">
         <changelogtext>fix shared prefs moved to base application level instead of splash preload
