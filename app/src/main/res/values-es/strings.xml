@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="about_answer1">"El servidor Ubooquity debe tener habilitada la característica de transmisión por OPDS.
+
+El servidor Ubooquity debe tener abierto el puerto de red apropiado.
+
+El servidor Ubooquity deber tener abierto el acceso a través de cualquier cortafuegos (firewall)
+
+Se debe usar el siguiente formato:
+Ejemplo: \"http://192.168.0.1:2202/opds-comics/\""</string>
+    <string name="about_answer2">"Bookmarking (marcadores) es un sistema híbrido que permite hacer uso de bases de datos locales y remotas. En primer lugar el sistema utiliza un marcador local y a continuación busca si hay disponible un marcador remoto. Si encuentra un marcador remoto entonces se le da prioridad a este. Esto es para soportar aplicaciones \"heredadas\" que aún no se han actualizado a Ubooquity 2.0.+
+
+Los archivos epub no son compatibles con marcadores de servidor, es decir remotos.
+"</string>
+    <string name="about_answer3">"El panel doble fuerza el modo horizontal y divide la pantalla en dos páginas.
+
+Si el panel dual está habilitado y se ve una sola página, es por alguna de estas razones:
+
+- La imagen es una página de portada.
+    
+- La imagen se considera ANCHA.
+    
+- La imagen siguiente se considera ANCHA, requiriendo una página entera para sí misma.  
+
+La imagen se considera ANCHA si el ancho es mayor o igual a la longitud."</string>
+    <string name="about_answer4">"Puede cambiar el tamaño de la miniatura en el módulo de administración del servidor Ubooquity."</string>
+    <string name="about_app_disclaimer">"\"Kuboo\" es una aplicación de terceros independiente, no afiliada o asociada con Ubooquity de ninguna manera.
+    
+\"Kuboo\" proporciona acceso sin restricciones a Internet y no es responsable de la disponibilidad o el contenido de estas fuentes externas."</string>
+    <string name="about_develop_message">"Yo he desarrollado este proyecto para mi uso personal. Mi objetivo es compartirlo y contribuir a una comunidad de lectura de nicho.   
+ 
+Gracias a todos por los comentarios y el apoyo.
+ 
+Un agradecimiento especial a Tom por crear Ubooquity."</string>
+    <string name="about_developer_email">"sethchhim@gmail.com"</string>
+    <string name="about_developer_name">"Seth Chhim"</string>
+    <string name="about_faq">"Preguntas más frecuentes"</string>
+    <string name="about_google_disclaimer">"• Google Play y el logotipo de Google Play son marcas comerciales de Google Inc."</string>
+    <string name="about_info">"• Impulsado por el amor a la lectura. 
+ 
+• Libre y de código abierto.   
+ 
+• Sin anuncios, sin permisos especiales.   
+ 
+• Diseñado y probado para Ubooquity %1$s.   
+ 
+• Los comentarios y los informes de errores son bienvenidos"</string>
+    <string name="about_library">"Biblioteca"</string>
+    <string name="about_license">"Licencia"</string>
+    <string name="about_question1">"¿Por qué no puedo conectarme a un servidor Ubooquity?"</string>
+    <string name="about_question2">"¿Cómo funciona el sistema de marcadores?"</string>
+    <string name="about_question3">"¿Cómo funciona el panel doble?"</string>
+    <string name="about_question4">"¿Por qué están pixeladas mis miniaturas?"</string>
+
+    <string name="app_label">"Kuboo"</string>
+    <string name="app_label_debug">"Kuboo Debug"</string>
+
+    <string name="browser_favorite">"Favorito"</string>
+    <string name="browser_folder">"Carpeta"</string>
+    <string name="browser_media">"Medios de comunicación"</string>
+    <string name="browser_next">"SIGUIENTE"</string>
+    <string name="browser_page">"página"</string>
+    <string name="browser_pages">"páginas"</string>
+    <string name="browser_previous">"ANTERIOR"</string>
+    <string name="browser_something_went_wrong">"¡Algo salió mal!"</string>
+
+    <string name="dialog_bookmark_found">"¡Marcador encontrado!"</string>
+    <string name="dialog_browse">"Explorar"</string>
+    <string name="dialog_cancel">"Cancelar"</string>
+    <string name="dialog_connecting_to_server">"Conectando con el servidor"</string>
+    <string name="dialog_connection_is_encrypted">"La conexión está encriptada"</string>
+    <string name="dialog_copy_to_clipboard">"Copiar al portapapeles"</string>
+    <string name="dialog_decline_bookmark">"Rechazar marcador"</string>
+    <string name="dialog_delete">"Suprimir"</string>
+    <string name="dialog_dismiss">"Descartar"</string>
+    <string name="dialog_download">"Descargar"</string>
+    <string name="dialog_download_tracking">"Activar descargas automáticas"</string>
+    <string name="dialog_download_tracking_message">"La funcionalidad de descargas automáticas permite descargar de forma automática ítems de una serie. Tras finalizar la lectura de un ítem, éste se elimina del dispositivo y el próximo número (si lo hubiera) se pone en cola para su descarga. La cantidad de ítems en cola se puede establecer en el apartado de ajustes."</string>
+    <string name="dialog_file_does_not_exist">"¡El archivo no existe!"</string>
+    <string name="dialog_font">"Fuente"</string>
+    <string name="dialog_loading_assets">"Cargando activos"</string>
+    <string name="dialog_loading_bookmark">"Cargando marcador"</string>
+    <string name="dialog_loading_dual_pane_mode">"Cargando el modo de doble panel"</string>
+    <string name="dialog_loading_single_pane_mode">"Cargando el modo de panel único"</string>
+    <string name="dialog_local_file">"Archivo local"</string>
+    <string name="dialog_margin">"Margen"</string>
+    <string name="dialog_of">"de"</string>
+    <string name="dialog_open_series">"Abrir serie"</string>
+    <string name="dialog_please_restart_to_apply_changes">"Por favor, reinicie para aplicar los cambios."</string>
+    <string name="dialog_please_wait">"Por favor espera…"</string>
+    <string name="dialog_rate">"Calificar"</string>
+    <string name="dialog_remote_file">"Archivo remoto"</string>
+    <string name="dialog_remove">"SUPRIMIR"</string>
+    <string name="dialog_remove_recently_viewed">"¿Eliminar comic seleccionado?"</string>
+    <string name="dialog_restart">"Reiniciar"</string>
+    <string name="dialog_restart_required">"Se requiere reiniciar"</string>
+    <string name="dialog_resume_chapter">"Reanudar capítulo"</string>
+    <string name="dialog_resume_page">"Reanudar página"</string>
+    <string name="dialog_retry">"REINTENTAR"</string>
+    <string name="dialog_single_pane">"Panel único"</string>
+    <string name="dialog_total">"Total"</string>
+    <string name="dialog_undo">"DESHACER"</string>
+
+    <string name="downloads_cancelled">"Cancelado"</string>
+    <string name="downloads_connection_timed_out">"TIEMPO DE CONEXIÓN AGOTADO"</string>
+    <string name="downloads_download_not_found">"DESCARGA NO ENCONTRADA"</string>
+    <string name="downloads_empty_response_from_server">"SIN RESPUESTA POR PARTE DEL SERVIDOR"</string>
+    <string name="downloads_fetch_database_error">"ERROR BASE DE DATOS"</string>
+    <string name="downloads_file_not_created">"ARCHIVO NO CREADO"</string>
+    <string name="downloads_finished">"TERMINADO"</string>
+    <string name="downloads_free">"disponibles"</string>
+    <string name="downloads_http_not_found">"HTTP NO ENCONTRADO"</string>
+    <string name="downloads_no_network_connection">"NO HAY CONEXIÓN DE RED"</string>
+    <string name="downloads_no_storage_space">"SIN ESPACIO DE ALMACENAMIENTO"</string>
+    <string name="downloads_of">"de"</string>
+    <string name="downloads_pause_all">"Pausar todo"</string>
+    <string name="downloads_paused">"Pausado"</string>
+    <string name="downloads_queued">"En cola"</string>
+    <string name="downloads_request_already_exist">"SOLICITUD YA EXISTE"</string>
+    <string name="downloads_resume">"REANUDAR"</string>
+    <string name="downloads_resume_all">"Reanudar todo"</string>
+    <string name="downloads_retry">"REINTENTAR"</string>
+    <string name="downloads_uknown_host">"HOST DESCONOCIDO"</string>
+    <string name="downloads_unknown">"DESCONOCIDO"</string>
+    <string name="downloads_write_permission_denied">"PERMISO DENEGADO ESCRITURA"</string>
+
+    <string name="login_active_server_removed">"¡Servidor activo eliminado!"</string>
+    <string name="login_add_server">"Agregar servidor"</string>
+    <string name="login_delete_server">"Eliminar servidor"</string>
+    <string name="login_does_not_contain_opds_books_or_opds_comics">"No contiene /opds-books / o /opds-comics/"</string>
+    <string name="login_edit_server">"Editar servidor"</string>
+    <string name="login_example">"Ejemplo"</string>
+    <string name="login_ip_address">"Dirección IP (requerida)"</string>
+    <string name="login_ip_address_must_not_be_empty">"¡La dirección IP no debe estar vacía!"</string>
+    <string name="login_password">"Contraseña (Opcional)"</string>
+    <string name="login_server_name">"Nombre del servidor (opcional)"</string>
+    <string name="login_server_removed">"Servidor eliminado!"</string>
+    <string name="login_servers">"Servidores"</string>
+    <string name="login_show">"Mostrar"</string>
+    <string name="login_something_went_wrong">"¡Algo salió mal!"</string>
+    <string name="login_username">"Nombre de usuario (Opcional)"</string>
+
+    <string name="main_about">"Acerca de"</string>
+    <string name="main_browse">"Explorar"</string>
+    <string name="main_cancel">"Cancelar"</string>
+    <string name="main_close_drawer">"Cerrar el cajón"</string>
+    <string name="main_decline">"Declinar"</string>
+    <string name="main_downloads">"Descargas"</string>
+    <string name="main_failed_to_load_assets">"¡Fallo al cargar activos!"</string>
+    <string name="main_file_type_not_supported">"¡Tipo de archivo no soportado!"</string>
+    <string name="main_folder_is_empty">"¡La carpeta está vacía!"</string>
+    <string name="main_home_welcome">"Bienvenido"</string>
+    <string name="main_https">"Https"</string>
+    <string name="main_latest">"Último"</string>
+    <string name="main_latest_added">"Último agregado"</string>
+    <string name="main_latest_no_items_found">"¡No se encontraron ítems!"</string>
+    <string name="main_log">"Log"</string>
+    <string name="main_more">"MÁS"</string>
+    <string name="main_no_server_detected">"¡No se detectó servidor!"</string>
+    <string name="main_open_drawer">"Abrir cajón"</string>
+    <string name="main_open_series">"Abrir serie"</string>
+    <string name="main_please_select_a_server">"Seleccione un servidor"</string>
+    <string name="main_press_back_again_to_exit">"Presiona hacia atrás nuevamente para salir."</string>
+    <string name="main_read_now">"Leer ahora"</string>
+    <string name="main_recent">"Reciente"</string>
+    <string name="main_recently_viewed">"Vistos recientemente"</string>
+    <string name="main_remove">"ELIMINAR"</string>
+    <string name="main_resume">"Reanudar"</string>
+    <string name="main_search">"Buscar"</string>
+    <string name="main_selected">"Seleccionado"</string>
+    <string name="main_series">"Series"</string>
+    <string name="main_server_not_available">"¡Servidor no disponible!"</string>
+    <string name="main_settings">"Configuraciones"</string>
+    <string name="main_start_reading_to_add_items">"¡Comienza a leer para agregar ítems!"</string>
+    <string name="main_text_copied_to_clipboard">"Texto copiado al portapapeles"</string>
+
+    <string name="notification_browse">"Explorar"</string>
+    <string name="notification_cancel">"Cancelar"</string>
+    <string name="notification_dismiss">"Descartar"</string>
+    <string name="notification_download_in_progress">"Descarga en curso…"</string>
+    <string name="notification_download_in_progress_remaining">"Descarga en curso... %1$s restantes"</string>
+    <string name="notification_download_service_paused">"Servicio de descarga en pausa."</string>
+    <string name="notification_finished_download_of">"Finalizada la descarga de"</string>
+    <string name="notification_item">"item"</string>
+    <string name="notification_items">"ítems"</string>
+    <string name="notification_loading">"CARGANDO"</string>
+    <string name="notification_pause">"PAUSA"</string>
+    <string name="notification_please_wait">"Por favor espera…"</string>
+    <string name="notification_resume">"REANUDAR"</string>
+
+    <string name="reader_aspect_fill">"Aspecto relleno"</string>
+    <string name="reader_aspect_fit">"Ajuste de aspecto"</string>
+    <string name="reader_aspect_fit_width">"Ajuste ancho"</string>
+    <string name="reader_chapters">"Capítulos"</string>
+    <string name="reader_dual_pane">"
+Panel doble"</string>
+    <string name="reader_end_of_series">"Final de la serie"</string>
+    <string name="reader_info">"Info"</string>
+    <string name="reader_manga_mode">"Modo Manga"</string>
+    <string name="reader_menu">"MENÚ"</string>
+    <string name="reader_next">"SIGUIENTE"</string>
+    <string name="reader_of">"de"</string>
+    <string name="reader_page">"Página"</string>
+    <string name="reader_pip_requires_android_oreo_or_above">"¡Pip requiere Android Oreo o superior!"</string>
+    <string name="reader_read">"LEER"</string>
+    <string name="reader_something_went_wrong">"¡Algo salió mal!"</string>
+    <string name="reader_swipe_down_to_refresh">"Desliza hacia abajo para refrescar."</string>
+
+    <string name="settings_about">"Acerca de"</string>
+    <string name="settings_active_server">"Servidor activo"</string>
+    <string name="settings_apply">"Aplicar"</string>
+    <string name="settings_aspect_fill">"Aspecto relleno"</string>
+    <string name="settings_aspect_fit">"Ajuste de aspecto"</string>
+    <string name="settings_auto">"Automático (predeterminado)"</string>
+    <string name="settings_browser">"Navegador"</string>
+    <string name="settings_cancel">"Cancelar"</string>
+    <string name="settings_comic">"Cómic"</string>
+    <string name="settings_confirm">"Confirmar"</string>
+    <string name="settings_content_starts_from_the_bottom_towards_top">"Los ítems se presentan desde abajo hacia arriba"</string>
+    <string name="settings_default">"Por defecto"</string>
+    <string name="settings_do_not_ask_again">"No volver a preguntar."</string>
+    <string name="settings_download">"Descargar"</string>
+    <string name="settings_dual_pane_mode">"Modo de doble panel"</string>
+    <string name="settings_epub">"Epub"</string>
+    <string name="settings_experimental">"Experimental"</string>
+    <string name="settings_favorite">"Favorito"</string>
+    <string name="settings_finished_items_will_be_darkened">"Los ítems leídos se oscureceran para indicar que han sido leídos"</string>
+    <string name="settings_finished_notification">"Notificación al finalizar las descargas"</string>
+    <string name="settings_fit_width">"Ajuste ancho"</string>
+    <string name="settings_home">"Home"</string>
+    <string name="settings_hours">"horas"</string>
+    <string name="settings_keep_screen_on">"Mantener la pantalla encendida"</string>
+    <string name="settings_landscape">"Vista"</string>
+    <string name="settings_layout">"Horizontal"</string>
+    <string name="settings_manga_mode">"Modo Manga"</string>
+    <string name="settings_margin">"Margen"</string>
+    <string name="settings_mark_finished">"Marcar ítems leídos"</string>
+    <string name="settings_minutes">"minutos"</string>
+    <string name="settings_none">"NINGUNO"</string>
+    <string name="settings_orientation">"Orientación"</string>
+    <string name="settings_portrait">"Vertical"</string>
+    <string name="settings_preview">"Vista de previsualización"</string>
+    <string name="settings_protect_your_mobile_data_limit">"Permite proteger el uso de datos móviles"</string>
+    <string name="settings_protect_your_mobile_data_limit_with_wifi_only">"Protege el uso de datos móviles, solo wifi"</string>
+    <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"Lee dos páginas simultáneamente en modo horizontal"</string>
+    <string name="settings_reader">"Lector"</string>
+    <string name="settings_reader_screen_will_keep_the_device_awake">"La pantalla del lector mantendrá el dispositivo activo"</string>
+    <string name="settings_recent_viewed_plus_latest">"Vistos recientemente + Últimos añadidos"</string>
+    <string name="settings_recently_viewed_only">"Solo vistos recientemente"</string>
+    <string name="settings_remaining">"restante"</string>
+    <string name="settings_reverse_layout">"Diseño inverso"</string>
+    <string name="settings_reverse_reading_order">"Orden de lectura inversa"</string>
+    <string name="settings_save_path">"Ruta donde guardar los items descargados"</string>
+    <string name="settings_server">"Servidor"</string>
+    <string name="settings_show_a_notification_after_downloads_are_finished">"Muestra una notificación al finalizar las descargas"</string>
+    <string name="settings_show_favorite_buttons">"Muestra el botón de favorito"</string>
+    <string name="settings_show_preview_page_before_reading">"Muestra la página de previsualización antes de comenzar a leer el item"</string>
+    <string name="settings_system">"Sistema"</string>
+    <string name="settings_text_zoom">"Zoom de texto"</string>
+    <string name="settings_theme">"Tema"</string>
+    <string name="settings_tracking_interval">"Intervalo de chequeo de ítems en la cola"</string>
+    <string name="settings_tracking_limit">"Número máximo de ítems de la cola (ítems descargados)"</string>
+    <string name="settings_version">"Versión"</string>
+    <string name="settings_volume_buttons_will_turn_page">"Los botones de volumen permiten cambiar de página"</string>
+    <string name="settings_volume_page_turn">"Usar botón de volumen para pasar la página"</string>
+    <string name="settings_wifi_only">"Sólo wifi"</string>
+
+    <string name="title_browse">"Explorar"</string>
+    <string name="title_downloads">"Descargas"</string>
+    <string name="title_home">"Home"</string>
+    <string name="title_settings">"Configuraciones"</string>
+</resources>
