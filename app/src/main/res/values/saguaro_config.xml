@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="mit_projects">
+    <string-array name="mit_projects" translatable="false">
         <item>MIT 1</item>
         <item>MIT 2</item>
         <item>MIT 3</item>
         <item>MIT 4</item>
         <item>MIT 5</item>
     </string-array>
-    <string-array name="apache2_projects">
+    <string-array name="apache2_projects" translatable="false">
         <item>ActionBarSherlock</item>
         <item>Apache 1</item>
         <item>Apache 2</item>
         <item>Apache 3</item>
         <item>Apache 4</item>
     </string-array>
-    <string-array name="bsd2_projects">
+    <string-array name="bsd2_projects" translatable="false">
         <item>BSD 1</item>
         <item>BSD 2</item>
         <item>BSD 3</item>

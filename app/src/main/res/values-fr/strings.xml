@@ -250,13 +250,11 @@ HTTP NON TROUVÉ
     <string name="settings_manga_mode">"Mode Manga"</string>
     <string name="settings_margin">"Marge"</string>
     <string name="settings_mark_finished">"Indiquer les livres terminés"</string>
-    <string name="settings_minutes">"minutes"</string>
     <string name="settings_none">"AUCUN"</string>
     <string name="settings_orientation">"Orientation"</string>
     <string name="settings_portrait">"Portrait"</string>
     <string name="settings_preview">"Aperçu"</string>
     <string name="settings_protect_your_mobile_data_limit">"Protégez votre limite de données mobiles"</string>
-    <string name="settings_protect_your_mobile_data_limit_with_wifi_only">"Protégez votre limite de données mobiles avec wifi uniquement"</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"Lire deux pages simultanément en mode paysage"</string>
     <string name="settings_reader">"Lecteur"</string>
     <string name="settings_reader_screen_will_keep_the_device_awake">"La lecture gardera l'appareil éveillé"</string>
@@ -273,6 +271,14 @@ HTTP NON TROUVÉ
     <string name="settings_system">"Système"</string>
     <string name="settings_text_zoom">"Texte Zoom"</string>
     <string name="settings_theme">"Thème"</string>
+    <string-array name="settings_theme_entries">
+        <item>@string/settings_theme_entry_light_theme</item>
+        <item>@string/settings_theme_entry_dark_theme</item>
+        <item>@string/settings_theme_entry_oled_theme</item>
+    </string-array>
+    <string name="settings_theme_entry_dark_theme">Thème sombre</string>
+    <string name="settings_theme_entry_light_theme">Thème léger</string>
+    <string name="settings_theme_entry_oled_theme">Thème OLED</string>
     <string name="settings_tracking_interval">"intervalle de suivi "</string>
     <string name="settings_tracking_limit">"Limite de suivi"</string>
     <string name="settings_version">"Version"</string>

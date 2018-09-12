@@ -235,13 +235,11 @@ Panel doble"</string>
     <string name="settings_manga_mode">"Modo Manga"</string>
     <string name="settings_margin">"Margen"</string>
     <string name="settings_mark_finished">"Marcar ítems leídos"</string>
-    <string name="settings_minutes">"minutos"</string>
     <string name="settings_none">"NINGUNO"</string>
     <string name="settings_orientation">"Orientación"</string>
     <string name="settings_portrait">"Vertical"</string>
     <string name="settings_preview">"Vista de previsualización"</string>
     <string name="settings_protect_your_mobile_data_limit">"Permite proteger el uso de datos móviles"</string>
-    <string name="settings_protect_your_mobile_data_limit_with_wifi_only">"Protege el uso de datos móviles, solo wifi"</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"Lee dos páginas simultáneamente en modo horizontal"</string>
     <string name="settings_reader">"Lector"</string>
     <string name="settings_reader_screen_will_keep_the_device_awake">"La pantalla del lector mantendrá el dispositivo activo"</string>
@@ -258,6 +256,14 @@ Panel doble"</string>
     <string name="settings_system">"Sistema"</string>
     <string name="settings_text_zoom">"Zoom de texto"</string>
     <string name="settings_theme">"Tema"</string>
+    <string-array name="settings_theme_entries">
+        <item>@string/settings_theme_entry_light_theme</item>
+        <item>@string/settings_theme_entry_dark_theme</item>
+        <item>@string/settings_theme_entry_oled_theme</item>
+    </string-array>
+    <string name="settings_theme_entry_dark_theme">Tema oscuro</string>
+    <string name="settings_theme_entry_light_theme">Tema de luz</string>
+    <string name="settings_theme_entry_oled_theme">Tema OLED</string>
     <string name="settings_tracking_interval">"Intervalo de chequeo de ítems en la cola"</string>
     <string name="settings_tracking_limit">"Número máximo de ítems de la cola (ítems descargados)"</string>
     <string name="settings_version">"Versión"</string>
