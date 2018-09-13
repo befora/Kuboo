@@ -1,7 +1,6 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.data.model.GlideLocal
 
@@ -9,9 +8,7 @@ import com.sethchhim.kuboo_client.data.model.GlideLocal
 open class ReaderComicActivityImpl1_Preview : ReaderComicActivityImpl0_View() {
 
     override fun loadLocalPreviewImage() {
-        viewModel.getLocalImageInputStream(0).observe(this, Observer { result ->
-            result?.let { previewImageView.loadPreviewImage(GlideLocal(currentBook, 0)) }
-        })
+        previewImageView.loadPreviewImage(GlideLocal(currentBook, 0))
     }
 
     override fun onLoadPreviewSuccessFirstRun() {
