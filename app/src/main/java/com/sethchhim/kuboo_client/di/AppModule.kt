@@ -100,7 +100,7 @@ class AppModule {
     @AppScope
     fun provideRemoteRepository(kubooRemote: KubooRemote, systemUtil: SystemUtil) = RemoteRepository(kubooRemote, systemUtil)
 
-    //<------ Local ------>
+    //<------ GlideLocal ------>
     @Provides
     @AppScope
     fun provideKubooLocal(appExecutors: AppExecutors) = KubooLocal(appExecutors.diskIO, appExecutors.mainThread)

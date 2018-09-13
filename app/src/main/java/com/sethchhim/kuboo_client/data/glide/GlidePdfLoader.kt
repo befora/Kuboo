@@ -15,7 +15,7 @@ internal class GlidePdfLoader : ModelLoader<GlidePdf, InputStream> {
     }
 
     override fun buildLoadData(model: GlidePdf, width: Int, height: Int, options: Options): ModelLoader.LoadData<InputStream>? {
-        val key = ObjectKey("${model.book.id}:${model.position}")
+        val key = ObjectKey("${model.book.filePath}:${model.position}")
         return ModelLoader.LoadData(key, GlidePdfFetcher(model))
     }
 

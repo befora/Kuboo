@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.sethchhim.kuboo_client.BaseApplication
+import com.sethchhim.kuboo_client.data.model.GlideEpub
 import com.sethchhim.kuboo_client.data.model.GlideLocal
 import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_remote.KubooRemote
@@ -35,6 +36,9 @@ class GlideModule : AppGlideModule() {
 
         val passthroughFactory = GlidePassthroughLoader.Factory()
         registry.prepend(InputStream::class.java, InputStream::class.java, passthroughFactory)
+
+        val epubFactory = GlideEpubLoader.Factory()
+        registry.replace(GlideEpub::class.java, InputStream::class.java, epubFactory)
 
         val pdfFactory = GlidePdfLoader.Factory()
         registry.replace(GlidePdf::class.java, InputStream::class.java, pdfFactory)

@@ -104,7 +104,7 @@ class ReaderRepository(private val systemUtil: SystemUtil, private val kubooLoca
         for (index in 0 until numPages) {
             bookList.add(PageUrl(index, index.toString(), ""))
         }
-        Timber.i("Local reader licenseList created: size[${bookList.size}]")
+        Timber.i("GlideLocal reader licenseList created: size[${bookList.size}]")
         return bookList.format()
     }
 

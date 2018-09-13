@@ -94,28 +94,31 @@ data class Book(
         return idEmpty && titleEmpty && authorEmpty && contentEmpty
     }
 
-    fun isEpub(): Boolean {
-        return linkAcquisition.endsWith(".epub", ignoreCase = true)
-    }
+    fun isEpub() = filePath.endsWith(".epub", ignoreCase = true)
+            || linkAcquisition.endsWith(".epub", ignoreCase = true)
 
-    fun isComic(): Boolean {
-        return linkAcquisition.endsWith(".cb7", ignoreCase = true)
-                || linkAcquisition.endsWith(".cba", ignoreCase = true)
-                || linkAcquisition.endsWith(".cbr", ignoreCase = true)
-                || linkAcquisition.endsWith(".cbt", ignoreCase = true)
-                || linkAcquisition.endsWith(".cbz", ignoreCase = true)
-                || linkAcquisition.endsWith(".zip", ignoreCase = true)
-                || linkAcquisition.endsWith(".rar", ignoreCase = true)
-    }
+    fun isComic() = filePath.endsWith(".cb7", ignoreCase = true)
+            || filePath.endsWith(".cba", ignoreCase = true)
+            || filePath.endsWith(".cbr", ignoreCase = true)
+            || filePath.endsWith(".cbt", ignoreCase = true)
+            || filePath.endsWith(".cbz", ignoreCase = true)
+            || filePath.endsWith(".zip", ignoreCase = true)
+            || filePath.endsWith(".rar", ignoreCase = true)
+            || linkAcquisition.endsWith(".cb7", ignoreCase = true)
+            || linkAcquisition.endsWith(".cba", ignoreCase = true)
+            || linkAcquisition.endsWith(".cbr", ignoreCase = true)
+            || linkAcquisition.endsWith(".cbt", ignoreCase = true)
+            || linkAcquisition.endsWith(".cbz", ignoreCase = true)
+            || linkAcquisition.endsWith(".zip", ignoreCase = true)
+            || linkAcquisition.endsWith(".rar", ignoreCase = true)
 
-    fun isPdf(): Boolean {
-        return linkAcquisition.endsWith(".pdf", ignoreCase = true)
-    }
+    fun isPdf() = filePath.endsWith(".pdf", ignoreCase = true)
+            || linkAcquisition.endsWith(".pdf", ignoreCase = true)
 
-    fun isRar(): Boolean {
-        return linkAcquisition.endsWith("cbr", ignoreCase = true)
-                || linkAcquisition.endsWith("rar", ignoreCase = true)
-    }
+    fun isRar() = filePath.endsWith("cbr", ignoreCase = true)
+            || filePath.endsWith("rar", ignoreCase = true)
+            || linkAcquisition.endsWith("cbr", ignoreCase = true)
+            || linkAcquisition.endsWith("rar", ignoreCase = true)
 
     fun isLocal() = filePath.isNotEmpty()
 

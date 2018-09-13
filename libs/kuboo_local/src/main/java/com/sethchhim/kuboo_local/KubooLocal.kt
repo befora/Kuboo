@@ -4,6 +4,7 @@ import com.sethchhim.kuboo_local.model.ChapterInfo
 import com.sethchhim.kuboo_local.service.local.Parser
 import com.sethchhim.kuboo_local.task.Task_LocalFileParser
 import com.sethchhim.kuboo_local.task.Task_LocalImageInputStream
+import com.sethchhim.kuboo_local.task.Task_LocalImageInputStreamSingleInstance
 import java.util.concurrent.Executor
 
 class KubooLocal(val diskIO: Executor, val mainThread: Executor) {
@@ -24,5 +25,7 @@ class KubooLocal(val diskIO: Executor, val mainThread: Executor) {
     fun getLocalComicInfo() = parser.chapterInfo
 
     fun getLocalInputStreamAt(position: Int) = Task_LocalImageInputStream(this, position).liveData
+
+    fun getLocalImageInputStreamSingleInstance(filePath: String, position: Int) = Task_LocalImageInputStreamSingleInstance(this, filePath, position).liveData
 
 }

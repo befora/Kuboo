@@ -5,11 +5,11 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.data.DataFetcher
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.data.ViewModel
-import com.sethchhim.kuboo_client.data.model.GlidePdf
+import com.sethchhim.kuboo_client.data.model.GlideEpub
 import java.io.InputStream
 import javax.inject.Inject
 
-class GlidePdfFetcher internal constructor(private val glidePdf: GlidePdf) : DataFetcher<InputStream> {
+class GlideEpubFetcher internal constructor(private val glideEpub: GlideEpub) : DataFetcher<InputStream> {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -20,20 +20,7 @@ class GlidePdfFetcher internal constructor(private val glidePdf: GlidePdf) : Dat
     lateinit var inputStream: InputStream
 
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
-        when (glidePdf.singleInstance) {
-            true -> loadSingleInstance(callback)
-            false -> loadMultiInstance(callback)
-        }
-    }
-
-    private fun loadSingleInstance(callback: DataFetcher.DataCallback<in InputStream>) {
-        viewModel.getPdfImageInputStreamSingleInstance(glidePdf).observeForever { result ->
-            handleResult(callback, result)
-        }
-    }
-
-    private fun loadMultiInstance(callback: DataFetcher.DataCallback<in InputStream>) {
-        viewModel.getPdfImageInputStream(glidePdf).observeForever { result ->
+        viewModel.getEpubCoverInputStream(glideEpub).observeForever { result ->
             handleResult(callback, result)
         }
     }

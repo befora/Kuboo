@@ -28,7 +28,7 @@ class LogUtil(private val appExecutors: AppExecutors, private val appDatabaseDao
     internal fun addMockLogData() {
         for (index in 0..1000) {
             ui { message = "Ui event is triggered." }
-            local { message = "Local database was written." }
+            local { message = "GlideLocal database was written." }
             remote { message = "Remote action was triggered." }
             if (index > 990 && index.isEven()) remote {
                 message = "Remote action failed!"

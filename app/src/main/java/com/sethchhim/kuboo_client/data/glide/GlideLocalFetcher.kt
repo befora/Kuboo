@@ -20,13 +20,30 @@ class GlideLocalFetcher internal constructor(private val glideLocal: GlideLocal)
     lateinit var inputStream: InputStream
 
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
+        when (glideLocal.singleInstance) {
+            true -> loadSingleInstance(callback)
+            false -> loadMultiInstance(callback)
+        }
+    }
+
+    private fun loadSingleInstance(callback: DataFetcher.DataCallback<in InputStream>) {
+        viewModel.getLocalImageInputStreamSingleInstance(glideLocal.book.filePath, glideLocal.position).observeForever { result ->
+            handleResult(callback, result)
+        }
+    }
+
+    private fun loadMultiInstance(callback: DataFetcher.DataCallback<in InputStream>) {
         viewModel.getLocalImageInputStream(glideLocal.position).observeForever { result ->
-            if (result != null) {
-                inputStream = result
-                callback.onDataReady(inputStream)
-            } else {
-                callback.onLoadFailed(Exception("Failed to load!"))
-            }
+            handleResult(callback, result)
+        }
+    }
+
+    private fun handleResult(callback: DataFetcher.DataCallback<in InputStream>, result: InputStream?) {
+        if (result != null) {
+            inputStream = result
+            callback.onDataReady(inputStream)
+        } else {
+            callback.onLoadFailed(Exception("Failed to load!"))
         }
     }
 

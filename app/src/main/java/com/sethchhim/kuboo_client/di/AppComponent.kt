@@ -40,6 +40,7 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(downloadListAdapter: DownloadListAdapter)
     fun inject(faqAdapter: FaqAdapter)
     fun inject(fetchRepository: FetchRepository)
+    fun inject(glideEpubFetcher: GlideEpubFetcher)
     fun inject(glideLocalFetcher: GlideLocalFetcher)
     fun inject(glideModule: GlideModule)
     fun inject(glidePassthroughFetcher: GlidePassthroughFetcher)

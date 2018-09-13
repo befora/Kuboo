@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.data.model.Dimension
+import com.sethchhim.kuboo_client.data.model.GlideEpub
 import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.repository.*
@@ -178,7 +179,6 @@ class ViewModel(internal val browserRepository: BrowserRepository,
     internal fun setPathPosition(position: Int) = browserRepository.setPathPosition(position)
 
     //downloads
-
     internal fun getDownloadListLiveData() = downloadsRepository.getDownloadListLiveData()
 
     internal fun getDownloadList(favoriteCompressed: Boolean = false) = downloadsRepository.getDownloadList(favoriteCompressed)
@@ -259,6 +259,8 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getLocalImageInputStream(position: Int) = localRepository.getLocalImageInputStream(position)
 
+    internal fun getLocalImageInputStreamSingleInstance(filePath: String, position: Int) = localRepository.getLocalImageInputStreamSingleInstance(filePath, position)
+
     internal fun getRemoteFile(stringUrl1: String, saveDir: File) = remoteRepository.getRemoteFile(getActiveLogin(), stringUrl1, saveDir)
 
     internal fun cleanupParser() = localRepository.cleanupParser()
@@ -296,8 +298,12 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun getPdfImageInputStream(glidePdf: GlidePdf) = pdfRepository.getPdfImageInputStream(glidePdf)
 
+    internal fun getPdfImageInputStreamSingleInstance(glidePdf: GlidePdf) = pdfRepository.getPdfImageInputStreamSingleInstance(glidePdf)
+
     internal fun getPdfOutline() = pdfRepository.getPdfOutline()
 
     internal fun getPdfPageCount() = pdfRepository.getPdfPageCount()
+
+    internal fun getEpubCoverInputStream(glideEpub: GlideEpub) = localRepository.getEpubCoverInputStream(glideEpub)
 
 }

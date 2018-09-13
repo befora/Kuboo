@@ -21,7 +21,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
     protected fun populateDownloads() {
         setNumberProgressBar()
         setStateLoading()
-        resetRecyclerView()
+        resetDownloads()
         contentRecyclerView.saveState()
         viewModel.getDownloadListLiveData().observe(this, Observer {
             it?.let { handleResult(it.downloadListToBookList()) }
@@ -106,6 +106,10 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         override fun onDownloadBlockUpdated(download: Download, downloadBlock: DownloadBlock, totalBlocks: Int) {}
 
         override fun onWaitingNetwork(download: Download) {}
+    }
+
+    private fun resetDownloads() {
+        (contentRecyclerView.adapter as DownloadListAdapter).submitList(mutableListOf())
     }
 
 }

@@ -32,8 +32,12 @@ import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.enum.Source
+import com.sethchhim.kuboo_client.data.model.GlideEpub
+import com.sethchhim.kuboo_client.data.model.GlideLocal
+import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragmentImpl1_Content
+import com.sethchhim.kuboo_client.util.AppExecutors
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
@@ -58,6 +62,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         setHasStableIds(true)
     }
 
+    @Inject lateinit var appExecutors: AppExecutors
     @Inject lateinit var context: Context
     @Inject lateinit var systemUtil: SystemUtil
 
@@ -179,23 +184,22 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
     }
 
     private fun ImageView.loadFolderThumbnail(holder: ItemViewHolder, download: Download) {
-        val isMatchServer = download.url.contains(viewModel.getActiveServer())
-        val requestOptions = RequestOptions()
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .onlyRetrieveFromCache(when (isMatchServer) {
-                    true -> false
-                    false -> true
-                })
-
-        val thumbnailStringUrl = download.url.plus("?cover=true")
+        val book = Book().apply { filePath = download.file }
+        val any: Any = when {
+            book.isPdf() -> GlidePdf(book, 0, systemUtil.getSystemWidth(), systemUtil.getSystemHeight(), singleInstance = true)
+            book.isEpub() -> GlideEpub(book, 0, singleInstance = true)
+            else -> GlideLocal(book, 0, singleInstance = true)
+        }
         Glide.with(downloadsFragment)
-                .load(thumbnailStringUrl)
-                .apply(requestOptions)
+                .load(any)
+                .apply(RequestOptions()
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         holder.itemView.browser_item_download_imageView1.fadeVisible()
                         holder.itemView.browser_item_download_imageView2.fadeVisible()
+                        holder.itemView.browser_item_download_imageView3.gone()
                         holder.itemView.browser_item_download_imageView4.fadeInvisible()
                         return false
                     }
@@ -296,6 +300,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.visible()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
+        holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
         val downloaded = download.downloaded.toReadable()
         val of = context.getString(R.string.downloads_of)

@@ -15,7 +15,7 @@ internal class GlideLocalLoader : ModelLoader<GlideLocal, InputStream> {
     }
 
     override fun buildLoadData(model: GlideLocal, width: Int, height: Int, options: Options): ModelLoader.LoadData<InputStream>? {
-        val key = ObjectKey("${model.book.id}:${model.position}")
+        val key = ObjectKey("${model.book.filePath}:${model.position}")
         return ModelLoader.LoadData(key, GlideLocalFetcher(model))
     }
 
