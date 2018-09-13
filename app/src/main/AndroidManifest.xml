@@ -30,7 +30,7 @@
         <!--main-->
         <activity
             android:name=".ui.main.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask">
         </activity>
 
