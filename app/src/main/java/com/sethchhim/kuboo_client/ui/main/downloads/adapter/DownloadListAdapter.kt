@@ -28,6 +28,7 @@ import com.sethchhim.kuboo_client.Extensions.filteredBySeries
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.Extensions.invisible
+import com.sethchhim.kuboo_client.Extensions.isFirstInSeries
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
@@ -183,42 +184,48 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         }
     }
 
-    private fun ImageView.loadFolderThumbnail(holder: ItemViewHolder, download: Download) {
-        val book = Book().apply { filePath = download.file }
-        val any: Any = when {
-            book.isPdf() -> GlidePdf(book, 0, systemUtil.getSystemWidth(), systemUtil.getSystemHeight(), singleInstance = true)
-            book.isEpub() -> GlideEpub(book, 0, singleInstance = true)
-            else -> GlideLocal(book, 0, singleInstance = true)
-        }
-        Glide.with(downloadsFragment)
-                .load(any)
-                .apply(RequestOptions()
-                        .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        holder.itemView.browser_item_download_imageView1.fadeVisible()
-                        holder.itemView.browser_item_download_imageView2.fadeVisible()
-                        holder.itemView.browser_item_download_imageView3.gone()
-                        holder.itemView.browser_item_download_imageView4.fadeInvisible()
-                        return false
-                    }
+    private fun ImageView.loadFolderThumbnail(holder: ItemViewHolder, download: Download, favorite: Boolean) {
+        val isFirst = list.isFirstInSeries(download)
+        if (!favorite || favorite && isFirst) {
+            val book = Book().apply { filePath = download.file }
+            val any: Any = when {
+                book.isPdf() -> GlidePdf(book, 0, systemUtil.getSystemWidth(), systemUtil.getSystemHeight(), singleInstance = true)
+                book.isEpub() -> GlideEpub(book, 0, singleInstance = true)
+                else -> GlideLocal(book, 0, singleInstance = true)
+            }
+            Glide.with(downloadsFragment)
+                    .load(any)
+                    .apply(RequestOptions()
+                            .fitCenter()
+                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            holder.itemView.browser_item_download_imageView1.fadeVisible()
+                            holder.itemView.browser_item_download_imageView2.fadeVisible()
+                            holder.itemView.browser_item_download_imageView3.gone()
+                            holder.itemView.browser_item_download_imageView4.fadeInvisible()
+                            return false
+                        }
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        holder.itemView.browser_item_download_imageView1.fadeGone()
-                        holder.itemView.browser_item_download_imageView2.fadeGone()
-                        holder.itemView.browser_item_download_imageView3.gone()
-                        holder.itemView.browser_item_download_imageView4.fadeVisible()
-                        return false
-                    }
-                })
-                .into(this)
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            holder.itemView.browser_item_download_imageView1.fadeGone()
+                            holder.itemView.browser_item_download_imageView2.fadeGone()
+                            holder.itemView.browser_item_download_imageView3.gone()
+                            holder.itemView.browser_item_download_imageView4.fadeVisible()
+                            return false
+                        }
+                    })
+                    .into(this)
+        }
     }
 
     private fun setStateStart(holder: ItemViewHolder, download: com.tonyodev.fetch2.Download, favorite: Boolean) {
         holder.itemView.browser_item_download_textView3.gone()
-        holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download)
         holder.itemView.browser_item_download_textView5.gone()
+        holder.itemView.browser_item_download_imageView1.visible()
+        holder.itemView.browser_item_download_imageView2.visible()
+        holder.itemView.browser_item_download_imageView3.gone()
+        holder.itemView.browser_item_download_imageView4.visible()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
         holder.itemView.browser_item_download_progressBar.loadProgress(holder)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
@@ -300,7 +307,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_textView4.gone()
         holder.itemView.browser_item_download_textView5.visible()
         holder.itemView.browser_item_download_numberProgressBar.invisible()
-        holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download)
+        holder.itemView.browser_item_download_imageView4.loadFolderThumbnail(holder, download, favorite)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
         val downloaded = download.downloaded.toReadable()
         val of = context.getString(R.string.downloads_of)

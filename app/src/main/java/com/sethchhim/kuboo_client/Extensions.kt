@@ -276,28 +276,9 @@ object Extensions {
         return false
     }
 
-    internal fun MutableList<Book>.filteredBySeries(book: Book): MutableList<Book> {
-        val xmlId = book.getXmlIdString()
-        val filteredList = mutableListOf<Book>()
-        forEach {
-            val eachXmlId = it.getXmlIdString()
-            if (eachXmlId == xmlId) filteredList.add(it)
-        }
-        filteredList.sortBy { it.id }
-        return filteredList
-    }
-
-    internal fun MutableList<Download>.getFirstInSeries(download: Download): Download {
-        filteredBySeries(download).apply {
-            if (isNotEmpty()) return get(0)
-        }
-        return download
-    }
-
-    internal fun MutableList<Download>.isFirstInSeries(download: Download): Boolean {
-        filteredBySeries(download).apply {
-            val firstItem = get(0)
-            if (isNotEmpty() && download == firstItem) return true
+    internal fun MutableList<Book>.isFirstInSeries(download: Download): Boolean {
+        filter { it.getXmlId() == download.group }.forEachIndexed { index, book ->
+            if (index == 0 && download.url.contains(book.linkAcquisition)) return true
         }
         return false
     }
