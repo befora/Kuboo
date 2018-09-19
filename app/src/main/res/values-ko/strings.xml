@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="about_answer1">"Ubooquity 서버의 OPDS 기능을 사용함으로 설정해야 합니다.
+
+
+Ubooquity 서버에 접속할 수 있도록 적절한 네트워크 포트를 오픈해야 합니다.
+
+
+Ubooquity 서버 접속시 방화벽에서 막히지 않도록 차단 정책을 확인하세요.
+
+
+아래와 같은 형식으로 입력하세요.
+예시: \"http://192.168.0.1:2202/opds-comics/\""</string>
+    <string name="about_answer2">"책갈피 기능은 로컬(클라이언트) 데이터베이스와 원격(서버) 데이터베이스를 모두 사용하는 하이브리드 방식으로 작동합니다. 먼저 로컬(클라이언트) 에서 책갈피 된 부분을 찾고, 이후 원격(서버) 내에 저장된 책갈피 데이터가 있는지 확인합니다. 만약 원격(서버) 에 책갈피 데이터가 있는 경우 우선 사용됩니다. 이것은 아직 Ubooquity 2.0.+ 이상으로 업그레이드 하지 않은 하위버전을 지원하기 위한 방법니다.
+
+Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않습니다."</string>
+    <string name="about_answer3">"두장보기시 화면은 가로방향으로 고정됩니다.
+
+두장보기 기능이 활성화 되어 있는데도 화면에 한페이지만 보여지는 경우는 아래와 같습니다:
+
+- 표지 페이지일 경우
+
+- 두 페이지 중 첫번째 페이지가 WIDE 한 경우
+
+- 두 페이지 중 두번째 페이지가 WIDE 하고, 전체 화면을 요구하는 경우
+
+페이지의 가로 길이가 세로 길이보다 크거나 같은 경우 WIDE 한 페이지 입니다."</string>
+    <string name="about_answer4">"Ubooquity 서버 관리자 페이지에서 썸네일 사이즈를 조절할 수 있습니다."</string>
+    <string name="about_app_disclaimer">"\"Kuboo\" 는 Ubooquity 와 관련이 없는 독립적인 서드파티 어플리케이션입니다.
+
+\"Kubbo\" 는 제한없는 인터넷 액세스를 제공하며, 이를 통한 외부 콘텐츠 접근 및 가용성에 대한 어떤 책임이나 의무도 가지지 않습니다.
+"</string>
+    <string name="about_develop_message">"개인적으로 사용하기 위해 이 프로젝트를 개발했습니다. 프로젝트 결과물을 공유하고 사용자들에게 기여하는 것이 목적입니다.
+
+피드백과 지원을 주시는 모든 분들께 감사합니다.
+
+그리고 Ubooquity 를 만든 Tom 에게 특별한 감사를 표합니다."</string>
+    <string name="about_developer_email">"sethchhim@gmail.com"</string>
+    <string name="about_developer_name">"Seth Chhim"</string>
+    <string name="about_faq">"FAQ"</string>
+    <string name="about_google_disclaimer">"Google Play 및 Google Play 로고는 Google Inc.의 상표입니다."</string>
+    <string name="about_info">"• 독서에 대한 사랑을 바탕으로 운영하고 있습니다.
+
+
+• 오픈소스 프로젝트이며 무료 어플리케이션입니다.
+
+
+• 광고나 불필요한 권한요구가 없음
+
+
+• Ubooquity %1$s 에 최적화 되어 있습니다.
+
+
+• 제안과 버그레포트를 언제나 환영합니다."</string>
+    <string name="about_library">"라이브러리"</string>
+    <string name="about_license">"라이센스"</string>
+    <string name="about_question1">"왜 Ubooquity 서버에 접속할 수 없나요?"</string>
+    <string name="about_question2">"책갈피 기능은 어떻게 동작하나요?"</string>
+    <string name="about_question3">"두장보기 모드는 어떻게 동작하나요?"</string>
+    <string name="about_question4">"왜 썸네일 이미지가 깨지거나 흐릿해 보이나요?"</string>
+
+    <string name="app_label">"Kuboo"</string>
+    <string name="app_label_debug">"Kuboo 디버그"</string>
+
+    <string name="browser_favorite">"즐겨찾기"</string>
+    <string name="browser_folder">"폴더"</string>
+    <string name="browser_media">"미디어"</string>
+    <string name="browser_next">"다음"</string>
+    <string name="browser_page">"페이지"</string>
+    <string name="browser_pages">"페이지"</string>
+    <string name="browser_previous">"이전"</string>
+    <string name="browser_something_went_wrong">"에러가 발생했습니다!"</string>
+
+    <string name="dialog_bookmark_found">"책갈피된 페이지가 있습니다!"</string>
+    <string name="dialog_browse">"탐색"</string>
+    <string name="dialog_cancel">"취소"</string>
+    <string name="dialog_connecting_to_server">"서버에 접속합니다"</string>
+    <string name="dialog_connection_is_encrypted">"접속이 암호화 되었습니다"</string>
+    <string name="dialog_copy_to_clipboard">"복사하기"</string>
+    <string name="dialog_decline_bookmark">"처음부터 읽기"</string>
+    <string name="dialog_delete">"삭제"</string>
+    <string name="dialog_dismiss">"닫기"</string>
+    <string name="dialog_download">"다운로드"</string>
+    <string name="dialog_download_tracking">"다운로드 트래킹"</string>
+    <string name="dialog_download_tracking_message">"다운로드 트래킹은 같은 시리즈의 책을 자동으로 다운로드 하는 기능입니다. 책을 다 읽은 경우 디바이스에서 해당 책이 삭제되며 시리즈 내 다음 책이 자동으로 다운로드 대기열에 추가됩니다. 대기열에 추가되는 책의 수는 설정에서 변경할 수 있습니다."</string>
+    <string name="dialog_file_does_not_exist">"파일이 존재하지 않습니다!"</string>
+    <string name="dialog_font">"폰트"</string>
+    <string name="dialog_loading_assets">"리소스를 불러옵니다"</string>
+    <string name="dialog_loading_bookmark">"책갈피를 불러옵니다"</string>
+    <string name="dialog_loading_dual_pane_mode">"두장보기 모드 불러오는 중"</string>
+    <string name="dialog_loading_single_pane_mode">"한장보기 모드 불러오는 중"</string>
+    <string name="dialog_local_file">"로컬 파일"</string>
+    <string name="dialog_margin">"여백"</string>
+    <string name="dialog_of">"/"</string>
+    <string name="dialog_open_series">"시리즈 열기"</string>
+    <string name="dialog_please_restart_to_apply_changes">"적용을 위해 어플리케이션을 다시 시작해주세요."</string>
+    <string name="dialog_please_wait">"잠시 기다려주세요..."</string>
+    <string name="dialog_rate">"별점주기"</string>
+    <string name="dialog_remote_file">"원격 저장소 파일"</string>
+    <string name="dialog_remove">"삭제"</string>
+    <string name="dialog_remove_recently_viewed">"최근에 읽은 책 삭제?"</string>
+    <string name="dialog_restart">"재시작"</string>
+    <string name="dialog_restart_required">"재시작이 필요합니다"</string>
+    <string name="dialog_resume_chapter">"챕터 이어보기"</string>
+    <string name="dialog_resume_page">"페이지 이어보기"</string>
+    <string name="dialog_retry">"재시도"</string>
+    <string name="dialog_single_pane">"한장보기"</string>
+    <string name="dialog_total">"전체"</string>
+    <string name="dialog_undo">"되돌리기"</string>
+
+    <string name="downloads_cancelled">"취소됨"</string>
+    <string name="downloads_connection_timed_out">"컨넥션 타임 아웃"</string>
+    <string name="downloads_download_not_found">"파일 없음"</string>
+    <string name="downloads_empty_response_from_server">"서버 응답 없음"</string>
+    <string name="downloads_fetch_database_error">"데이터베이스 에러"</string>
+    <string name="downloads_file_not_created">"파일 생성 실패"</string>
+    <string name="downloads_finished">"완료"</string>
+    <string name="downloads_free">"무료"</string>
+    <string name="downloads_http_not_found">"HTTP 없음"</string>
+    <string name="downloads_no_network_connection">"네트워크 접속 불가"</string>
+    <string name="downloads_no_storage_space">"스토리지 용량 부족"</string>
+    <string name="downloads_of">"/"</string>
+    <string name="downloads_pause_all">"전체 일시정지"</string>
+    <string name="downloads_paused">"일시정지"</string>
+    <string name="downloads_queued">"대기열에 추가됨"</string>
+    <string name="downloads_request_already_exist">"이미 다운로드 됨"</string>
+    <string name="downloads_resume">"이어 받기"</string>
+    <string name="downloads_resume_all">"전체 이어 받기"</string>
+    <string name="downloads_retry">"재시도"</string>
+    <string name="downloads_uknown_host">"알 수 없는 호스트"</string>
+    <string name="downloads_unknown">"알 수 없음"</string>
+    <string name="downloads_write_permission_denied">"파일 쓰기 권한 없음"</string>
+
+    <string name="login_active_server_removed">"서버 삭제 완료"</string>
+    <string name="login_add_server">"서버 추가"</string>
+    <string name="login_delete_server">"서버 삭제"</string>
+    <string name="login_does_not_contain_opds_books_or_opds_comics">"/opds-books/ 이나 /opds-comics/ 구문이 없습니다"</string>
+    <string name="login_edit_server">"서버 수정"</string>
+    <string name="login_example">"예시"</string>
+    <string name="login_ip_address">"IP 주소 (필수)"</string>
+    <string name="login_ip_address_must_not_be_empty">"IP 주소를 반드시 입력하세요!"</string>
+    <string name="login_password">"비밀번호 (선택)"</string>
+    <string name="login_server_name">"서버명 (선택)"</string>
+    <string name="login_server_removed">"서버가 삭제되었습니다!"</string>
+    <string name="login_servers">"서버 목록"</string>
+    <string name="login_show">"보기"</string>
+    <string name="login_something_went_wrong">"에러가 발생했습니다!"</string>
+    <string name="login_username">"사용자명 (선택)"</string>
+
+    <string name="main_about">"정보"</string>
+    <string name="main_browse">"탐색"</string>
+    <string name="main_cancel">"취소"</string>
+    <string name="main_close_drawer">"서랍 닫기"</string>
+    <string name="main_decline">"거절"</string>
+    <string name="main_downloads">"다운로드"</string>
+    <string name="main_failed_to_load_assets">"리소스 불러오기가 실패했습니다!"</string>
+    <string name="main_file_type_not_supported">"지원되지 않는 파일형식 입니다!"</string>
+    <string name="main_folder_is_empty">"폴더에 파일이 없습니다!"</string>
+    <string name="main_home_welcome">"환영합니다"</string>
+    <string name="main_https">"Https"</string>
+    <string name="main_latest">"마지막"</string>
+    <string name="main_latest_added">"마지막 추가된 책"</string>
+    <string name="main_latest_no_items_found">"책이 없습니다!"</string>
+    <string name="main_log">"로그"</string>
+    <string name="main_more">"더 보기"</string>
+    <string name="main_no_server_detected">"서버를 찾을 수 없습니다!"</string>
+    <string name="main_open_drawer">"서랍 열기"</string>
+    <string name="main_open_series">"시리즈 열기"</string>
+    <string name="main_please_select_a_server">"서버를 선택하세요."</string>
+    <string name="main_press_back_again_to_exit">"종료하려면 뒤로가기를 다시 누르세요."</string>
+    <string name="main_read_now">"바로 읽기"</string>
+    <string name="main_recent">"최근"</string>
+    <string name="main_recently_viewed">"최근 읽은 책"</string>
+    <string name="main_remove">"삭제"</string>
+    <string name="main_resume">"다시 보기"</string>
+    <string name="main_search">"검색"</string>
+    <string name="main_selected">"선택됨"</string>
+    <string name="main_series">"시리즈"</string>
+    <string name="main_server_not_available">"서버에 접속할 수 없습니다!"</string>
+    <string name="main_settings">"설정"</string>
+    <string name="main_start_reading_to_add_items">"독서를 시작해보세요!"</string>
+    <string name="main_text_copied_to_clipboard">"클립보드에 복사되었습니다"</string>
+
+    <string name="notification_browse">"보기"</string>
+    <string name="notification_cancel">"취소"</string>
+    <string name="notification_dismiss">"닫기"</string>
+    <string name="notification_download_in_progress">"다운로드 진행 중..."</string>
+    <string name="notification_download_in_progress_remaining">"다운로드 진행중... 남은 시간 %1$s "</string>
+    <string name="notification_download_service_paused">"다운로드 일시 중지"</string>
+    <string name="notification_finished_download_of">"다운로드 완료 -"</string>
+    <string name="notification_item">"아이템"</string>
+    <string name="notification_items">"권"</string>
+    <string name="notification_loading">"로딩"</string>
+    <string name="notification_pause">"일시 중지"</string>
+    <string name="notification_please_wait">"잠시 기다려주세요..."</string>
+    <string name="notification_resume">"다시 시작"</string>
+
+    <string name="reader_aspect_fill">"화면 채우기"</string>
+    <string name="reader_aspect_fit">"화면에 맞추기"</string>
+    <string name="reader_aspect_fit_width">"가로 길이에 맞추기"</string>
+    <string name="reader_chapters">"챕터"</string>
+    <string name="reader_dual_pane">"두장보기"</string>
+    <string name="reader_end_of_series">"시리즈 내 마지막 책"</string>
+    <string name="reader_info">"정보"</string>
+    <string name="reader_manga_mode">"만화 보기 모드"</string>
+    <string name="reader_menu">"메뉴"</string>
+    <string name="reader_next">"다음"</string>
+    <string name="reader_of">"/"</string>
+    <string name="reader_page">"페이지"</string>
+    <string name="reader_pip_requires_android_oreo_or_above">"PIP 기능은 안드로이드 오레오 버전 이상에서만 가능합니다!"</string>
+    <string name="reader_read">"읽기"</string>
+    <string name="reader_something_went_wrong">"알 수 없는 에러가 발생했습니다!"</string>
+    <string name="reader_swipe_down_to_refresh">"새로고침하려면 아래로 스와이프 하세요."</string>
+
+    <string name="settings_about">"정보"</string>
+    <string name="settings_active_server">"서버"</string>
+    <string name="settings_apply">"적용"</string>
+    <string name="settings_aspect_fill">"화면 늘리기"</string>
+    <string name="settings_aspect_fit">"화면에 맞추기"</string>
+    <string name="settings_auto">"자동 (기본)"</string>
+    <string name="settings_browser">"탐색"</string>
+    <string name="settings_cancel">"취소"</string>
+    <string name="settings_comic">"코믹"</string>
+    <string name="settings_confirm">"확인"</string>
+    <string name="settings_content_starts_from_the_bottom_towards_top">"컨텐츠가 하단에서 상단 방향으로 보여집니다"</string>
+    <string name="settings_default">"기본"</string>
+    <string name="settings_do_not_ask_again">"다시 묻지 않기."</string>
+    <string name="settings_download">"다운로드"</string>
+    <string name="settings_dual_pane_mode">"두장 보기 모드"</string>
+    <string name="settings_epub">"Epub"</string>
+    <string name="settings_experimental">"실험적 기능"</string>
+    <string name="settings_favorite">"즐겨찾기"</string>
+    <string name="settings_finished_items_will_be_darkened">"다 읽은 책이 어둡게 표시됩니다."</string>
+    <string name="settings_finished_notification">"다운로드 완료 알림"</string>
+    <string name="settings_fit_width">"가로 맞추기"</string>
+    <string name="settings_home">"홈"</string>
+    <string name="settings_hours">"시간"</string>
+    <string name="settings_keep_screen_on">"화면 항상 켜기"</string>
+    <string name="settings_landscape">"가로보기"</string>
+    <string name="settings_layout">"레이아웃"</string>
+    <string name="settings_manga_mode">"만화 모드"</string>
+    <string name="settings_margin">"여백"</string>
+    <string name="settings_mark_finished">"읽기 완료 표기"</string>
+    <string name="settings_minutes">"분"</string>
+    <string name="settings_none">"없음"</string>
+    <string name="settings_orientation">"화면 방향"</string>
+    <string name="settings_portrait">"세로보기"</string>
+    <string name="settings_preview">"미리보기"</string>
+    <string name="settings_protect_your_mobile_data_limit">"모바일 데이터 사용량을 제한합니다"</string>
+    <string name="settings_protect_your_mobile_data_limit_with_wifi_only">"Wifi 연결만 사용하도록 제한해 모바일 데이터를 절약합니다"</string>
+    <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"가로보기 모드에서 두장을 연속적으로 봅니다"</string>
+    <string name="settings_reader">"리더"</string>
+    <string name="settings_reader_screen_will_keep_the_device_awake">"책을 읽을 때 화면이 꺼지지 않도록 합니다"</string>
+    <string name="settings_recent_viewed_plus_latest">"최근 읽은 책과 추가한 책 보기"</string>
+    <string name="settings_recently_viewed_only">"최근 읽은 책만 보기"</string>
+    <string name="settings_remaining">"남음"</string>
+    <string name="settings_reverse_layout">"레이아웃 방향 바꾸기"</string>
+    <string name="settings_reverse_reading_order">"페이지 순서 바꾸기"</string>
+    <string name="settings_save_path">"저장 경로"</string>
+    <string name="settings_server">"서버"</string>
+    <string name="settings_show_a_notification_after_downloads_are_finished">"다운로드가 완료되면 상단바 노티로 알려줍니다"</string>
+    <string name="settings_show_favorite_buttons">"즐겨찾기 버튼 보이기"</string>
+    <string name="settings_show_preview_page_before_reading">"책을 읽기 전에 표지 이미지를 미리 보여 줍니다"</string>
+    <string name="settings_system">"시스템"</string>
+    <string name="settings_text_zoom">"텍스트 확대"</string>
+    <string name="settings_theme">"테마"</string>
+    <string-array name="settings_theme_entries">
+        <item>@string/settings_theme_entry_light_theme</item>
+        <item>@string/settings_theme_entry_dark_theme</item>
+        <item>@string/settings_theme_entry_oled_theme</item>
+    </string-array>
+    <string name="settings_theme_entry_dark_theme">다크 테마</string>
+    <string name="settings_theme_entry_light_theme">가벼운 테마</string>
+    <string name="settings_theme_entry_oled_theme">Oled 테마</string>
+    <string name="settings_tracking_interval">"트랙킹 주기"</string>
+    <string name="settings_tracking_limit">"트랙킹 권 수 제한"</string>
+    <string name="settings_version">"버전"</string>
+    <string name="settings_volume_buttons_will_turn_page">"볼륨버튼을 통해 페이지 이동을 합니다"</string>
+    <string name="settings_volume_page_turn">"볼륨버튼 페이징"</string>
+    <string name="settings_wifi_only">"Wifi 로만 다운로드"</string>
+
+    <string name="title_browse">"탐색"</string>
+    <string name="title_downloads">"다운로드"</string>
+    <string name="title_home">"홈"</string>
+    <string name="title_settings">"설정"</string>
+</resources>
