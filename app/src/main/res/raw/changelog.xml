@@ -2,6 +2,18 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Sep 21, 2018"
+        versionName="1.1.2">
+        <changelogtext>add korean translation</changelogtext>
+        <changelogtext>fix crash after entering split screen mode</changelogtext>
+        <changelogtext>fix download list pulls cover image from local file instead of network
+        </changelogtext>
+        <changelogtext>fix reader preview image did not hit cache</changelogtext>
+        <changelogtext>update fetch to 2.2.0-RC12 from 2.2.0-RC11</changelogtext>
+        <changelogtext>update kotlin to 1.2.70 from 1.2.61</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Sep 12, 2018"
         versionName="1.1.1">
         <changelogtext>add spanish translation</changelogtext>

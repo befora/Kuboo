@@ -241,13 +241,11 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_manga_mode">"만화 모드"</string>
     <string name="settings_margin">"여백"</string>
     <string name="settings_mark_finished">"읽기 완료 표기"</string>
-    <string name="settings_minutes">"분"</string>
     <string name="settings_none">"없음"</string>
     <string name="settings_orientation">"화면 방향"</string>
     <string name="settings_portrait">"세로보기"</string>
     <string name="settings_preview">"미리보기"</string>
     <string name="settings_protect_your_mobile_data_limit">"모바일 데이터 사용량을 제한합니다"</string>
-    <string name="settings_protect_your_mobile_data_limit_with_wifi_only">"Wifi 연결만 사용하도록 제한해 모바일 데이터를 절약합니다"</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"가로보기 모드에서 두장을 연속적으로 봅니다"</string>
     <string name="settings_reader">"리더"</string>
     <string name="settings_reader_screen_will_keep_the_device_awake">"책을 읽을 때 화면이 꺼지지 않도록 합니다"</string>
