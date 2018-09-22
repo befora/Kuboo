@@ -62,7 +62,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //google
-    final android_support_version = "28.0.0-rc01"
+    final android_support_version = "28.0.0"
     implementation "com.android.support:appcompat-v7:$android_support_version"
     implementation "com.android.support:cardview-v7:$android_support_version"
     implementation "com.android.support:design:$android_support_version"
