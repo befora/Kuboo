@@ -20,11 +20,9 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.sethchhim.kuboo_client.BR
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
-import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_client.Settings.THUMBNAIL_SIZE_RECENT
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
@@ -41,7 +39,6 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.onLongClick
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -61,8 +58,11 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
     private val layoutManager = homeFragmentImpl1Content.recentRecyclerView.layoutManager as RecentLinearLayoutManager
 
     override fun convert(helper: RecentHolder, item: Book) {
+        helper.loadImage(item.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT))
+        helper.itemView.browser_item_recent_imageView.transitionName = item.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
+
         val binding = helper.binding
-        binding.updateBook(helper, item)
+        binding.updateBook(item)
         binding.remoteSync(helper, item)
     }
 
@@ -75,30 +75,46 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         return view
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentHolder {
+        val holder = super.onCreateViewHolder(parent, viewType)
+        holder.itemView.onClick { holder.onItemSelected() }
+        holder.itemView.setOnLongClickListener { holder.onItemLongSelected() }
+        return holder
+    }
+
     inner class RecentHolder(view: View) : BaseViewHolder(view) {
         val binding = itemView.getTag(R.id.BaseQuickAdapter_databinding_support) as BrowserItemRecentBinding
 
+        init {
+            view.browser_item_recent_textView.onClick { openSeries() }
+        }
+
+        internal fun onItemSelected() {
+            startReadAt(adapterPosition, itemView)
+        }
+
+        internal fun onItemLongSelected(): Boolean {
+            showRemoveDialog(adapterPosition)
+            return true
+        }
+
         internal fun setStateValid() {
             itemView.browser_item_recent_progressBar.fadeVisible()
-            itemView.browser_item_recent_textView.onClick { openSeries() }
             itemView.browser_item_recent_textView.text = mainActivity.getString(R.string.main_open_series)
             itemView.browser_item_recent_textView.fadeVisible()
             itemView.browser_item_recent_imageView.visible()
-
-            itemView.browser_item_recent_imageView.onClick { startReadAt(adapterPosition, itemView) }
-            itemView.browser_item_recent_imageView.onLongClick { showRemoveDialog(adapterPosition) }
         }
 
-        internal fun setStateInvalid() {
-            itemView.browser_item_recent_progressBar.gone()
-            itemView.browser_item_recent_textView.onClick { deleteBookAt(adapterPosition) }
-            itemView.browser_item_recent_textView.text = mainActivity.getString(R.string.main_remove)
-            itemView.browser_item_recent_textView.fadeVisible()
-            itemView.browser_item_recent_imageView.visible()
-
-            itemView.browser_item_recent_imageView.onClick { showRemoveDialog(adapterPosition) }
-            itemView.browser_item_recent_imageView.onLongClick { showRemoveDialog(adapterPosition) }
-        }
+//        internal fun setStateInvalid() {
+//            itemView.browser_item_recent_progressBar.gone()
+//            itemView.browser_item_recent_textView.onClick { deleteBookAt(adapterPosition) }
+//            itemView.browser_item_recent_textView.text = mainActivity.getString(R.string.main_remove)
+//            itemView.browser_item_recent_textView.fadeVisible()
+//            itemView.browser_item_recent_imageView.visible()
+//
+//            itemView.browser_item_recent_imageView.onClick { showRemoveDialog(adapterPosition) }
+//            itemView.browser_item_recent_imageView.onLongClick { showRemoveDialog(adapterPosition) }
+//        }
 
         private fun showRemoveDialog(position: Int) {
             val book = viewModel.getRecentAt(position) ?: Book()
@@ -151,7 +167,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
                 if (currentPosition in firstVisible..lastVisible) {
                     viewModel.getRemoteUserApi(item).observe(homeFragmentImpl1Content, Observer { result ->
                         result?.let {
-                            updateBook(helper, item)
+                            updateBook(item)
                             viewModel.addRecent(result, setTimeAccessed = false)
                         }
                     })
@@ -162,10 +178,8 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         }
     }
 
-    private fun BrowserItemRecentBinding.updateBook(helper: RecentAdapter.RecentHolder, item: Book) {
+    private fun BrowserItemRecentBinding.updateBook(item: Book) {
         setVariable(BR.item, item)
-        helper.loadImage(item.getPreviewUrl(THUMBNAIL_SIZE_RECENT))
-        helper.itemView.browser_item_recent_imageView.transitionName = item.getPreviewUrl(THUMBNAIL_SIZE_RECENT)
     }
 
     private fun startReadAt(adapterPosition: Int, itemView: View) {
