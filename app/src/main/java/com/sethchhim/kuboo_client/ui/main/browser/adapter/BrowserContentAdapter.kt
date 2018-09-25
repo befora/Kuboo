@@ -22,7 +22,6 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.matrixxun.starry.badgetextview.MaterialBadgeTextView
 import com.sethchhim.kuboo_client.BaseApplication
-import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Extensions.colorFilterGrey
 import com.sethchhim.kuboo_client.Extensions.colorFilterNull
 import com.sethchhim.kuboo_client.Extensions.colorFilterRed
@@ -304,7 +303,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
         }
 
         private fun handleFirstBook(holder: BrowserHolder, book: Book, result: Book) {
-            addDebugRecentlyViewedMockData(result)
             val stringUrl = result.server + result.linkThumbnail
             val requestOptions = RequestOptions()
                     .format(DecodeFormat.PREFER_RGB_565)
@@ -327,19 +325,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                         }
                     })
                     .into(holder.itemView.browser_item_content_folder_imageView3)
-        }
-
-        private fun addDebugRecentlyViewedMockData(result: Book) {
-            //populate recently viewed items for debug purposes
-            if (BuildConfig.DEBUG) {
-                viewModel.getRecentListFromDao().observe(browserFragment, Observer {
-                    it?.let {
-                        val isRecentListSizeLow = it.size < 30
-                        val isResultValid = !result.isBannedFromRecent()
-                        if (isRecentListSizeLow && isResultValid) viewModel.addRecent(result)
-                    }
-                })
-            }
         }
 
         private fun MaterialBadgeTextView.loadItemCount(holder: BrowserHolder, book: Book) =
