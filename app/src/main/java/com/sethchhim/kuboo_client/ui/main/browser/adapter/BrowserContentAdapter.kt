@@ -57,7 +57,7 @@ import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.collections.forEachWithIndex
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

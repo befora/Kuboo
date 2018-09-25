@@ -29,7 +29,7 @@ import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.io.File
 
 @SuppressLint("Registered")

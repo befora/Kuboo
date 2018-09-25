@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 

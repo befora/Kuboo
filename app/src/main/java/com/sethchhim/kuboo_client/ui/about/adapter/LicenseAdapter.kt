@@ -9,7 +9,7 @@ import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.model.License
 import com.sethchhim.kuboo_client.util.DialogUtil
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import javax.inject.Inject
 
 class LicenseAdapter(val context: Context, val licenseList: List<License>) : BaseQuickAdapter<License, LicenseAdapter.LicenseHolder>(R.layout.about_item_license, licenseList) {

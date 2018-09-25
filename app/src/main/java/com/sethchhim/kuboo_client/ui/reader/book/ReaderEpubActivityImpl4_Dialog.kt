@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.widget.Button
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.model.ReadData
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 @SuppressLint("Registered")
 open class ReaderEpubActivityImpl4_Dialog : ReaderEpubActivityImpl3_Content() {

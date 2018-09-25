@@ -15,7 +15,7 @@ import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.setGuidePercent
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_local.model.ChapterInfo
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 @SuppressLint("Registered")
 open class ReaderBaseActivityImpl3_Overlay : ReaderBaseActivityImpl2_Dialog() {

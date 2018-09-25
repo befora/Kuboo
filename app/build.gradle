@@ -120,7 +120,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'me.relex:circleindicator:1.2.2@aar'
-    implementation 'org.jetbrains.anko:anko:0.10.5'
+    implementation 'org.jetbrains.anko:anko:0.10.6'
 
     implementation project(path: ':epublibdroid-kotlin')
     implementation project(path: ':kuboo_local')

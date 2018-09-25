@@ -18,8 +18,8 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_remote.model.Login
 import dagger.android.support.DaggerFragment
-import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.sdk25.coroutines.textChangedListener
+import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject

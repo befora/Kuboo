@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.log
 
 import android.os.Bundle
-import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 
 class LogActivity : LogActivityImpl1_Content() {
 

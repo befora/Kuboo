@@ -9,7 +9,7 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.home.custom.LatestLinearLayoutManager
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class HomeFragment : HomeFragmentImpl1_Content() {
 

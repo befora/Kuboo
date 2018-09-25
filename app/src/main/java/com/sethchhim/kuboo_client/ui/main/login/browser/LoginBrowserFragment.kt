@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class LoginBrowserFragment : LoginBrowserFragmentImpl1_Content() {
 
