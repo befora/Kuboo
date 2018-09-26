@@ -8,15 +8,22 @@ import com.bumptech.glide.annotation.Excludes
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.integration.okhttp3.OkHttpLibraryGlideModule
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory
+import com.bumptech.glide.load.engine.cache.LruResourceCache
+import com.bumptech.glide.load.engine.cache.MemorySizeCalculator
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.sethchhim.kuboo_client.BaseApplication
+import com.sethchhim.kuboo_client.Extensions.asMegaBytes
 import com.sethchhim.kuboo_client.data.model.GlideEpub
 import com.sethchhim.kuboo_client.data.model.GlideLocal
 import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_remote.KubooRemote
 import java.io.InputStream
 import javax.inject.Inject
+
+
+
+
 
 
 @GlideModule
@@ -52,7 +59,17 @@ class GlideModule : AppGlideModule() {
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
-        builder.setDiskCache(DiskLruCacheFactory(Glide.getPhotoCacheDir(context)!!.absolutePath, 100 * 1024 * 1024))
+
+        val diskCacheSize = 100.asMegaBytes().toLong()
+        val diskCacheFolder = Glide.getPhotoCacheDir(context)!!.absolutePath
+        builder.setDiskCache(DiskLruCacheFactory(diskCacheFolder, diskCacheSize))
+
+        val memoryCacheSize = MemorySizeCalculator.Builder(context)
+                .setMemoryCacheScreens(3f)
+                .build()
+                .memoryCacheSize
+                .toLong()
+        builder.setMemoryCache(LruResourceCache(memoryCacheSize))
     }
 
 }

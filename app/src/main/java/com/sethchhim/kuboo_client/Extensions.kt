@@ -156,6 +156,8 @@ object Extensions {
 
     internal fun Int.isOdd() = !isEven()
 
+    internal fun Int.asMegaBytes() = this * 1024 * 1024
+
     internal fun Int.minutesToMilliseconds() = TimeUnit.MINUTES.toMillis(this.toLong())
 
     internal fun Int.toMinimumTwoDigits(): String {
