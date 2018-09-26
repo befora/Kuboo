@@ -63,6 +63,7 @@ open class ReaderComicFragment : DaggerFragment() {
     protected fun ImageView.loadImage(source: Any, requestListener: RequestListener<Bitmap>) {
         val requestOptions = RequestOptions()
                 .format(DecodeFormat.PREFER_RGB_565)
+                .skipMemoryCache(true)
         Glide.with(this@ReaderComicFragment)
                 .asBitmap()
                 .load(source)
