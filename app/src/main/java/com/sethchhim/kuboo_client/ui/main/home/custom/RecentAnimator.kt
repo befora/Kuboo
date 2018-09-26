@@ -41,7 +41,7 @@ class RecentAnimator : BaseItemAnimator {
     }
 
     override fun preAnimateAddImpl(holder: RecyclerView.ViewHolder?) {
-        ViewCompat.setTranslationX(holder!!.itemView, (-holder.itemView.rootView.width).toFloat())
+        ViewCompat.setTranslationX(holder!!.itemView, holder.itemView.rootView.width.toFloat())
     }
 
     override fun animateAddImpl(holder: RecyclerView.ViewHolder) {
