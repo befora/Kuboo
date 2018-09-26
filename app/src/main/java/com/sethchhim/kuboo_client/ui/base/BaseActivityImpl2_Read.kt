@@ -89,7 +89,8 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
                     val isNotBannedFromTransition = !book.isBannedFromTransition()
                     val isSharedElementValid = sharedElement?.isVisible() ?: false
                     when (isNotBannedFromTransition && isSharedElementValid) {
-                        true -> {
+                        true -> launch(UI) {
+                            delay(300)
                             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl2_Read, sharedElement!!, sharedElement!!.transitionName)
                             startActivity(intent, options.toBundle())
                         }
