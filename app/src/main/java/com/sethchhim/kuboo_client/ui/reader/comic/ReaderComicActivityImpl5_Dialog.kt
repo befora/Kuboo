@@ -24,7 +24,6 @@ open class ReaderComicActivityImpl5_Dialog: ReaderComicActivityImpl4_Content() {
         if (isLocal) viewModel.cleanupParser()
 
         transitionUrl = nextBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
-        previewImageView.transitionName = transitionUrl
 
         showNewIntentTransition()
         startDownloadTracking(nextBook)

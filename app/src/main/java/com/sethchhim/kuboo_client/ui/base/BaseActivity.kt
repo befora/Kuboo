@@ -19,6 +19,7 @@ open class BaseActivity : BaseActivityImpl2_Read() {
         loadingDialog = dialogUtil.getDialogLoading(this)
 
         initIntent(intent)
+        transitionUrl = intent.getStringExtra(Constants.ARG_TRANSITION_URL) ?: ""
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -31,7 +32,6 @@ open class BaseActivity : BaseActivityImpl2_Read() {
         currentBook = getParcelableExtra(Constants.ARG_BOOK) ?: Book()
         previousBook = Book()
         nextBook = Book()
-        transitionUrl = getStringExtra(Constants.ARG_TRANSITION_URL) ?: ""
     }
 
 }
