@@ -2,6 +2,22 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Sep 28, 2018"
+        versionName="1.1.3">
+        <changelogtext>fix comic reader oom exception (out of memory)</changelogtext>
+        <changelogtext>fix recently viewed add animation to be less jarring</changelogtext>
+        <changelogtext>fix recently viewed fling performance</changelogtext>
+        <changelogtext>fix recently viewed needs delay before enter transition</changelogtext>
+        <changelogtext>fix recently viewed return transition did not work after going to next book
+        </changelogtext>
+        <changelogtext>increase glide memory utilization target by 50%</changelogtext>
+        <changelogtext>update anko to 0.10.6 from 0.10.5</changelogtext>
+        <changelogtext>update gradle to 4.6 from 4.4</changelogtext>
+        <changelogtext>update kotlin gradle plugin to 1.2.71 from 1.2.70</changelogtext>
+        <changelogtext>update support library to 28.0.0 from 28.0.0-rc01</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Sep 21, 2018"
         versionName="1.1.2">
         <changelogtext>add korean translation</changelogtext>
