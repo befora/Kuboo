@@ -179,9 +179,7 @@ object Extensions {
 
     internal fun List<Book>.compressFavorite(): MutableList<Book> {
         val favoriteCompressedList = mutableListOf<Book>()
-        this
-                .sortedWith(compareBy({ it.getXmlId() }, { it.id }))
-                .forEach {
+        forEach {
                     val isFavorite = it.isFavorite
                     val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
                     when (isFavorite) {
@@ -189,7 +187,8 @@ object Extensions {
                         false -> favoriteCompressedList.add(it)
                     }
                 }
-        return favoriteCompressedList
+        val sortedList = favoriteCompressedList.sortedWith(compareBy({ it.getXmlId() }, { it.id }))
+        return sortedList as MutableList<Book>
     }
 
     internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }.sortedBy { it.tag }

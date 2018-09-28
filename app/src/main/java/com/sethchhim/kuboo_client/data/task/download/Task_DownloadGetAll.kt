@@ -14,7 +14,9 @@ class Task_DownloadGetAll : Task_LocalBase() {
         executors.diskIO.execute {
             try {
                 val result = appDatabaseDao.getAllBookDownload()
-                executors.mainThread.execute { liveData.value = result.downloadListToBookList() }
+                        .downloadListToBookList()
+                val sortedList = result.sortedWith(compareBy({ it.getXmlId() }, { it.id }))
+                executors.mainThread.execute { liveData.value = sortedList }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}]")
                 executors.mainThread.execute { liveData.value = null }
