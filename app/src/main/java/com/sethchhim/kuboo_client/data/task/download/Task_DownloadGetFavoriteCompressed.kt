@@ -16,8 +16,7 @@ class Task_DownloadGetFavoriteCompressed : Task_LocalBase() {
             try {
                 val result = appDatabaseDao.getAllBookDownload().downloadListToBookList()
                 val favoriteCompressedList = mutableListOf<Book>()
-                result.sortedWith(compareBy({ it.getXmlId() }, { it.id }))
-                        .forEach {
+                result.forEach {
                             val isFavorite = it.isFavorite
                             val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
                             when (isFavorite) {
@@ -25,7 +24,8 @@ class Task_DownloadGetFavoriteCompressed : Task_LocalBase() {
                                 false -> favoriteCompressedList.add(it)
                             }
                         }
-                executors.mainThread.execute { liveData.value = favoriteCompressedList }
+                val sortedList = favoriteCompressedList.sortedWith(compareBy({ it.getXmlId() }, { it.id }))
+                executors.mainThread.execute { liveData.value = sortedList }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}]")
                 executors.mainThread.execute { liveData.value = null }
