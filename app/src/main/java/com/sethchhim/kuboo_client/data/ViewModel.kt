@@ -199,9 +199,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
         }
     }
 
-    internal fun deleteFetchDownloadsBefore(book: Book) {
-        fetchRepository.deleteDownloadsBefore(book)
-    }
+    internal fun deleteFetchDownloadsNotInList(doNotDeleteList: MutableList<Book>) = fetchRepository.deleteFetchDownloadsNotInList(doNotDeleteList)
 
     internal fun getFetchDownload(book: Book) = fetchRepository.getDownload(book)
 

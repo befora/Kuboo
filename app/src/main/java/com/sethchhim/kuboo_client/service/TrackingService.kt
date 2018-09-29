@@ -62,10 +62,7 @@ class TrackingService : Worker() {
             it?.let {
                 it
                         .filter { it.isFavorite }
-                        .forEach {
-                            viewModel.deleteFetchDownloadsBefore(it)
-                            startTrackingByBook(login, it)
-                        }
+                        .forEach { startTrackingByBook(login, it) }
                 kubooRemote.resumeAll()
             }
         }
@@ -116,7 +113,14 @@ class TrackingService : Worker() {
     private fun handleResultFinal(login: Login, book: Book, seriesNeighbors: MutableList<Book>, startTime: Long) {
         val elapsedTime = System.currentTimeMillis() - startTime
         Timber.d("Tracking of book finished.  title[${book.title}] [$elapsedTime ms]")
-        if (seriesNeighbors.isNotEmpty()) viewModel.startFetchDownloads(login, seriesNeighbors, Settings.DOWNLOAD_SAVE_PATH)
+        if (seriesNeighbors.isNotEmpty()) {
+            val doNotDeleteList = mutableListOf<Book>().apply {
+                add(book)
+                addAll(seriesNeighbors)
+            }
+            viewModel.deleteFetchDownloadsNotInList(doNotDeleteList)
+            viewModel.startFetchDownloads(login, seriesNeighbors, Settings.DOWNLOAD_SAVE_PATH)
+        }
     }
 
 }

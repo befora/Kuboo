@@ -108,7 +108,7 @@ class FetchRepository : FetchListener {
 
     internal fun deleteSeries(book: Book, keepBook: Boolean) = kubooRemote.deleteSeries(book, keepBook)
 
-    internal fun deleteDownloadsBefore(book: Book) = kubooRemote.deleteDownloadsBefore(book)
+    internal fun deleteFetchDownloadsNotInList(doNotDeleteList: MutableList<Book>) = kubooRemote.deleteFetchDownloadsNotInList(doNotDeleteList)
 
     internal fun getDownload(book: Book) = kubooRemote.getFetchDownload(book)
 

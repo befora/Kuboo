@@ -134,7 +134,6 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
 
     fun deleteDownload(download: Download) = fetchService.delete(download)
 
-    fun deleteDownloadsBefore(book: Book) = fetchService.deleteBefore(book)
-
+    fun deleteFetchDownloadsNotInList(doNotDeleteList: MutableList<Book>) = fetchService.deleteNotInList(doNotDeleteList)
 
 }

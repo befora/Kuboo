@@ -120,18 +120,19 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
 
     internal fun deleteGroup(group: Int) = fetch.deleteGroup(group)
 
-    internal fun deleteBefore(book: Book) {
-        fetch.getDownloads(Func { result ->
-            result.forEach {
-                val isMatchSeries = it.group == book.getXmlId()
-                val id = try {
-                    it.tag!!.toInt()
-                } catch (e: Exception) {
-                    0
-                }
-                val isBefore = id < book.id
-                if (isMatchSeries && isBefore) delete(it)
-            }
+    internal fun deleteNotInList(doNotDeleteList: MutableList<Book>) {
+        fetch.getDownloads(Func { fetchDownloads ->
+            fetchDownloads
+                    .groupBy { it.group }
+                    .forEach { entry ->
+                        entry.value.forEach { download ->
+                            val isDoNotDeleteListValid = doNotDeleteList[0].getXmlId() == entry.key
+                            val isContains = doNotDeleteList.any { it.getAcquisitionUrl() == download.url }
+                            if (isDoNotDeleteListValid && !isContains) {
+                                delete(download)
+                            }
+                        }
+                    }
         })
     }
 

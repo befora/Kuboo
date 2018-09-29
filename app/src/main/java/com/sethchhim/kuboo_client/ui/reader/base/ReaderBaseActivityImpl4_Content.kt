@@ -74,7 +74,6 @@ open class ReaderBaseActivityImpl4_Content : ReaderBaseActivityImpl3_Overlay() {
 
     protected fun startDownloadTracking(book: Book) {
         if (isDownload() && book.isFavorite) {
-            viewModel.deleteFetchDownloadsBefore(book)
             trackingService.startTrackingByBook(viewModel.getActiveLogin(), book)
         }
     }
