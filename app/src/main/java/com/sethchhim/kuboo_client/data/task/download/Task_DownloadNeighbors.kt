@@ -23,9 +23,7 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
     private fun searchForNeighbors(result: List<Book>) {
         var position = -2
 
-        val downloadList = result
-                .filter { it.getXmlId() == book.getXmlId() }
-                .sortedBy { it.id }
+        val downloadList = result.filter { it.getXmlId() == book.getXmlId() }
 
         downloadList.forEachWithIndex { i, b ->
             if (b.isMatch(book)) {

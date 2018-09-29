@@ -18,7 +18,6 @@ class Task_DownloadDeleteSeries(book: Book, keepBook: Boolean) : Task_LocalBase(
             try {
                 appDatabaseDao.getAllBookDownload()
                         .filter { it.getXmlId() == book.getXmlId() }
-                        .sortedBy { it.id }
                         .forEach {
                             when (keepBook && it.id == book.id) {
                                 true -> { /*do nothing*/

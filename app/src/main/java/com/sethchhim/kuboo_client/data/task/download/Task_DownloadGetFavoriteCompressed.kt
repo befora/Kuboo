@@ -24,7 +24,7 @@ class Task_DownloadGetFavoriteCompressed : Task_LocalBase() {
                                 false -> favoriteCompressedList.add(it)
                             }
                         }
-                val sortedList = favoriteCompressedList.sortedWith(compareBy({ it.getXmlId() }, { it.id }))
+                val sortedList = favoriteCompressedList.sortedBy { it.getXmlId() }
                 executors.mainThread.execute { liveData.value = sortedList }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}]")

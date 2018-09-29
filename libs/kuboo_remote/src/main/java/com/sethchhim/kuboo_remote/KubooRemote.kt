@@ -90,7 +90,6 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
                     it?.let {
                         it
                                 .filter { it.group == book.getXmlId() }
-                                .sortedBy { it.tag }
                                 .forEach {
                                     val isMatchBook = it.tag?.toInt() == book.id
                                     if (!isMatchBook) fetchService.delete(it)

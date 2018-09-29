@@ -180,18 +180,18 @@ object Extensions {
     internal fun List<Book>.compressFavorite(): MutableList<Book> {
         val favoriteCompressedList = mutableListOf<Book>()
         forEach {
-                    val isFavorite = it.isFavorite
-                    val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
-                    when (isFavorite) {
-                        true -> if (isNotContainsSeries) favoriteCompressedList.add(it)
-                        false -> favoriteCompressedList.add(it)
-                    }
-                }
-        val sortedList = favoriteCompressedList.sortedWith(compareBy({ it.getXmlId() }, { it.id }))
+            val isFavorite = it.isFavorite
+            val isNotContainsSeries = !favoriteCompressedList.containsSeries(it.getXmlId())
+            when (isFavorite) {
+                true -> if (isNotContainsSeries) favoriteCompressedList.add(it)
+                false -> favoriteCompressedList.add(it)
+            }
+        }
+        val sortedList = favoriteCompressedList.sortedBy { it.getXmlId() }
         return sortedList as MutableList<Book>
     }
 
-    internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }.sortedBy { it.tag }
+    internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }
 
     internal fun List<com.sethchhim.kuboo_client.data.model.Download>.downloadListToBookList(): List<Book> {
         val bookList = mutableListOf<Book>()
