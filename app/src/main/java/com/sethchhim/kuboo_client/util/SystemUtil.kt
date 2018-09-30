@@ -17,7 +17,6 @@ import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
-import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.toast
 import timber.log.Timber
@@ -190,7 +189,7 @@ class SystemUtil(private val context: Context) {
             val volumePathArray = Array(volumeArray.size) { i -> i.toString() }
 
             var externalCount = 0
-            volumeArray.forEachWithIndex { index, file ->
+            volumeArray.forEachIndexed { index, file ->
                 val freeSpace = file.freeSpace.toReadable()
                 volumePathArray[index] = when (file.path.contains("/storage/emulated/0")) {
                     true -> "Internal Storage \n($freeSpace free)"
