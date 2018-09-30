@@ -113,8 +113,8 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
 
     internal fun delete(book: Book) = fetch.getDownloads(Func { result ->
         result.forEach {
-            val isMatchSeries = it.group == book.getXmlId()
-            if (isMatchSeries) delete(it)
+            val isMatchUrl = it.url == book.getAcquisitionUrl()
+            if (isMatchUrl) delete(it)
         }
     })
 

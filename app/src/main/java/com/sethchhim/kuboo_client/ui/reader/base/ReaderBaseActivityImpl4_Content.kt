@@ -78,4 +78,10 @@ open class ReaderBaseActivityImpl4_Content : ReaderBaseActivityImpl3_Overlay() {
         }
     }
 
+    protected fun deleteFinishedDownload(book: Book) {
+        if (isDownload() && book.isFavorite) {
+            viewModel.deleteFetchDownload(book)
+        }
+    }
+
 }

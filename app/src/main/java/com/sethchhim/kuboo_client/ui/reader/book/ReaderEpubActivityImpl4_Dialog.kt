@@ -31,6 +31,7 @@ open class ReaderEpubActivityImpl4_Dialog : ReaderEpubActivityImpl3_Content() {
 
     override fun startNextBook() {
         viewModel.addFinish(currentBook)
+        deleteFinishedDownload(currentBook)
         startDownloadTracking(nextBook)
         finish()
         startReader(ReadData(book = nextBook, bookmarksEnabled = false, sharedElement = null, source = source))

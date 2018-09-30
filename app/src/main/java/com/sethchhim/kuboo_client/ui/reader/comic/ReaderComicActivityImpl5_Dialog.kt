@@ -21,6 +21,7 @@ open class ReaderComicActivityImpl5_Dialog : ReaderComicActivityImpl4_Content() 
 
         Temporary.USER_API_UPDATE_LIST.add(currentBook)
         viewModel.addFinish(currentBook)
+        deleteFinishedDownload(currentBook)
         viewModel.clearReaderLists()
         if (isLocal) viewModel.cleanupParser()
 
