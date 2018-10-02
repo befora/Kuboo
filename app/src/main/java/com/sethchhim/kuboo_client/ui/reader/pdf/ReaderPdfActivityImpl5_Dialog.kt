@@ -15,15 +15,14 @@ open class ReaderPdfActivityImpl5_Dialog : ReaderPdfActivityImpl4_Content() {
     }
 
     override fun startNextBook() {
-        viewModel.addFinish(currentBook)
-        deleteFinishedDownload(currentBook)
+        super.startNextBook()
         startDownloadTracking(nextBook)
         finish()
         startReader(ReadData(book = nextBook, bookmarksEnabled = false, sharedElement = null, source = source))
     }
 
     override fun finishBook() {
-        viewModel.addFinish(currentBook)
+        super.finishBook()
         startDownloadTracking(currentBook)
         exitActivity()
     }

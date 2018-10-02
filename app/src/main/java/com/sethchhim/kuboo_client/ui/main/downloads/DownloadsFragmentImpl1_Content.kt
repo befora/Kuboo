@@ -4,12 +4,14 @@ import android.arch.lifecycle.Observer
 import android.support.design.widget.TabLayout
 import com.sethchhim.kuboo_client.Extensions.compressFavorite
 import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadListAdapter
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.FetchListener
+import com.tonyodev.fetch2.Status
 import com.tonyodev.fetch2core.DownloadBlock
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,27 +20,52 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
 
     @Inject lateinit var kubooRemote: KubooRemote
 
-    protected fun populateDownloads() {
-        setNumberProgressBar()
-        setStateLoading()
-        resetDownloads()
-        contentRecyclerView.saveState()
-        viewModel.getDownloadListLiveData().observe(this, Observer {
-            it?.let { handleResult(it.downloadListToBookList()) }
+    protected fun populateDownloads(enableLoading: Boolean = true) {
+        if (enableLoading) {
+            setNumberProgressBar()
+            setStateLoading()
+            resetDownloads()
+            contentRecyclerView.saveState()
+        }
+        viewModel.getDownloadListLiveData().observe(this, Observer { result ->
+            result?.let {
+                viewModel.getFetchDownloads().observe(this, Observer { fetchDownloads ->
+                    fetchDownloads?.let {
+                        handleResult(result.downloadListToBookList(), fetchDownloads)
+                    }
+                })
+            }
         })
     }
 
-    private fun handleResult(result: List<Book>) {
-        when (result.isEmpty()) {
+    private fun handleResult(result: List<Book>, fetchDownloads: List<Download>) {
+        val compressedList = result.compressFavorite()
+        val nonCompressedList = result.filter { !compressedList.contains(it) }
+
+        val filteredList = when (Settings.DOWNLOAD_TRACKING_HIDE_FINISHED) {
+            true -> compressedList.filter {
+                val isAnyCompletedDownloadsFromSameXmlId = nonCompressedList.any { item ->
+                    val isMatchXmlId = item.getXmlId() == it.getXmlId()
+                    val isCompleted = fetchDownloads.any { it.tag == item.getIdString() && it.group == item.getXmlId() && it.status == Status.COMPLETED }
+                    isMatchXmlId && isCompleted
+                }
+                return@filter !it.isFavorite
+                        || it.isFavorite && !it.isFinished
+                        || it.isFavorite && it.isFinished && isAnyCompletedDownloadsFromSameXmlId
+            }
+            false -> compressedList
+        }
+
+        when (filteredList.isEmpty()) {
             true -> onPopulateContentEmpty()
-            false -> onPopulateContentSuccess(result)
+            false -> onPopulateContentSuccess(filteredList)
         }
     }
 
     private fun onPopulateContentSuccess(result: List<Book>) {
         Timber.i("onPopulateDownloadsSuccess result: ${result.size}")
         setStateConnected()
-        (contentRecyclerView.adapter as DownloadListAdapter).submitList(result.compressFavorite())
+        (contentRecyclerView.adapter as DownloadListAdapter).submitList(result as MutableList<Book>)
         contentRecyclerView.restoreState()
     }
 
@@ -72,6 +99,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
 
         override fun onCompleted(download: Download) {
             updateContent(download)
+            populateDownloads(enableLoading = false)
         }
 
         override fun onDeleted(download: Download) {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
+import com.sethchhim.kuboo_client.Temporary
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.model.Progress
@@ -65,10 +66,19 @@ open class ReaderBaseActivityImpl4_Content : ReaderBaseActivityImpl3_Overlay() {
     }
 
     protected open fun startNextBook() {
+        currentBook.isFinished = true
+        Temporary.USER_API_UPDATE_LIST.add(currentBook)
+        viewModel.addFinish(currentBook)
+        addFinishedDownload(currentBook)
+        deleteFinishedFetchDownload(currentBook)
         //override in children
     }
 
     protected open fun finishBook() {
+        currentBook.isFinished = true
+        Temporary.USER_API_UPDATE_LIST.add(currentBook)
+        viewModel.addFinish(currentBook)
+        addFinishedDownload(currentBook)
         //override in children
     }
 
@@ -78,7 +88,13 @@ open class ReaderBaseActivityImpl4_Content : ReaderBaseActivityImpl3_Overlay() {
         }
     }
 
-    protected fun deleteFinishedDownload(book: Book) {
+    private fun addFinishedDownload(book: Book){
+        if (isDownload()) {
+            viewModel.addDownload(book)
+        }
+    }
+
+    protected fun deleteFinishedFetchDownload(book: Book) {
         if (isDownload() && book.isFavorite) {
             viewModel.deleteFetchDownload(book)
         }

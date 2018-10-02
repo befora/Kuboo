@@ -39,6 +39,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var downloadSavePath: Preference
     protected lateinit var downloadTrackingLimit: Preference
     protected lateinit var downloadTrackingInterval: Preference
+    protected lateinit var downloadTrackingHideFinished: SwitchPreferenceCompat
     protected lateinit var homeLayoutPreference: Preference
     protected lateinit var serverLoginPreference: Preference
     protected lateinit var systemOrientationPreference: Preference
@@ -58,6 +59,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         downloadSavePath = findPreference("settings_download_save_path")
         downloadTrackingLimit = findPreference("settings_download_tracking_limit")
         downloadTrackingInterval = findPreference("settings_download_tracking_interval")
+        downloadTrackingHideFinished = findPreference("settings_download_tracking_hide_finished") as SwitchPreferenceCompat
         homeLayoutPreference = findPreference("settings_home_layout")
         serverLoginPreference = findPreference("settings_server_login")
         systemOrientationPreference = findPreference("settings_system_orientation")

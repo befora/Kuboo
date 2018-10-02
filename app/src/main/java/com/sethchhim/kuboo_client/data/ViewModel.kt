@@ -189,6 +189,7 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     //fetch
     internal fun startFetchDownloads(login: Login, list: List<Book>, savePath: String) {
+        list.forEach { it.isFinished }
         val isSavePathValid = savePath.isNotEmpty()
         when (isSavePathValid) {
             true -> {

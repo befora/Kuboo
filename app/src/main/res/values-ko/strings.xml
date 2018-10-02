@@ -233,6 +233,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_finished_items_will_be_darkened">"다 읽은 책이 어둡게 표시됩니다."</string>
     <string name="settings_finished_notification">"다운로드 완료 알림"</string>
     <string name="settings_fit_width">"가로 맞추기"</string>
+    <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">완전히 읽고 더 이상 사용할 수있는 콘텐츠가없는 추적 시리즈 숨기기</string>
     <string name="settings_home">"홈"</string>
     <string name="settings_hours">"시간"</string>
     <string name="settings_keep_screen_on">"화면 항상 켜기"</string>
@@ -270,6 +271,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_theme_entry_dark_theme">다크 테마</string>
     <string name="settings_theme_entry_light_theme">가벼운 테마</string>
     <string name="settings_theme_entry_oled_theme">Oled 테마</string>
+    <string name="settings_tracking_hide_finished">추적 숨기기 완료</string>
     <string name="settings_tracking_interval">"트랙킹 주기"</string>
     <string name="settings_tracking_limit">"트랙킹 권 수 제한"</string>
     <string name="settings_version">"버전"</string>

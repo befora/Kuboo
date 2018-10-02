@@ -211,6 +211,8 @@
     <string name="settings_fit_width">Fit Width</string>
     <string name="settings_home">Home</string>
     <string name="settings_hours">hours</string>
+    <string name="settings_tracking_hide_finished">Tracking Hide Finished</string>
+    <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Hide tracking series that have been fully read and have no further content available</string>
     <string name="settings_keep_screen_on">Keep Screen On</string>
     <string name="settings_landscape">Landscape</string>
     <string name="settings_layout">Layout</string>

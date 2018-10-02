@@ -242,6 +242,7 @@ HTTP NON TROUVÉ
     <string name="settings_finished_items_will_be_darkened">"Les BD finis seront assombris"</string>
     <string name="settings_finished_notification">"Notification terminée"</string>
     <string name="settings_fit_width">"Ajuster largeur"</string>
+    <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Masquer les séries de suivi qui ont été entièrement lues et n’ont plus de contenu disponible</string>
     <string name="settings_home">"Accueil"</string>
     <string name="settings_hours">"heures"</string>
     <string name="settings_keep_screen_on">"Garder l'écran allumé"</string>
@@ -279,6 +280,7 @@ HTTP NON TROUVÉ
     <string name="settings_theme_entry_dark_theme">Thème sombre</string>
     <string name="settings_theme_entry_light_theme">Thème léger</string>
     <string name="settings_theme_entry_oled_theme">Thème OLED</string>
+    <string name="settings_tracking_hide_finished">Masquer le suivi terminé</string>
     <string name="settings_tracking_interval">"intervalle de suivi "</string>
     <string name="settings_tracking_limit">"Limite de suivi"</string>
     <string name="settings_version">"Version"</string>

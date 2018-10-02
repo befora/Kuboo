@@ -22,6 +22,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setDownloadSavePath()
         setDownloadTrackingLimit()
         setDownloadTrackingInterval()
+        setDownloadTrackingHideFinished()
 
         setHomeLayout()
 
@@ -183,6 +184,15 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
                     summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
                 }
             }
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setDownloadTrackingHideFinished() = downloadTrackingHideFinished.apply {
+        isChecked = Settings.DOWNLOAD_TRACKING_HIDE_FINISHED
+        setOnPreferenceClickListener {
+            Settings.DOWNLOAD_TRACKING_HIDE_FINISHED = !Settings.DOWNLOAD_TRACKING_HIDE_FINISHED
+            sharedPrefsHelper.saveDownloadTrackingHideFinished()
             return@setOnPreferenceClickListener true
         }
     }

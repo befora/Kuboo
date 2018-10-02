@@ -227,6 +227,7 @@ Panel doble"</string>
     <string name="settings_finished_items_will_be_darkened">"Los ítems leídos se oscureceran para indicar que han sido leídos"</string>
     <string name="settings_finished_notification">"Notificación al finalizar las descargas"</string>
     <string name="settings_fit_width">"Ajuste ancho"</string>
+    <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Ocultar series de seguimiento que se han leído completamente y no tienen más contenido disponible</string>
     <string name="settings_home">"Home"</string>
     <string name="settings_hours">"horas"</string>
     <string name="settings_keep_screen_on">"Mantener la pantalla encendida"</string>
@@ -264,6 +265,7 @@ Panel doble"</string>
     <string name="settings_theme_entry_dark_theme">Tema oscuro</string>
     <string name="settings_theme_entry_light_theme">Tema de luz</string>
     <string name="settings_theme_entry_oled_theme">Tema OLED</string>
+    <string name="settings_tracking_hide_finished">Ocultar elementos de seguimiento terminados</string>
     <string name="settings_tracking_interval">"Intervalo de chequeo de ítems en la cola"</string>
     <string name="settings_tracking_limit">"Número máximo de ítems de la cola (ítems descargados)"</string>
     <string name="settings_version">"Versión"</string>

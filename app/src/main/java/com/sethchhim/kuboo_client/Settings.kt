@@ -25,6 +25,7 @@ object Settings {
     const val DEFAULT_DOWNLOAD_FINISHED_NOTIFICATION = true
     const val DEFAULT_DOWNLOAD_TRACKING_LIMIT = 3
     const val DEFAULT_DOWNLOAD_TRACKING_INTERVAL = 12 //hours
+    const val DEFAULT_DOWNLOAD_TRACKING_HIDE_FINISHED = false
 
     const val DEFAULT_KEEP_SCREEN_ON = false
     const val DEFAULT_VOLUME_PAGE_TURN = false
@@ -58,6 +59,7 @@ object Settings {
     var DOWNLOAD_SAVE_PATH = ""
     var DOWNLOAD_TRACKING_LIMIT = DEFAULT_DOWNLOAD_TRACKING_LIMIT
     var DOWNLOAD_TRACKING_INTERVAL = DEFAULT_DOWNLOAD_TRACKING_INTERVAL
+    var DOWNLOAD_TRACKING_HIDE_FINISHED = DEFAULT_DOWNLOAD_TRACKING_HIDE_FINISHED
 
     //-------------------------------------READER_PREFERENCES---------------------------------------
     var DUAL_PANE = false
