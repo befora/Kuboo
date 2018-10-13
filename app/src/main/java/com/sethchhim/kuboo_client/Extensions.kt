@@ -177,7 +177,7 @@ object Extensions {
             TimeUnit.MILLISECONDS.toMinutes(this) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(this)),
             TimeUnit.MILLISECONDS.toSeconds(this) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(this)))
 
-    internal fun List<Book>.compressFavorite(): MutableList<Book> {
+    internal fun List<Book>.compressFavorite(): List<Book> {
         val favoriteCompressedList = mutableListOf<Book>()
         forEach {
             val isFavorite = it.isFavorite
@@ -188,7 +188,7 @@ object Extensions {
             }
         }
         val sortedList = favoriteCompressedList.sortedBy { it.getXmlId() }
-        return sortedList as MutableList<Book>
+        return sortedList
     }
 
     internal fun List<Download>.filteredBySeries(download: Download) = this.filter { it.group == download.group }
