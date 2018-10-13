@@ -2,9 +2,10 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Sep 30, 2018"
-        versionName="1.1.4_beta2">
+        changeDate="Oct 12, 2018"
+        versionName="1.1.4_beta3">
         <changelogtext>add setting hide download tracking series if no content available</changelogtext>
+        <changelogtext>change hidpi min value to 2048 from 2560</changelogtext>
         <changelogtext>fix download sort by opds id is not reliable</changelogtext>
         <changelogtext>fix download tracking would delete wrong item</changelogtext>
     </changelogversion>
