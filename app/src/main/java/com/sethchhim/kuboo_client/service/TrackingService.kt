@@ -1,5 +1,6 @@
 package com.sethchhim.kuboo_client.service
 
+import android.content.Context
 import androidx.work.*
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_NICKNAME
@@ -17,7 +18,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class TrackingService : Worker() {
+class TrackingService {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -27,15 +28,17 @@ class TrackingService : Worker() {
     @Inject lateinit var systemUtil: SystemUtil
     @Inject lateinit var viewModel: ViewModel
 
-    override fun doWork(): Result {
-        val login = Login().apply {
-            nickname = inputData.getString(KEY_LOGIN_NICKNAME) ?: ""
-            server = inputData.getString(KEY_LOGIN_SERVER) ?: ""
-            username = inputData.getString(KEY_LOGIN_USERNAME) ?: ""
-            password = inputData.getString(KEY_LOGIN_PASSWORD) ?: ""
+    inner class TrackingWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
+        override fun doWork(): Result {
+            val login = Login().apply {
+                nickname = inputData.getString(KEY_LOGIN_NICKNAME) ?: ""
+                server = inputData.getString(KEY_LOGIN_SERVER) ?: ""
+                username = inputData.getString(KEY_LOGIN_USERNAME) ?: ""
+                password = inputData.getString(KEY_LOGIN_PASSWORD) ?: ""
+            }
+            startOneTimeTrackingService(login)
+            return Result.SUCCESS
         }
-        startOneTimeTrackingService(login)
-        return Result.SUCCESS
     }
 
     internal fun startPeriodicTrackingService() {
@@ -50,7 +53,7 @@ class TrackingService : Worker() {
                 .putString(KEY_LOGIN_PASSWORD, login.password)
                 .build()
         val trackingWork = PeriodicWorkRequest
-                .Builder(TrackingService::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
+                .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .setInputData(inputData)
                 .build()

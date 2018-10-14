@@ -78,7 +78,7 @@ dependencies {
     final android_lifecycle_version = "1.1.1"
     implementation "android.arch.lifecycle:extensions:$android_lifecycle_version"
     implementation "android.arch.lifecycle:runtime:$android_lifecycle_version"
-    implementation "android.arch.work:work-runtime:1.0.0-alpha08"
+    implementation "android.arch.work:work-runtime:1.0.0-alpha10"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
