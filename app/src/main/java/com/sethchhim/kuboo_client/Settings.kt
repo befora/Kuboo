@@ -7,7 +7,7 @@ import com.sethchhim.kuboo_client.data.enum.ScreenOrientation
 
 object Settings {
 
-    const val UBOOQUITY_VERSION = "2.1.1"
+    const val UBOOQUITY_VERSION = "2.1.2"
 
     //-----------------------------------------DEFAULT----------------------------------------------
     // These settings are applied on a fresh install of the app.
