@@ -2,12 +2,15 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Oct 12, 2018"
-        versionName="1.1.4_beta3">
+        changeDate="Oct 23, 2018"
+        versionName="1.1.4_beta4">
         <changelogtext>add setting hide download tracking series if no content available</changelogtext>
         <changelogtext>change hidpi min value to 2048 from 2560</changelogtext>
         <changelogtext>fix download sort by opds id is not reliable</changelogtext>
         <changelogtext>fix download tracking would delete wrong item</changelogtext>
+        <changelogtext>update gradle build tools to 3.2.1 from 3.2.0</changelogtext>
+        <changelogtext>update recommended ubooquity version to 2.1.2 from 2.1.1</changelogtext>
+        <changelogtext>update workmanager to 1.0.0-alpha10 from 1.0.0-alpha08</changelogtext>
     </changelogversion>
 
     <changelogversion

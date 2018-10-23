@@ -19,8 +19,8 @@ android {
         applicationId "com.sethchhim.kuboo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 21
-        versionName "1.1.4_beta3"
+        versionCode 22
+        versionName "1.1.4_beta4"
         buildConfigField 'long', 'TIMESTAMP', System.currentTimeMillis() + 'L'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
