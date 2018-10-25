@@ -38,8 +38,8 @@ class TrackingService {
                 .putString(KEY_LOGIN_PASSWORD, login.password)
                 .build()
         val trackingWork = PeriodicWorkRequest
-//                .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
-                .Builder(TrackingWorker::class.java, 16 * 60 * 1000L, TimeUnit.MILLISECONDS)
+                .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
+//                .Builder(TrackingWorker::class.java, 16 * 60 * 1000L, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
                 .setInputData(inputData)
                 .build()
