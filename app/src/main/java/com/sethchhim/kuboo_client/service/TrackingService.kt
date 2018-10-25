@@ -1,6 +1,5 @@
 package com.sethchhim.kuboo_client.service
 
-import android.content.Context
 import androidx.work.*
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_NICKNAME
@@ -28,22 +27,8 @@ class TrackingService {
     @Inject lateinit var systemUtil: SystemUtil
     @Inject lateinit var viewModel: ViewModel
 
-    inner class TrackingWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
-        override fun doWork(): Result {
-            val login = Login().apply {
-                nickname = inputData.getString(KEY_LOGIN_NICKNAME) ?: ""
-                server = inputData.getString(KEY_LOGIN_SERVER) ?: ""
-                username = inputData.getString(KEY_LOGIN_USERNAME) ?: ""
-                password = inputData.getString(KEY_LOGIN_PASSWORD) ?: ""
-            }
-            startOneTimeTrackingService(login)
-            return Result.SUCCESS
-        }
-    }
-
     internal fun startPeriodicTrackingService() {
         val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.UNMETERED)
                 .build()
         val login = viewModel.getActiveLogin()
         val inputData = Data.Builder()
@@ -53,7 +38,8 @@ class TrackingService {
                 .putString(KEY_LOGIN_PASSWORD, login.password)
                 .build()
         val trackingWork = PeriodicWorkRequest
-                .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
+//                .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
+                .Builder(TrackingWorker::class.java, 16 * 60 * 1000L, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
                 .setInputData(inputData)
                 .build()

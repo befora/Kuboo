@@ -8,6 +8,7 @@ import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_client.service.IntentService
 import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import com.sethchhim.kuboo_client.service.TrackingService
+import com.sethchhim.kuboo_client.service.TrackingWorker
 import com.sethchhim.kuboo_client.ui.about.adapter.AboutPagerAdapter
 import com.sethchhim.kuboo_client.ui.about.adapter.FaqAdapter
 import com.sethchhim.kuboo_client.ui.about.adapter.LicenseAdapter
@@ -59,6 +60,7 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(settingsFragment: SettingsFragmentImp0_View)
     fun inject(task_LocalBase: Task_LocalBase)
     fun inject(trackingService: TrackingService)
+    fun inject(trackingWorker: TrackingWorker)
 
     @Component.Builder
     interface Builder {
