@@ -15,6 +15,7 @@ object Settings {
     val DEFAULT_HOME_LAYOUT = HomeLayout.RECENTLY_VIEWED_ONLY.value
     val DEFAULT_SCREEN_ORIENTATION = ScreenOrientation.AUTO.value
     val DEFAULT_SCALE_TYPE = ScaleType.ASPECT_FIT.value
+    val DEFAULT_START_TAB = 0
 
     const val DEFAULT_EPUB_MARGIN_SIZE = 24
     const val DEFAULT_EPUB_TEXT_ZOOM = 120
@@ -38,6 +39,7 @@ object Settings {
     const val LOG_LIMIT = 1000
 
     //--------------------------------------UI_PREFERENCES------------------------------------------
+    var START_TAB = DEFAULT_START_TAB
     var HOME_LAYOUT = DEFAULT_HOME_LAYOUT
     var SCREEN_ORIENTATION = DEFAULT_SCREEN_ORIENTATION
 

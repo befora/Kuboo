@@ -27,6 +27,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Constants.KEY_RTL
 import com.sethchhim.kuboo_client.Constants.KEY_SCALE_TYPE
 import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Constants.KEY_START_TAB
 import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
@@ -44,6 +45,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Settings.DEFAULT_START_TAB
 import com.sethchhim.kuboo_client.Settings.DEFAULT_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
@@ -64,6 +66,7 @@ import com.sethchhim.kuboo_client.Settings.REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Settings.RTL
 import com.sethchhim.kuboo_client.Settings.SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Settings.START_TAB
 import com.sethchhim.kuboo_client.Settings.VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Settings.WIFI_ONLY
 import com.sethchhim.kuboo_remote.model.Login
@@ -98,6 +101,7 @@ class SharedPrefsHelper(val context: Context) {
         REVERSE_LAYOUT = sharedPreferences.getBoolean(KEY_REVERSE_LAYOUT, false)
         SCALE_TYPE = sharedPreferences.getInt(KEY_SCALE_TYPE, DEFAULT_SCALE_TYPE)
         SCREEN_ORIENTATION = sharedPreferences.getInt(KEY_SCREEN_ORIENTATION, DEFAULT_SCREEN_ORIENTATION)
+        START_TAB = sharedPreferences.getInt(KEY_START_TAB, DEFAULT_START_TAB)
         VOLUME_PAGE_TURN = sharedPreferences.getBoolean(KEY_VOLUME_PAGE_TURN, DEFAULT_VOLUME_PAGE_TURN)
         WIFI_ONLY = sharedPreferences.getBoolean(KEY_WIFI_ONLY, false)
 
@@ -116,6 +120,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading REVERSE_LAYOUT: $REVERSE_LAYOUT")
             Timber.i("Loading MAX_PAGE_WIDTH: $MAX_PAGE_WIDTH")
             Timber.i("Loading SCREEN_ORIENTATION: $SCREEN_ORIENTATION")
+            Timber.i("Loading START_TAB: $START_TAB")
             Timber.i("Loading VOLUME_PAGE_TURN: $VOLUME_PAGE_TURN")
             Timber.i("Loading DOWNLOAD_FINISHED_NOTIFICATION: $DOWNLOAD_FINISHED_NOTIFICATION")
             Timber.i("Loading DOWNLOAD_SAVE_PATH: $DOWNLOAD_SAVE_PATH")
@@ -190,6 +195,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveAppTheme() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving APP_THEME: $APP_THEME")
         sharedPreferences.edit().putInt(KEY_APP_THEME, APP_THEME).commit()
+    }
+
+    fun saveStartTab() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving START_TAB: $START_TAB")
+        sharedPreferences.edit().putInt(KEY_START_TAB, START_TAB).commit()
     }
 
     fun saveFavorite() {

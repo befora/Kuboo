@@ -147,6 +147,17 @@ class DialogUtil(val context: Context) {
         setNegativeButton(context.getString(R.string.dialog_cancel)) { dialog, _ -> dialog.dismiss() }
     }.create()
 
+    internal fun getDialogStartTab(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {
+        setSingleChoiceItems(context.resources.getStringArray(R.array.settings_start_tab_entries), Settings.START_TAB) { dialog, which ->
+            when (which) {
+                0 -> onDialogSelect2.onSelect0()
+                1 -> onDialogSelect2.onSelect1()
+                2 -> onDialogSelect2.onSelect2()
+            }
+            dialog.dismiss()
+        }
+    }.create()
+
     internal fun getDialogTrackingInterval(context: Context) = getAlertDialogBuilder(context).apply {
         setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_tracking_interval, null))
     }.create()

@@ -254,6 +254,12 @@ Panel doble"</string>
     <string name="settings_show_a_notification_after_downloads_are_finished">"Muestra una notificación al finalizar las descargas"</string>
     <string name="settings_show_favorite_buttons">"Muestra el botón de favorito"</string>
     <string name="settings_show_preview_page_before_reading">"Muestra la página de previsualización antes de comenzar a leer el item"</string>
+    <string name="settings_start_tab">Pestaña de inicio</string>
+    <string-array name="settings_start_tab_entries">
+        <item>@string/settings_home</item>
+        <item>@string/settings_browser</item>
+        <item>@string/settings_download</item>
+    </string-array>
     <string name="settings_system">"Sistema"</string>
     <string name="settings_text_zoom">"Zoom de texto"</string>
     <string name="settings_theme">"Tema"</string>

@@ -102,6 +102,10 @@
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_system">
         <android.support.v7.preference.Preference
+            android:key="settings_start_tab"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="Start Tab"/>
+        <android.support.v7.preference.Preference
             android:key="settings_system_theme"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_theme"/>

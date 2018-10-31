@@ -209,10 +209,9 @@
     <string name="settings_finished_items_will_be_darkened">Finished items will be darkened</string>
     <string name="settings_finished_notification">Finished Notification</string>
     <string name="settings_fit_width">Fit Width</string>
+    <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Hide tracking series that have been fully read and have no further content available</string>
     <string name="settings_home">Home</string>
     <string name="settings_hours">hours</string>
-    <string name="settings_tracking_hide_finished">Tracking Hide Finished</string>
-    <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Hide tracking series that have been fully read and have no further content available</string>
     <string name="settings_keep_screen_on">Keep Screen On</string>
     <string name="settings_landscape">Landscape</string>
     <string name="settings_layout">Layout</string>
@@ -246,6 +245,12 @@
     <string name="settings_show_a_notification_after_downloads_are_finished">Show a notification after downloads are finished</string>
     <string name="settings_show_favorite_buttons">Show favorite buttons</string>
     <string name="settings_show_preview_page_before_reading">Show preview page before reading</string>
+    <string name="settings_start_tab">Start Tab</string>
+    <string-array name="settings_start_tab_entries">
+        <item>@string/settings_home</item>
+        <item>@string/settings_browser</item>
+        <item>@string/settings_download</item>
+    </string-array>
     <string name="settings_system">System</string>
     <string name="settings_text_zoom">Text Zoom</string>
     <string name="settings_theme">Theme</string>
@@ -257,6 +262,7 @@
     <string name="settings_theme_entry_dark_theme">Dark Theme</string>
     <string name="settings_theme_entry_light_theme">Light Theme</string>
     <string name="settings_theme_entry_oled_theme">OLED Theme</string>
+    <string name="settings_tracking_hide_finished">Tracking Hide Finished</string>
     <string name="settings_tracking_interval">Tracking Interval</string>
     <string name="settings_tracking_limit">Tracking Limit</string>
     <string name="settings_version">Version</string>

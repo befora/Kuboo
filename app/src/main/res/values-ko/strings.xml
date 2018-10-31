@@ -260,6 +260,12 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_show_a_notification_after_downloads_are_finished">"다운로드가 완료되면 상단바 노티로 알려줍니다"</string>
     <string name="settings_show_favorite_buttons">"즐겨찾기 버튼 보이기"</string>
     <string name="settings_show_preview_page_before_reading">"책을 읽기 전에 표지 이미지를 미리 보여 줍니다"</string>
+    <string name="settings_start_tab">탭 시작</string>
+    <string-array name="settings_start_tab_entries">
+        <item>@string/settings_home</item>
+        <item>@string/settings_browser</item>
+        <item>@string/settings_download</item>
+    </string-array>
     <string name="settings_system">"시스템"</string>
     <string name="settings_text_zoom">"텍스트 확대"</string>
     <string name="settings_theme">"테마"</string>

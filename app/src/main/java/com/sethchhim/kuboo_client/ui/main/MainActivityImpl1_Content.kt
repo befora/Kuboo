@@ -55,8 +55,6 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
     }
 
     private fun onActiveLoginValid() {
-        setStateLoading()
-        selectHome()
         trackingService.startPeriodicTrackingService()
     }
 

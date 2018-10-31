@@ -34,6 +34,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setSystemThemePreference()
         setSystemOrientationPreference()
         setSystemWifiOnlyPreference()
+        setSystemStartTab()
     }
 
     private fun setAboutVersionPreference() = aboutVersionPreference.apply {
@@ -332,6 +333,36 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             Settings.WIFI_ONLY = !Settings.WIFI_ONLY
             sharedPrefsHelper.saveWifiOnly()
             return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setSystemStartTab() = systemStartTab.apply {
+        summary = getStartTabSummary()
+
+        setOnPreferenceClickListener {
+            dialogUtil.getDialogStartTab(mainActivity, object : DialogUtil.OnDialogSelect2 {
+                override fun onSelect0() = saveStartTab(0)
+                override fun onSelect1() = saveStartTab(1)
+                override fun onSelect2() = saveStartTab(2)
+
+                private fun saveStartTab(startTab: Int) {
+                    Settings.START_TAB = startTab
+                    sharedPrefsHelper.saveStartTab()
+
+                    summary = getStartTabSummary()
+                }
+            }).show()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun getStartTabSummary(): String {
+        val stringArray = resources.getStringArray(R.array.settings_start_tab_entries)
+        return when (Settings.START_TAB) {
+            0 -> stringArray[0]
+            1 -> stringArray[1]
+            2 -> stringArray[2]
+            else -> "ERROR"
         }
     }
 

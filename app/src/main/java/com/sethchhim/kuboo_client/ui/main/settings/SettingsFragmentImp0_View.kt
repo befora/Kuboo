@@ -47,6 +47,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var systemVolumePageTurnPreference: SwitchPreferenceCompat
     protected lateinit var systemWifiOnlyPreference: SwitchPreferenceCompat
     protected lateinit var systemKeepScreenOn: SwitchPreferenceCompat
+    protected lateinit var systemStartTab: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
@@ -67,6 +68,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         systemKeepScreenOn = findPreference("settings_keep_screen_on") as SwitchPreferenceCompat
         systemVolumePageTurnPreference = findPreference("settings_volume_page_turn") as SwitchPreferenceCompat
         systemWifiOnlyPreference = findPreference("settings_wifi_only") as SwitchPreferenceCompat
+        systemStartTab = findPreference("settings_start_tab")
     }
 
     override fun onAttach(context: Context) {

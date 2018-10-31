@@ -269,6 +269,12 @@ HTTP NON TROUVÉ
     <string name="settings_show_a_notification_after_downloads_are_finished">"Afficher une notification une fois les téléchargements terminés"</string>
     <string name="settings_show_favorite_buttons">"Afficher les favoris"</string>
     <string name="settings_show_preview_page_before_reading">"Afficher la page d'aperçu avant de lire"</string>
+    <string name="settings_start_tab">Onglet Démarrer</string>
+    <string-array name="settings_start_tab_entries">
+        <item>@string/settings_home</item>
+        <item>@string/settings_browser</item>
+        <item>@string/settings_download</item>
+    </string-array>
     <string name="settings_system">"Système"</string>
     <string name="settings_text_zoom">"Texte Zoom"</string>
     <string name="settings_theme">"Thème"</string>

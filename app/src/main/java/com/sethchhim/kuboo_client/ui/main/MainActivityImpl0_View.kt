@@ -87,6 +87,11 @@ open class MainActivityImpl0_View : BaseActivity() {
                 intent.removeExtra(ARG_REQUEST_REMOTE_BROWSER_FRAGMENT)
                 intent.removeExtra(ARG_REQUEST_REMOTE_BROWSER_FRAGMENT_PAYLOAD)
             }
+            else -> when (Settings.START_TAB) {
+                1 -> selectBrowser()
+                2 -> selectDownloads()
+                else -> selectHome()
+            }
         }
 
 
@@ -95,6 +100,10 @@ open class MainActivityImpl0_View : BaseActivity() {
     internal fun isMenuStateSelected() = downloadMenuItem.isVisible
 
     internal fun getCurrentFragment() = supportFragmentManager.findFragmentById(R.id.main_layout_base_frameLayout)
+
+    internal fun selectBrowser() {
+        bottomNav.selectedItemId = R.id.navigation_browse
+    }
 
     internal fun selectDownloads() {
         bottomNav.selectedItemId = R.id.navigation_downloads
