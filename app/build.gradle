@@ -117,7 +117,7 @@ dependencies {
     implementation 'com.github.sethchhim:recyclerview-animators:eaea82d'
     implementation 'com.github.varunest:sparkbutton:1.0.5'
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'me.relex:circleindicator:1.2.2@aar'
     implementation 'org.jetbrains.anko:anko:0.10.7'
