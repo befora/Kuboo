@@ -2,7 +2,9 @@ package com.sethchhim.kuboo_client.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Constants.DATABASE_NAME
+import com.sethchhim.kuboo_client.Constants.DATABASE_NAME_DEBUG
 import com.sethchhim.kuboo_client.data.AppDatabase
 import com.sethchhim.kuboo_client.data.AppDatabaseDao
 import com.sethchhim.kuboo_client.data.AppDatabaseMigrations
@@ -26,7 +28,7 @@ class AppModule {
     @Provides
     @AppScope
     fun provideAppDatabaseDao(context: Context) = Room
-            .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            .databaseBuilder(context, AppDatabase::class.java, if (BuildConfig.DEBUG) DATABASE_NAME_DEBUG else DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .addMigrations(AppDatabaseMigrations.MIGRATION_1_2)
             .build()

@@ -9,6 +9,7 @@ object Constants {
     internal const val TAG_TRACKING_SERVICE = "TAG_TRACKING_SERVICE"
 
     internal const val DATABASE_NAME = "ROOM_DATABASE"
+    internal const val DATABASE_NAME_DEBUG = "ROOM_DATABASE_DEBUG"
     internal const val DATABASE_VERSION = 2
 
     internal const val ARG_BOOK = "ARG_BOOK"
