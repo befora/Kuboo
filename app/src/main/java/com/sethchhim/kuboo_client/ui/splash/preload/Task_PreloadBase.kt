@@ -3,7 +3,6 @@ package com.sethchhim.kuboo_client.ui.splash.preload
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.splash.SplashActivity
-import com.sethchhim.kuboo_client.util.LogUtil
 import com.sethchhim.kuboo_client.util.SharedPrefsHelper
 import javax.inject.Inject
 
@@ -13,7 +12,6 @@ open class Task_PreloadBase(val splashActivity: SplashActivity) {
         BaseApplication.appComponent.inject(this)
     }
 
-    @Inject lateinit var logUtil: LogUtil
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
     @Inject lateinit var viewModel: ViewModel
 
