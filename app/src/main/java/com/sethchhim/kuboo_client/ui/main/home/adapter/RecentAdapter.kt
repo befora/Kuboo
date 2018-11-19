@@ -35,10 +35,10 @@ import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.android.synthetic.main.browser_item_recent.view.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import org.jetbrains.anko.sdk27.coroutines.onClick
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -77,7 +77,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentHolder {
         val holder = super.onCreateViewHolder(parent, viewType)
-        holder.itemView.onClick { holder.onItemSelected() }
+        holder.itemView.setOnClickListener { holder.onItemSelected() }
         holder.itemView.setOnLongClickListener { holder.onItemLongSelected() }
         return holder
     }
@@ -86,7 +86,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         val binding = itemView.getTag(R.id.BaseQuickAdapter_databinding_support) as BrowserItemRecentBinding
 
         init {
-            view.browser_item_recent_textView.onClick { openSeries() }
+            view.browser_item_recent_textView.setOnClickListener { openSeries() }
         }
 
         internal fun onItemSelected() {
@@ -157,7 +157,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
     }
 
     private fun BrowserItemRecentBinding.remoteSync(helper: RecentHolder, item: Book) {
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             //add delay to prevent remote request while fast scrolling
             delay(600)
             try {

@@ -1,7 +1,6 @@
 package com.sethchhim.kuboo_client.ui.log
 
 import android.os.Bundle
-import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 
 class LogActivity : LogActivityImpl1_Content() {
 
@@ -13,10 +12,10 @@ class LogActivity : LogActivityImpl1_Content() {
     }
 
     private fun initListeners() {
-        checkBoxUi.onCheckedChange { _, _ -> updateContent() }
-        checkBoxLocal.onCheckedChange { _, _ -> updateContent() }
-        checkBoxNetwork.onCheckedChange { _, _ -> updateContent() }
-        checkBoxError.onCheckedChange { _, _ -> updateContent() }
+        checkBoxUi.setOnCheckedChangeListener { _, _ -> updateContent() }
+        checkBoxLocal.setOnCheckedChangeListener { _, _ -> updateContent() }
+        checkBoxNetwork.setOnCheckedChangeListener { _, _ -> updateContent() }
+        checkBoxError.setOnCheckedChangeListener { _, _ -> updateContent() }
     }
 
 

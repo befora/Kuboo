@@ -8,9 +8,10 @@ import com.sethchhim.kuboo_client.Extensions.invisible
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("Registered")
 open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
@@ -36,7 +37,7 @@ open class ReaderEpubActivityImpl0_View : ReaderBaseActivity() {
     }
 
     override fun showEnterTransition() {
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             try {
                 delay(1200)
                 previewImageView.slideOut(disableRtl = true)

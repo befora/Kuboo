@@ -9,7 +9,6 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.home.custom.LatestLinearLayoutManager
-import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class HomeFragment : HomeFragmentImpl1_Content() {
 
@@ -35,10 +34,10 @@ class HomeFragment : HomeFragmentImpl1_Content() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recentMoreTextView.onClick { onClickRecentMoreTextView() }
+        recentMoreTextView.setOnClickListener { onClickRecentMoreTextView() }
         recentRecyclerView.adapter = recentAdapter
         if (isHomeRequireLatest()) {
-            latestMoreTextView.onClick { onClickLatestMoreTextView() }
+            latestMoreTextView.setOnClickListener { onClickLatestMoreTextView() }
             latestRecyclerView.adapter = latestAdapter
         }
     }

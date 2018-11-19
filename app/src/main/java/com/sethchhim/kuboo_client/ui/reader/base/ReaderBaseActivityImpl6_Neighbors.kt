@@ -24,7 +24,7 @@ open class ReaderBaseActivityImpl6_Neighbors : ReaderBaseActivityImpl5_Bookmark(
         val stringUrl = viewModel.getActiveServer() + currentBook.linkXmlPath
         viewModel.getNeighborsRemote(currentBook, stringUrl).observe(this, Observer { result ->
             when (result != null) {
-                true -> onPopulateNeighborsRemoteSuccess(result!!)
+                true -> onPopulateNeighborsRemoteSuccess(result)
                 false -> onPopulateNeighborsFail()
             }
         })
@@ -34,7 +34,7 @@ open class ReaderBaseActivityImpl6_Neighbors : ReaderBaseActivityImpl5_Bookmark(
         val stringUrl = viewModel.getActiveServer() + currentBook.linkNext
         viewModel.getNeighborsNextPageRemote(currentBook, stringUrl).observe(this, Observer { result ->
             when (result != null) {
-                true -> handlePopulateNeighborResult(result!!)
+                true -> handlePopulateNeighborResult(result)
                 false -> onPopulateNeighborsFail()
             }
         })

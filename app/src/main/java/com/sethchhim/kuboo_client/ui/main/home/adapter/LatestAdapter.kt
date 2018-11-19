@@ -30,7 +30,6 @@ import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.android.synthetic.main.browser_item_latest.view.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -90,13 +89,13 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
     internal fun setStateValid(helper: LatestHolder, item: Book) {
         helper.itemView.browser_item_latest_imageView.transitionName = item.getPreviewUrl()
-        helper.itemView.browser_item_latest_imageView.onClick { startReadAt(helper.adapterPosition, helper.itemView) }
+        helper.itemView.browser_item_latest_imageView.setOnClickListener { startReadAt(helper.adapterPosition, helper.itemView) }
         helper.itemView.browser_item_latest_imageView.visible()
     }
 
     internal fun setStateInvalid(helper: LatestHolder, item: Book) {
         helper.itemView.browser_item_latest_imageView.transitionName = item.getPreviewUrl()
-        helper.itemView.browser_item_latest_imageView.onClick { startReadAt(helper.adapterPosition, helper.itemView) }
+        helper.itemView.browser_item_latest_imageView.setOnClickListener { startReadAt(helper.adapterPosition, helper.itemView) }
         helper.itemView.browser_item_latest_imageView.visible()
     }
 

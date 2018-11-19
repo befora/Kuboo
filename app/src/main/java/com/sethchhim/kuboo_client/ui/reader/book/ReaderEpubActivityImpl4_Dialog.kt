@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.widget.Button
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.model.ReadData
-import org.jetbrains.anko.sdk27.coroutines.onClick
 
 @SuppressLint("Registered")
 open class ReaderEpubActivityImpl4_Dialog : ReaderEpubActivityImpl3_Content() {
@@ -13,10 +12,10 @@ open class ReaderEpubActivityImpl4_Dialog : ReaderEpubActivityImpl3_Content() {
         dialogUtil.getDialogBookSettings(this).apply {
             show()
             hideOverlay()
-            findViewById<Button>(R.id.dialog_layout_book_settings_button0)?.onClick { decreaseTextZoom() }
-            findViewById<Button>(R.id.dialog_layout_book_settings_button1)?.onClick { increaseTextZoom() }
-            findViewById<Button>(R.id.dialog_layout_book_settings_button2)?.onClick { decreaseMargin() }
-            findViewById<Button>(R.id.dialog_layout_book_settings_button3)?.onClick { increaseMargin() }
+            findViewById<Button>(R.id.dialog_layout_book_settings_button0)?.setOnClickListener { decreaseTextZoom() }
+            findViewById<Button>(R.id.dialog_layout_book_settings_button1)?.setOnClickListener { increaseTextZoom() }
+            findViewById<Button>(R.id.dialog_layout_book_settings_button2)?.setOnClickListener { decreaseMargin() }
+            findViewById<Button>(R.id.dialog_layout_book_settings_button3)?.setOnClickListener { increaseMargin() }
             setOnDismissListener { showOverlay() }
         }
     }

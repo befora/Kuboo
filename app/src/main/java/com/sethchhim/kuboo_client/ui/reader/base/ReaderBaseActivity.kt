@@ -9,7 +9,6 @@ import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.MainActivity
-import org.jetbrains.anko.sdk27.coroutines.onClick
 
 
 @SuppressLint("Registered")
@@ -31,8 +30,8 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl7_Hardware() {
 
         previewImageView.transitionName = transitionUrl
 
-        overlayLayout.onClick { hideOverlay() }
-        overlayTextView1.onClick { hideOverlay() }
+        overlayLayout.setOnClickListener { hideOverlay() }
+        overlayTextView1.setOnClickListener { hideOverlay() }
         restoreOverlay()
 
         title = currentBook.title

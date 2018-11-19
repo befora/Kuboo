@@ -5,12 +5,14 @@ import android.support.v7.util.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.sethchhim.kuboo_client.data.model.Browser
 import com.sethchhim.kuboo_remote.model.Book
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.channels.Channel
-import kotlinx.coroutines.experimental.channels.actor
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.actor
+import kotlinx.coroutines.launch
 
+@ObsoleteCoroutinesApi
 class DiffUtilHelper(val adapter: BaseQuickAdapter<*, *>) {
 
     internal val liveData = MutableLiveData<Boolean>()
@@ -18,7 +20,7 @@ class DiffUtilHelper(val adapter: BaseQuickAdapter<*, *>) {
     private lateinit var oldData: List<Book>
 
     private val diffCallback by lazy(LazyThreadSafetyMode.NONE) { DiffCallback() }
-    private val eventActor = actor<List<Book>>(capacity = Channel.CONFLATED, context = CommonPool) { for (list in channel) internalUpdate(list) }
+    private val eventActor = GlobalScope.actor<List<Book>>(capacity = Channel.CONFLATED, context = GlobalScope.coroutineContext) { for (list in channel) internalUpdate(list) }
 
     internal fun updateBookList(oldData: List<Book>, newData: List<Book>) {
         this.oldData = oldData
@@ -34,7 +36,7 @@ class DiffUtilHelper(val adapter: BaseQuickAdapter<*, *>) {
 
     private suspend fun internalUpdate(newData: List<Book>) {
         val result = DiffUtil.calculateDiff(diffCallback.apply { newList = newData }, false)
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             liveData.value = true
             result.dispatchUpdatesTo(adapter)
         }.join()

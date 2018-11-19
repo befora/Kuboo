@@ -18,12 +18,10 @@ import com.sethchhim.kuboo_remote.model.Login
 import com.varunest.sparkbutton.SparkButton
 import com.varunest.sparkbutton.SparkEventListener
 import kotlinx.android.synthetic.main.login_item.view.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import org.jetbrains.anko.imageResource
-import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.onLongClick
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: ViewModel) : BaseQuickAdapter<Login, LoginAdapter.LoginHolder>(R.layout.login_item, viewModel.getLoginList()) {
 
@@ -47,15 +45,16 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoginHolder {
         val holder = super.onCreateViewHolder(parent, viewType)
-        holder.itemView.onClick { holder.onItemSelected() }
-        holder.itemView.onLongClick { holder.editItem() }
-        holder.itemView.login_item_imageView.onClick { holder.editItem() }
+        holder.itemView.setOnClickListener { holder.onItemSelected() }
+        holder.itemView.setOnLongClickListener { holder.editItem(); true }
+        holder.itemView.login_item_imageView.setOnClickListener { holder.editItem() }
         holder.itemView.login_item_sparkButton.setEventListener(getEventListener(holder))
 
-        holder.itemView.login_item_imageView.imageResource = when (Settings.APP_THEME) {
+        val imageResource = when (Settings.APP_THEME) {
             0 -> R.drawable.ic_edit_black_24dp
             else -> R.drawable.ic_edit_white_24dp
         }
+        holder.itemView.login_item_imageView.setImageResource(imageResource)
         return holder
     }
 
@@ -90,7 +89,7 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
     private fun Login.setActive(itemView: View) {
         viewModel.setActiveLogin(this@setActive)
 
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             itemView.isClickable = false
             delay(800)
             try {

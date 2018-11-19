@@ -47,7 +47,7 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     private fun handleResult(book: Book, loadState: Boolean, result: List<Book>?) {
         when (result == null) {
             true -> onPopulateContentFail()
-            false -> when (result!!.isEmpty()) {
+            false -> when (result.isEmpty()) {
                 true -> onPopulateContentEmpty()
                 false -> onPopulateContentSuccess(book, result, loadState)
             }
@@ -97,7 +97,7 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     /** handle content but force media item type */
     protected fun handleMediaResult(book: Book?, result: List<Book>?) = when (result == null) {
         true -> onPopulateContentFail()
-        false -> when (result!!.isEmpty()) {
+        false -> when (result.isEmpty()) {
             true -> onPopulateContentEmpty()
             false -> onPopulateMediaSuccess(book, result)
         }

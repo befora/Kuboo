@@ -15,7 +15,7 @@ open class LoginBrowserFragmentImpl1_Content : LoginBrowserFragmentImpl0_View() 
     private fun handleResult(result: List<Login>?) {
         when (result == null) {
             true -> onPopulateFail()
-            false -> when (result!!.isEmpty()) {
+            false -> when (result.isEmpty()) {
                 true -> onPopulateEmpty()
                 false -> onPopulateSuccess()
             }

@@ -10,10 +10,10 @@ import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.base.custom.OnLoadCallback
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("Registered")
 open class PreviewActivityImpl0_View : BaseActivity(), OnLoadCallback {
@@ -25,9 +25,9 @@ open class PreviewActivityImpl0_View : BaseActivity(), OnLoadCallback {
     override fun onFinishLoad() = fab.show()
 
     protected fun onClickedFab() {
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             fab.hide()
-            delay(300, TimeUnit.MILLISECONDS)
+            delay(300)
             try {
                 startReader(ReadData(book = currentBook, onLoadCallback = this@PreviewActivityImpl0_View, sharedElement = imageView, source = Source.PREVIEW))
             } catch (e: RuntimeException) {

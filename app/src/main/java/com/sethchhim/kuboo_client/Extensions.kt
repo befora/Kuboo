@@ -40,9 +40,10 @@ import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.model.Neighbors
 import com.tonyodev.fetch2.Download
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
 import java.net.URL
@@ -126,8 +127,8 @@ object Extensions {
 
     internal fun FloatingActionButton.showDelayed() {
         if (!isShown) {
-            launch(UI) {
-                delay(500, TimeUnit.MILLISECONDS)
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(500)
                 try {
                     show()
                 } catch (e: RuntimeException) { //ignore
@@ -307,8 +308,8 @@ object Extensions {
 
     internal fun SwipeRefreshLayout.dismissDelayed() {
         if (isRefreshing) {
-            launch(UI) {
-                delay(400, TimeUnit.MILLISECONDS)
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(400)
                 try {
                     isRefreshing = false
                 } catch (e: RuntimeException) {

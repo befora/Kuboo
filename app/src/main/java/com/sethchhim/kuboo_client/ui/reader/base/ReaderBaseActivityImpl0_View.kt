@@ -15,12 +15,12 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPreviewImageView
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 
 @SuppressLint("Registered")
@@ -51,9 +51,9 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
     protected var pipHeight = 0
 
     protected open fun showEnterTransition() {
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             try {
-                delay(1200, TimeUnit.MILLISECONDS)
+                delay(1200)
                 previewImageView.slideOut()
                 onEnterTransitionFinished()
                 delay(300)
@@ -66,12 +66,12 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
 
     protected fun showNewIntentTransition() {
         if (!previewImageView.isAnimatingTransition) {
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 try {
                     previewImageView.isAnimatingTransition = true
                     delay(300)
                     previewImageView.slideIn()
-                    delay(800, TimeUnit.MILLISECONDS)
+                    delay(800)
                     startReader(ReadData(book = nextBook, bookmarksEnabled = false, sharedElement = previewImageView, source = source))
                 } catch (e: Exception) {
                     Timber.e(e)
@@ -82,13 +82,13 @@ open class ReaderBaseActivityImpl0_View : BaseActivity() {
 
     private fun showExitTransition() {
         if (!previewImageView.isAnimatingTransition) {
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 try {
                     previewImageView.isAnimatingTransition = true
                     showStatusBar()
                     delay(300)
                     previewImageView.slideIn()
-                    delay(800, TimeUnit.MILLISECONDS)
+                    delay(800)
                     super.onBackPressed()
                 } catch (e: Exception) {
                     Timber.e(e)

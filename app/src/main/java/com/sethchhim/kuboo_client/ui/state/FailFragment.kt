@@ -15,7 +15,6 @@ import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_remote.model.Response
 import dagger.android.support.DaggerFragment
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
@@ -50,7 +49,7 @@ class FailFragment : DaggerFragment() {
 
     private fun setFailTexts(response: Response) {
         reasonTextView.text = "${response.code}: ${response.message}"
-        retryTextView.onClick { toast("Test") }
+        retryTextView.setOnClickListener { toast("Test") }
 
         reasonTextView.visible()
         retryTextView.visible()

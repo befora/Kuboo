@@ -48,7 +48,7 @@ class BrowserRemoteFragment : BrowserBaseFragment() {
         resetRecyclerView()
         val currentBook = viewModel.getCurrentBook()
         when (currentBook != null) {
-            true -> populateContent(currentBook!!, addPath = false)
+            true -> populateContent(currentBook, addPath = false)
             false -> {
                 onPopulateContentFail()
                 toast(R.string.browser_something_went_wrong)

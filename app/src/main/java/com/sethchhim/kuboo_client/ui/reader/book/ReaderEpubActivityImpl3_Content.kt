@@ -4,9 +4,10 @@ import android.annotation.SuppressLint
 import com.sethchhim.epublibdroid_kotlin.custom.EpubReaderListener
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.ReadData
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import java.io.File
 
@@ -120,7 +121,7 @@ open class ReaderEpubActivityImpl3_Content : ReaderEpubActivityImpl2_Overlay(), 
     }
 
     protected fun resetPosition() {
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             setStateLoading()
             delay(500)
             epubReaderView.scrollToCurrentPosition()

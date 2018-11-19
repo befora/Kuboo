@@ -5,7 +5,6 @@ import android.widget.TextView
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
-import org.jetbrains.anko.sdk27.coroutines.onClick
 
 open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
@@ -133,14 +132,14 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
                 val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_limit_button1)!!
 
                 textView.text = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
-                buttonDecrease.onClick {
+                buttonDecrease.setOnClickListener {
                     Settings.DOWNLOAD_TRACKING_LIMIT -= 1
                     if (Settings.DOWNLOAD_TRACKING_LIMIT < 1) Settings.DOWNLOAD_TRACKING_LIMIT = 1
                     sharedPrefsHelper.saveDownloadTrackingLimit()
                     textView.text = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
                     summary = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
                 }
-                buttonIncrease.onClick {
+                buttonIncrease.setOnClickListener {
                     Settings.DOWNLOAD_TRACKING_LIMIT += 1
                     sharedPrefsHelper.saveDownloadTrackingLimit()
                     textView.text = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
@@ -169,14 +168,14 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
                 val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_button1)!!
 
                 textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
-                buttonDecrease.onClick {
+                buttonDecrease.setOnClickListener {
                     Settings.DOWNLOAD_TRACKING_INTERVAL -= 1
                     if (Settings.DOWNLOAD_TRACKING_INTERVAL < minHours) Settings.DOWNLOAD_TRACKING_INTERVAL = minHours
                     sharedPrefsHelper.saveDownloadTrackingInterval()
                     textView.text = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
                     summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
                 }
-                buttonIncrease.onClick {
+                buttonIncrease.setOnClickListener {
                     Settings.DOWNLOAD_TRACKING_INTERVAL += 1
                     if (Settings.DOWNLOAD_TRACKING_INTERVAL < minHours) Settings.DOWNLOAD_TRACKING_INTERVAL = minHours
                     else if (Settings.DOWNLOAD_TRACKING_INTERVAL >= maxHours) Settings.DOWNLOAD_TRACKING_INTERVAL = maxHours

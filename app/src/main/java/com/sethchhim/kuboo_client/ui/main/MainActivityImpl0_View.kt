@@ -151,7 +151,7 @@ open class MainActivityImpl0_View : BaseActivity() {
     protected fun onBackPressedBrowserRemote() {
         val previousBook = viewModel.getPreviousBook()
         when (previousBook != null) {
-            true -> browserRemoteFragment.populatePrevious(previousBook!!)
+            true -> browserRemoteFragment.populatePrevious(previousBook)
             false -> selectHome()
         }
     }

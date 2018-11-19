@@ -45,13 +45,11 @@ import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error
 import com.tonyodev.fetch2.Status
 import kotlinx.android.synthetic.main.browser_item_download.view.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.layoutInflater
-import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
-import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.onLongClick
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -73,8 +71,8 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val holder = ItemViewHolder(parent.context.layoutInflater.inflate(R.layout.browser_item_download, parent, false))
-        holder.itemView.onClick { holder.onItemSelected() }
-        holder.itemView.onLongClick { holder.onItemLongSelected() }
+        holder.itemView.setOnClickListener { holder.onItemSelected() }
+        holder.itemView.setOnLongClickListener { holder.onItemLongSelected();true }
         return holder
     }
 
@@ -130,7 +128,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
                 findViewById<Switch>(R.id.dialog_layout_download_item_settings_switch1)?.apply {
                     setTextColor(mainActivity.getAppThemeTextColor())
                     isChecked = book.isFavorite
-                    onCheckedChange { _, isChecked -> onDownloadTrackingToggled(book, isChecked) }
+                    setOnCheckedChangeListener { _, isChecked -> onDownloadTrackingToggled(book, isChecked) }
                 }
             }
         }
@@ -156,7 +154,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
             viewModel.deleteFetchSeries(book = book, keepBook = true)
 
             //artificial delay otherwise tracking will not trigger
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 delay(1000)
                 mainActivity.trackingService.startTrackingServiceSingle(viewModel.getActiveLogin())
             }
@@ -254,7 +252,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_paused)
-        holder.itemView.browser_item_download_textView4.onClick { viewModel.resumeFetchDownload(download) }
+        holder.itemView.browser_item_download_textView4.setOnClickListener { viewModel.resumeFetchDownload(download) }
     }
 
     private fun setStateCancelled(holder: ItemViewHolder, download: Download, favorite: Boolean) {
@@ -265,7 +263,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         holder.itemView.browser_item_download_textView2.text = context.getString(R.string.downloads_cancelled)
-        holder.itemView.browser_item_download_textView4.onClick { viewModel.retryFetchDownload(download) }
+        holder.itemView.browser_item_download_textView4.setOnClickListener { viewModel.retryFetchDownload(download) }
     }
 
     private fun setStateFail(holder: ItemViewHolder, download: Download, favorite: Boolean) {
@@ -276,7 +274,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         holder.itemView.browser_item_download_materialBadgeTextView.loadCount(download, favorite)
 
         holder.itemView.browser_item_download_textView2.text = download.error.name
-        holder.itemView.browser_item_download_textView3.onClick { viewModel.retryFetchDownload(download) }
+        holder.itemView.browser_item_download_textView3.setOnClickListener { viewModel.retryFetchDownload(download) }
     }
 
     private fun setStateLoading(holder: ItemViewHolder, download: Download, favorite: Boolean) {

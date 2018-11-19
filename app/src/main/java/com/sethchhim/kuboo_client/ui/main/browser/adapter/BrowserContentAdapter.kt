@@ -51,15 +51,14 @@ import com.varunest.sparkbutton.SparkEventListener
 import kotlinx.android.synthetic.main.browser_item_content_folder.view.*
 import kotlinx.android.synthetic.main.browser_item_content_media.view.*
 import kotlinx.android.synthetic.main.browser_item_content_media_force_list.view.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.collections.forEachWithIndex
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Content, val viewModel: ViewModel) : BaseMultiItemQuickAdapter<Browser, BrowserContentAdapter.BrowserHolder>(viewModel.browserRepository.contentList) {
@@ -126,7 +125,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrowserHolder {
         val holder = super.onCreateViewHolder(parent, viewType)
         holder.setLikeButtonVisibility()
-        holder.itemView.onClick { holder.onItemSelected() }
+        holder.itemView.setOnClickListener { holder.onItemSelected() }
         holder.itemView.setOnLongClickListener { holder.onItemLongSelected() }
         return holder
     }
@@ -189,12 +188,12 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
         }
 
         private fun populateContent(book: Book) {
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 //prevent double click
                 itemView.isClickable = false
 
                 //load new data
-                delay(100, TimeUnit.MILLISECONDS)
+                delay(100)
                 try {
                     browserFragment.populateContent(book, loadState = false)
                 } catch (e: Exception) {
@@ -202,7 +201,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                 }
 
                 //restore click
-                delay(500, TimeUnit.MILLISECONDS)
+                delay(500)
 
                 try {
                     itemView.isClickable = true
@@ -272,7 +271,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             }
 
             //slight delay to prevent loading while fast scrolling
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 delay(Settings.RECYCLER_VIEW_DELAY)
                 try {
                     if (holder.bookId == book.id) {
@@ -401,7 +400,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             setMediaColorState(holder, book)
 
             //slight delay to prevent loading while fast scrolling
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 delay(Settings.RECYCLER_VIEW_DELAY)
                 try {
                     if (holder.bookId == book.id) {
@@ -443,7 +442,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
         loadColorState(holder, book)
 
         //set color state remotely
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             //add delay to prevent remote request while fast scrolling
             delay(Settings.RECYCLER_VIEW_DELAY)
             try {

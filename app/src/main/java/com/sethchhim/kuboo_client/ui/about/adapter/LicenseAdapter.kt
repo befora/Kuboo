@@ -9,7 +9,6 @@ import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.model.License
 import com.sethchhim.kuboo_client.util.DialogUtil
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import javax.inject.Inject
 
 class LicenseAdapter(val context: Context, val licenseList: List<License>) : BaseQuickAdapter<License, LicenseAdapter.LicenseHolder>(R.layout.about_item_license, licenseList) {
@@ -22,7 +21,7 @@ class LicenseAdapter(val context: Context, val licenseList: List<License>) : Bas
 
     override fun convert(helper: LicenseHolder, item: License) {
         helper.library.text = item.name
-        helper.license.onClick { showLicenseDialog(item) }
+        helper.license.setOnClickListener { showLicenseDialog(item) }
     }
 
     inner class LicenseHolder(view: View) : BaseViewHolder(view) {

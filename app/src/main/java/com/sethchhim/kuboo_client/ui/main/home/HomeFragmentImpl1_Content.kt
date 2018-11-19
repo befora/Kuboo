@@ -21,7 +21,7 @@ open class HomeFragmentImpl1_Content : HomeFragmentImpl0_View() {
 
     internal fun handleRecentResult(result: List<Book>?) = when (result == null) {
         true -> onPopulateRecentFail()
-        false -> when (result!!.isEmpty()) {
+        false -> when (result.isEmpty()) {
             true -> onPopulateRecentEmpty()
             false -> onPopulateRecentSuccess(result)
         }
@@ -44,7 +44,7 @@ open class HomeFragmentImpl1_Content : HomeFragmentImpl0_View() {
 
     private fun handleLatestResult(result: List<Book>?) = when (result == null) {
         true -> onPopulateLatestFail()
-        false -> when (result!!.isEmpty()) {
+        false -> when (result.isEmpty()) {
             true -> onPopulateLatestEmpty()
             false -> onPopulateLatestSuccess(result)
         }

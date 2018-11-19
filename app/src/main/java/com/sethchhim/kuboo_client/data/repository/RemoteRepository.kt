@@ -5,9 +5,10 @@ import com.sethchhim.kuboo_client.Constants.URL_PATH_LATEST
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 
 class RemoteRepository(private val kubooRemote: KubooRemote, private val systemUtil: SystemUtil) {
@@ -118,7 +119,7 @@ class RemoteRepository(private val kubooRemote: KubooRemote, private val systemU
         false -> MutableLiveData<Boolean>().apply { this.delayedFail() }
     }
 
-    private fun <T> MutableLiveData<T>.delayedFail() = launch(UI) {
+    private fun <T> MutableLiveData<T>.delayedFail() = GlobalScope.launch(Dispatchers.Main) {
         delay(50)
         value = null
     }

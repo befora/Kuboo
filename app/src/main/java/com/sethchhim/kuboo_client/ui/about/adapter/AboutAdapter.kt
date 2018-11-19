@@ -19,7 +19,6 @@ import com.sethchhim.kuboo_client.Settings.UBOOQUITY_VERSION
 import com.sethchhim.kuboo_client.data.model.License
 import com.sethchhim.kuboo_client.util.SystemUtil
 import org.jetbrains.anko.layoutInflater
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
@@ -102,7 +101,7 @@ class AboutPagerAdapter(val context: Context) : PagerAdapter() {
         }
 
         val githubImageView = itemView.findViewById<ImageView>(R.id.image_github)!!
-        githubImageView.onClick { systemUtil.openLink(Constants.GITHUB_URL) }
+        githubImageView.setOnClickListener { systemUtil.openLink(Constants.GITHUB_URL) }
 
         Glide.with(context)
                 .load(R.drawable.github_badge)

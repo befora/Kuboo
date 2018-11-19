@@ -25,7 +25,7 @@ open class BaseActivityImpl1_Dialog : BaseActivityImpl0_View() {
         setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.dialog_dismiss)) { dialogInterface, _ -> dialogInterface.dismiss() }
         setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_rate)) { _, _ -> systemUtil.launchPlayStore() }
         show()
-        window.attributes = WindowManager.LayoutParams().apply {
+        window?.attributes = WindowManager.LayoutParams().apply {
             val systemWidth = systemUtil.getSystemWidth()
             val systemHeight = systemUtil.getSystemHeight()
             val newSize = (Math.min(systemWidth, systemHeight) * 0.9f).toInt()

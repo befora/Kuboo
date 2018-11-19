@@ -26,10 +26,10 @@ import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
 import com.sethchhim.kuboo_remote.model.Book
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import org.jetbrains.anko.sdk27.coroutines.onClick
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 
 @SuppressLint("Registered")
@@ -89,7 +89,7 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
                     val isNotBannedFromTransition = !book.isBannedFromTransition()
                     val isSharedElementValid = sharedElement?.isVisible() ?: false
                     when (isNotBannedFromTransition && isSharedElementValid) {
-                        true -> launch(UI) {
+                        true -> GlobalScope.launch(Dispatchers.Main) {
                             delay(300)
                             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl2_Read, sharedElement!!, sharedElement!!.transitionName)
                             startActivity(intent, options.toBundle())
@@ -99,7 +99,7 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
                 }
             }
 
-            launch(UI) {
+            GlobalScope.launch(Dispatchers.Main) {
                 delay(500)
                 hideLoadingDialog()
             }
@@ -161,11 +161,11 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
         when (localBookmark != null) {
             true ->
                 //Bookmark Stage 2a: Search for remote bookmark of local bookmark
-                viewModel.getRemoteUserApi(localBookmark!!).observe(this@BaseActivityImpl2_Read, Observer { result ->
+                viewModel.getRemoteUserApi(localBookmark).observe(this@BaseActivityImpl2_Read, Observer { result ->
                     isLoadingRequired = false
 
                     if (!isLoadingCancelled) when (result != null) {
-                        true -> showBookmarkDialog(this, result!!)
+                        true -> showBookmarkDialog(this, result)
                         false -> showBookmarkDialog(this, localBookmark)
                     }
                 })
@@ -175,7 +175,7 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
                     isLoadingRequired = false
 
                     if (!isLoadingCancelled) when (result != null) {
-                        true -> showBookmarkDialog(this, result!!)
+                        true -> showBookmarkDialog(this, result)
                         false ->
                             //Bookmark Stage 2c: No remote or local bookmark found, no action required.
                             startPreload(this)
@@ -230,12 +230,12 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
             button0.apply {
                 text = string0
                 val bookmarkReadData = ReadData(book = savedBook, bookmarksEnabled = readData.bookmarksEnabled, sharedElement = imageView, source = Source.BOOKMARK)
-                this.onClick { onClickBookmarkResume(bookmarkReadData) }
+                this.setOnClickListener { onClickBookmarkResume(bookmarkReadData) }
             }
 
             button1.apply {
                 text = string1
-                this.onClick { onClickBookmarkDecline(readData) }
+                this.setOnClickListener { onClickBookmarkDecline(readData) }
             }
 
             progressBar.max = savedBook.totalPages
@@ -303,7 +303,7 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
         showToastFailedToLoadImageAssets()
     }
 
-    private fun onPreloadSuccess(readData: ReadData) = launch(UI) {
+    private fun onPreloadSuccess(readData: ReadData) = GlobalScope.launch(Dispatchers.Main) {
         if (!isLoadingCancelled) {
             hideLoadingDialog()
             startReaderActivity(readData)

@@ -4,12 +4,14 @@ import android.arch.lifecycle.MutableLiveData
 import android.support.v7.util.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tonyodev.fetch2.Download
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.channels.Channel
-import kotlinx.coroutines.experimental.channels.actor
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.actor
+import kotlinx.coroutines.launch
 
+@ObsoleteCoroutinesApi
 class DiffUtilDownloads(val adapter: BaseQuickAdapter<*, *>) {
 
     internal val liveData = MutableLiveData<Boolean>()
@@ -17,7 +19,7 @@ class DiffUtilDownloads(val adapter: BaseQuickAdapter<*, *>) {
     private lateinit var oldData: List<Download>
 
     private val diffCallback by lazy(LazyThreadSafetyMode.NONE) { DiffCallback() }
-    private val eventActor = actor<List<Download>>(capacity = Channel.CONFLATED, context = CommonPool) { for (list in channel) internalUpdate(list) }
+    private val eventActor = GlobalScope.actor<List<Download>>(capacity = Channel.CONFLATED, context = GlobalScope.coroutineContext) { for (list in channel) internalUpdate(list) }
 
     internal fun updateDownloadList(oldData: List<Download>, newData: List<Download>) {
         this.oldData = oldData
@@ -26,7 +28,7 @@ class DiffUtilDownloads(val adapter: BaseQuickAdapter<*, *>) {
 
     private suspend fun internalUpdate(newData: List<Download>) {
         val result = DiffUtil.calculateDiff(diffCallback.apply { newList = newData }, false)
-        launch(UI) {
+        GlobalScope.launch(Dispatchers.Main) {
             liveData.value = true
             result.dispatchUpdatesTo(adapter)
         }.join()

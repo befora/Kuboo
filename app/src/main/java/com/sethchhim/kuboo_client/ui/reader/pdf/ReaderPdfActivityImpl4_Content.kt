@@ -126,7 +126,7 @@ open class ReaderPdfActivityImpl4_Content : ReaderPdfActivityImpl3_Menu() {
 
     private fun loadOutline() = viewModel.getPdfOutline().observe(this, Observer {
         when (it != null) {
-            true -> onLoadOutlineSuccess(it!!)
+            true -> onLoadOutlineSuccess(it)
             false -> onLoadOutlineFail()
         }
     })

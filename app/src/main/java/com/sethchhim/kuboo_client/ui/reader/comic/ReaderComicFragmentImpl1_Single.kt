@@ -28,7 +28,6 @@ import com.sethchhim.kuboo_client.data.model.Dimension
 import com.sethchhim.kuboo_client.data.model.GlideLocal
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPageImageView
 import com.sethchhim.kuboo_remote.model.Book
-import org.jetbrains.anko.support.v4.onRefresh
 
 class ReaderComicFragmentImpl1_Single : ReaderComicFragment() {
 
@@ -56,7 +55,7 @@ class ReaderComicFragmentImpl1_Single : ReaderComicFragment() {
             false -> page1
         }, getRequestListener())
         swipeRefreshLayout.setColorSchemeResources(R.color.lightColorAccent)
-        swipeRefreshLayout.onRefresh {
+        swipeRefreshLayout.setOnRefreshListener {
             when (isLocal) {
                 true -> imageView.loadImage(GlideLocal(book, page1Int), getRequestListener())
                 false -> imageView.loadImage(page1, getRequestListener())

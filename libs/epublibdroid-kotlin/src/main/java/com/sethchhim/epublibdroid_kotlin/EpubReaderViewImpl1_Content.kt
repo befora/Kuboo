@@ -15,9 +15,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.sethchhim.epublibdroid_kotlin.Settings.SCROLL_DURATION
 import com.sethchhim.epublibdroid_kotlin.model.Chapter
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import nl.siegmann.epublib.domain.Book
 import nl.siegmann.epublib.domain.Spine
 import nl.siegmann.epublib.domain.TOCReference
@@ -136,7 +137,7 @@ open class EpubReaderViewImpl1_Content @JvmOverloads constructor(context: Contex
         webViewClient = object : WebViewClient() {
             //TODO This callback for onPageFinished is not reliable. A delay is required because the TotalContentHeight is not loaded properly. Sometimes this gets called too early and the TotalContentHeight is incorrect resulting in wrong bookmark position.
             override fun onPageFinished(view: WebView, url: String) {
-                launch(UI) {
+                GlobalScope.launch(Dispatchers.Main) {
 
                     //apply all javascript based styling here
                     applyMargin(Settings.MARGIN_SIZE)

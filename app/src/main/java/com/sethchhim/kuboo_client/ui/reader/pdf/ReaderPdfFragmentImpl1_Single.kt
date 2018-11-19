@@ -29,7 +29,6 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_client.ui.reader.comic.custom.ReaderPageImageView
 import com.sethchhim.kuboo_remote.model.Book
-import org.jetbrains.anko.support.v4.onRefresh
 import timber.log.Timber
 
 class ReaderPdfFragmentImpl1_Single : ReaderPdfFragment() {
@@ -50,7 +49,7 @@ class ReaderPdfFragmentImpl1_Single : ReaderPdfFragment() {
         super.onViewCreated(view, savedInstanceState)
         imageView.loadImage()
         swipeRefreshLayout.setColorSchemeResources(R.color.lightColorAccent)
-        swipeRefreshLayout.onRefresh { imageView.loadImage() }
+        swipeRefreshLayout.setOnRefreshListener { imageView.loadImage() }
     }
 
     private fun ImageView.loadImage() {

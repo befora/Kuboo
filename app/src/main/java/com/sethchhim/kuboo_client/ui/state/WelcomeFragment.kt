@@ -15,7 +15,6 @@ import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.util.SystemUtil
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.home_layout_welcome.view.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -45,7 +44,7 @@ class WelcomeFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fab.onClick { onClickedFab() }
+        fab.setOnClickListener { onClickedFab() }
 
         val isPortrait = systemUtil.isOrientationPortrait()
         val width = systemUtil.getSystemWidth()

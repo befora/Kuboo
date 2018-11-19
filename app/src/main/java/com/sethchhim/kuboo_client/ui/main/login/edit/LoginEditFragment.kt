@@ -3,6 +3,8 @@ package com.sethchhim.kuboo_client.ui.main.login.edit
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +20,6 @@ import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_remote.model.Login
 import dagger.android.support.DaggerFragment
-import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -47,16 +47,18 @@ open class LoginEditFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addServerButton.onClick { onAddServerButtonClicked() }
-        deleteServerButton.onClick { onDeleteServerButtonClicked() }
-        editTextServerAddress.textChangedListener {
-            this.onTextChanged { charSequence, _, _, _ ->
-                when (charSequence?.isValid()) {
+        addServerButton.setOnClickListener { onAddServerButtonClicked() }
+        deleteServerButton.setOnClickListener { onDeleteServerButtonClicked() }
+        editTextServerAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                when (p0?.isValid()) {
                     true -> setStateServerValid()
                     false -> setStateServerInvalid()
                 }
             }
-        }
+        })
     }
 
     override fun onStart() {
