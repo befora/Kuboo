@@ -45,7 +45,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     //fetch
-    final fetch_version = "2.3.0-RC1"
+    final fetch_version = "2.3.1"
     implementation "com.tonyodev.fetch2:fetch2:$fetch_version"
     implementation "com.tonyodev.fetch2okhttp:fetch2okhttp:$fetch_version"
 
