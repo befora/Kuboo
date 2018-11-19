@@ -55,7 +55,7 @@ open class MainActivityImpl1_Content : MainActivityImpl0_View() {
     }
 
     private fun onActiveLoginValid() {
-        trackingService.startPeriodicTrackingService()
+        trackingService.startTrackingServicePeriodic()
     }
 
 }

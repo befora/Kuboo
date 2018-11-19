@@ -38,7 +38,6 @@ import com.sethchhim.kuboo_client.data.model.GlideLocal
 import com.sethchhim.kuboo_client.data.model.GlidePdf
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragmentImpl1_Content
-import com.sethchhim.kuboo_client.util.AppExecutors
 import com.sethchhim.kuboo_client.util.DialogUtil
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.model.Book
@@ -63,7 +62,6 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
         setHasStableIds(true)
     }
 
-    @Inject lateinit var appExecutors: AppExecutors
     @Inject lateinit var context: Context
     @Inject lateinit var systemUtil: SystemUtil
 
@@ -160,7 +158,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
             //artificial delay otherwise tracking will not trigger
             launch(UI) {
                 delay(1000)
-                mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+                mainActivity.trackingService.startTrackingServiceSingle(viewModel.getActiveLogin())
             }
         }
 

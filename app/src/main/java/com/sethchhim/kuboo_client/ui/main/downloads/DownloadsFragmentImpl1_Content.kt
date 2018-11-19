@@ -83,7 +83,7 @@ open class DownloadsFragmentImpl1_Content : DownloadsFragmentImpl0_View() {
         private fun handleTab(position: Int) {
             when (position) {
                 0 -> kubooRemote.pauseAll()
-                1 -> mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+                1 -> mainActivity.trackingService.startTrackingServiceSingle(viewModel.getActiveLogin())
             }
         }
     }

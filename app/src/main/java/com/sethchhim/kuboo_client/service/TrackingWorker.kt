@@ -25,7 +25,7 @@ class TrackingWorker(context: Context, workerParams: WorkerParameters) : Worker(
             username = inputData.getString(Constants.KEY_LOGIN_USERNAME) ?: ""
             password = inputData.getString(Constants.KEY_LOGIN_PASSWORD) ?: ""
         }
-        trackingService.startOneTimeTrackingService(login)
+        trackingService.startTrackingServiceSingle(login)
         return Result.SUCCESS
     }
 }

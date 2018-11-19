@@ -29,7 +29,7 @@ class TrackingService {
     @Inject lateinit var systemUtil: SystemUtil
     @Inject lateinit var viewModel: ViewModel
 
-    internal fun startPeriodicTrackingService() {
+    internal fun startTrackingServicePeriodic() {
         val constraints = Constraints.Builder()
                 .build()
         val login = viewModel.getActiveLogin()
@@ -54,7 +54,7 @@ class TrackingService {
         WorkManager.getInstance().enqueueUniquePeriodicWork(TAG_TRACKING_SERVICE, ExistingPeriodicWorkPolicy.REPLACE, trackingWork)
     }
 
-    internal fun startOneTimeTrackingService(login: Login) {
+    internal fun startTrackingServiceSingle(login: Login) {
         viewModel.getDownloadList(favoriteCompressed = true).observeForever {
             it?.let {
                 it
@@ -98,7 +98,7 @@ class TrackingService {
                 seriesNeighbors.addAll(result)
                 val firstItem = try {
                     result[0]
-                } catch (e: IndexOutOfBoundsException) {
+                } catch (e: Exception) {
                     book
                 }
                 handleResult(login, seriesNeighbors, firstItem, startTime)

@@ -114,7 +114,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             Settings.DOWNLOAD_SAVE_PATH = path
             sharedPrefsHelper.saveDownloadSavePath()
             downloadSavePath.summary = Settings.DOWNLOAD_SAVE_PATH
-            mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin())
+            mainActivity.trackingService.startTrackingServiceSingle(viewModel.getActiveLogin())
             dialog.dismiss()
         }
         confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.settings_cancel)) { dialog, _ -> dialog.dismiss() }
@@ -125,7 +125,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         summary = "${Settings.DOWNLOAD_TRACKING_LIMIT}"
         setOnPreferenceClickListener {
             dialogUtil.getDialogTrackingLimit(mainActivity).apply {
-                setOnDismissListener { mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin()) }
+                setOnDismissListener { mainActivity.trackingService.startTrackingServiceSingle(viewModel.getActiveLogin()) }
                 show()
 
                 val textView = findViewById<TextView>(R.id.dialog_layout_settings_tracking_limit_textView0)!!
@@ -162,7 +162,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         summary = "${Settings.DOWNLOAD_TRACKING_INTERVAL} ${getString(R.string.settings_hours)}"
         setOnPreferenceClickListener {
             dialogUtil.getDialogTrackingInterval(mainActivity).apply {
-                setOnDismissListener { mainActivity.trackingService.startOneTimeTrackingService(viewModel.getActiveLogin()) }
+                setOnDismissListener { mainActivity.trackingService.startTrackingServiceSingle(viewModel.getActiveLogin()) }
                 show()
                 val textView = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_textView0)!!
                 val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_tracking_interval_button0)!!
