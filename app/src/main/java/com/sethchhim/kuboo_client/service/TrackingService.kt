@@ -1,7 +1,9 @@
 package com.sethchhim.kuboo_client.service
 
 import androidx.work.*
+import androidx.work.PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS
 import com.sethchhim.kuboo_client.BaseApplication
+import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_NICKNAME
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_PASSWORD
 import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_SERVER
@@ -37,12 +39,18 @@ class TrackingService {
                 .putString(KEY_LOGIN_USERNAME, login.username)
                 .putString(KEY_LOGIN_PASSWORD, login.password)
                 .build()
-        val trackingWork = PeriodicWorkRequest
-                .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
-//                .Builder(TrackingWorker::class.java, 16 * 60 * 1000L, TimeUnit.MILLISECONDS)
-                .setConstraints(constraints)
-                .setInputData(inputData)
-                .build()
+        val trackingWork = when (BuildConfig.DEBUG) {
+            true -> PeriodicWorkRequest
+                    .Builder(TrackingWorker::class.java, MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
+                    .setConstraints(constraints)
+                    .setInputData(inputData)
+                    .build()
+            false -> PeriodicWorkRequest
+                    .Builder(TrackingWorker::class.java, Settings.DOWNLOAD_TRACKING_INTERVAL.toLong(), TimeUnit.HOURS)
+                    .setConstraints(constraints)
+                    .setInputData(inputData)
+                    .build()
+        }
         WorkManager.getInstance().enqueueUniquePeriodicWork(TAG_TRACKING_SERVICE, ExistingPeriodicWorkPolicy.REPLACE, trackingWork)
     }
 
