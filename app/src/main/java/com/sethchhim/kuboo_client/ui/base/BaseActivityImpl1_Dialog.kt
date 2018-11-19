@@ -76,15 +76,32 @@ open class BaseActivityImpl1_Dialog : BaseActivityImpl0_View() {
     }
 
     internal fun showToastDebug() {
-        if (systemUtil.isDebugBuild()) longToast("DEBUG")
+        if (systemUtil.isDebugBuild()) {
+            try {
+                longToast("DEBUG")
+            } catch (e: Exception) { //ignore
+            }
+        }
     }
 
-    internal fun showToastError() = toast(R.string.login_something_went_wrong)
+    internal fun showToastError() = try {
+        toast(R.string.login_something_went_wrong)
+    } catch (e: Exception) { //ignore
+    }
 
-    internal fun showToastFailedToLoadImageAssets() = toast(R.string.main_failed_to_load_assets)
+    internal fun showToastFailedToLoadImageAssets() = try {
+        toast(R.string.main_failed_to_load_assets)
+    } catch (e: Exception) { //ignore
+    }
 
-    internal fun showToastFileDoesNotExist() = toast(R.string.dialog_file_does_not_exist)
+    internal fun showToastFileDoesNotExist() = try {
+        toast(R.string.dialog_file_does_not_exist)
+    } catch (e: Exception) { //ignore
+    }
 
-    internal fun showToastFileTypeNotSupported() = toast(R.string.main_file_type_not_supported)
+    internal fun showToastFileTypeNotSupported() = try {
+        toast(R.string.main_file_type_not_supported)
+    } catch (e: Exception) { //ignore
+    }
 
 }
