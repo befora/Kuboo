@@ -92,18 +92,16 @@ class TrackingService {
 
     private fun getRemainingSeriesNeighbors(login: Login, seriesNeighbors: MutableList<Book>, book: Book, startTime: Long) {
         val remainingCount = Settings.DOWNLOAD_TRACKING_LIMIT - seriesNeighbors.size
-        viewModel.getSeriesNeighborsNextPageRemote(login, book.server + book.linkNext, seriesLimit = remainingCount).observeForever {
-            it?.let { result ->
-                result.forEach { it.isFavorite = true }
-                seriesNeighbors.addAll(result)
-                val firstItem = try {
-                    result[0]
-                } catch (e: Exception) {
-                    book
+        val url = book.server + book.linkNext
+        viewModel.getSeriesNeighborsNextPageRemote(login, url, seriesLimit = remainingCount).observeForever {
+            when (it == null) {
+                true -> Timber.e("Tracking of book failed to getSeriesNeighborsNextPageRemote: title[${book.title}]")
+                false -> {
+                    it!!.forEach { it.isFavorite = true }
+                    seriesNeighbors.addAll(it)
                 }
-                handleResult(login, seriesNeighbors, firstItem, startTime)
             }
-                    ?: Timber.e("Tracking of book failed to getSeriesNeighborsNextPageRemote: title[${book.title}]")
+            handleResultFinal(login, book, seriesNeighbors, startTime)
         }
     }
 
@@ -114,6 +112,9 @@ class TrackingService {
             val doNotDeleteList = mutableListOf<Book>().apply {
                 add(book)
                 addAll(seriesNeighbors)
+            }
+            doNotDeleteList.forEach {
+                Timber.d("Tracking do not delete: ${it.title}")
             }
             viewModel.deleteFetchDownloadsNotInList(doNotDeleteList)
             viewModel.startFetchDownloads(login, seriesNeighbors, Settings.DOWNLOAD_SAVE_PATH)
