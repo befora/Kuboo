@@ -44,6 +44,20 @@
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             tools:targetApi="n"/>
+        <activity
+            android:name=".ui.reader.comic.ReaderComicActivityLandscape"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="userLandscape"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+        <activity
+            android:name=".ui.reader.comic.ReaderComicActivityPortrait"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="userPortrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
 
         <activity
             android:name=".ui.reader.book.ReaderEpubActivity"

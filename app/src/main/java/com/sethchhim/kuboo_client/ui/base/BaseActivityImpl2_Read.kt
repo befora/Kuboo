@@ -17,6 +17,7 @@ import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.isVisible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.ScreenOrientation
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.data.model.copyProgress
@@ -24,6 +25,8 @@ import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.preview.PreviewActivity
 import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
+import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityLandscape
+import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityPortrait
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
 import com.sethchhim.kuboo_remote.model.Book
 import kotlinx.coroutines.Dispatchers
@@ -311,7 +314,11 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
     }
 
     private fun Book.getReaderClass() = when {
-        isComic() -> ReaderComicActivity::class.java
+        isComic() -> when (Settings.SCREEN_ORIENTATION) {
+            ScreenOrientation.PORTRAIT_ONLY.value -> ReaderComicActivityPortrait::class.java
+            ScreenOrientation.LANDSCAPE_ONLY.value -> ReaderComicActivityLandscape::class.java
+            else -> ReaderComicActivity::class.java
+        }
         isEpub() -> ReaderEpubActivity::class.java
         isPdf() -> ReaderPdfActivity::class.java
         else -> null

@@ -11,6 +11,8 @@ import com.sethchhim.kuboo_client.ui.reader.base.ReaderModule
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderModuleSub
 import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
+import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityLandscape
+import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityPortrait
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
 import com.sethchhim.kuboo_client.ui.scope.*
 import com.sethchhim.kuboo_client.ui.splash.SplashActivity
@@ -47,6 +49,14 @@ abstract class InjectorsModule {
     @ReaderScope
     @ContributesAndroidInjector(modules = [(ReaderModule::class), (ReaderModuleSub::class)])
     abstract fun readerComicActivity(): ReaderComicActivity
+
+    @ReaderScope
+    @ContributesAndroidInjector(modules = [(ReaderModule::class), (ReaderModuleSub::class)])
+    abstract fun readerComicActivityLandscape(): ReaderComicActivityLandscape
+
+    @ReaderScope
+    @ContributesAndroidInjector(modules = [(ReaderModule::class), (ReaderModuleSub::class)])
+    abstract fun readerComicActivityPortrait(): ReaderComicActivityPortrait
 
     @ReaderScope
     @ContributesAndroidInjector(modules = [(ReaderModule::class), (ReaderModuleSub::class)])
