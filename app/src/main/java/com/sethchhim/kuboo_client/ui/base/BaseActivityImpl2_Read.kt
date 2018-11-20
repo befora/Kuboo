@@ -23,6 +23,8 @@ import com.sethchhim.kuboo_client.data.model.ReadData
 import com.sethchhim.kuboo_client.data.model.copyProgress
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.preview.PreviewActivity
+import com.sethchhim.kuboo_client.ui.preview.PreviewActivityLandscape
+import com.sethchhim.kuboo_client.ui.preview.PreviewActivityPortrait
 import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityLandscape
@@ -111,7 +113,8 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
 
     private fun startPreviewActivity(readData: ReadData) {
         readData.apply {
-            val intent = Intent(this@BaseActivityImpl2_Read, PreviewActivity::class.java).apply {
+            val previewActivity = getPreviewClass()
+            val intent = Intent(this@BaseActivityImpl2_Read, previewActivity).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
                 putExtra(Constants.ARG_BOOK, book)
                 putExtra(Constants.ARG_TRANSITION_URL, sharedElement?.transitionName)
@@ -311,6 +314,13 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
             hideLoadingDialog()
             startReaderActivity(readData)
         }
+    }
+
+
+    private fun getPreviewClass() = when (Settings.SCREEN_ORIENTATION) {
+        ScreenOrientation.PORTRAIT_ONLY.value -> PreviewActivityPortrait::class.java
+        ScreenOrientation.LANDSCAPE_ONLY.value -> PreviewActivityLandscape::class.java
+        else -> PreviewActivity::class.java
     }
 
     private fun Book.getReaderClass() = when {

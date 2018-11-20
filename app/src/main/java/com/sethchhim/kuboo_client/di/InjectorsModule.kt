@@ -7,6 +7,8 @@ import com.sethchhim.kuboo_client.ui.main.MainActivity
 import com.sethchhim.kuboo_client.ui.main.MainModule
 import com.sethchhim.kuboo_client.ui.main.MainModuleSub
 import com.sethchhim.kuboo_client.ui.preview.PreviewActivity
+import com.sethchhim.kuboo_client.ui.preview.PreviewActivityLandscape
+import com.sethchhim.kuboo_client.ui.preview.PreviewActivityPortrait
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderModule
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderModuleSub
 import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
@@ -41,6 +43,14 @@ abstract class InjectorsModule {
     @PreviewScope
     @ContributesAndroidInjector
     abstract fun previewActivity(): PreviewActivity
+
+    @PreviewScope
+    @ContributesAndroidInjector
+    abstract fun previewActivityLandscape(): PreviewActivityLandscape
+
+    @PreviewScope
+    @ContributesAndroidInjector
+    abstract fun previewActivityPortrait(): PreviewActivityPortrait
 
     @ReaderScope
     @ContributesAndroidInjector()

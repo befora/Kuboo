@@ -6,7 +6,7 @@ import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.showDelayed
 import com.sethchhim.kuboo_client.R
 
-class PreviewActivity : PreviewActivityImpl1_Content() {
+open class PreviewActivity : PreviewActivityImpl1_Content() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         forceOrientationSetting()

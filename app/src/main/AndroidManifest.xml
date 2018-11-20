@@ -36,6 +36,12 @@
 
         <!--preview-->
         <activity android:name=".ui.preview.PreviewActivity"/>
+        <activity
+            android:name=".ui.preview.PreviewActivityLandscape"
+            android:screenOrientation="userLandscape"/>
+        <activity
+            android:name=".ui.preview.PreviewActivityPortrait"
+            android:screenOrientation="userPortrait"/>
 
         <!--reader-->
         <activity
