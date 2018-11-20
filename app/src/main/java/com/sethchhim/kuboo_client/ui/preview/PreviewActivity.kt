@@ -9,6 +9,7 @@ import com.sethchhim.kuboo_client.R
 class PreviewActivity : PreviewActivityImpl1_Content() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        forceOrientationSetting()
         supportPostponeEnterTransition()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.preview_layout_base)
@@ -29,7 +30,6 @@ class PreviewActivity : PreviewActivityImpl1_Content() {
 
     override fun onResume() {
         super.onResume()
-        forceOrientationSetting()
         fab.showDelayed()
         textView.fadeVisible()
     }
