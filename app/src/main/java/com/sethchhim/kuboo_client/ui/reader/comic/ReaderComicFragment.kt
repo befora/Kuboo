@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.github.ybq.android.spinkit.SpinKitView
 import com.sethchhim.kuboo_client.Constants.ARG_BOOK
 import com.sethchhim.kuboo_client.Constants.ARG_LOCAL
@@ -64,6 +65,7 @@ open class ReaderComicFragment : DaggerFragment() {
         val requestOptions = RequestOptions()
                 .format(DecodeFormat.PREFER_RGB_565)
                 .skipMemoryCache(true)
+                .override(Target.SIZE_ORIGINAL)
         Glide.with(this@ReaderComicFragment)
                 .asBitmap()
                 .load(source)

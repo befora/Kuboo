@@ -18,8 +18,8 @@ class Task_LocalImageInputStream(kubooLocal: KubooLocal, position: Int) {
                 val result = parser.getPage(position)
                 kubooLocal.mainThread.execute {
                     val elapsedTime = System.currentTimeMillis() - startTime
+                    Timber.d("Parse image byte array: position[$position] size[$result] time[$elapsedTime] available[${result.available()}]")
                     liveData.value = result
-                    Timber.d("Parse image byte array: position[$position] size[$result] time[$elapsedTime]")
                 }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}]")
