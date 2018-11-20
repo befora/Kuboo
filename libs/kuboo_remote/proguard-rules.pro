@@ -62,10 +62,11 @@
 -dontwarn nl.siegmann.epublib.**
 
 #baserecyclerviewadapter
+-keepattributes InnerClasses
 -keep class com.chad.library.adapter.** { *; }
 -keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
 -keep public class * extends com.chad.library.adapter.base.BaseViewHolder
--keepclassmembers public class * extends com.chad.library.adapter.base.BaseViewHolder { <init>(android.contentView.View); }
+-keepclassmembers public class * extends com.chad.library.adapter.base.BaseViewHolder { *; }
 
 #epubparser
 -keep public class com.github.mertakdut.**{ *; }
@@ -77,9 +78,10 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
-#apache commons compress
--dontwarn org.apache.commons.compress.compressors.**
--dontwarn org.apache.commons.compress.archivers.**
+#apache
+-dontpreverify
+-keep class org.apache.** { *; }
+-dontwarn org.apache.**
 
 #supportlibrary
 -keep public class android.support.v7.widget.** { *; }
@@ -92,4 +94,19 @@
 
 -keepclassmembers class android.support.design.internal.BottomNavigationMenuView {
     boolean mShiftingMode;
+}
+
+#
+-dontwarn sun.misc.Unsafe
+
+#mupdf
+-keep class com.artifex.mupdf.** {*;}
+
+# ServiceLoader support
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Most of volatile fields are updated with AFU and should not be mangled
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
 }
