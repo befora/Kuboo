@@ -26,6 +26,8 @@ import com.sethchhim.kuboo_client.ui.preview.PreviewActivity
 import com.sethchhim.kuboo_client.ui.preview.PreviewActivityLandscape
 import com.sethchhim.kuboo_client.ui.preview.PreviewActivityPortrait
 import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivity
+import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivityLandscape
+import com.sethchhim.kuboo_client.ui.reader.book.ReaderEpubActivityPortrait
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivity
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityLandscape
 import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicActivityPortrait
@@ -329,7 +331,11 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
             ScreenOrientation.LANDSCAPE_ONLY.value -> ReaderComicActivityLandscape::class.java
             else -> ReaderComicActivity::class.java
         }
-        isEpub() -> ReaderEpubActivity::class.java
+        isEpub() -> when (Settings.SCREEN_ORIENTATION) {
+            ScreenOrientation.PORTRAIT_ONLY.value -> ReaderEpubActivityPortrait::class.java
+            ScreenOrientation.LANDSCAPE_ONLY.value -> ReaderEpubActivityLandscape::class.java
+            else -> ReaderEpubActivity::class.java
+        }
         isPdf() -> ReaderPdfActivity::class.java
         else -> null
     }

@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.sethchhim.kuboo_client.R
 
-class ReaderEpubActivity : ReaderEpubActivityImpl6_Hardware() {
+open class ReaderEpubActivity : ReaderEpubActivityImpl6_Hardware() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
