@@ -16,17 +16,13 @@ class AboutActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        forceOrientationSetting()
         setFullScreen()
         setContentView(R.layout.about_content)
         ButterKnife.bind(this)
 
         aboutViewPager.adapter = AboutPagerAdapter(this)
         aboutViewPagerIndicator.setViewPager(aboutViewPager)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        forceOrientationSetting()
     }
 
 }
