@@ -2,9 +2,11 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Nov 20, 2018"
-        versionName="1.1.5_beta1v2">
+        changeDate="Nov 22, 2018"
+        versionName="1.1.5_beta2">
+        <changelogtext>fix crash on local comic image load (rare)</changelogtext>
         <changelogtext>fix crash on toast if context has been destroyed</changelogtext>
+        <changelogtext>fix epub and pdf sometimes failed to resume download</changelogtext>
         <changelogtext>fix download tracking sometimes deletes wrong issue</changelogtext>
         <changelogtext>fix favorite dirs did not load on startup</changelogtext>
         <changelogtext>fix force orientation bugs</changelogtext>
