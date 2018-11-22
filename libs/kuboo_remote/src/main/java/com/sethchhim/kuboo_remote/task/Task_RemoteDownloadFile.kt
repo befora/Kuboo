@@ -22,7 +22,7 @@ class Task_RemoteDownloadFile(val kubooRemote: KubooRemote, val login: Login, va
                 val startTime = System.currentTimeMillis()
                 val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
                 val response = call.execute()
-                val responseBody = response?.body()
+                val responseBody = response.body()
                 if (responseBody != null) {
                     val contentLength = responseBody.contentLength()
                     val byteArray = responseBody.bytes()
@@ -48,18 +48,16 @@ class Task_RemoteDownloadFile(val kubooRemote: KubooRemote, val login: Login, va
     }
 
     private fun onFileExists(file: File, saveFilePath: String, byteArray: ByteArray, contentLength: Long, startTime: Long) {
-        if (file.length() >= contentLength) {
-            kubooRemote.mainThread.execute { liveData.value = file }
+        if (file.length() == contentLength) {
             val stopTime = System.currentTimeMillis()
             val elapsedTime = stopTime - startTime
             if (isDebugOkHttp) Timber.i("File already exists. Download cancelled. [$saveFilePath] [$elapsedTime] [$stringUrl] ")
+            kubooRemote.mainThread.execute { liveData.value = file }
         } else {
-            if (isDebugOkHttp) Timber.i("File already exists but is incomplete. Attempting to append file. oldSize[${file.length()}] totalSize[$contentLength] [$saveFilePath] [$stringUrl] ")
-            file.appendBytes(byteArray)
-            kubooRemote.mainThread.execute { liveData.value = file.verifyLength(contentLength) }
-            val stopTime = System.currentTimeMillis()
-            val elapsedTime = stopTime - startTime
-            if (isDebugOkHttp) Timber.i("File download complete! [$saveFilePath] [$elapsedTime] [$stringUrl]")
+            if (isDebugOkHttp) Timber.i("File already exists but is incomplete. Deleting partial download and starting over. fileLength[${file.length()}] totalSize[$contentLength] [$saveFilePath] [$stringUrl] ")
+            file.delete()
+            file.createNewFile()
+            onFileDoesNotExist(file, saveFilePath, byteArray, contentLength, startTime)
         }
     }
 
