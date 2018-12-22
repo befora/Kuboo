@@ -5,10 +5,16 @@ import android.arch.lifecycle.Observer
 import android.support.v4.view.ViewPager
 import android.view.MenuItem
 import android.widget.SeekBar
+import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.enum.ScaleType
 import com.sethchhim.kuboo_client.ui.base.custom.LoadingStage
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.math.roundToInt
 
@@ -80,9 +86,17 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
     }
 
     protected fun refreshViewpager() {
-        val currentItem = viewPager.currentItem
-        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl4_Content)
-        viewPager.currentItem = currentItem
+        GlobalScope.launch(Dispatchers.Main) {
+            viewPager.gone()
+            delay(250)
+            try {
+                viewPager.adapter?.notifyDataSetChanged()
+            } catch (e: Exception) {
+                //do nothing
+            } finally {
+                viewPager.visible()
+            }
+        }
     }
 
     override fun goToFirstPage() {
@@ -123,8 +137,8 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
         }
     }
 
-    protected fun setScaleType(menuItem: MenuItem, scaleType: Int) {
-        menuItem.isChecked = true
+    protected fun setScaleType(menuItem: MenuItem?, scaleType: Int) {
+        menuItem?.isChecked = true
         when (scaleType) {
             0 -> Settings.SCALE_TYPE = ScaleType.ASPECT_FILL.value
             1 -> Settings.SCALE_TYPE = ScaleType.ASPECT_FIT.value

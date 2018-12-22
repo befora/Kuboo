@@ -10,10 +10,16 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.SeekBar
 import com.artifex.mupdf.fitz.Document
+import com.sethchhim.kuboo_client.Extensions.gone
+import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.enum.ScaleType
 import com.sethchhim.kuboo_client.data.model.OutlineItem
 import com.sethchhim.kuboo_client.ui.reader.pdf.adapter.ReaderPdfAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.toast
 import timber.log.Timber
@@ -55,9 +61,17 @@ open class ReaderPdfActivityImpl4_Content : ReaderPdfActivityImpl3_Menu() {
     }
 
     protected fun refreshViewpager() {
-        val currentItem = viewPager.currentItem
-        viewPager.adapter = ReaderPdfAdapter(this)
-        viewPager.currentItem = currentItem
+        GlobalScope.launch(Dispatchers.Main) {
+            viewPager.gone()
+            delay(250)
+            try {
+                viewPager.adapter?.notifyDataSetChanged()
+            } catch (e: Exception) {
+                //do nothing
+            } finally {
+                viewPager.visible()
+            }
+        }
     }
 
     private fun openDocument() {
