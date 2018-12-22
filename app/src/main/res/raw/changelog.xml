@@ -3,6 +3,15 @@
 
     <changelogversion
         changeDate="Dec 22, 2018"
+        versionName="1.1.7">
+        <changelogtext>fix force downsize did not apply to local</changelogtext>
+        <changelogtext>fix comic and pdf rotation change is much faster and accounts for
+            downsizing
+        </changelogtext>
+    </changelogversion>
+
+    <changelogversion
+        changeDate="Dec 22, 2018"
         versionName="1.1.6">
         <changelogtext>add setting force downsizing</changelogtext>
     </changelogversion>
