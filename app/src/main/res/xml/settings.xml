@@ -94,6 +94,11 @@
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_reader_screen_will_keep_the_device_awake"
             android:title="@string/settings_keep_screen_on"/>
+        <android.support.v7.preference.Preference
+            android:key="settings_force_downsizing"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_force_downsizing_summary"
+            android:title="@string/settings_force_downsizing"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <!-- SYSTEM -->

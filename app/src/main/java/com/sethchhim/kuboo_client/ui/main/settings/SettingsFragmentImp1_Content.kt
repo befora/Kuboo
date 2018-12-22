@@ -1,10 +1,14 @@
 package com.sethchhim.kuboo_client.ui.main.settings
 
+import android.app.Dialog
 import android.support.v7.app.AlertDialog
+import android.widget.Button
+import android.widget.SeekBar
 import android.widget.TextView
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.util.DialogUtil
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
@@ -34,6 +38,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setSystemOrientationPreference()
         setSystemWifiOnlyPreference()
         setSystemStartTab()
+        setSystemForceDownsizing()
     }
 
     private fun setAboutVersionPreference() = aboutVersionPreference.apply {
@@ -362,6 +367,54 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
             1 -> stringArray[1]
             2 -> stringArray[2]
             else -> "ERROR"
+        }
+    }
+
+    private fun setSystemForceDownsizing() = systemForceDownsizing.apply {
+        val maxValue = 9999
+        setOnPreferenceClickListener {
+            dialogUtil.getDialogForceDownsizing(mainActivity).apply {
+                show()
+                val seekBar = findViewById<SeekBar>(R.id.dialog_layout_force_downsizing_seekbar)!!
+                val textView = findViewById<TextView>(R.id.dialog_layout_force_downsizing_textView)!!
+                val button0 = findViewById<Button>(R.id.dialog_layout_force_downsizing_button0)!!
+                val button1 = findViewById<Button>(R.id.dialog_layout_force_downsizing_button1)!!
+                textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
+                seekBar.max = maxValue
+                seekBar.progress = Settings.MAX_PAGE_WIDTH
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                        textView.text = "Max Width: $progress"
+                    }
+                    override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                    override fun onStopTrackingTouch(seekBar: SeekBar) {
+                        Settings.MAX_PAGE_WIDTH = seekBar.progress
+                        sharedPrefsHelper.saveMaxPageWidth()
+                        textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
+                    }
+                })
+                getButton(Dialog.BUTTON_POSITIVE).onClick {
+                    Settings.MAX_PAGE_WIDTH = Settings.DEFAULT_MAX_PAGE_WIDTH
+                    sharedPrefsHelper.saveMaxPageWidth()
+                    seekBar.progress = Settings.MAX_PAGE_WIDTH
+                    textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
+                }
+                button0.onClick {
+                    if (Settings.MAX_PAGE_WIDTH >= 0) {
+                        Settings.MAX_PAGE_WIDTH -= 1
+                        sharedPrefsHelper.saveMaxPageWidth()
+                        textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
+                    }
+                }
+                button1.onClick {
+                    if (Settings.MAX_PAGE_WIDTH <= maxValue) {
+                        Settings.MAX_PAGE_WIDTH += 1
+                        sharedPrefsHelper.saveMaxPageWidth()
+                        textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
+                    }
+                }
+            }
+            return@setOnPreferenceClickListener true
         }
     }
 

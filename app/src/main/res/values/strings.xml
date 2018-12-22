@@ -54,6 +54,7 @@
     <string name="dialog_connection_is_encrypted">Connection is encrypted</string>
     <string name="dialog_copy_to_clipboard">Copy to clipboard</string>
     <string name="dialog_decline_bookmark">Decline bookmark</string>
+    <string name="dialog_default">Default</string>
     <string name="dialog_delete">Delete</string>
     <string name="dialog_dismiss">Dismiss</string>
     <string name="dialog_download">Download</string>
@@ -209,6 +210,8 @@
     <string name="settings_finished_items_will_be_darkened">Finished items will be darkened</string>
     <string name="settings_finished_notification">Finished Notification</string>
     <string name="settings_fit_width">Fit Width</string>
+    <string name="settings_force_downsizing">Force Downsizing</string>
+    <string name="settings_force_downsizing_summary">Lower resolution of images to prevent out of memory errors</string>
     <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Hide tracking series that have been fully read and have no further content available</string>
     <string name="settings_home">Home</string>
     <string name="settings_hours">hours</string>

@@ -250,6 +250,8 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"가로보기 모드에서 두장을 연속적으로 봅니다"</string>
     <string name="settings_reader">"리더"</string>
     <string name="settings_reader_screen_will_keep_the_device_awake">"책을 읽을 때 화면이 꺼지지 않도록 합니다"</string>
+    <string name="settings_force_downsizing">"강제 축소"</string>
+    <string name="settings_force_downsizing_summary">"메모리 부족 오류를 방지하기 위해 이미지의 해상도를 낮 춥니 다"</string>
     <string name="settings_recent_viewed_plus_latest">"최근 읽은 책과 추가한 책 보기"</string>
     <string name="settings_recently_viewed_only">"최근 읽은 책만 보기"</string>
     <string name="settings_remaining">"남음"</string>

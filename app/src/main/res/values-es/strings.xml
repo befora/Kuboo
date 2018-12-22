@@ -227,6 +227,8 @@ Panel doble"</string>
     <string name="settings_finished_items_will_be_darkened">"Los ítems leídos se oscureceran para indicar que han sido leídos"</string>
     <string name="settings_finished_notification">"Notificación al finalizar las descargas"</string>
     <string name="settings_fit_width">"Ajuste ancho"</string>
+    <string name="settings_force_downsizing">"Reducción de la fuerza"</string>
+    <string name="settings_force_downsizing_summary">"Baja resolución de imágenes para evitar errores de memoria"</string>
     <string name="settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available">Ocultar series de seguimiento que se han leído completamente y no tienen más contenido disponible</string>
     <string name="settings_home">"Home"</string>
     <string name="settings_hours">"horas"</string>

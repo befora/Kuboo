@@ -107,6 +107,11 @@ class DialogUtil(val context: Context) {
         setMessage("Changing save path will reset all download tracking items!")
     }.create()
 
+    internal fun getDialogForceDownsizing(context: Context) = getAlertDialogBuilder(context).apply {
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_reader_force_downsizing, null))
+        setPositiveButton(context.getString(R.string.dialog_default)) { dialog, which ->  }
+    }.create()
+
     internal fun getDialogHomeLayout(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {
         setSingleChoiceItems(context.resources.getStringArray(R.array.settings_layout_entries), Settings.HOME_LAYOUT) { dialog, which ->
             when (which) {
