@@ -2,6 +2,12 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Dec 22, 2018"
+        versionName="1.1.6">
+        <changelogtext>add setting force downsizing</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Nov 22, 2018"
         versionName="1.1.5_beta2">
         <changelogtext>fix crash on local comic image load (rare)</changelogtext>
