@@ -400,14 +400,14 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
                     textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
                 }
                 button0.onClick {
-                    if (Settings.MAX_PAGE_WIDTH >= 0) {
+                    if (Settings.MAX_PAGE_WIDTH > 0) {
                         Settings.MAX_PAGE_WIDTH -= 1
                         sharedPrefsHelper.saveMaxPageWidth()
                         textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
                     }
                 }
                 button1.onClick {
-                    if (Settings.MAX_PAGE_WIDTH <= maxValue) {
+                    if (Settings.MAX_PAGE_WIDTH < maxValue) {
                         Settings.MAX_PAGE_WIDTH += 1
                         sharedPrefsHelper.saveMaxPageWidth()
                         textView.text = "Max Width: ${Settings.MAX_PAGE_WIDTH}"
