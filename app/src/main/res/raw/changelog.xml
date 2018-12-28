@@ -2,6 +2,12 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Dec 28, 2018"
+        versionName="1.1.8">
+        <changelogtext>fix home layout for higher resolutions</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Dec 22, 2018"
         versionName="1.1.7">
         <changelogtext>fix force downsize did not apply to local</changelogtext>
