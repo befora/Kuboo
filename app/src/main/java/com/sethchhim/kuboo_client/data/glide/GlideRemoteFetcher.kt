@@ -7,6 +7,7 @@ import com.bumptech.glide.load.data.DataFetcher
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.util.ContentLengthInputStream
 import com.bumptech.glide.util.Synthetic
+import com.google.gson.Gson
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Extensions.toGlideUrl
 import com.sethchhim.kuboo_client.Settings
@@ -59,11 +60,67 @@ class GlideRemoteFetcher internal constructor(private val client: Call.Factory, 
                 override fun onResponse(call: Call, response: Response) {
                     responseBody = response.body()
                     if (response.isSuccessful && responseBody != null) {
-                        val contentLength = responseBody!!.contentLength()
-                        stream = ContentLengthInputStream.obtain(responseBody!!.byteStream(), contentLength)
+                        when (viewModel.isActiveServerKuboo()) {
+                            true -> onResponseKuboo()
+                            false -> onResponseUbooquity()
+                        }
                     }
+                }
+
+                private fun onResponseUbooquity() {
+                    handleResponse()
+                }
+
+                private fun onResponseKuboo() {
+                    try {
+                        val stringUrl = url.toStringUrl()
+                        if (stringUrl.contains("/cache/thumbnails/")) {
+                            handleResponse()
+                        } else {
+                            val contentLength = responseBody!!.contentLength()
+                            val inputStream = ContentLengthInputStream.obtain(responseBody!!.byteStream(), contentLength)
+                            val inputAsString = inputStream.use {
+                                it.bufferedReader().use { it.readText() }
+                            }
+                            println("inputAsString, $inputAsString")
+                            val jsonObject = Gson().fromJson(inputAsString, ImageMeta::class.java)
+                            val kubooUrl = viewModel.getActiveServer() + jsonObject.fileName
+                            loadDataKuboo(kubooUrl)
+                        }
+                    } catch (e: Exception) {
+                        callback.onLoadFailed(e)
+                    }
+                }
+
+                private fun loadDataKuboo(kubooUrl: String) {
+                    val authGlideUrl2 = kubooUrl.toGlideUrl(activeLogin)
+                    val requestBuilder2 = Request.Builder().url(authGlideUrl2.toStringUrl())
+                    for ((key, value) in authGlideUrl.headers) {
+                        requestBuilder2.addHeader(key, value)
+                    }
+                    val request2 = requestBuilder2.build()
+                    call = client.newCall(request2)
+                    call!!.enqueue(object : okhttp3.Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            callback.onLoadFailed(e)
+                        }
+
+                        @Throws(IOException::class)
+                        override fun onResponse(call: Call, response: Response) {
+                            responseBody = response.body()
+                            if (response.isSuccessful && responseBody != null) {
+                                handleResponse()
+                            }
+                        }
+                    })
+                }
+
+                private fun handleResponse() {
+                    val contentLength = responseBody!!.contentLength()
+                    stream = ContentLengthInputStream.obtain(responseBody!!.byteStream(), contentLength)
                     callback.onDataReady(stream)
                 }
+
             })
         } else {
             val message = "Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]"
@@ -91,3 +148,5 @@ class GlideRemoteFetcher internal constructor(private val client: Call.Factory, 
     override fun getDataSource() = DataSource.REMOTE
 
 }
+
+data class ImageMeta(val fileName: String, val width: Int, val height: Int, val isWide: Boolean)

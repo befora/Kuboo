@@ -39,6 +39,10 @@ class ViewModel(internal val browserRepository: BrowserRepository,
 
     internal fun isActiveLoginEmpty() = loginRepository.isActiveLoginEmpty()
 
+    internal fun isActiveServerKuboo() = loginRepository.isActiveServerKuboo()
+
+    internal fun isActiveServerUbooquity() = loginRepository.isActiveServerUbooquity()
+
     //login
     internal fun getLoginList() = loginRepository.getLoginList()
 

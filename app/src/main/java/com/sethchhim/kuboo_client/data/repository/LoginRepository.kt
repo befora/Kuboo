@@ -55,6 +55,11 @@ class LoginRepository(private val sharedPrefsHelper: SharedPrefsHelper) {
 
     internal fun isActiveLoginEmpty() = getActiveLogin().isEmpty()
 
+    internal fun isActiveServerKuboo() = getActiveServer().contains("/opds/")
+
+    internal fun isActiveServerUbooquity() = getActiveServer().contains("/opds-comics/")
+            || getActiveServer().contains("/opds-books/")
+
     private fun MutableList<Login>.removeMatch(login: Login) {
         val removeList = arrayListOf<Login>()
         forEach { if (it.isMatch(login)) removeList.add(it) }

@@ -234,13 +234,12 @@ class HandlerOpds(private val login: Login, private val saxList: MutableList<Boo
                 entity.TotalPages = bits2[bits2.size - 1]
                 totalPages = true
             }
-            string.contains("/opds/") -> {
-                val bits1 = string.split("/opds/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                string = bits1[bits1.size - 1]
+            //kuboo server linkpse
+            string.contains("/cache/images/?bookId=") -> {
                 linkPse = true
                 val stringTotalPages = getValue("pse:count")
-                val bits2 = stringTotalPages.split("/opds/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                entity.TotalPages = bits2[bits2.size - 1]
+                println("stringTotalPages, $stringTotalPages")
+                entity.TotalPages = stringTotalPages
                 totalPages = true
             }
         }
@@ -251,6 +250,6 @@ class HandlerOpds(private val login: Login, private val saxList: MutableList<Boo
 
     private fun String.unescapeXml() = StringEscapeUtils.unescapeXml(this)
 
-    private fun String.unescapeAmpersand() = replace("{ampersand}", "&")
+    private fun String.unescapeAmpersand() = replace("{ampersand}", "&").replace("&amp;", "&")
 
 }
