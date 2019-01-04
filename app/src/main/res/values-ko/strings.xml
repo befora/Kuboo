@@ -78,6 +78,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="dialog_connection_is_encrypted">"접속이 암호화 되었습니다"</string>
     <string name="dialog_copy_to_clipboard">"복사하기"</string>
     <string name="dialog_decline_bookmark">"처음부터 읽기"</string>
+    <string name="dialog_default">태만</string>
     <string name="dialog_delete">"삭제"</string>
     <string name="dialog_dismiss">"닫기"</string>
     <string name="dialog_download">"다운로드"</string>
@@ -178,6 +179,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="main_series">"시리즈"</string>
     <string name="main_server_not_available">"서버에 접속할 수 없습니다!"</string>
     <string name="main_settings">"설정"</string>
+    <string name="main_settings_advanced">고급 설정</string>
     <string name="main_start_reading_to_add_items">"독서를 시작해보세요!"</string>
     <string name="main_text_copied_to_clipboard">"클립보드에 복사되었습니다"</string>
 
@@ -214,6 +216,11 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
 
     <string name="settings_about">"정보"</string>
     <string name="settings_active_server">"서버"</string>
+    <string name="settings_advanced">많은</string>
+    <string name="settings_more_advanced_options">고급 옵션</string>
+    <string name="settings_home_recently_viewed_height_offset">최근 본 높이 오프셋</string>
+    <string name="settings_adjust_height_offset_of_the_recently_viewed_row">최근에 본 행의 높이 오프셋을 조정합니다. 홈 화면에 여러 하위 행이 포함 된 경우에만 적용됩니다.
+</string>
     <string name="settings_apply">"적용"</string>
     <string name="settings_aspect_fill">"화면 늘리기"</string>
     <string name="settings_aspect_fit">"화면에 맞추기"</string>

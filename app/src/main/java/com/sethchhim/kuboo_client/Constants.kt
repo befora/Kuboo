@@ -49,6 +49,7 @@ object Constants {
     internal const val KEY_MAX_PAGE_WIDTH = "KEY_MAX_PAGE_WIDTH"
     internal const val KEY_PREVIEW = "KEY_PREVIEW"
     internal const val KEY_RTL = "KEY_RTL"
+    internal const val KEY_RECENTLY_VIEWED_HEIGHT_OFFSET = "KEY_RECENTLY_VIEWED_HEIGHT_OFFSET"
     internal const val KEY_REVERSE_LAYOUT = "KEY_REVERSE_LAYOUT"
     internal const val KEY_SCALE_TYPE = "KEY_SCALE_TYPE"
     internal const val KEY_SCREEN_ORIENTATION = "KEY_SCREEN_ORIENTATION"

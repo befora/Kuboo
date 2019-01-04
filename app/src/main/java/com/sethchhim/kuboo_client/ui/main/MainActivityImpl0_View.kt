@@ -30,6 +30,8 @@ import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragmentImpl
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragmentImp0_View
+import com.sethchhim.kuboo_client.ui.main.settings.advanced.SettingsAdvancedFragment
+import com.sethchhim.kuboo_client.ui.main.settings.advanced.SettingsAdvancedFragmentImp0_View
 import com.sethchhim.kuboo_client.ui.state.FailFragment
 import com.sethchhim.kuboo_client.ui.state.LoadingFragment
 import com.sethchhim.kuboo_client.ui.state.WelcomeFragment
@@ -48,6 +50,7 @@ open class MainActivityImpl0_View : BaseActivity() {
     @Inject lateinit var downloadFragment: DownloadsFragment
     @Inject lateinit var homeFragment: HomeFragment
     @Inject lateinit var settingsFragment: SettingsFragment
+    @Inject lateinit var settingsAdvancedFragment: SettingsAdvancedFragment
 
     @Inject lateinit var failFragment: FailFragment
     @Inject lateinit var loadingFragment: LoadingFragment
@@ -93,8 +96,6 @@ open class MainActivityImpl0_View : BaseActivity() {
                 else -> selectHome()
             }
         }
-
-
     }
 
     internal fun isMenuStateSelected() = downloadMenuItem.isVisible
@@ -144,6 +145,8 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     internal fun showFragmentSettings() = supportFragmentManager.show(settingsFragment, R.id.main_layout_base_frameLayout)
 
+    internal fun showFragmentSettingsAdvanced() = supportFragmentManager.show(settingsAdvancedFragment, R.id.main_layout_base_frameLayout)
+
     internal fun collapseMenuItemSearch() {
         if (::searchMenuItem.isInitialized && searchMenuItem.isActionViewExpanded) searchMenuItem.collapseActionView()
     }
@@ -190,7 +193,7 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     private fun showFragmentLoading() = supportFragmentManager.show(loadingFragment, R.id.main_layout_base_frameLayout)
 
-    protected fun showFragmentHome() = when (viewModel.isLoginListEmpty() || viewModel.isActiveLoginEmpty()) {
+    internal fun showFragmentHome() = when (viewModel.isLoginListEmpty() || viewModel.isActiveLoginEmpty()) {
         true -> supportFragmentManager.show(welcomeFragment, R.id.main_layout_base_frameLayout)
         false -> supportFragmentManager.show(homeFragment, R.id.main_layout_base_frameLayout)
     }
@@ -209,6 +212,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         is LoginBrowserFragmentImpl0_View -> getString(R.string.login_servers)
         is LoginEditFragment -> getString(R.string.login_edit_server)
         is SettingsFragmentImp0_View -> getString(R.string.main_settings)
+        is SettingsAdvancedFragmentImp0_View -> getString(R.string.main_settings)
         is HomeFragmentImpl1_Content -> getString(R.string.main_read_now)
         is WelcomeFragment -> getString(R.string.main_home_welcome)
         else -> "ERROR"

@@ -108,14 +108,15 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
 
     protected fun Guideline.setGuideLinePercent() {
         val orientation = resources.configuration.orientation
+        val offset = Settings.RECENTLY_VIEWED_HEIGHT_OFFSET * 0.01f
         setGuidelinePercent(when (mainActivity.isHiDpi()) {
             true -> when (orientation) {
-                Configuration.ORIENTATION_PORTRAIT -> 0.7F
-                else -> 0.6F
+                Configuration.ORIENTATION_PORTRAIT -> 0.7F + offset
+                else -> 0.6F + offset
             }
             false -> when (orientation) {
-                Configuration.ORIENTATION_PORTRAIT -> 0.6F
-                else -> 0.55F
+                Configuration.ORIENTATION_PORTRAIT -> 0.6F + offset
+                else -> 0.55F + offset
             }
         })
     }

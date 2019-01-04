@@ -145,6 +145,13 @@ class DialogUtil(val context: Context) {
         setMessage(book.title)
     }.create()
 
+    internal fun getDialogRecentlyViewedHeightOffset(context: Context) = getAlertDialogBuilder(context).apply {
+        setView(LayoutInflater.from(context).inflate(R.layout.dialog_layout_settings_recently_viewed_height_offset, null))
+        setPositiveButton(context.getString(R.string.dialog_default)) { dialog, which ->  }
+        setMessage(context.getString(R.string.settings_adjust_height_offset_of_the_recently_viewed_row))
+
+    }.create()
+
     internal fun getDialogRequestRestart(context: Context, onDialogSelect0: OnDialogSelect0) = getAlertDialogBuilder(context).apply {
         setTitle(context.getString(R.string.dialog_restart_required))
         setMessage(context.getString(R.string.dialog_please_restart_to_apply_changes))

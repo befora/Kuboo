@@ -80,6 +80,7 @@ Un merci spécial à Tom pour avoir créé Ubooquity."</string>
     <string name="dialog_connection_is_encrypted">"La connextion est chiffrée"</string>
     <string name="dialog_copy_to_clipboard">"Copier"</string>
     <string name="dialog_decline_bookmark">"Ignorer le marque page"</string>
+    <string name="dialog_default">Défaut</string>
     <string name="dialog_delete">"Supprimer"</string>
     <string name="dialog_dismiss">"Ignorer"</string>
     <string name="dialog_download">"Télécharger"</string>
@@ -185,6 +186,7 @@ HTTP NON TROUVÉ
     <string name="main_series">"Série"</string>
     <string name="main_server_not_available">"Serveur indisponible!"</string>
     <string name="main_settings">"Configuration"</string>
+    <string name="main_settings_advanced">Réglages avancés</string>
     <!-- Fuzzy -->
     <string name="main_start_reading_to_add_items">"Commencez à lire pour ajouter des medias!"</string>
     <string name="main_text_copied_to_clipboard">"Texte copié dans le presse papier"</string>
@@ -222,6 +224,11 @@ HTTP NON TROUVÉ
 
     <string name="settings_about">"A propos"</string>
     <string name="settings_active_server">"Serveur actif"</string>
+    <string name="settings_advanced">Avancée</string>
+    <string name="settings_more_advanced_options">Options plus avancées</string>
+    <string name="settings_home_recently_viewed_height_offset">Décalage de hauteur récemment vu</string>
+    <string name="settings_adjust_height_offset_of_the_recently_viewed_row">Ajustez le décalage en hauteur de la ligne récemment affichée. Ceci ne s\'applique que lorsque l\'écran d\'accueil comprend plusieurs lignes enfants.
+</string>
     <string name="settings_apply">"Appliquer"</string>
     <string name="settings_aspect_fill">"Remplir l'Affichage"</string>
     <string name="settings_aspect_fit">"Ajuster l'Affichage"</string>

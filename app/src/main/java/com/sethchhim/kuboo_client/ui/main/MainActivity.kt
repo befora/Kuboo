@@ -19,6 +19,7 @@ import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
+import com.sethchhim.kuboo_client.ui.main.settings.advanced.SettingsAdvancedFragment
 
 
 open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
@@ -74,6 +75,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
             is BrowserSeriesFragment -> supportFragmentManager.popBackStackImmediate()
             is LoginEditFragment -> supportFragmentManager.popBackStackImmediate()
             is LoginBrowserFragment -> supportFragmentManager.popBackStackImmediate()
+            is SettingsAdvancedFragment -> supportFragmentManager.popBackStackImmediate()
             else -> when (bottomNav.selectedItemId) {
                 R.id.navigation_home -> systemUtil.requestExitApplication()
                 R.id.navigation_browse -> selectHome()

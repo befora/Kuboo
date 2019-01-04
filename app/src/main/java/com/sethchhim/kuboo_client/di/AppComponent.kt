@@ -20,6 +20,7 @@ import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragmentImp0_View
+import com.sethchhim.kuboo_client.ui.main.settings.advanced.SettingsAdvancedFragmentImp0_View
 import com.sethchhim.kuboo_client.ui.reader.comic.adapter.ReaderComicAdapter
 import com.sethchhim.kuboo_client.ui.reader.pdf.adapter.ReaderPdfAdapter
 import com.sethchhim.kuboo_client.ui.scope.AppScope
@@ -58,6 +59,7 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     fun inject(readerPdfAdapter: ReaderPdfAdapter)
     fun inject(recentAdapter: RecentAdapter)
     fun inject(settingsFragment: SettingsFragmentImp0_View)
+    fun inject(settingsAdvancedFragment: SettingsAdvancedFragmentImp0_View)
     fun inject(task_LocalBase: Task_LocalBase)
     fun inject(trackingService: TrackingService)
     fun inject(trackingWorker: TrackingWorker)

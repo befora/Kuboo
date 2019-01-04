@@ -6,6 +6,7 @@ import com.sethchhim.kuboo_client.ui.main.home.HomeFragment
 import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
+import com.sethchhim.kuboo_client.ui.main.settings.advanced.SettingsAdvancedFragment
 import com.sethchhim.kuboo_client.ui.scope.HomeScope
 import com.sethchhim.kuboo_client.ui.state.FailFragment
 import com.sethchhim.kuboo_client.ui.state.LoadingFragment
@@ -43,6 +44,10 @@ internal abstract class MainModuleSub {
     @HomeScope
     @ContributesAndroidInjector
     internal abstract fun settingsFragment(): SettingsFragment
+
+    @HomeScope
+    @ContributesAndroidInjector
+    internal abstract fun settingsAdvancedFragment(): SettingsAdvancedFragment
 
     @HomeScope
     @ContributesAndroidInjector

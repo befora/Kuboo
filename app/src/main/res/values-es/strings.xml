@@ -71,6 +71,7 @@ Un agradecimiento especial a Tom por crear Ubooquity."</string>
     <string name="dialog_connection_is_encrypted">"La conexión está encriptada"</string>
     <string name="dialog_copy_to_clipboard">"Copiar al portapapeles"</string>
     <string name="dialog_decline_bookmark">"Rechazar marcador"</string>
+    <string name="dialog_default">Defecto</string>
     <string name="dialog_delete">"Suprimir"</string>
     <string name="dialog_dismiss">"Descartar"</string>
     <string name="dialog_download">"Descargar"</string>
@@ -171,6 +172,7 @@ Un agradecimiento especial a Tom por crear Ubooquity."</string>
     <string name="main_series">"Series"</string>
     <string name="main_server_not_available">"¡Servidor no disponible!"</string>
     <string name="main_settings">"Configuraciones"</string>
+    <string name="main_settings_advanced">Ajustes avanzados</string>
     <string name="main_start_reading_to_add_items">"¡Comienza a leer para agregar ítems!"</string>
     <string name="main_text_copied_to_clipboard">"Texto copiado al portapapeles"</string>
 
@@ -208,6 +210,11 @@ Panel doble"</string>
 
     <string name="settings_about">"Acerca de"</string>
     <string name="settings_active_server">"Servidor activo"</string>
+    <string name="settings_advanced">Avanzado</string>
+    <string name="settings_more_advanced_options">Opciones más avanzadas</string>
+    <string name="settings_home_recently_viewed_height_offset">Desplazamiento de altura visto recientemente</string>
+    <string name="settings_adjust_height_offset_of_the_recently_viewed_row">Ajuste la compensación de altura de la fila vista recientemente. Esto solo se aplica cuando la pantalla de inicio incluye varias filas secundarias.
+</string>
     <string name="settings_apply">"Aplicar"</string>
     <string name="settings_aspect_fill">"Aspecto relleno"</string>
     <string name="settings_aspect_fit">"Ajuste de aspecto"</string>
