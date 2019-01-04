@@ -33,5 +33,5 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.commons:commons-compress:1.18'
-    implementation 'com.github.sethchhim:junrar:3ba451c'
+    implementation 'com.github.junrar:junrar:3.1.0'
 }
