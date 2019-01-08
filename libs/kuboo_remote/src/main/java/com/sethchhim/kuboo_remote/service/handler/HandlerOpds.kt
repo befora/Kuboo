@@ -238,7 +238,6 @@ class HandlerOpds(private val login: Login, private val saxList: MutableList<Boo
             string.contains("/cache/images/?bookId=") -> {
                 linkPse = true
                 val stringTotalPages = getValue("pse:count")
-                println("stringTotalPages, $stringTotalPages")
                 entity.TotalPages = stringTotalPages
                 totalPages = true
             }

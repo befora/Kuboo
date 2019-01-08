@@ -62,7 +62,6 @@ open class ReaderComicFragment : DaggerFragment() {
     }
 
     protected fun ImageView.loadImage(source: Any, requestListener: RequestListener<Bitmap>) {
-        println("HEY $source")
         val requestOptions = RequestOptions()
                 .format(DecodeFormat.PREFER_RGB_565)
                 .skipMemoryCache(true)
