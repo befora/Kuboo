@@ -26,6 +26,6 @@ class TrackingWorker(context: Context, workerParams: WorkerParameters) : Worker(
             password = inputData.getString(Constants.KEY_LOGIN_PASSWORD) ?: ""
         }
         trackingService.startTrackingServiceSingle(login)
-        return Result.SUCCESS
+        return Result.success()
     }
 }
