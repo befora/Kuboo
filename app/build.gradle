@@ -88,7 +88,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
     //dependency injection
-    final dagger_version = "2.19"
+    final dagger_version = "2.21"
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
