@@ -77,8 +77,8 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentHolder {
         val holder = super.onCreateViewHolder(parent, viewType)
-        holder.itemView.setOnClickListener { holder.onItemSelected() }
-        holder.itemView.setOnLongClickListener { holder.onItemLongSelected() }
+        holder.itemView.browser_item_recent_imageView.setOnClickListener { holder.onItemSelected() }
+        holder.itemView.browser_item_recent_imageView.setOnLongClickListener { holder.onItemLongSelected() }
         return holder
     }
 
