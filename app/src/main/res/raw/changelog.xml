@@ -2,7 +2,7 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Jan 26, 2018"
+        changeDate="Jan 26, 2019"
         versionName="1.1.10">
         <changelogtext>change font from roboto to opensans</changelogtext>
         <changelogtext>fix bookmark dialog layout image fit and add content metadata</changelogtext>
@@ -18,7 +18,7 @@
     </changelogversion>
 
     <changelogversion
-        changeDate="Jan 4, 2018"
+        changeDate="Jan 4, 2019"
         versionName="1.1.9">
         <changelogtext>add advanced setting recently viewed height offset</changelogtext>
         <changelogtext>update apache commons compress to 1.18 from 1.16.1</changelogtext>
