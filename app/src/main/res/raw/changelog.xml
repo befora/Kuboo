@@ -2,6 +2,22 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Jan 26, 2018"
+        versionName="1.1.10">
+        <changelogtext>change font from roboto to opensans</changelogtext>
+        <changelogtext>fix bookmark dialog layout image fit and add content metadata</changelogtext>
+        <changelogtext>fix home open series button sometimes triggered open book</changelogtext>
+        <changelogtext>fix preview fab sometimes doesn't complete show animation</changelogtext>
+        <changelogtext>fix reader overlay seekbar width and padding</changelogtext>
+        <changelogtext>fix splash icon was too small</changelogtext>
+        <changelogtext>update dagger from 2.19 to 2.21</changelogtext>
+        <changelogtext>update fetch from 2.3.1 to 2.3.6</changelogtext>
+        <changelogtext>update gradle from 3.2.1 to 3.3.0</changelogtext>
+        <changelogtext>update kotlin from 1.3.11 to 1.3.20</changelogtext>
+        <changelogtext>update workmanager from 1.0.0-alpha11 to 1.0.0-beta03</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Jan 4, 2018"
         versionName="1.1.9">
         <changelogtext>add advanced setting recently viewed height offset</changelogtext>
