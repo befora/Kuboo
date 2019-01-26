@@ -128,7 +128,7 @@ object Extensions {
     internal fun FloatingActionButton.showDelayed() {
         if (!isShown) {
             GlobalScope.launch(Dispatchers.Main) {
-                delay(500)
+                delay(1000)
                 try {
                     show()
                 } catch (e: RuntimeException) { //ignore

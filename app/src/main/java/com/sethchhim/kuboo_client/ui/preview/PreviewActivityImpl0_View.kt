@@ -27,7 +27,7 @@ open class PreviewActivityImpl0_View : BaseActivity(), OnLoadCallback {
     protected fun onClickedFab() {
         GlobalScope.launch(Dispatchers.Main) {
             fab.hide()
-            delay(300)
+            delay(500)
             try {
                 startReader(ReadData(book = currentBook, onLoadCallback = this@PreviewActivityImpl0_View, sharedElement = imageView, source = Source.PREVIEW))
             } catch (e: RuntimeException) {
