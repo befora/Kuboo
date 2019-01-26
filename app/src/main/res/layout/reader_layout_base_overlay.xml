@@ -58,6 +58,20 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.3"/>
 
+    <android.support.constraint.Guideline
+        android:id="@+id/reader_layout_base_overlay_guideLine3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/reader_layout_base_overlay_guideLine4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85"/>
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/reader_layout_base_overlay_nestedScrollView"
         android:layout_width="0dp"
@@ -81,22 +95,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:mirrorForRtl="true"
-        android:paddingEnd="56dp"
-        android:paddingStart="56dp"
         android:progressTint="@color/md_blue_400"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintEnd_toEndOf="@id/reader_layout_base_overlay_guideLine4"
+        app:layout_constraintStart_toStartOf="@id/reader_layout_base_overlay_guideLine3"/>
 
     <LinearLayout
         android:id="@+id/reader_layout_base_overlay_linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="24dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,8 +133,8 @@
             android:id="@+id/reader_layout_base_overlay_textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:text="@string/reader_of"
             android:textAppearance="?android:textAppearanceMedium"/>
 
