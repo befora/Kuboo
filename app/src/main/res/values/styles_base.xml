@@ -6,8 +6,8 @@
     </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/OpenSansButtonStyle</item>
+        <item name="android:textViewStyle">@style/OpenSansTextViewStyle</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="preferenceTheme">@style/preferenceTheme</item>
         <item name="windowActionBar">false</item>
@@ -28,19 +28,15 @@
     </style>
 
     <style name="preferenceTheme" parent="PreferenceThemeOverlay">
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:textViewStyle">@style/OpenSansTextViewStyle</item>
     </style>
 
-    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="OpenSansTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
 
-    <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
-    <style name="ProximaNovaTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">proxima-nova</item>
+    <style name="OpenSansButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
 
     <style name="errorTextStyle" parent="@android:style/TextAppearance">
