@@ -2,9 +2,10 @@ package com.sethchhim.kuboo_client.ui.base
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v4.app.ActivityOptionsCompat
-import android.widget.Button
+import android.text.method.ScrollingMovementMethod
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -37,6 +38,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.io.File
 
 @SuppressLint("Registered")
@@ -196,55 +198,28 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
         hideLoadingDialog()
         bookmarkDialog.apply {
             readData.onLoadCallback?.apply { setOnDismissListener { onFinishLoad() } }
-
+            this.setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.main_resume)) { dialog, i -> }
+            this.setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(R.string.main_cancel)) { dialog, i -> }
+            this.setButton(DialogInterface.BUTTON_NEUTRAL, context.getString(R.string.main_decline)) { dialog, i -> }
             show()
 
             val textView = findViewById<TextView>(R.id.dialog_layout_bookmark_textView)!!
             val imageView = findViewById<ImageView>(R.id.dialog_layout_bookmark_imageView)!!
             val progressBar = findViewById<ProgressBar>(R.id.dialog_layout_bookmark_progressBar)!!
-            val button0 = findViewById<Button>(R.id.dialog_layout_bookmark_button0)!!
-            val button1 = findViewById<Button>(R.id.dialog_layout_bookmark_button1)!!
 
-            textView.text = savedBook.title
+            textView.movementMethod = ScrollingMovementMethod()
+            textView.text = savedBook.content
 
-            val string0 = if (savedBook.isComic() || savedBook.isPdf()) {
-                "• ${context.getString(R.string.dialog_resume_page)} ${savedBook.currentPage + 1} ${context.getString(R.string.dialog_of)} ${savedBook.totalPages}"
-            } else if (savedBook.isEpub()) {
-                val chapter = try {
-                    when (savedBook.bookMark.contains("#")) {
-                        true -> savedBook.bookMark.substringBeforeLast("#").toInt()
-                        false -> -1
-                    }
-                } catch (e: Exception) {
-                    -1
-                }
-                val progress = try {
-                    when (savedBook.bookMark.contains("#")) {
-                        true -> (savedBook.bookMark.substringAfterLast("#").toFloat() * 100).toInt()
-                        false -> -1
-                    }
-                } catch (e: Exception) {
-                    -1
-                }
-                "• ${context.getString(R.string.dialog_resume_chapter)} $chapter [$progress%]"
-            } else {
-                "ERROR"
+            getButton(DialogInterface.BUTTON_POSITIVE).onClick {
+                val bookmarkReadData = ReadData(book = savedBook, bookmarksEnabled = readData.bookmarksEnabled, sharedElement = imageView, source = Source.BOOKMARK)
+                onClickBookmarkResume(bookmarkReadData)
             }
-            val string1 = "• ${context.getString(R.string.dialog_decline_bookmark)}"
+            getButton(DialogInterface.BUTTON_NEUTRAL).onClick {
+                onClickBookmarkDecline(readData)
+            }
 
             val bookmarkPreviewUrl = savedBook.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
             imageView.transitionName = bookmarkPreviewUrl
-
-            button0.apply {
-                text = string0
-                val bookmarkReadData = ReadData(book = savedBook, bookmarksEnabled = readData.bookmarksEnabled, sharedElement = imageView, source = Source.BOOKMARK)
-                this.setOnClickListener { onClickBookmarkResume(bookmarkReadData) }
-            }
-
-            button1.apply {
-                text = string1
-                this.setOnClickListener { onClickBookmarkDecline(readData) }
-            }
 
             progressBar.max = savedBook.totalPages
             progressBar.progress = savedBook.currentPage
