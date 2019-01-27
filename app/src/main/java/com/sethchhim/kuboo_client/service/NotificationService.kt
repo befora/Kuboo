@@ -10,7 +10,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import com.sethchhim.kuboo_client.Extensions.guessFilename
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings

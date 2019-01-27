@@ -1,6 +1,6 @@
 package com.sethchhim.epublibdroid_kotlin.task
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import nl.siegmann.epublib.epub.EpubReader
 import timber.log.Timber
 import java.io.BufferedInputStream

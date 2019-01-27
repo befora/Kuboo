@@ -9,6 +9,9 @@ import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.model.GlideLocal
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -21,7 +24,8 @@ class GlideLocalFetcher internal constructor(private val glideLocal: GlideLocal)
         BaseApplication.appComponent.inject(this)
     }
 
-    @Inject lateinit var viewModel: ViewModel
+    @Inject
+    lateinit var viewModel: ViewModel
 
     lateinit var inputStream: InputStream
 
@@ -33,14 +37,18 @@ class GlideLocalFetcher internal constructor(private val glideLocal: GlideLocal)
     }
 
     private fun loadSingleInstance(callback: DataFetcher.DataCallback<in InputStream>) {
-        viewModel.getLocalImageInputStreamSingleInstance(glideLocal.book.filePath, glideLocal.position).observeForever { result ->
-            handleResult(callback, result)
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getLocalImageInputStreamSingleInstance(glideLocal.book.filePath, glideLocal.position).observeForever { result ->
+                handleResult(callback, result)
+            }
         }
     }
 
     private fun loadMultiInstance(callback: DataFetcher.DataCallback<in InputStream>) {
-        viewModel.getLocalImageInputStream(glideLocal.position).observeForever { result ->
-            handleResult(callback, result)
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getLocalImageInputStream(glideLocal.position).observeForever { result ->
+                handleResult(callback, result)
+            }
         }
     }
 

@@ -1,14 +1,14 @@
 package com.sethchhim.kuboo_client.ui.main.home.custom
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-class RecentLinearLayoutManager(context: Context) : LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) {
+class RecentLinearLayoutManager(context: Context) : androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false) {
 
     private val EXTRA_LAYOUT_SPACE = 2000
 
-    override fun getExtraLayoutSpace(state: RecyclerView.State?): Int {
+    override fun getExtraLayoutSpace(state: androidx.recyclerview.widget.RecyclerView.State?): Int {
         return EXTRA_LAYOUT_SPACE
     }
 

@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.log
 
 import android.annotation.SuppressLint
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.widget.CheckBox
 import android.widget.TextView
 import butterknife.BindView
@@ -12,7 +12,7 @@ import com.sethchhim.kuboo_client.ui.base.BaseActivity
 @SuppressLint("Registered")
 open class LogActivityImpl0_View : BaseActivity() {
 
-    @BindView(R.id.log_layout_base_recyclerView) lateinit var recyclerView: RecyclerView
+    @BindView(R.id.log_layout_base_recyclerView) lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     @BindView(R.id.log_layout_base_textView) lateinit var textView: TextView
     @BindView(R.id.log_layout_base_checkBox1) lateinit var checkBoxUi: CheckBox
     @BindView(R.id.log_layout_base_checkBox2) lateinit var checkBoxLocal: CheckBox

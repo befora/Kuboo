@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.ui.reader.comic
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.support.v4.view.ViewPager
+import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import android.view.MenuItem
 import android.widget.SeekBar
 import com.sethchhim.kuboo_client.Extensions.gone
@@ -23,7 +23,7 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
 
     protected fun initListeners() {
         viewPager.clearOnPageChangeListeners()
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}

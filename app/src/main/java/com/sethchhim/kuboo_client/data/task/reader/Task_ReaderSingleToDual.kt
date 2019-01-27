@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.task.reader
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_client.Constants.KEY_SINGLE
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.model.Progress

@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.task.download
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
 import com.sethchhim.kuboo_client.Extensions.toDownload
 import com.sethchhim.kuboo_client.data.AppDatabaseDao

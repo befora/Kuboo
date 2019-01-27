@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.reader.base
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_remote.model.Neighbors
 import timber.log.Timber

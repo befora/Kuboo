@@ -2,8 +2,8 @@ package com.sethchhim.kuboo_client.ui.main.settings.advanced
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.ViewModel

@@ -2,8 +2,8 @@ package com.sethchhim.kuboo_client.ui.reader.comic
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,13 +34,13 @@ class ReaderComicFragmentImpl2_Dual : ReaderComicFragment() {
 
     @BindView(R.id.reader_item_comic_single_panel1_readerPageImageView) lateinit var imageView1: ReaderPageImageView
     @BindView(R.id.reader_item_comic_single_panel1_spinKitView) lateinit var spinKitView1: SpinKitView
-    @BindView(R.id.reader_item_fail_swipeRefreshLayout1) lateinit var swipeRefreshLayout1: SwipeRefreshLayout
+    @BindView(R.id.reader_item_fail_swipeRefreshLayout1) lateinit var swipeRefreshLayout1: androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     @BindView(R.id.reader_item_fail_constraintLayout1) lateinit var failConstraintLayout1: ConstraintLayout
     @BindView(R.id.reader_item_fail_textView1) lateinit var failTextView1: TextView
 
     @BindView(R.id.reader_item_comic_dual_panel2_readerPageImageView) lateinit var imageView2: ReaderPageImageView
     @BindView(R.id.reader_item_comic_dual_panel2_spinKitView) lateinit var spinKitView2: SpinKitView
-    @BindView(R.id.reader_item_fail_swipeRefreshLayout2) lateinit var swipeRefreshLayout2: SwipeRefreshLayout
+    @BindView(R.id.reader_item_fail_swipeRefreshLayout2) lateinit var swipeRefreshLayout2: androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     @BindView(R.id.reader_item_fail_constraintLayout2) lateinit var failConstraintLayout2: ConstraintLayout
     @BindView(R.id.reader_item_fail_textView2) lateinit var failTextView2: TextView
 

@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.settings
 
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.widget.TextView
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings

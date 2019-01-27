@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_remote.task
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.graphics.BitmapFactory
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Login

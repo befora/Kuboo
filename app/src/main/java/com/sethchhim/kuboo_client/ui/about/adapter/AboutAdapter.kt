@@ -5,9 +5,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.net.Uri
-import android.support.v4.view.PagerAdapter
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ import org.jetbrains.anko.layoutInflater
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
-class AboutPagerAdapter(val context: Context) : PagerAdapter() {
+class AboutPagerAdapter(val context: Context) : androidx.viewpager.widget.PagerAdapter() {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -114,9 +114,9 @@ class AboutPagerAdapter(val context: Context) : PagerAdapter() {
 
     private fun getPage1(container: ViewGroup): View {
         val itemView = context.layoutInflater.inflate(R.layout.about_faq, container, false)
-        val recyclerView = itemView.findViewById<RecyclerView>(R.id.about_faq_recyclerView)
+        val recyclerView = itemView.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.about_faq_recyclerView)
         recyclerView.adapter = faqAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         container.addView(itemView)
         return itemView
     }
@@ -183,9 +183,9 @@ class AboutPagerAdapter(val context: Context) : PagerAdapter() {
 
     private fun getPage4(container: ViewGroup): View {
         val itemView = context.layoutInflater.inflate(R.layout.about_license, container, false)
-        val recyclerView = itemView.findViewById<RecyclerView>(R.id.about_license_recyclerView)
+        val recyclerView = itemView.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.about_license_recyclerView)
         recyclerView.adapter = LicenseAdapter(context, getLicenseList())
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         container.addView(itemView)
         return itemView
     }

@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.task.recent
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_client.Extensions.recentListToBookList
 import com.sethchhim.kuboo_client.data.AppDatabaseDao
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase

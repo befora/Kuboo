@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.repository
 
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import com.sethchhim.kuboo_client.Constants.KEY_SINGLE
 import com.sethchhim.kuboo_client.Extensions.printPageUrls
 import com.sethchhim.kuboo_client.Settings

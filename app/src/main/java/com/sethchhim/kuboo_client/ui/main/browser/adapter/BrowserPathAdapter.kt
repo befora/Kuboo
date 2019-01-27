@@ -1,9 +1,9 @@
 package com.sethchhim.kuboo_client.ui.main.browser.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation

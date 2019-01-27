@@ -6,7 +6,7 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/home_layout_base1_constraintLayout"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             <include layout="@layout/home_layout_recent"/>
         </FrameLayout>
 
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/home_layout_base1_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,6 +42,6 @@
             <include layout="@layout/home_layout_latest"/>
         </FrameLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

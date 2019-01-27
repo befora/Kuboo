@@ -6,6 +6,9 @@ import com.bumptech.glide.load.data.DataFetcher
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.model.GlidePdf
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -15,7 +18,8 @@ class GlidePdfFetcher internal constructor(private val glidePdf: GlidePdf) : Dat
         BaseApplication.appComponent.inject(this)
     }
 
-    @Inject lateinit var viewModel: ViewModel
+    @Inject
+    lateinit var viewModel: ViewModel
 
     lateinit var inputStream: InputStream
 
@@ -27,14 +31,18 @@ class GlidePdfFetcher internal constructor(private val glidePdf: GlidePdf) : Dat
     }
 
     private fun loadSingleInstance(callback: DataFetcher.DataCallback<in InputStream>) {
-        viewModel.getPdfImageInputStreamSingleInstance(glidePdf).observeForever { result ->
-            handleResult(callback, result)
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getPdfImageInputStreamSingleInstance(glidePdf).observeForever { result ->
+                handleResult(callback, result)
+            }
         }
     }
 
     private fun loadMultiInstance(callback: DataFetcher.DataCallback<in InputStream>) {
-        viewModel.getPdfImageInputStream(glidePdf).observeForever { result ->
-            handleResult(callback, result)
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getPdfImageInputStream(glidePdf).observeForever { result ->
+                handleResult(callback, result)
+            }
         }
     }
 

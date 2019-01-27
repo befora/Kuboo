@@ -1,10 +1,11 @@
 package com.sethchhim.kuboo_client.ui.main.login.browser
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.sethchhim.kuboo_client.ui.main.login.adapter.LoginAdapter
 
 class LoginBrowserFragment : LoginBrowserFragmentImpl1_Content() {
@@ -19,7 +20,7 @@ class LoginBrowserFragment : LoginBrowserFragmentImpl1_Content() {
         super.onActivityCreated(savedInstanceState)
         loginAdapter = LoginAdapter(mainActivity, viewModel)
         loginRecyclerView.adapter = loginAdapter
-        loginRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        loginRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         populateLogin()
     }

@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.reader.comic.custom;
 
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 class VerticalPageTransformer implements ViewPager.PageTransformer {

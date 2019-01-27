@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Constants.DATABASE_NAME

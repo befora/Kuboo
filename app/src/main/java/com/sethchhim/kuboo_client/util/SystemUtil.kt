@@ -11,7 +11,7 @@ import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.IBinder
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.WindowManager
 import com.sethchhim.kuboo_client.BuildConfig
 import com.sethchhim.kuboo_client.Extensions.toReadable

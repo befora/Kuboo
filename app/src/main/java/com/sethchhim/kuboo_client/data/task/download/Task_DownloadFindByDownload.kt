@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.task.download
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.tonyodev.fetch2.Download
 import timber.log.Timber

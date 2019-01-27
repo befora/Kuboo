@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.browser
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.getBrowserContentType
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers

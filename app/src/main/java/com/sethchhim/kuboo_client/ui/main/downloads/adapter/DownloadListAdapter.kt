@@ -1,11 +1,11 @@
 package com.sethchhim.kuboo_client.ui.main.downloads.adapter
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -95,7 +95,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
     override fun getItemId(position: Int) = getItem(position).id.toLong()
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         internal fun onItemSelected() {
             val book = getItem(adapterPosition)
             viewModel.getFetchDownload(book).observe(downloadsFragment, Observer {

@@ -3,7 +3,7 @@ package com.sethchhim.epublibdroid_kotlin
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue

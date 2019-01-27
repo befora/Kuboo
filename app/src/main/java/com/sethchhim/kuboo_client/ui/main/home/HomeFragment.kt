@@ -48,7 +48,7 @@ class HomeFragment : HomeFragmentImpl1_Content() {
         if (isHomeRequireLatest()) populateLatest()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (isHomeRequireLatest()) guideline.setGuideLinePercent()
     }

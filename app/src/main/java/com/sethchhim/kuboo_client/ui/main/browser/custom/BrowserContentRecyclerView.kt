@@ -1,18 +1,18 @@
 package com.sethchhim.kuboo_client.ui.main.browser.custom
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.animation.OvershootInterpolator
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.*
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator
 
-class BrowserContentRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
+class BrowserContentRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : androidx.recyclerview.widget.RecyclerView(context, attrs, defStyleAttr) {
 
     internal var contentType = FOLDER
-    private val gridLayoutManager = BrowserContentGridLayoutManager(context, 1, LinearLayoutManager.VERTICAL, Settings.REVERSE_LAYOUT)
+    private val gridLayoutManager = BrowserContentGridLayoutManager(context, 1, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, Settings.REVERSE_LAYOUT)
     private val fadeInUpAnimator = FadeInUpAnimator().apply {
         removeDuration = 0
         addDuration = 275

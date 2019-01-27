@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.repository
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.service.NotificationService

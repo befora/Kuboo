@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.browser
 
 import android.content.res.Configuration
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ProgressBar

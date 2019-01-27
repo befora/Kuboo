@@ -6,8 +6,8 @@ import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.AppCompatImageView
+import androidx.core.view.ViewCompat
+import androidx.appcompat.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener

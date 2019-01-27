@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.repository
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_client.Constants.URL_PATH_LATEST
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote

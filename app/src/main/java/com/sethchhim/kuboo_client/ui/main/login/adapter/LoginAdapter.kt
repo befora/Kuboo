@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.login.adapter
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -30,9 +30,9 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
         setHasStableIds(true)
     }
 
-    private lateinit var recyclerview: RecyclerView
+    private lateinit var recyclerview: androidx.recyclerview.widget.RecyclerView
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerview = recyclerView
     }
@@ -101,7 +101,7 @@ class LoginAdapter(val mainActivity: MainActivityImpl0_View, val viewModel: View
 
     private fun Login.edit() = mainActivity.showFragmentLoginEdit(login = this)
 
-    private fun RecyclerView.setLikedAt(position: Int) {
+    private fun androidx.recyclerview.widget.RecyclerView.setLikedAt(position: Int) {
         val size = data.size
         //unlike all buttons
         (0..size)

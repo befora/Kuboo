@@ -1,146 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- SERVER -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_server"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_server">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_server_login"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_active_server"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- HOME -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_home"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_home">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_home_layout"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_layout"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- BROWSER -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_browser"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_browser">
-        <android.support.v7.preference.SwitchPreferenceCompat
+
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_browser_mark_finished"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_finished_items_will_be_darkened"
             android:title="@string/settings_mark_finished"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_browser_favorite"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_show_favorite_buttons"
             android:title="@string/settings_favorite"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_browser_preview"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_show_preview_page_before_reading"
             android:title="@string/settings_preview"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_browser_reverse_layout"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_content_starts_from_the_bottom_towards_top"
             android:title="@string/settings_reverse_layout"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- DOWNLOAD -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_download"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_download">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_download_save_path"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_save_path"/>
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_download_tracking_limit"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_tracking_limit"/>
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_download_tracking_interval"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_tracking_interval"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_download_tracking_hide_finished"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_hide_tracking_series_that_have_been_fully_read_and_have_no_further_content_available"
             android:title="@string/settings_tracking_hide_finished"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_download_show_finished_notification"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_show_a_notification_after_downloads_are_finished"
             android:title="@string/settings_finished_notification"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- READER -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_reader"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_reader">
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_volume_page_turn"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_volume_buttons_will_turn_page"
             android:title="@string/settings_volume_page_turn"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_keep_screen_on"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_reader_screen_will_keep_the_device_awake"
             android:title="@string/settings_keep_screen_on"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- SYSTEM -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_system"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_system">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_start_tab"
             android:layout="@layout/settings_item_preference_normal"
             android:title="Start Tab"/>
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_system_theme"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_theme"/>
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_system_orientation"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_orientation"/>
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_wifi_only"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_protect_your_mobile_data_limit"
             android:title="@string/settings_wifi_only"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- ADVANCED -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_advanced"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_advanced">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_advanced"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_more_advanced_options"
             android:title="@string/settings_advanced"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
     <!-- ABOUT -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_about"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_about">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_about_version"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_version"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

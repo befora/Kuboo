@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/reader_layout_comic_single_content_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/reader_item_comic_single_panel1"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

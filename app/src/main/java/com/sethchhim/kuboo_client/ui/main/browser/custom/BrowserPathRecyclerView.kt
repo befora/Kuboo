@@ -1,12 +1,12 @@
 package com.sethchhim.kuboo_client.ui.main.browser.custom
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-class BrowserPathRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
+class BrowserPathRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : androidx.recyclerview.widget.RecyclerView(context, attrs, defStyleAttr) {
 
     init {
         itemAnimator = SlideInUpAnimator().apply {
@@ -15,7 +15,7 @@ class BrowserPathRecyclerView @JvmOverloads constructor(context: Context, attrs:
             moveDuration = 200
             changeDuration = 200
         }
-        layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
     }
 
 }

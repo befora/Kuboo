@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.ui.main
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AlertDialog
+import androidx.lifecycle.Observer
+import androidx.appcompat.app.AlertDialog
 import android.widget.TextView
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.visible

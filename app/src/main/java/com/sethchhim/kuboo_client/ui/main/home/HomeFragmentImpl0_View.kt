@@ -2,9 +2,9 @@ package com.sethchhim.kuboo_client.ui.main.home
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.Guideline
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +38,7 @@ open class HomeFragmentImpl0_View : DaggerFragment() {
     lateinit var scrollView: ScrollView
     lateinit var latestMoreTextView: TextView
     lateinit var latestEmptyTextView: TextView
-    lateinit var latestRecyclerView: RecyclerView
+    lateinit var latestRecyclerView: androidx.recyclerview.widget.RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout = when (Settings.HOME_LAYOUT) {

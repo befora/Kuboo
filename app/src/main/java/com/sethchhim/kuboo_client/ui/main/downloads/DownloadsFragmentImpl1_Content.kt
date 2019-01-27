@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.downloads
 
-import android.arch.lifecycle.Observer
-import android.support.design.widget.TabLayout
+import androidx.lifecycle.Observer
+import com.google.android.material.tabs.TabLayout
 import com.sethchhim.kuboo_client.Extensions.compressFavorite
 import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
 import com.sethchhim.kuboo_client.Settings

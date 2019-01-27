@@ -22,7 +22,7 @@ android {
         versionCode 33
         versionName "1.1.10"
         buildConfigField 'long', 'TIMESTAMP', System.currentTimeMillis() + 'L'
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -55,33 +55,30 @@ android {
 }
 dependencies {
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //google
-    final android_support_version = "28.0.0"
-    implementation "com.android.support:appcompat-v7:$android_support_version"
-    implementation "com.android.support:cardview-v7:$android_support_version"
-    implementation "com.android.support:design:$android_support_version"
-    implementation "com.android.support:preference-v7:$android_support_version"
-    implementation "com.android.support:recyclerview-v7:$android_support_version"
-    implementation "com.android.support:support-annotations:$android_support_version"
-    implementation "com.android.support:support-v4:$android_support_version"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "com.google.android.material:material:1.1.0-alpha02"
+    implementation "androidx.preference:preference:1.1.0-alpha02"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-alpha01"
+    implementation "androidx.annotation:annotation:1.0.1"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
-    final android_architecture_version = "1.1.1"
-    kapt "android.arch.persistence.room:compiler:$android_architecture_version"
-    kapt "android.arch.lifecycle:compiler:$android_architecture_version"
-    implementation "android.arch.persistence.room:runtime:$android_architecture_version"
+    kapt "androidx.room:room-compiler:2.1.0-alpha04"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
 
-    final android_lifecycle_version = "1.1.1"
-    implementation "android.arch.lifecycle:extensions:$android_lifecycle_version"
-    implementation "android.arch.lifecycle:runtime:$android_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
     implementation "android.arch.work:work-runtime:1.0.0-beta03"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -96,7 +93,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //butterknife
-    final butterknife_version = "8.8.1"
+    final butterknife_version = "10.0.0"
     implementation "com.jakewharton:butterknife:$butterknife_version"
     kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
 

@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_remote.service.remote
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.content.Context
 import android.webkit.MimeTypeMap
 import android.webkit.URLUtil

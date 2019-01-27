@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.ui.log
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.TextView
 import com.sethchhim.kuboo_client.data.enum.LogType
 import com.sethchhim.kuboo_client.data.model.Log
@@ -18,7 +18,7 @@ open class LogActivityImpl1_Content : LogActivityImpl0_View() {
             result?.let {
                 logList.addAll(it)
                 recyclerView.adapter = LogAdapter(logList)
-                recyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
+                recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this).apply { stackFromEnd = true }
                 textView.setContent(logList)
             }
         })

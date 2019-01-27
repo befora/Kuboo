@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.preview
 
 import android.annotation.SuppressLint
-import android.support.design.widget.FloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView

@@ -58,7 +58,7 @@ class ReaderPdfActivity : ReaderPdfActivityImpl6_Hardware() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         refreshViewpager()
     }

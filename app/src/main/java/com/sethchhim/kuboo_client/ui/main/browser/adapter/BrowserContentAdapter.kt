@@ -1,11 +1,11 @@
 package com.sethchhim.kuboo_client.ui.main.browser.adapter
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -80,7 +80,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
 
     private val mainActivity = browserFragment.mainActivity
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.browserContentRecyclerView = recyclerView as BrowserContentRecyclerView
         this.layoutManager = browserContentRecyclerView.layoutManager as BrowserContentGridLayoutManager

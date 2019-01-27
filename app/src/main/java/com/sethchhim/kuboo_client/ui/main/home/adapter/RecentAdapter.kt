@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.ui.main.home.adapter
 
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup

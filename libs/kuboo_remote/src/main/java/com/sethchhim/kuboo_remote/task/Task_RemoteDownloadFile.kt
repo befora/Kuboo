@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_remote.task
 
 import android.accounts.NetworkErrorException
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import com.sethchhim.kuboo_remote.KubooRemote

@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.home
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.main.home.adapter.LatestAdapter
 import com.sethchhim.kuboo_client.ui.main.home.adapter.RecentAdapter

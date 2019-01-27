@@ -2,8 +2,8 @@ package com.sethchhim.kuboo_client.ui.reader.comic
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +33,7 @@ class ReaderComicFragmentImpl1_Single : ReaderComicFragment() {
 
     @BindView(R.id.reader_item_comic_single_panel1_readerPageImageView) lateinit var imageView: ReaderPageImageView
     @BindView(R.id.reader_item_comic_single_panel1_spinKitView) lateinit var spinKitView: SpinKitView
-    @BindView(R.id.reader_item_fail_swipeRefreshLayout1) lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    @BindView(R.id.reader_item_fail_swipeRefreshLayout1) lateinit var swipeRefreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     @BindView(R.id.reader_item_fail_constraintLayout1) lateinit var failConstraintLayout: ConstraintLayout
     @BindView(R.id.reader_item_fail_textView1) lateinit var failTextView: TextView
 

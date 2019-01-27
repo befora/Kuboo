@@ -19,7 +19,7 @@ package com.sethchhim.kuboo_client.ui.reader.comic.custom
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -73,7 +73,7 @@ class ReaderViewPagerVerticalImpl(context: Context, attrs: AttributeSet) : Reade
         return motionEvent
     }
 
-    private class VerticalPageTransformer : ViewPager.PageTransformer {
+    private class VerticalPageTransformer : androidx.viewpager.widget.ViewPager.PageTransformer {
         override fun transformPage(view: View, position: Float) {
             when {
                 position < -1 -> view.alpha = 0f// This page is way off-screen to the left.

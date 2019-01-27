@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.data.task.pdf
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.artifex.mupdf.fitz.Document
 import com.artifex.mupdf.fitz.Outline
 import com.sethchhim.kuboo_client.data.model.OutlineItem

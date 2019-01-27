@@ -2,11 +2,11 @@ package com.sethchhim.kuboo_client.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.SearchView
-import android.support.v7.widget.Toolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.widget.FrameLayout
 import butterknife.BindView
@@ -202,7 +202,7 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     protected fun isBrowseSelected() = bottomNav.selectedItemId == R.id.navigation_browse
 
-    private fun getFragmentTitle(currentFragment: Fragment) = when (currentFragment) {
+    private fun getFragmentTitle(currentFragment: androidx.fragment.app.Fragment) = when (currentFragment) {
         is BrowserRemoteFragment -> if (isMenuStateSelected()) getSelectedBrowserTitle() else getString(R.string.main_browse)
         is BrowserRecentFragment -> if (isMenuStateSelected()) getSelectedBrowserTitle() else getString(R.string.main_recent)
         is BrowserSearchFragment -> if (isMenuStateSelected()) getSelectedBrowserTitle() else getString(R.string.main_search)
@@ -218,7 +218,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         else -> "ERROR"
     }
 
-    private fun getNavigationId(currentFragment: Fragment) = when (currentFragment) {
+    private fun getNavigationId(currentFragment: androidx.fragment.app.Fragment) = when (currentFragment) {
         is BrowserRecentFragment -> R.id.navigation_browse
         is BrowserRemoteFragment -> R.id.navigation_browse
         is BrowserSeriesFragment -> R.id.navigation_browse

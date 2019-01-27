@@ -1,11 +1,11 @@
 package com.sethchhim.kuboo_client.ui.main
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.bottomnavigation.LabelVisibilityMode
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.widget.SearchView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.ButterKnife

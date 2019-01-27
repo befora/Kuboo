@@ -3,9 +3,9 @@ package com.sethchhim.kuboo_client.ui.reader.base
 import android.annotation.SuppressLint
 import android.app.PictureInPictureParams
 import android.os.Build
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.Guideline
-import android.support.v7.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
+import androidx.appcompat.widget.Toolbar
 import android.util.Rational
 import android.view.View
 import android.widget.*

@@ -7,7 +7,7 @@
             type="com.sethchhim.kuboo_remote.model.Login"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/login_item_constraintLayout"
@@ -69,6 +69,6 @@
             app:sparkbutton_iconSize="18dp"
             app:sparkbutton_inActiveImage="@drawable/ic_star_off"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

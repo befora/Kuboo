@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.log.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter

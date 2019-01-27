@@ -1,10 +1,10 @@
 package com.sethchhim.kuboo_client.ui.base
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.v4.app.ActivityOptionsCompat
+import androidx.core.app.ActivityOptionsCompat
 import android.text.method.ScrollingMovementMethod
 import android.widget.ImageView
 import android.widget.ProgressBar

@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.util
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import android.content.Context
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.Glide

@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.ui.main.downloads
 
 import android.os.Parcelable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
@@ -42,11 +42,11 @@ open class DownloadsFragmentImpl0_View : BrowserBaseFragment() {
         }
     }
 
-    protected fun RecyclerView.saveState() {
+    protected fun androidx.recyclerview.widget.RecyclerView.saveState() {
         recyclerViewState = layoutManager?.onSaveInstanceState()
     }
 
-    protected fun RecyclerView.restoreState() {
+    protected fun androidx.recyclerview.widget.RecyclerView.restoreState() {
         recyclerViewState?.let { layoutManager?.onRestoreInstanceState(it) }
     }
 

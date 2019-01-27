@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.ui.reader.comic.adapter
 
 import android.os.Parcelable
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.PagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import android.view.ViewGroup
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Constants
@@ -15,7 +15,7 @@ import com.sethchhim.kuboo_client.ui.reader.comic.ReaderComicFragmentImpl2_Dual
 import timber.log.Timber
 import javax.inject.Inject
 
-class ReaderComicAdapter internal constructor(private val readerComicActivityImpl4Content: ReaderComicActivityImpl4_Content) : FragmentStatePagerAdapter(readerComicActivityImpl4Content.supportFragmentManager) {
+class ReaderComicAdapter internal constructor(private val readerComicActivityImpl4Content: ReaderComicActivityImpl4_Content) : androidx.fragment.app.FragmentStatePagerAdapter(readerComicActivityImpl4Content.supportFragmentManager) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -34,7 +34,7 @@ class ReaderComicAdapter internal constructor(private val readerComicActivityImp
         }
     }
 
-    override fun getItemPosition(`object`: Any) = PagerAdapter.POSITION_NONE
+    override fun getItemPosition(`object`: Any) = androidx.viewpager.widget.PagerAdapter.POSITION_NONE
 
     override fun getCount() = viewModel.getReaderListSize()
 

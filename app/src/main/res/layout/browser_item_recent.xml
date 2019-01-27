@@ -7,7 +7,7 @@
             type="com.sethchhim.kuboo_remote.model.Book"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/browser_item_recent_constraintLayout"
         android:layout_width="wrap_content"
@@ -68,6 +68,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

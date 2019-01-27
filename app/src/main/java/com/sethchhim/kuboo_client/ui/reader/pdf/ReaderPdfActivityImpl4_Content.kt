@@ -2,8 +2,8 @@ package com.sethchhim.kuboo_client.ui.reader.pdf
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
-import android.support.v4.view.ViewPager
+import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import android.text.method.PasswordTransformationMethod
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
@@ -31,7 +31,7 @@ open class ReaderPdfActivityImpl4_Content : ReaderPdfActivityImpl3_Menu() {
 
     protected fun initListeners() {
         viewPager.clearOnPageChangeListeners()
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}

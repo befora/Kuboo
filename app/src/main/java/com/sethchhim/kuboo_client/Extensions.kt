@@ -1,22 +1,22 @@
 package com.sethchhim.kuboo_client
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.Guideline
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.appcompat.app.AlertDialog
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -80,7 +80,7 @@ object Extensions {
         return Math.round(px).toFloat()
     }
 
-    internal fun FragmentManager.show(fragment: Fragment, containerViewId: Int) {
+    internal fun androidx.fragment.app.FragmentManager.show(fragment: androidx.fragment.app.Fragment, containerViewId: Int) {
         fragment.retainInstance = true
         val uniqueTag = fragment.javaClass.simpleName
         val backStateName = fragment.javaClass.name
@@ -102,7 +102,7 @@ object Extensions {
                 Timber.i("replaceFragment: name[$uniqueTag] exists[$isFragmentExist]")
                 beginTransaction()
                         .replace(containerViewId, fragment, uniqueTag)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(uniqueTag)
                         .commit()
             }
@@ -111,18 +111,18 @@ object Extensions {
             findFragmentByTag(uniqueTag)?.let {
                 beginTransaction()
                         .show(it)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()
             }
         }
     }
 
-    internal fun FragmentManager.getVisibleFragment(): Fragment {
+    internal fun androidx.fragment.app.FragmentManager.getVisibleFragment(): androidx.fragment.app.Fragment {
         fragments.forEach {
             if (it.isVisible) return it
         }
         Timber.e("Can not find visible fragment!")
-        return Fragment()
+        return androidx.fragment.app.Fragment()
     }
 
     internal fun FloatingActionButton.showDelayed() {
@@ -298,15 +298,15 @@ object Extensions {
                 .build())
     }
 
-    internal fun SwipeRefreshLayout.disable() {
+    internal fun androidx.swiperefreshlayout.widget.SwipeRefreshLayout.disable() {
         if (isEnabled) isEnabled = false
     }
 
-    internal fun SwipeRefreshLayout.enable() {
+    internal fun androidx.swiperefreshlayout.widget.SwipeRefreshLayout.enable() {
         if (!isEnabled) isEnabled = true
     }
 
-    internal fun SwipeRefreshLayout.dismissDelayed() {
+    internal fun androidx.swiperefreshlayout.widget.SwipeRefreshLayout.dismissDelayed() {
         if (isRefreshing) {
             GlobalScope.launch(Dispatchers.Main) {
                 delay(400)

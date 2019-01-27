@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.util
 
-import android.arch.lifecycle.MutableLiveData
-import android.support.v7.util.DiffUtil
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tonyodev.fetch2.Download
 import kotlinx.coroutines.Dispatchers

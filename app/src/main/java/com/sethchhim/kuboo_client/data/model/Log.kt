@@ -1,9 +1,9 @@
 package com.sethchhim.kuboo_client.data.model
 
 import android.annotation.SuppressLint
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.data.enum.LogType
 import kotlinx.android.parcel.Parcelize

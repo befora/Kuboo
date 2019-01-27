@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_local.task
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.sethchhim.kuboo_local.KubooLocal
 import timber.log.Timber
 import java.io.InputStream

@@ -11,7 +11,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -27,18 +27,16 @@ android {
 }
 dependencies {
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     //google
-    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'androidx.annotation:annotation:1.0.1'
 
-    final android_architecture_version = "1.1.1"
-    implementation "android.arch.persistence.room:runtime:$android_architecture_version"
-    kapt "android.arch.persistence.room:compiler:$android_architecture_version"
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
+    kapt "androidx.room:room-compiler:2.0.0"
 
-    final android_lifecycle_version = "1.1.1"
-    implementation "android.arch.lifecycle:livedata:$android_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.1.0-alpha01"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -56,6 +54,6 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'commons-codec:commons-codec:1.11'
     implementation 'commons-io:commons-io:2.6'
-    implementation 'org.apache.commons:commons-text:1.4'
+    implementation 'org.apache.commons:commons-text:1.6'
     implementation 'org.jsoup:jsoup:1.11.3'
 }

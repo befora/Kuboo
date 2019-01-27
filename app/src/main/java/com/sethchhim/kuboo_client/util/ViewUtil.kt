@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.util
 
 import android.os.Handler
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.view.ViewCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.core.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation

@@ -87,7 +87,7 @@ open class ReaderBaseActivity : ReaderBaseActivityImpl7_Hardware() {
         }
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setOverlayGuideLines()
     }

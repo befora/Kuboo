@@ -3,7 +3,7 @@ package com.sethchhim.kuboo_client.ui.base
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.sethchhim.kuboo_client.R

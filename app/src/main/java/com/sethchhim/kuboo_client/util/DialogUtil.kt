@@ -3,9 +3,9 @@ package com.sethchhim.kuboo_client.util
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -189,10 +189,10 @@ class DialogUtil(val context: Context) {
 
     private fun getSnackBar(view: View, string: String, delay: Int, isAlert: Boolean) = Snackbar.make(view, string, delay).apply {
         val snackView = getView()
-        val snackBarActionTextId = android.support.design.R.id.snackbar_action
+        val snackBarActionTextId = R.id.snackbar_action
         val textViewAction: TextView = snackView.findViewById(snackBarActionTextId)!!
         textViewAction.textSize = 12F
-        val snackBarTextId = android.support.design.R.id.snackbar_text
+        val snackBarTextId = R.id.snackbar_text
         textViewAction.setTypeface(textViewAction.typeface, Typeface.BOLD)
         val textView: TextView = snackView.findViewById(snackBarTextId)!!
         textView.textSize = 12F

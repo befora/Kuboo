@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.data
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import android.os.Parcelable
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.data.model.Dimension

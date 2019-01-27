@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.browser
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.sethchhim.kuboo_client.Constants.URL_PATH_LATEST

@@ -1,15 +1,15 @@
 package com.sethchhim.kuboo_client.ui.reader.pdf.adapter
 
 import android.os.Parcelable
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.PagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import android.view.ViewGroup
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivityImpl4_Content
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfFragmentImpl1_Single
 import timber.log.Timber
 
-class ReaderPdfAdapter internal constructor(private val readerPdfActivity: ReaderPdfActivityImpl4_Content) : FragmentStatePagerAdapter(readerPdfActivity.supportFragmentManager) {
+class ReaderPdfAdapter internal constructor(private val readerPdfActivity: ReaderPdfActivityImpl4_Content) : androidx.fragment.app.FragmentStatePagerAdapter(readerPdfActivity.supportFragmentManager) {
 
     init {
         BaseApplication.appComponent.inject(this)
@@ -23,7 +23,7 @@ class ReaderPdfAdapter internal constructor(private val readerPdfActivity: Reade
        return ReaderPdfFragmentImpl1_Single.newInstance(book, isLocal, position)
     }
 
-    override fun getItemPosition(`object`: Any) = PagerAdapter.POSITION_NONE
+    override fun getItemPosition(`object`: Any) = androidx.viewpager.widget.PagerAdapter.POSITION_NONE
 
     override fun getCount() = viewModel.getPdfDocument().countPages()
 

@@ -15,6 +15,9 @@ import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Login
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -25,9 +28,12 @@ class TrackingService {
         BaseApplication.appComponent.inject(this)
     }
 
-    @Inject lateinit var kubooRemote: KubooRemote
-    @Inject lateinit var systemUtil: SystemUtil
-    @Inject lateinit var viewModel: ViewModel
+    @Inject
+    lateinit var kubooRemote: KubooRemote
+    @Inject
+    lateinit var systemUtil: SystemUtil
+    @Inject
+    lateinit var viewModel: ViewModel
 
     internal fun startTrackingServicePeriodic() {
         val constraints = Constraints.Builder()
@@ -55,12 +61,14 @@ class TrackingService {
     }
 
     internal fun startTrackingServiceSingle(login: Login) {
-        viewModel.getDownloadList(favoriteCompressed = true).observeForever {
-            it?.let {
-                it
-                        .filter { it.isFavorite }
-                        .forEach { startTrackingByBook(login, it) }
-                kubooRemote.resumeAll()
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getDownloadList(favoriteCompressed = true).observeForever {
+                it?.let {
+                    it
+                            .filter { it.isFavorite }
+                            .forEach { startTrackingByBook(login, it) }
+                    kubooRemote.resumeAll()
+                }
             }
         }
     }

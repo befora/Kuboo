@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.data.task.reader
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Constants.KEY_SINGLE
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.model.Progress

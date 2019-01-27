@@ -1,9 +1,9 @@
 package com.sethchhim.kuboo_client.ui.main.login.browser
 
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,7 @@ open class LoginBrowserFragmentImpl0_View : DaggerFragment() {
     @BindView(R.id.state_empty_constraintLayout) lateinit var emptyLayout: ConstraintLayout
     @BindView(R.id.state_error_constraintLayout) lateinit var errorLayout: ConstraintLayout
     @BindView(R.id.login_layout_browser_floatingActionButton) lateinit var fab: FloatingActionButton
-    @BindView(R.id.login_layout_browser_recyclerView) lateinit var loginRecyclerView: RecyclerView
+    @BindView(R.id.login_layout_browser_recyclerView) lateinit var loginRecyclerView: androidx.recyclerview.widget.RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.login_layout_browser, container, false)

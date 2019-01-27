@@ -1,7 +1,7 @@
 package com.sethchhim.kuboo_client.data
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.model.Download
 import com.sethchhim.kuboo_client.data.model.Favorite

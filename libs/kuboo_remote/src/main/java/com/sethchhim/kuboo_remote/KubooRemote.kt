@@ -1,6 +1,6 @@
 package com.sethchhim.kuboo_remote
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.content.Context
 import com.sethchhim.kuboo_remote.client.OkHttpClient
 import com.sethchhim.kuboo_remote.client.OkHttpHelper

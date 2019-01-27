@@ -1,8 +1,8 @@
 package com.sethchhim.kuboo_client.ui.reader.base
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.Temporary
 import com.sethchhim.kuboo_client.data.enum.Source

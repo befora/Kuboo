@@ -8,7 +8,7 @@
             type="com.sethchhim.kuboo_remote.model.Book"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/browser_item_content_media_force_list_constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +75,6 @@
 
         </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

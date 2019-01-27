@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- ADVANCED -->
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="category_advanced"
         android:layout="@layout/settings_item_category"
         android:title="@string/settings_advanced">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_home_recently_viewed_height_offset"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_adjust_height_offset_of_the_recently_viewed_row"
             android:title="@string/settings_home_recently_viewed_height_offset"/>
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="settings_force_downsizing"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_force_downsizing_summary"
             android:title="@string/settings_force_downsizing"/>
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>
