@@ -12,6 +12,8 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -23,6 +25,7 @@ import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.Settings.ROUNDED_CORNERS_VALUE
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
@@ -50,9 +53,12 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         setHasStableIds(true)
     }
 
-    @Inject lateinit var dialogUtil: DialogUtil
-    @Inject lateinit var kubooRemote: KubooRemote
-    @Inject lateinit var systemUtil: SystemUtil
+    @Inject
+    lateinit var dialogUtil: DialogUtil
+    @Inject
+    lateinit var kubooRemote: KubooRemote
+    @Inject
+    lateinit var systemUtil: SystemUtil
 
     private val mainActivity = homeFragmentImpl1Content.mainActivity
     private val layoutManager = homeFragmentImpl1Content.recentRecyclerView.layoutManager as RecentLinearLayoutManager
@@ -141,6 +147,7 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
                             .priority(Priority.HIGH)
                             .disallowHardwareConfig()
                             .format(DecodeFormat.PREFER_RGB_565)
+                            .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
                             .error(Settings.ERROR_DRAWABLE))
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {

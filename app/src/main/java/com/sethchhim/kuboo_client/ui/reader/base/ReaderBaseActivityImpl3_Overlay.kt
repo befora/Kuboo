@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Extensions.fadeGone
@@ -14,6 +15,7 @@ import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.gone
 import com.sethchhim.kuboo_client.Extensions.setGuidePercent
 import com.sethchhim.kuboo_client.Extensions.visible
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_local.model.ChapterInfo
 
 @SuppressLint("Registered")
@@ -124,8 +126,8 @@ open class ReaderBaseActivityImpl3_Overlay : ReaderBaseActivityImpl2_Dialog() {
                         .priority(Priority.LOW)
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                         .format(DecodeFormat.PREFER_RGB_565)
-                        .dontAnimate()
-                        .dontTransform())
+                        .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
+                        .dontAnimate())
                 .into(this)
     }
 

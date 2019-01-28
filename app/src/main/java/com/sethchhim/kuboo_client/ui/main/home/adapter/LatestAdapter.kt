@@ -1,15 +1,16 @@
 package com.sethchhim.kuboo_client.ui.main.home.adapter
 
-import androidx.lifecycle.Observer
-import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -41,8 +42,10 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
         setHasStableIds(true)
     }
 
-    @Inject lateinit var kubooRemote: KubooRemote
-    @Inject lateinit var systemUtil: SystemUtil
+    @Inject
+    lateinit var kubooRemote: KubooRemote
+    @Inject
+    lateinit var systemUtil: SystemUtil
 
     private val mainActivity = homeFragmentImpl1Content.mainActivity
 
@@ -68,7 +71,7 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
             Glide.with(homeFragmentImpl1Content)
                     .load(item.getPreviewUrl())
                     .apply(RequestOptions()
-                            .priority(Priority.HIGH)
+                            .priority(Priority.LOW)
                             .disallowHardwareConfig()
                             .format(DecodeFormat.PREFER_RGB_565)
                             .error(Settings.ERROR_DRAWABLE))
@@ -83,7 +86,7 @@ class LatestAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
                             return false
                         }
                     })
-                    .into(itemView.browser_item_latest_imageView)
+                    .into(helper.itemView.browser_item_latest_imageView)
         }
     }
 

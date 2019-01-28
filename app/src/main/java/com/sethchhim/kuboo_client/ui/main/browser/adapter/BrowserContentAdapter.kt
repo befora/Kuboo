@@ -14,6 +14,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
@@ -371,7 +372,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                     .error(R.mipmap.ic_launcher)
                     .fitCenter()
                     .placeholder(ColorDrawable(Color.TRANSPARENT))
-                    .dontTransform()
+                    .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
                     .disallowHardwareConfig()
 
             Glide.with(browserFragment)
@@ -416,6 +417,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             val requestOptions = RequestOptions()
                     .format(DecodeFormat.PREFER_RGB_565)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
 
             Glide.with(browserFragment)
                     .load(book.getPreviewUrl())

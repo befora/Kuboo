@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -32,6 +33,7 @@ import com.sethchhim.kuboo_client.Extensions.isFirstInSeries
 import com.sethchhim.kuboo_client.Extensions.toReadable
 import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.GlideEpub
 import com.sethchhim.kuboo_client.data.model.GlideLocal
@@ -193,6 +195,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
                     .load(any)
                     .apply(RequestOptions()
                             .fitCenter()
+                            .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
                             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
