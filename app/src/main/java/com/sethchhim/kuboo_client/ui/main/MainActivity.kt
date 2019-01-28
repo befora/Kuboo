@@ -68,13 +68,13 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
 
     override fun onBackPressed() {
         when (getCurrentFragment()) {
-            is BrowserLatestFragment -> supportFragmentManager.popBackStackImmediate()
-            is BrowserRecentFragment -> supportFragmentManager.popBackStackImmediate()
+            is BrowserLatestFragment -> selectHome()
+            is BrowserRecentFragment -> selectHome()
             is BrowserRemoteFragment -> onBackPressedBrowserRemote()
-            is BrowserSearchFragment -> supportFragmentManager.popBackStackImmediate()
-            is BrowserSeriesFragment -> supportFragmentManager.popBackStackImmediate()
-            is LoginEditFragment -> supportFragmentManager.popBackStackImmediate()
-            is LoginBrowserFragment -> supportFragmentManager.popBackStackImmediate()
+            is BrowserSearchFragment -> selectHome()
+            is BrowserSeriesFragment -> selectHome()
+            is LoginEditFragment -> showFragmentLoginBrowser()
+            is LoginBrowserFragment -> showFragmentSettings()
             is SettingsAdvancedFragment -> showFragmentSettings()
             else -> when (bottomNav.selectedItemId) {
                 R.id.navigation_home -> systemUtil.requestExitApplication()
