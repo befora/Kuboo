@@ -1,22 +1,10 @@
 package com.sethchhim.kuboo_client
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.Guideline
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.appcompat.app.AlertDialog
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -29,9 +17,19 @@ import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.FragmentTransaction.*
+import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sethchhim.kuboo_client.data.model.Favorite
 import com.sethchhim.kuboo_client.data.model.PageUrl
 import com.sethchhim.kuboo_client.data.model.Recent
@@ -128,7 +126,7 @@ object Extensions {
     internal fun FloatingActionButton.showDelayed() {
         if (!isShown) {
             GlobalScope.launch(Dispatchers.Main) {
-                delay(1000)
+                delay(500)
                 try {
                     show()
                 } catch (e: RuntimeException) { //ignore

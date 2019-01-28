@@ -1,10 +1,10 @@
 package com.sethchhim.kuboo_client.ui.preview
 
 import android.annotation.SuppressLint
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.enum.Source
 import com.sethchhim.kuboo_client.data.model.ReadData
@@ -27,7 +27,7 @@ open class PreviewActivityImpl0_View : BaseActivity(), OnLoadCallback {
     protected fun onClickedFab() {
         GlobalScope.launch(Dispatchers.Main) {
             fab.hide()
-            delay(500)
+            delay(300)
             try {
                 startReader(ReadData(book = currentBook, onLoadCallback = this@PreviewActivityImpl0_View, sharedElement = imageView, source = Source.PREVIEW))
             } catch (e: RuntimeException) {

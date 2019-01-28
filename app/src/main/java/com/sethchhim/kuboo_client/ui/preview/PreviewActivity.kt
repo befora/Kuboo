@@ -5,6 +5,10 @@ import butterknife.ButterKnife
 import com.sethchhim.kuboo_client.Extensions.fadeVisible
 import com.sethchhim.kuboo_client.Extensions.showDelayed
 import com.sethchhim.kuboo_client.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 open class PreviewActivity : PreviewActivityImpl1_Content() {
 
@@ -32,6 +36,19 @@ open class PreviewActivity : PreviewActivityImpl1_Content() {
         super.onResume()
         fab.showDelayed()
         textView.fadeVisible()
+    }
+
+    override fun onBackPressed() {
+        GlobalScope.launch(Dispatchers.Main) {
+            fab.hide()
+            delay(300)
+            try {
+                super.onBackPressed()
+            } catch (e: RuntimeException) {
+                e.printStackTrace()
+            }
+        }
+        println("PreviewActivity onBackPressed")
     }
 
 }
