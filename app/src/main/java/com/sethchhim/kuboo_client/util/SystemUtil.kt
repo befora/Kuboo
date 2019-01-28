@@ -22,7 +22,6 @@ import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.io.File
 
-
 class SystemUtil(private val context: Context) {
 
     private var isExitRequestConfirmed = false

@@ -108,7 +108,6 @@ open class ReaderBaseActivityImpl3_Overlay : ReaderBaseActivityImpl2_Dialog() {
             overlayTextLayout.gone()
             overlaySeekBar.gone()
         } else {
-            overlayTextView1.typeface = systemUtil.robotoCondensedRegular
             overlayTextView1.text = currentBook.content
             overlayTotalPagesTextView.text = (totalPages).toString()
             overlayTextLayout.visible()

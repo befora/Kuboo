@@ -22,7 +22,6 @@ open class PreviewActivity : PreviewActivityImpl1_Content() {
         title = currentBook.title
         imageView.transitionName = transitionUrl
 
-        textView.typeface = systemUtil.robotoCondensedRegular
         textView.text = currentBook.content
 
         fab.setOnClickListener { onClickedFab() }
