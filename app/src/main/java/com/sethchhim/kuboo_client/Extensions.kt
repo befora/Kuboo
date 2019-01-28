@@ -29,6 +29,7 @@ import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction.*
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.sethchhim.kuboo_client.data.model.Favorite
@@ -80,8 +81,7 @@ object Extensions {
         return Math.round(px).toFloat()
     }
 
-    internal fun androidx.fragment.app.FragmentManager.show(fragment: androidx.fragment.app.Fragment, containerViewId: Int) {
-        fragment.retainInstance = true
+    internal fun FragmentManager.show(fragment: Fragment, containerViewId: Int) {
         val uniqueTag = fragment.javaClass.simpleName
         val backStateName = fragment.javaClass.name
         val isFragmentPopped = try {
@@ -102,8 +102,7 @@ object Extensions {
                 Timber.i("replaceFragment: name[$uniqueTag] exists[$isFragmentExist]")
                 beginTransaction()
                         .replace(containerViewId, fragment, uniqueTag)
-                        .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(uniqueTag)
+                        .setTransition(TRANSIT_FRAGMENT_FADE)
                         .commit()
             }
         } else {
@@ -111,18 +110,19 @@ object Extensions {
             findFragmentByTag(uniqueTag)?.let {
                 beginTransaction()
                         .show(it)
-                        .setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(uniqueTag)
+                        .setTransition(TRANSIT_FRAGMENT_FADE)
                         .commit()
             }
         }
     }
 
-    internal fun androidx.fragment.app.FragmentManager.getVisibleFragment(): androidx.fragment.app.Fragment {
+    internal fun FragmentManager.getVisibleFragment(): Fragment {
         fragments.forEach {
             if (it.isVisible) return it
         }
         Timber.e("Can not find visible fragment!")
-        return androidx.fragment.app.Fragment()
+        return Fragment()
     }
 
     internal fun FloatingActionButton.showDelayed() {
