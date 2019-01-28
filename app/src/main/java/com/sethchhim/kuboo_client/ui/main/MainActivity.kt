@@ -75,7 +75,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
             is BrowserSeriesFragment -> supportFragmentManager.popBackStackImmediate()
             is LoginEditFragment -> supportFragmentManager.popBackStackImmediate()
             is LoginBrowserFragment -> supportFragmentManager.popBackStackImmediate()
-            is SettingsAdvancedFragment -> supportFragmentManager.popBackStackImmediate()
+            is SettingsAdvancedFragment -> showFragmentSettings()
             else -> when (bottomNav.selectedItemId) {
                 R.id.navigation_home -> systemUtil.requestExitApplication()
                 R.id.navigation_browse -> selectHome()
