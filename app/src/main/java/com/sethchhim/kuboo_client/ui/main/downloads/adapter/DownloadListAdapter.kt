@@ -116,7 +116,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
                 }
 
                 private fun onDeleteSingle() {
-                    viewModel.getFetchDownload(book).observe(downloadsFragment, Observer { it?.let { viewModel.deleteFetchDownload(it) } })
+                    viewModel.deleteFetchDownload(book)
                 }
 
                 private fun onDeleteFavorite() {

@@ -104,7 +104,10 @@ class FetchRepository : FetchListener {
 
     internal fun deleteDownload(download: Download) = kubooRemote.deleteDownload(download)
 
-    internal fun deleteDownload(book: Book) = kubooRemote.deleteDownload(book)
+    internal fun deleteDownload(book: Book) {
+        kubooRemote.deleteDownload(book)
+        downloadsRepository.deleteDownload(book)
+    }
 
     internal fun deleteSeries(book: Book, keepBook: Boolean) = kubooRemote.deleteSeries(book, keepBook)
 

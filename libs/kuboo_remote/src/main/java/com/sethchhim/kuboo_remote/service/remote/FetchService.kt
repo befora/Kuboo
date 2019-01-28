@@ -169,9 +169,8 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
         val liveData = MutableLiveData<Download>()
         fetch.getDownloads(Func { result ->
             result.forEach {
-                val isMatchId = it.tag == book.getIdString()
-                val isMatchXmlId = it.group == book.getXmlId()
-                if (isMatchId && isMatchXmlId) {
+                val isMatch = book.getAcquisitionUrl() == it.url
+                if (isMatch) {
                     liveData.value = it
                     return@forEach
                 }

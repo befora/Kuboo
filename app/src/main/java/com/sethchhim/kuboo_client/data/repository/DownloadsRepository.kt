@@ -32,7 +32,7 @@ class DownloadsRepository {
     internal fun deleteDownload(download: Download) {
         getDownloadList(favoriteCompressed = false).observeForever {
             it?.forEach {
-                val isMatch = it.filePath == download.file
+                val isMatch = it.getAcquisitionUrl() == download.url
                 if (isMatch) deleteDownload(it)
             }
         }
