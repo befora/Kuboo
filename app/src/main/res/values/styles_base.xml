@@ -9,25 +9,12 @@
         <item name="android:buttonStyle">@style/OpenSansButtonStyle</item>
         <item name="android:textViewStyle">@style/OpenSansTextViewStyle</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="preferenceTheme">@style/preferenceTheme</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlNormal">@android:color/white</item>
-    </style>
-
-    <style name="AppTheme.Template.Base" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="colorPrimary">#5f8ee4</item>
-        <item name="colorPrimaryDark">#5f8ee4</item>
-        <item name="colorAccent">#6CC887</item>
-        <item name="actionMenuTextColor">#6CC887</item>
-    </style>
-
-    <style name="preferenceTheme" parent="PreferenceThemeOverlay">
+    <style name="PreferenceTheme" parent="PreferenceThemeOverlay">
         <item name="android:textViewStyle">@style/OpenSansTextViewStyle</item>
     </style>
 
@@ -39,12 +26,12 @@
         <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
 
-    <style name="errorTextStyle" parent="@android:style/TextAppearance">
+    <style name="ErrorTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/md_red_500</item>
         <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="hintTextStyle" parent="@android:style/TextAppearance">
+    <style name="HintTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/md_teal_500</item>
         <item name="android:textSize">12sp</item>
     </style>
