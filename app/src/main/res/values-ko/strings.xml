@@ -279,12 +279,10 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_text_zoom">"텍스트 확대"</string>
     <string name="settings_theme">"테마"</string>
     <string-array name="settings_theme_entries">
-        <item>@string/settings_theme_entry_light_theme</item>
         <item>@string/settings_theme_entry_dark_theme</item>
         <item>@string/settings_theme_entry_oled_theme</item>
     </string-array>
     <string name="settings_theme_entry_dark_theme">다크 테마</string>
-    <string name="settings_theme_entry_light_theme">가벼운 테마</string>
     <string name="settings_theme_entry_oled_theme">Oled 테마</string>
     <string name="settings_tracking_hide_finished">추적 숨기기 완료</string>
     <string name="settings_tracking_interval">"트랙킹 주기"</string>

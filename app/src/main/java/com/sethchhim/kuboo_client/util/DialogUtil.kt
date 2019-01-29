@@ -52,12 +52,11 @@ class DialogUtil(val context: Context) {
         }
     }.create()
 
-    internal fun getDialogAppTheme(context: Context, onDialogSelect2: OnDialogSelect2) = getAlertDialogBuilder(context).apply {
+    internal fun getDialogAppTheme(context: Context, onDialogSelect1: OnDialogSelect1) = getAlertDialogBuilder(context).apply {
         setSingleChoiceItems(context.resources.getStringArray(R.array.settings_theme_entries), Settings.APP_THEME) { dialog, which ->
             when (which) {
-                0 -> onDialogSelect2.onSelect0()
-                1 -> onDialogSelect2.onSelect1()
-                2 -> onDialogSelect2.onSelect2()
+                0 -> onDialogSelect1.onSelect0()
+                1 -> onDialogSelect1.onSelect1()
             }
             dialog.dismiss()
         }
@@ -179,12 +178,10 @@ class DialogUtil(val context: Context) {
     }.create()
 
     private fun getAlertDialogBuilder(context: Context, appTheme: Int = APP_THEME): AlertDialog.Builder {
-        when (appTheme) {
-            0 -> return AlertDialog.Builder(context, R.style.DialogThemeLight)
-            1 -> return AlertDialog.Builder(context, R.style.DialogThemeDark)
-            2 -> return AlertDialog.Builder(context, R.style.DialogThemeOled)
+        return when (appTheme) {
+            2 -> AlertDialog.Builder(context, R.style.DialogThemeOled)
+            else -> AlertDialog.Builder(context, R.style.DialogThemeDark)
         }
-        return AlertDialog.Builder(context)
     }
 
     private fun getSnackBar(view: View, string: String, delay: Int, isAlert: Boolean) = Snackbar.make(view, string, delay).apply {

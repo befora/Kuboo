@@ -263,12 +263,10 @@
     <string name="settings_text_zoom">Text Zoom</string>
     <string name="settings_theme">Theme</string>
     <string-array name="settings_theme_entries">
-        <item>@string/settings_theme_entry_light_theme</item>
         <item>@string/settings_theme_entry_dark_theme</item>
         <item>@string/settings_theme_entry_oled_theme</item>
     </string-array>
     <string name="settings_theme_entry_dark_theme">Dark Theme</string>
-    <string name="settings_theme_entry_light_theme">Light Theme</string>
     <string name="settings_theme_entry_oled_theme">OLED Theme</string>
     <string name="settings_tracking_hide_finished">Tracking Hide Finished</string>
     <string name="settings_tracking_interval">Tracking Interval</string>

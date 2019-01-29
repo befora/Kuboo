@@ -1,14 +1,14 @@
 package com.sethchhim.kuboo_client.ui.main
 
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import butterknife.ButterKnife
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.sethchhim.kuboo_client.Extensions.getVisibleFragment
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R

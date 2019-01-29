@@ -103,10 +103,8 @@ open class BaseActivityImpl0_View : DaggerAppCompatActivity() {
     }
 
     protected fun getAppTheme() = when (Settings.APP_THEME) {
-        0 -> R.style.AppThemeLight
-        1 -> R.style.AppThemeDark
         2 -> R.style.AppThemeOled
-        else -> R.style.AppThemeLight
+        else -> R.style.AppThemeDark
     }
 
     internal fun getAppThemeTextColor() = when (Settings.APP_THEME) {

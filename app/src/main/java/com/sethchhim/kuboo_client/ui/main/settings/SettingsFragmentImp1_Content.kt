@@ -275,17 +275,15 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
     private fun setSystemThemePreference() = systemThemePreference.apply {
         val stringArray = resources.getStringArray(R.array.settings_theme_entries)
         summary = when (Settings.APP_THEME) {
-            0 -> stringArray[0]
-            1 -> stringArray[1]
-            2 -> stringArray[2]
+            1 -> stringArray[0] //dark
+            2 -> stringArray[1] //oled
             else -> "ERROR"
         }
 
         setOnPreferenceClickListener {
-            dialogUtil.getDialogAppTheme(mainActivity, object : DialogUtil.OnDialogSelect2 {
-                override fun onSelect0() = saveTheme(0)
-                override fun onSelect1() = saveTheme(1)
-                override fun onSelect2() = saveTheme(2)
+            dialogUtil.getDialogAppTheme(mainActivity, object : DialogUtil.OnDialogSelect1 {
+                override fun onSelect0() = saveTheme(1) //dark
+                override fun onSelect1() = saveTheme(2) //oled
 
                 private fun saveTheme(appTheme: Int) {
                     //show dialog first before applying theme

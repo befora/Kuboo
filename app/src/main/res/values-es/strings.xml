@@ -273,12 +273,10 @@ Panel doble"</string>
     <string name="settings_text_zoom">"Zoom de texto"</string>
     <string name="settings_theme">"Tema"</string>
     <string-array name="settings_theme_entries">
-        <item>@string/settings_theme_entry_light_theme</item>
         <item>@string/settings_theme_entry_dark_theme</item>
         <item>@string/settings_theme_entry_oled_theme</item>
     </string-array>
     <string name="settings_theme_entry_dark_theme">Tema oscuro</string>
-    <string name="settings_theme_entry_light_theme">Tema de luz</string>
     <string name="settings_theme_entry_oled_theme">Tema OLED</string>
     <string name="settings_tracking_hide_finished">Ocultar elementos de seguimiento terminados</string>
     <string name="settings_tracking_interval">"Intervalo de chequeo de ítems en la cola"</string>

@@ -288,12 +288,10 @@ HTTP NON TROUVÉ
     <string name="settings_text_zoom">"Texte Zoom"</string>
     <string name="settings_theme">"Thème"</string>
     <string-array name="settings_theme_entries">
-        <item>@string/settings_theme_entry_light_theme</item>
         <item>@string/settings_theme_entry_dark_theme</item>
         <item>@string/settings_theme_entry_oled_theme</item>
     </string-array>
     <string name="settings_theme_entry_dark_theme">Thème sombre</string>
-    <string name="settings_theme_entry_light_theme">Thème léger</string>
     <string name="settings_theme_entry_oled_theme">Thème OLED</string>
     <string name="settings_tracking_hide_finished">Masquer le suivi terminé</string>
     <string name="settings_tracking_interval">"intervalle de suivi "</string>
