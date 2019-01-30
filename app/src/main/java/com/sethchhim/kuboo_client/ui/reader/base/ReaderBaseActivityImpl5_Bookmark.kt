@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.reader.base
 import android.annotation.SuppressLint
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Temporary
+import java.lang.Exception
 
 @SuppressLint("Registered")
 open class ReaderBaseActivityImpl5_Bookmark : ReaderBaseActivityImpl4_Content() {
@@ -47,17 +48,20 @@ open class ReaderBaseActivityImpl5_Bookmark : ReaderBaseActivityImpl4_Content() 
             }
         }
 
-        var isMatchFound = false
-        val iterator = Temporary.USER_API_UPDATE_LIST.iterator()
-        iterator.forEach {
-            val isMatch = it.isMatch(currentBook)
-            if (isMatch) {
-                isMatchFound = true
-                iterator.remove()
-                Temporary.USER_API_UPDATE_LIST.add(currentBook)
+        try {
+            var isMatchFound = false
+            val iterator = Temporary.USER_API_UPDATE_LIST.listIterator()
+            iterator.forEach {
+                val isMatch = it.isMatch(currentBook)
+                if (isMatch) {
+                    isMatchFound = true
+                    iterator.set(currentBook)
+                }
             }
+            if (!isMatchFound) Temporary.USER_API_UPDATE_LIST.add(currentBook)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        if (!isMatchFound) Temporary.USER_API_UPDATE_LIST.add(currentBook)
     }
 
 }
