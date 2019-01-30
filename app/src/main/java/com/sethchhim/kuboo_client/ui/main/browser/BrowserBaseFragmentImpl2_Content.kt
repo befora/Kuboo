@@ -15,6 +15,7 @@ import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDI
 import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadListAdapter
 import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
+import java.lang.Exception
 
 open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Pagination() {
 
@@ -137,33 +138,47 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     }
 
     protected fun handleNeededAdapterUpdate() {
-        if (isDownloadContent) {
-            val adapter = contentRecyclerView.adapter as? DownloadListAdapter
-            adapter?.let {
+        when (isDownloadContent) {
+            true -> handleNeedAdapterUpdateDownload()
+            false -> handleNeedAdapterUpdateBrowser()
+        }
+    }
+
+    private fun handleNeedAdapterUpdateBrowser() {
+        if (::contentAdapter.isInitialized) {
+            contentAdapter.apply {
                 Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
-                    var matchIndex = -1
-                    adapter.list.forEachIndexed { index, book ->
-                        if (queueBook.isMatch(book)) matchIndex = index
-                    }
-                    if (matchIndex != -1) {
-                        adapter.list[matchIndex] = queueBook
-                        adapter.notifyDataSetChanged()
+                    try {
+                        viewModel.getBrowserContentList().forEachIndexed { index, browser ->
+                            if (browser.book.isMatch(queueBook)) contentAdapter.updateMediaColorStateFromRemoteUserApi(index, browser.book)
+                        }
+                    } catch (e: Exception) {
+                        //do nothing
                     }
                 }
                 Temporary.USER_API_UPDATE_LIST.clear()
             }
-        } else {
-            if (::contentAdapter.isInitialized) {
-                contentAdapter.apply {
-                    Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
-                        viewModel.getBrowserContentList().forEachIndexed { index, browser ->
-                            if (browser.book.isMatch(queueBook)) contentAdapter.updateMediaColorStateFromRemoteUserApi(index, browser.book)
-                        }
+        }
+    }
+
+    private fun handleNeedAdapterUpdateDownload() {
+        val adapter = contentRecyclerView.adapter as? DownloadListAdapter
+        adapter?.let {
+            Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
+                try {
+                    val iterator = adapter.list.listIterator()
+                    while (iterator.hasNext()) {
+                        val oldValue = iterator.next()
+                        val isMatch = oldValue.isMatch(queueBook)
+                        if (isMatch) iterator.set(queueBook)
                     }
-                    Temporary.USER_API_UPDATE_LIST.clear()
+                    adapter.notifyDataSetChanged()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    //do nothing
                 }
             }
+            Temporary.USER_API_UPDATE_LIST.clear()
         }
-
     }
 }
