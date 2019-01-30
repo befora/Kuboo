@@ -231,7 +231,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         else -> R.id.navigation_home
     }
 
-    protected fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
+    internal fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
 
     internal fun hideMenuItemAbout() {
         if (::aboutMenuItem.isInitialized && aboutMenuItem.isVisible) aboutMenuItem.isVisible = false

@@ -18,38 +18,38 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         when (viewModel.isSelected(book)) {
             true -> {
                 viewModel.removeSelected(book)
-                enableSelectionMenuState()
+                enableSelectionMenuState(changeTitle = true)
                 loadColorState(holder, book)
             }
             false -> {
                 viewModel.addSelected(book)
-                enableSelectionMenuState()
+                enableSelectionMenuState(changeTitle = true)
                 loadColorState(holder, book)
             }
         }
     }
 
-    internal fun disableSelectionMode() {
+    internal fun disableSelectionMode(changeTitle: Boolean = false) {
         viewModel.clearSelected()
         updateBrowserAdapter()
-        disableSelectionMenuState()
+        disableSelectionMenuState(changeTitle)
     }
 
-    internal fun enableSelectionMenuState() {
+    internal fun enableSelectionMenuState(changeTitle: Boolean = false) {
         when (viewModel.isSelectedListEmpty()) {
-            true -> setSelectionMenuStateUnselected()
-            false -> setSelectionMenuStateSelected()
+            true -> setSelectionMenuStateUnselected(changeTitle)
+            false -> setSelectionMenuStateSelected(changeTitle)
         }
     }
 
-    internal fun disableSelectionMenuState() {
-        setSelectionMenuStateUnselected()
+    internal fun disableSelectionMenuState(changeTitle: Boolean = false) {
+        setSelectionMenuStateUnselected(changeTitle)
     }
 
     internal fun selectAll() {
         addAllFromCurrentViewHolderToSelectedList()
         updateBrowserAdapter()
-        enableSelectionMenuState()
+        enableSelectionMenuState(changeTitle = true)
     }
 
     private fun updateBrowserAdapter() {
@@ -110,8 +110,8 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     private fun getBrowserContentType() = (getCurrentFragment() as? BrowserBaseFragment)?.contentRecyclerView?.contentType
 
-    private fun setSelectionMenuStateSelected() {
-        title = getSelectedBrowserTitle()
+    private fun setSelectionMenuStateSelected(changeTitle: Boolean = false) {
+        if (changeTitle) title = getSelectedBrowserTitle()
         hideMenuItemAbout()
         hideMenuItemBrowserLayout()
         hideMenuItemHttps()
@@ -123,8 +123,8 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
         showMenuItemMarkFinishedDelete()
     }
 
-    private fun setSelectionMenuStateUnselected() {
-        title = getString(R.string.main_browse)
+    private fun setSelectionMenuStateUnselected(changeTitle: Boolean) {
+        if (changeTitle) title = getString(R.string.main_browse)
         hideMenuItemDownload()
         hideMenuItemMarkFinishedAdd()
         hideMenuItemMarkFinishedDelete()

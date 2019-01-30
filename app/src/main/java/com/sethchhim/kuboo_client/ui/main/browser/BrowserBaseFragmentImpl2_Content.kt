@@ -134,7 +134,9 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     }
 
     protected fun disableSelection(isCustomImplementation: Boolean) {
-        if (!isCustomImplementation) mainActivity.disableSelectionMenuState()
+        if (!isCustomImplementation) {
+            mainActivity.disableSelectionMenuState()
+        }
     }
 
     protected fun handleNeededAdapterUpdate() {

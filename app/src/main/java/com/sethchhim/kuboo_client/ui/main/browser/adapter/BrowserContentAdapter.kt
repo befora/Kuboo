@@ -189,7 +189,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             }
         }
 
-        private fun onItemLongSelectedMenuStateIsSelected() = browserFragment.mainActivity.disableSelectionMode()
+        private fun onItemLongSelectedMenuStateIsSelected() = browserFragment.mainActivity.disableSelectionMode(changeTitle = true)
 
         private fun startPreview(book: Book, imageView: ImageView) {
             val previewUrl = book.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
@@ -234,7 +234,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
 
             //selection mode is not allowed for folder type
             val isStateSelected = mainActivity.isMenuStateSelected()
-            if (isStateSelected) mainActivity.disableSelectionMode()
+            if (isStateSelected) mainActivity.disableSelectionMode(changeTitle = true)
 
             itemView.browser_item_content_folder_textView1.text = book.title
 
