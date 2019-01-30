@@ -1,17 +1,16 @@
 package com.sethchhim.kuboo_client.ui.main.downloads.adapter
 
-import androidx.lifecycle.Observer
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -59,7 +58,6 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
     init {
         BaseApplication.appComponent.inject(this)
-        setHasStableIds(true)
     }
 
     @Inject lateinit var context: Context
@@ -70,6 +68,10 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
     private val viewModel = downloadsFragment.viewModel
 
     internal var list = mutableListOf<Book>()
+
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        super.setHasStableIds(true)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val holder = ItemViewHolder(parent.context.layoutInflater.inflate(R.layout.browser_item_download, parent, false))
@@ -87,6 +89,7 @@ class DownloadListAdapter(val downloadsFragment: DownloadsFragmentImpl1_Content)
 
     override fun onViewRecycled(holder: ItemViewHolder) {
         super.onViewRecycled(holder)
+        Glide.with(downloadsFragment).clear(holder.itemView.browser_item_download_imageView4)
         holder.itemView.browser_item_download_materialBadgeTextView.gone()
     }
 
