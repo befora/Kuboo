@@ -298,26 +298,41 @@ class ReaderPageImageView : AppCompatImageView {
             val rightValue = (width * 0.9).toInt()
             if (Settings.DUAL_PANE) when (navigationButtonType) {
                 0 -> when {
-                    e.x < leftValue -> (context as ReaderBaseActivity).goToPreviousPage()
-                    e.x > rightValue -> (context as ReaderBaseActivity).goToNextPage()
+                    e.x < leftValue -> onSingleTapLeft()
+                    e.x > rightValue -> onSingleTapRight()
                     else -> (context as ReaderBaseActivity).showOverlay()
                 }
                 1 -> when {
-                    e.x < leftValue -> (context as ReaderBaseActivity).goToPreviousPage()
+                    e.x < leftValue -> onSingleTapLeft()
                     else -> (context as ReaderBaseActivity).showOverlay()
                 }
                 2 -> when {
-                    e.x > rightValue -> (context as ReaderBaseActivity).goToNextPage()
+                    e.x > rightValue -> onSingleTapRight()
                     else -> (context as ReaderBaseActivity).showOverlay()
                 }
                 else -> Timber.e("Failed to find navigationButtonType!")
             } else when {
-                e.x < leftValue -> (context as ReaderBaseActivity).goToPreviousPage()
-                e.x > rightValue -> (context as ReaderBaseActivity).goToNextPage()
+                e.x < leftValue ->  onSingleTapLeft()
+                e.x > rightValue ->  onSingleTapRight()
                 else -> (context as ReaderBaseActivity).showOverlay()
             }
             return super.onSingleTapConfirmed(e)
         }
+
+        private fun onSingleTapLeft() {
+            when (Settings.RTL) {
+                true -> (context as ReaderBaseActivity).goToNextPage()
+                false -> (context as ReaderBaseActivity).goToPreviousPage()
+            }
+        }
+
+        private fun onSingleTapRight() {
+            when (Settings.RTL) {
+                true -> (context as ReaderBaseActivity).goToPreviousPage()
+                false -> (context as ReaderBaseActivity).goToNextPage()
+            }
+        }
+
     }
 
     private fun zoomAnimated(e: MotionEvent, scale: Float) {
