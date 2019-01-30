@@ -77,6 +77,7 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
 
     private fun onReaderListChanged() {
         viewModel.setReaderListType()
+        viewPager.adapter = null
         viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl4_Content)
         val position = viewModel.getReaderPositionByTrueIndex(currentBook.currentPage)
         viewPager.currentItem = position
@@ -86,16 +87,13 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
     }
 
     protected fun refreshViewpager() {
-        GlobalScope.launch(Dispatchers.Main) {
-            viewPager.gone()
-            delay(250)
-            try {
-                viewPager.adapter?.notifyDataSetChanged()
-            } catch (e: Exception) {
-                //do nothing
-            } finally {
-                viewPager.visible()
-            }
+        try {
+            val position = viewPager.currentItem
+            viewPager.adapter = null
+            viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivityImpl4_Content)
+            viewPager.currentItem = position
+        } catch (e: Exception) {
+            //do nothing
         }
     }
 
@@ -145,7 +143,7 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
             2 -> Settings.SCALE_TYPE = ScaleType.FIT_WIDTH.value
         }
         sharedPrefsHelper.saveScaleType()
-        viewPager.adapter?.notifyDataSetChanged()
+        refreshViewpager()
     }
 
     private fun Int.calculatePercentage(percentage: Double) = (this - (this * (percentage / 100))).roundToInt()

@@ -15,7 +15,6 @@ open class ReaderComicActivity : ReaderComicActivityImpl6_Hardware() {
         initUi()
         initListeners()
         populateContent()
-        println("ReaderActivity $currentBook")
     }
 
     override fun onNewIntent(intent: Intent) {
