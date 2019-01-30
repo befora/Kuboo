@@ -110,7 +110,7 @@ dependencies {
 
     implementation 'com.artifex.mupdf:fitz:1.13.0'
     implementation 'com.booking:rtlviewpager:1.0.1'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
     implementation 'com.github.matrixxun:MaterialBadgeTextView:c5a27e8'
     implementation 'com.github.sethchhim:NumberProgressBar:6110ccc@aar'
