@@ -312,8 +312,8 @@ class ReaderPageImageView : AppCompatImageView {
                 }
                 else -> Timber.e("Failed to find navigationButtonType!")
             } else when {
-                e.x < leftValue ->  onSingleTapLeft()
-                e.x > rightValue ->  onSingleTapRight()
+                e.x < leftValue -> onSingleTapLeft()
+                e.x > rightValue -> onSingleTapRight()
                 else -> (context as ReaderBaseActivity).showOverlay()
             }
             return super.onSingleTapConfirmed(e)
@@ -418,43 +418,51 @@ class ReaderPageImageView : AppCompatImageView {
 
     override fun canScrollHorizontally(direction: Int): Boolean {
         if (drawable == null) return false
+        val imageWidth = computeCurrentImageSize().x.toFloat()
+        val imageHeight = computeCurrentImageSize().y.toFloat()
+        val offsetX = computeCurrentOffset().x.toFloat()
+        val offsetY = computeCurrentOffset().y.toFloat()
+        val isDirectionLeft = direction < 0
+        val isDirectionRight = direction > 0
+        val isScrollAtTop = offsetY >= 0
+        val isScrollAtBottomLandscape = Math.abs(offsetY) + height >= imageHeight
+        val isScrollAtBottomPortrait = Math.abs(offsetX) + width >= imageWidth
         if (isLandscape && !Settings.DUAL_PANE) {
-            val imageHeight = computeCurrentImageSize().y.toFloat()
-            val offsetY = computeCurrentOffset().y.toFloat()
-            if (offsetY >= 0 && direction < 0) {
-//                Timber.d("$offsetY >= 0 && $direction < 0")
-                onCanNotScrollLeft()
-                return false
-            } else if (Math.abs(offsetY) + height >= imageHeight && direction > 0) {
-//                Timber.d("Math.abs($offsetY) + $height >= $imageHeight && $direction > 0")
-                onCanNotScrollRight()
-                return false
+            when (Settings.RTL) {
+                true -> if (isDirectionLeft && isScrollAtBottomLandscape) {
+                    return onCanNotScrollLeft()
+                } else if (isDirectionRight && isScrollAtTop) {
+                    return onCanNotScrollRight()
+                }
+                false -> if (isDirectionLeft && isScrollAtTop) {
+                    return onCanNotScrollLeft()
+                } else if (isDirectionRight && isScrollAtBottomLandscape) {
+                    return onCanNotScrollRight()
+                }
             }
-//            Timber.d("imageHeight[$imageHeight] height[$height] offsetY[$offsetY] direction[$direction]")
         } else {
-            val imageWidth = computeCurrentImageSize().x.toFloat()
-            val offsetX = computeCurrentOffset().x.toFloat()
-
-            if (offsetX >= 0 && direction < 0) {
-//                Timber.d("$offsetX >= 0 && $direction < 0")
-                onCanNotScrollLeft()
-                return false
-            } else if (Math.abs(offsetX) + width >= imageWidth && direction > 0) {
-//                Timber.d("Math.abs($offsetX) + $width >= $imageWidth && $direction > 0")
-                onCanNotScrollRight()
-                return false
+            when (Settings.RTL) {
+                true -> if (isDirectionLeft && isScrollAtBottomPortrait) {
+                    return onCanNotScrollLeft()
+                } else if (isDirectionRight && isScrollAtTop) {
+                    return onCanNotScrollRight()
+                }
+                false -> if (isDirectionLeft && isScrollAtTop) {
+                    return onCanNotScrollLeft()
+                } else if (isDirectionRight && isScrollAtBottomPortrait) {
+                    return onCanNotScrollRight()
+                }
             }
-//            Timber.d("imageWidth[$imageWidth] width[$width] offsetX[$offsetX] direction[$direction]")
         }
         return true
     }
 
-    private fun onCanNotScrollLeft() {
-
+    private fun onCanNotScrollLeft(): Boolean {
+        return false
     }
 
-    private fun onCanNotScrollRight() {
-
+    private fun onCanNotScrollRight(): Boolean {
+        return false
     }
 
     private inner class ZoomAnimation internal constructor(internal var mX: Float, internal var mY: Float, internal var mScale: Float) : Runnable {
