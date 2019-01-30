@@ -116,7 +116,10 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                 holder.itemView.browser_item_content_folder_materialBadgeTextView.gone()
                 if (!holder.itemView.browser_item_content_folder_sparkButton.isChecked) holder.itemView.browser_item_content_folder_sparkButton.isChecked = false
             }
-            Browser.MEDIA -> holder.itemView.browser_item_content_media_imageView.colorFilterNull()
+            Browser.MEDIA -> {
+                Glide.with(browserFragment).clear(holder.itemView.browser_item_content_media_imageView)
+                holder.itemView.browser_item_content_media_imageView.colorFilterNull()
+            }
             Browser.MEDIA_FORCE_LIST -> {
                 Glide.with(browserFragment).clear(holder.itemView.browser_item_content_media_force_list_imageView3)
                 holder.itemView.browser_item_content_media_force_list_imageView1.visible()
@@ -381,7 +384,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                                 return false
                             }
                         })
-                        .into(object: SimpleTarget<Drawable>() {
+                        .into(object : SimpleTarget<Drawable>() {
                             override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                                 (this@apply as ImageView).image = resource
                             }
