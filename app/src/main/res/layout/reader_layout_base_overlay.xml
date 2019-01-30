@@ -78,7 +78,7 @@
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_seekBar"
+        app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/reader_layout_base_overlay_imageView"
         app:layout_constraintTop_toTopOf="parent">
@@ -90,16 +90,23 @@
             android:textSize="15sp"/>
     </androidx.core.widget.NestedScrollView>
 
-    <SeekBar
-        android:id="@+id/reader_layout_base_overlay_seekBar"
+    <FrameLayout
+        android:id="@+id/reader_layout_base_overlay_frameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:mirrorForRtl="true"
-        android:progressTint="@color/md_blue_400"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/reader_layout_base_overlay_linearLayout"
         app:layout_constraintEnd_toEndOf="@id/reader_layout_base_overlay_guideLine4"
-        app:layout_constraintStart_toStartOf="@id/reader_layout_base_overlay_guideLine3"/>
+        app:layout_constraintStart_toStartOf="@id/reader_layout_base_overlay_guideLine3">
+
+        <SeekBar
+            android:id="@+id/reader_layout_base_overlay_seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:visibility="visible"
+            android:progressTint="@color/md_blue_400" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/reader_layout_base_overlay_linearLayout"
