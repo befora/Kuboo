@@ -12,6 +12,7 @@ class DownloadsFragment : DownloadsFragmentImpl1_Content() {
         isPathEnabled = false
         isPaginationEnabled = false
         isCustomImplementation = true
+        isDownloadContent = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

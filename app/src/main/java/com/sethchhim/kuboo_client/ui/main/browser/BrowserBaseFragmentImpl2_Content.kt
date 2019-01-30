@@ -12,6 +12,7 @@ import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserPathAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType.MEDIA_FORCE_LIST
+import com.sethchhim.kuboo_client.ui.main.downloads.adapter.DownloadListAdapter
 import com.sethchhim.kuboo_remote.model.Book
 import timber.log.Timber
 
@@ -19,6 +20,7 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
 
     internal lateinit var contentAdapter: BrowserContentAdapter
     protected lateinit var pathAdapter: BrowserPathAdapter
+    protected var isDownloadContent = false
 
     private var contentLiveData = MutableLiveData<List<Book>>()
 
@@ -135,9 +137,24 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     }
 
     protected fun handleNeededAdapterUpdate() {
-        if (::contentAdapter.isInitialized) {
-            contentAdapter.apply {
-                if (Temporary.USER_API_UPDATE_LIST.isNotEmpty()) {
+        if (isDownloadContent) {
+            val adapter = contentRecyclerView.adapter as? DownloadListAdapter
+            adapter?.let {
+                Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
+                    var matchIndex = -1
+                    adapter.list.forEachIndexed { index, book ->
+                        if (queueBook.isMatch(book)) matchIndex = index
+                    }
+                    if (matchIndex != -1) {
+                        adapter.list[matchIndex] = queueBook
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+                Temporary.USER_API_UPDATE_LIST.clear()
+            }
+        } else {
+            if (::contentAdapter.isInitialized) {
+                contentAdapter.apply {
                     Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
                         viewModel.getBrowserContentList().forEachIndexed { index, browser ->
                             if (browser.book.isMatch(queueBook)) contentAdapter.updateMediaColorStateFromRemoteUserApi(index, browser.book)
@@ -147,5 +164,6 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
                 }
             }
         }
+
     }
 }
