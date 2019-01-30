@@ -168,6 +168,7 @@ Un agradecimiento especial a Tom por crear Ubooquity."</string>
     <string name="main_remove">"ELIMINAR"</string>
     <string name="main_resume">"Reanudar"</string>
     <string name="main_search">"Buscar"</string>
+    <string name="main_select_all">Seleccionar todo</string>
     <string name="main_selected">"Seleccionado"</string>
     <string name="main_series">"Series"</string>
     <string name="main_server_not_available">"¡Servidor no disponible!"</string>

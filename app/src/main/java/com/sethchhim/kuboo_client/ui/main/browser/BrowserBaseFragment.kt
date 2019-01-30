@@ -33,6 +33,7 @@ open class BrowserBaseFragment : BrowserBaseFragmentImpl3_Path() {
 
     override fun onDestroy() {
         super.onDestroy()
+        mainActivity.disableSelectionMode()
         mainActivity.hideMenuItemBrowserLayout()
     }
 

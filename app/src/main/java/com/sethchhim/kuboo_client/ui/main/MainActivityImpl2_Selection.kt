@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.appcompat.app.AlertDialog
 import android.widget.TextView
-import com.sethchhim.kuboo_client.Extensions.gone
-import com.sethchhim.kuboo_client.Extensions.visible
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragment
+import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_remote.model.Book
+import java.lang.Exception
 
 @SuppressLint("Registered")
 open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
@@ -32,8 +31,8 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     internal fun disableSelectionMode() {
         viewModel.clearSelected()
-        enableSelectionMenuState()
-        resetAllColorState()
+        updateBrowserAdapter()
+        disableSelectionMenuState()
     }
 
     internal fun enableSelectionMenuState() {
@@ -44,9 +43,31 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
     }
 
     internal fun disableSelectionMenuState() {
-        downloadMenuItem.gone()
-        markFinishedDeleteMenuItem.gone()
-        markFinishedAddMenuItem.gone()
+        setSelectionMenuStateUnselected()
+    }
+
+    internal fun selectAll() {
+        addAllFromCurrentViewHolderToSelectedList()
+        updateBrowserAdapter()
+        enableSelectionMenuState()
+    }
+
+    private fun updateBrowserAdapter() {
+        try {
+            (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.resetAllColorState()
+        } catch (e: UninitializedPropertyAccessException) {
+            //do nothing
+        }
+    }
+
+    private fun addAllFromCurrentViewHolderToSelectedList() {
+        try {
+            (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.let {
+                it.data.forEach { viewModel.addSelected(it.book) }
+            }
+        } catch (e: UninitializedPropertyAccessException) {
+            //do nothing
+        }
     }
 
     protected fun startSelectionDownload(): Boolean {
@@ -87,27 +108,30 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     private fun loadColorState(holder: BrowserContentAdapter.BrowserHolder, book: Book) = (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.loadColorState(holder, book)
 
-    private fun resetAllColorState() = (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.resetAllColorState()
-
     private fun getBrowserContentType() = (getCurrentFragment() as? BrowserBaseFragment)?.contentRecyclerView?.contentType
 
     private fun setSelectionMenuStateSelected() {
         title = getSelectedBrowserTitle()
-        downloadMenuItem.visible()
-        searchMenuItem.gone()
-        markFinishedDeleteMenuItem.visible()
-        markFinishedAddMenuItem.visible()
-
+        hideMenuItemAbout()
         hideMenuItemBrowserLayout()
         hideMenuItemHttps()
+        hideMenuItemSearch()
+
+        showMenuItemDownload()
+        showMenuItemSelectAll()
+        showMenuItemMarkFinishedAdd()
+        showMenuItemMarkFinishedDelete()
     }
 
     private fun setSelectionMenuStateUnselected() {
         title = getString(R.string.main_browse)
-        searchMenuItem.visible()
-        downloadMenuItem.gone()
-        markFinishedDeleteMenuItem.gone()
-        markFinishedAddMenuItem.gone()
+        hideMenuItemDownload()
+        hideMenuItemMarkFinishedAdd()
+        hideMenuItemMarkFinishedDelete()
+        hideMenuItemSelectAll()
+
+        showMenuItemAbout()
+        showMenuItemSearch()
 
         getBrowserContentType()?.let { toggleMenuItemBrowserLayout(it) }
         toggleMenuItemHttps()

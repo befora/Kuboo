@@ -243,6 +243,7 @@ object Extensions {
 
     internal fun MenuItem.gone() {
         if (isVisible) isVisible = false
+
     }
 
     internal fun MenuItem.visible() {

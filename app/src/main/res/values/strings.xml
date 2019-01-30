@@ -151,6 +151,7 @@
     <string name="main_remove">REMOVE</string>
     <string name="main_resume">Resume</string>
     <string name="main_search">Search</string>
+    <string name="main_select_all">Select All</string>
     <string name="main_selected">Selected</string>
     <string name="main_series">Series</string>
     <string name="main_server_not_available">Server not available!</string>

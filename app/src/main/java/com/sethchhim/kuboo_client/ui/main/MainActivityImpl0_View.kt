@@ -60,12 +60,14 @@ open class MainActivityImpl0_View : BaseActivity() {
     @BindView(R.id.main_layout_base_toolBar) lateinit var toolbar: Toolbar
     @BindView(R.id.main_layout_base_frameLayout) lateinit var frameLayout: FrameLayout
 
+    internal lateinit var aboutMenuItem: MenuItem
     internal lateinit var browserLayoutMenuItem: MenuItem
     internal lateinit var downloadMenuItem: MenuItem
     internal lateinit var httpsMenuItem: MenuItem
     internal lateinit var markFinishedAddMenuItem: MenuItem
     internal lateinit var markFinishedDeleteMenuItem: MenuItem
     internal lateinit var searchMenuItem: MenuItem
+    internal lateinit var selectAllMenuItem: MenuItem
     internal lateinit var searchView: SearchView
 
     private var isRequestDownloadFragment = false
@@ -231,31 +233,72 @@ open class MainActivityImpl0_View : BaseActivity() {
 
     protected fun getSelectedBrowserTitle() = "${getString(R.string.main_selected)} (${viewModel.getSelectedListSize()})"
 
-    internal fun hideMenuItemBrowserLayout() {
-        if (::browserLayoutMenuItem.isInitialized && browserLayoutMenuItem.isVisible) browserLayoutMenuItem.isVisible = false
+    internal fun hideMenuItemAbout() {
+        if (::aboutMenuItem.isInitialized && aboutMenuItem.isVisible) aboutMenuItem.isVisible = false
     }
 
-    protected fun hideMenuItemHttps() {
-        if (::httpsMenuItem.isInitialized && httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
+    internal fun showMenuItemAbout() {
+        if (::aboutMenuItem.isInitialized && !aboutMenuItem.isVisible) aboutMenuItem.isVisible = true
     }
 
-    private fun hideMenuItemSearch() {
-        if (::searchMenuItem.isInitialized && searchMenuItem.isVisible) searchMenuItem.isVisible = false
+    internal fun hideMenuItemSelectAll() {
+        if (::selectAllMenuItem.isInitialized && selectAllMenuItem.isVisible) selectAllMenuItem.isVisible = false
     }
 
-    private fun showFragmentFail(response: Response?) = supportFragmentManager.show(FailFragment.newInstance(response), R.id.main_layout_base_frameLayout)
+    internal fun showMenuItemSelectAll() {
+        if (::selectAllMenuItem.isInitialized && !selectAllMenuItem.isVisible) selectAllMenuItem.isVisible = true
+    }
 
     private fun showMenuItemBrowserLayout() {
         if (::browserLayoutMenuItem.isInitialized && !browserLayoutMenuItem.isVisible) browserLayoutMenuItem.isVisible = true
+    }
+
+    internal fun hideMenuItemBrowserLayout() {
+        if (::browserLayoutMenuItem.isInitialized && browserLayoutMenuItem.isVisible) browserLayoutMenuItem.isVisible = false
     }
 
     private fun showMenuItemHttps() {
         if (::httpsMenuItem.isInitialized && !httpsMenuItem.isVisible) httpsMenuItem.isVisible = true
     }
 
-    private fun showMenuItemSearch() {
+    protected fun hideMenuItemHttps() {
+        if (::httpsMenuItem.isInitialized && httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
+    }
+
+    protected fun showMenuItemSearch() {
         if (::searchMenuItem.isInitialized && !searchMenuItem.isVisible) searchMenuItem.isVisible = true
     }
+
+    protected fun hideMenuItemSearch() {
+        if (::searchMenuItem.isInitialized && searchMenuItem.isVisible) searchMenuItem.isVisible = false
+    }
+
+    protected fun showMenuItemDownload() {
+        if (::downloadMenuItem.isInitialized && !downloadMenuItem.isVisible) downloadMenuItem.isVisible = true
+    }
+
+    protected fun hideMenuItemDownload() {
+        if (::downloadMenuItem.isInitialized && downloadMenuItem.isVisible) downloadMenuItem.isVisible = false
+    }
+
+    protected fun showMenuItemMarkFinishedAdd() {
+        if (::markFinishedAddMenuItem.isInitialized && !markFinishedAddMenuItem.isVisible) markFinishedAddMenuItem.isVisible = true
+    }
+
+    protected fun hideMenuItemMarkFinishedAdd() {
+        if (::markFinishedAddMenuItem.isInitialized && markFinishedAddMenuItem.isVisible) markFinishedAddMenuItem.isVisible = false
+    }
+
+
+    protected fun showMenuItemMarkFinishedDelete() {
+        if (::markFinishedDeleteMenuItem.isInitialized && !markFinishedDeleteMenuItem.isVisible) markFinishedDeleteMenuItem.isVisible = true
+    }
+
+    protected fun hideMenuItemMarkFinishedDelete() {
+        if (::markFinishedDeleteMenuItem.isInitialized && markFinishedDeleteMenuItem.isVisible) markFinishedDeleteMenuItem.isVisible = false
+    }
+
+    private fun showFragmentFail(response: Response?) = supportFragmentManager.show(FailFragment.newInstance(response), R.id.main_layout_base_frameLayout)
 
     internal fun toggleMenuItemBrowserLayout(browserContentType: BrowserContentType) {
         if (::browserLayoutMenuItem.isInitialized) {

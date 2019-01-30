@@ -182,6 +182,7 @@ HTTP NON TROUVÉ
     <string name="main_remove">"RETIRER"</string>
     <string name="main_resume">"Redémarrer"</string>
     <string name="main_search">"Chercher"</string>
+    <string name="main_select_all">Tout sélectionner</string>
     <string name="main_selected">"Choisi"</string>
     <string name="main_series">"Série"</string>
     <string name="main_server_not_available">"Serveur indisponible!"</string>

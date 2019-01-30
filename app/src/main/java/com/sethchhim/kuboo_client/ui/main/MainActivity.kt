@@ -87,11 +87,13 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        aboutMenuItem = menu.findItem(R.id.main_overflow_about)
         browserLayoutMenuItem = menu.findItem(R.id.main_action_browser_layout)
         downloadMenuItem = menu.findItem(R.id.main_action_download)
         httpsMenuItem = menu.findItem(R.id.main_action_https)
         markFinishedAddMenuItem = menu.findItem(R.id.main_action_mark_finished_add)
         markFinishedDeleteMenuItem = menu.findItem(R.id.main_action_mark_finish_delete)
+        selectAllMenuItem = menu.findItem(R.id.main_overflow_select_all)
         searchMenuItem = menu.findItem(R.id.main_action_search).apply {
             searchView = actionView as SearchView
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -109,6 +111,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.main_overflow_about -> showActivityAbout()
+            R.id.main_overflow_select_all -> selectAll()
             R.id.main_overflow_log -> showActivityLog()
             R.id.main_action_browser_layout -> toggleBrowserLayout()
             R.id.main_action_https -> showDialogHttps()
@@ -122,7 +125,6 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         setStateLoading()
         viewModel.cancelAllPing()
-
         when (item.itemId) {
             R.id.navigation_home -> {
                 title = getString(R.string.title_home)

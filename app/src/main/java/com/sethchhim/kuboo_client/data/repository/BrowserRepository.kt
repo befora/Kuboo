@@ -120,8 +120,11 @@ class BrowserRepository {
     internal fun getSelectedListSize() = selectedList.size
 
     internal fun addSelected(book: Book) {
-        selectedList.add(book.apply { currentPage = 0 })
-        Timber.i("Selected list add ${book.title}")
+        val isNotContains = !selectedList.contains(book)
+        if (isNotContains) {
+            selectedList.add(book.apply { currentPage = 0 })
+            Timber.i("Selected list add ${book.title}")
+        }
     }
 
     internal fun removeSelected(book: Book) {

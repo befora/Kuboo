@@ -175,6 +175,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="main_remove">"삭제"</string>
     <string name="main_resume">"다시 보기"</string>
     <string name="main_search">"검색"</string>
+    <string name="main_select_all">모두 선택</string>
     <string name="main_selected">"선택됨"</string>
     <string name="main_series">"시리즈"</string>
     <string name="main_server_not_available">"서버에 접속할 수 없습니다!"</string>

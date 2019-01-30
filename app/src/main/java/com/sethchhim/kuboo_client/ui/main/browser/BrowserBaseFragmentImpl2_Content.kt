@@ -22,7 +22,6 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
 
     private var contentLiveData = MutableLiveData<List<Book>>()
 
-
     internal fun populateContent(book: Book, loadState: Boolean = true, addPath: Boolean = true) {
         setStateLoading()
         viewModel.cancelAllNetworkCallsByTag("Task_RemoteBookList")

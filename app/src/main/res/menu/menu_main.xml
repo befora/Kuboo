@@ -9,6 +9,10 @@
             android:title="@string/main_about"
             app:showAsAction="never"/>
         <item
+            android:id="@+id/main_overflow_select_all"
+            android:title="@string/main_select_all"
+            app:showAsAction="never"/>
+        <item
             android:id="@+id/main_overflow_log"
             android:title="@string/main_log"
             android:visible="false"

@@ -1,14 +1,14 @@
 package com.sethchhim.kuboo_client.ui.main.browser.adapter
 
-import androidx.lifecycle.Observer
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
@@ -18,7 +18,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.matrixxun.starry.badgetextview.MaterialBadgeTextView
@@ -59,6 +61,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.collections.forEachWithIndex
+import org.jetbrains.anko.image
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -66,7 +69,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
 
     init {
         BaseApplication.appComponent.inject(this)
-        setHasStableIds(true)
 
         addItemType(Browser.FOLDER, R.layout.browser_item_content_folder)
         addItemType(Browser.MEDIA, R.layout.browser_item_content_media)
@@ -81,7 +83,11 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
 
     private val mainActivity = browserFragment.mainActivity
 
-    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        super.setHasStableIds(true)
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.browserContentRecyclerView = recyclerView as BrowserContentRecyclerView
         this.layoutManager = browserContentRecyclerView.layoutManager as BrowserContentGridLayoutManager
@@ -349,39 +355,40 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
 
             itemView.browser_item_content_media_imageView.apply {
                 transitionName = item.book.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
+                setMediaColorState(holder, book)
 
-                loadImage(book, object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Timber.e("Thumbnail failed to load! ${book.server}${book.linkThumbnail}")
-                        return false
-                    }
+                val stringUrl = book.server + book.linkThumbnail
+                val requestOptions = RequestOptions()
+                        .format(DecodeFormat.PREFER_RGB_565)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .error(R.mipmap.ic_launcher)
+                        .fitCenter()
+                        .placeholder(ColorDrawable(Color.TRANSPARENT))
+                        .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
+                        .disallowHardwareConfig()
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        setMediaColorState(holder, book)
-                        return false
-                    }
-                })
+                Glide.with(browserFragment)
+                        .load(stringUrl)
+                        .apply(requestOptions)
+                        .transition(withCrossFade())
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                Timber.e("Thumbnail failed to load! ${book.server}${book.linkThumbnail}")
+                                return false
+                            }
+
+                            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                return false
+                            }
+                        })
+                        .into(object: SimpleTarget<Drawable>() {
+                            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                                (this@apply as ImageView).image = resource
+                            }
+                        })
             }
         }
 
-        private fun ImageView.loadImage(item: Book, requestListener: RequestListener<Drawable>) {
-            val stringUrl = item.server + item.linkThumbnail
-            val requestOptions = RequestOptions()
-                    .format(DecodeFormat.PREFER_RGB_565)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .error(R.mipmap.ic_launcher)
-                    .fitCenter()
-                    .placeholder(ColorDrawable(Color.TRANSPARENT))
-                    .transform(RoundedCorners(Settings.ROUNDED_CORNERS_VALUE))
-                    .disallowHardwareConfig()
-
-            Glide.with(browserFragment)
-                    .load(stringUrl)
-                    .apply(requestOptions)
-                    .transition(withCrossFade())
-                    .listener(requestListener)
-                    .into(this@loadImage)
-        }
     }
 
     private inner class MediaForceListHandler {
@@ -481,7 +488,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                 true -> colorFilterRed()
                 false ->
                     when (Settings.MARK_FINISHED) {
-                        true -> when (book.isFinished && holder.bookId == book.id) {
+                        true -> when (book.isFinished) {
                             true -> colorFilterGrey()
                             false -> colorFilterNull()
                         }
@@ -499,13 +506,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             }
         }
         holder.itemView.browser_item_content_media_force_list_constraintLayout?.setColorState(isSelected = viewModel.isSelected(book))
-    }
-
-    private fun View.setColorState(isSelected: Boolean) {
-        when (isSelected) {
-            true -> backgroundColor = Color.RED
-            false -> backgroundResource = 0
-        }
     }
 
     internal fun resetAllColorState() = try {
@@ -529,6 +529,13 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                 }
     } catch (e: Exception) {
         Timber.e("$e")
+    }
+
+    private fun View.setColorState(isSelected: Boolean) {
+        when (isSelected) {
+            true -> backgroundColor = Color.RED
+            false -> backgroundResource = 0
+        }
     }
 
     fun updateMediaColorStateFromRemoteUserApi(position: Int, book: Book) {
