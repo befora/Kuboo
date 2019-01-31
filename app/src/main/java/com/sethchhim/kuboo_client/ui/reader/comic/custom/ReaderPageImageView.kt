@@ -40,7 +40,6 @@ class ReaderPageImageView : AppCompatImageView {
     private var mOuterTouchListener: View.OnTouchListener? = null
     private var mOriginalScale: Float = 0.toFloat()
     private var mSkipScaling = false
-    private var mTranslateRightEdge = true
 
     //0 = Both, 1 = Left, 2 = Right
     internal var navigationButtonType = 0
@@ -109,10 +108,6 @@ class ReaderPageImageView : AppCompatImageView {
         mOuterTouchListener = l
     }
 
-    fun setTranslateToRightEdge(translate: Boolean) {
-        mTranslateRightEdge = translate
-    }
-
     private fun scale() {
         val drawable = drawable
         if (drawable == null || !mHaveFrame || mSkipScaling) return
@@ -130,7 +125,7 @@ class ReaderPageImageView : AppCompatImageView {
 
                 if (drawableWidth * height > width * dheight) {
                     scale = height.toFloat() / dheight.toFloat()
-                    if (mTranslateRightEdge) {
+                    if (Settings.RTL) {
                         dx = width - drawableWidth * scale
                     }
                 } else {
