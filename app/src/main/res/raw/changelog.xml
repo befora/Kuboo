@@ -2,386 +2,40 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Jan 26, 2019"
-        versionName="1.1.10">
+        changeDate="Jan 31, 2019"
+        versionName="1.2">
+        <changelogtext>androidx migration</changelogtext>
+        <changelogtext>add browser select all</changelogtext>
+        <changelogtext>add rounded corners to thumbnails</changelogtext>
         <changelogtext>change font from roboto to opensans</changelogtext>
         <changelogtext>fix bookmark dialog layout image fit and add content metadata</changelogtext>
+        <changelogtext>fix browser did not clear glide request on recycle</changelogtext>
+        <changelogtext>fix browser update use iterator is much cleaner</changelogtext>
+        <changelogtext>fix changelog wrong year</changelogtext>
+        <changelogtext>fix download delete sometimes left a blank item behind</changelogtext>
+        <changelogtext>fix download icon did not recycle properly</changelogtext>
+        <changelogtext>fix download list did not update progress upon return</changelogtext>
+        <changelogtext>fix download title had unintended scrollbar</changelogtext>
         <changelogtext>fix home open series button sometimes triggered open book</changelogtext>
+        <changelogtext>fix onbackpressed regression</changelogtext>
+        <changelogtext>fix preview fab exit animation</changelogtext>
         <changelogtext>fix preview fab sometimes doesn't complete show animation</changelogtext>
+        <changelogtext>fix rare crash due to backstackentry overload</changelogtext>
+        <changelogtext>fix reader aspect fill position accounts for rtl</changelogtext>
+        <changelogtext>fix reader buttons did not account rtl</changelogtext>
+        <changelogtext>fix reader can scroll horizontal bug</changelogtext>
         <changelogtext>fix reader overlay seekbar width and padding</changelogtext>
+        <changelogtext>fix reader seekbar missing in rtl mode</changelogtext>
+        <changelogtext>fix reader viewpager refresh bug</changelogtext>
+        <changelogtext>fix settings advanced backpress did not work</changelogtext>
         <changelogtext>fix splash icon was too small</changelogtext>
+        <changelogtext>remove light theme</changelogtext>
+        <changelogtext>update baserecyclerviewadapterhelper from 2.9.40 to 2.9.46</changelogtext>
         <changelogtext>update dagger from 2.19 to 2.21</changelogtext>
         <changelogtext>update fetch from 2.3.1 to 2.3.6</changelogtext>
         <changelogtext>update gradle from 3.2.1 to 3.3.0</changelogtext>
         <changelogtext>update kotlin from 1.3.11 to 1.3.20</changelogtext>
         <changelogtext>update workmanager from 1.0.0-alpha11 to 1.0.0-beta03</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jan 4, 2019"
-        versionName="1.1.9">
-        <changelogtext>add advanced setting recently viewed height offset</changelogtext>
-        <changelogtext>update apache commons compress to 1.18 from 1.16.1</changelogtext>
-        <changelogtext>update junrar from (custom) to 3.1.0</changelogtext>
-        <changelogtext>update kotlin to 1.3.11 from 1.3.10</changelogtext>
-        <changelogtext>revert home layout for higher resolutions fix</changelogtext>
-        <changelogtext>prepare kuboo server image loading</changelogtext>
-        <changelogtext>prepare kuboo server opds handler</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Dec 28, 2018"
-        versionName="1.1.8">
-        <changelogtext>fix home layout for higher resolutions</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Dec 22, 2018"
-        versionName="1.1.7">
-        <changelogtext>fix force downsize did not apply to local</changelogtext>
-        <changelogtext>fix comic and pdf rotation change is much faster and accounts for
-            downsizing
-        </changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Dec 22, 2018"
-        versionName="1.1.6">
-        <changelogtext>add setting force downsizing</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Nov 22, 2018"
-        versionName="1.1.5_beta2">
-        <changelogtext>fix crash on local comic image load (rare)</changelogtext>
-        <changelogtext>fix crash on toast if context has been destroyed</changelogtext>
-        <changelogtext>fix epub and pdf sometimes failed to resume download</changelogtext>
-        <changelogtext>fix download tracking sometimes deletes wrong issue</changelogtext>
-        <changelogtext>fix favorite dirs did not load on startup</changelogtext>
-        <changelogtext>fix force orientation bugs</changelogtext>
-        <changelogtext>update anko to 0.10.8 from 0.10.7</changelogtext>
-        <changelogtext>update fetch to 2.3.1 from 2.3.0-RC1</changelogtext>
-        <changelogtext>update kotlin to 1.3.10 from 1.2.71</changelogtext>
-        <changelogtext>update okhttp to 3.12.0 from 3.11.0</changelogtext>
-        <changelogtext>update workmanager to 1.0.0-alpha11 from 1.0.0-alpha10</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Nov 7, 2018"
-        versionName="1.1.4">
-        <changelogtext>add setting hide download tracking series if no content available
-        </changelogtext>
-        <changelogtext>add setting start tab</changelogtext>
-        <changelogtext>change hidpi min value to 2048 from 2560</changelogtext>
-        <changelogtext>fix crash on preview activity transition</changelogtext>
-        <changelogtext>fix download sort by opds id is not reliable</changelogtext>
-        <changelogtext>fix download tracking periodic workload did not initiate</changelogtext>
-        <changelogtext>fix download tracking would delete wrong item</changelogtext>
-        <changelogtext>fix downloads no longer inherit bookmark</changelogtext>
-        <changelogtext>fix kotlin stdlib should match versions between modules</changelogtext>
-        <changelogtext>remove unnecessary preload tasks</changelogtext>
-        <changelogtext>update anko to 0.10.7 from 0.10.6</changelogtext>
-        <changelogtext>update dagger to 2.19 from 2.17</changelogtext>
-        <changelogtext>update fetch to 2.3.0-RC1 from 2.2.0-RC14</changelogtext>
-        <changelogtext>update gradle build tools to 3.2.1 from 3.2.0</changelogtext>
-        <changelogtext>update gson to 2.8.5 from 2.8.2</changelogtext>
-        <changelogtext>update recommended ubooquity version to 2.1.2 from 2.1.1</changelogtext>
-        <changelogtext>update workmanager to 1.0.0-alpha10 from 1.0.0-alpha08</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Sep 28, 2018"
-        versionName="1.1.3">
-        <changelogtext>fix comic reader oom exception (out of memory)</changelogtext>
-        <changelogtext>fix recently viewed add animation to be less jarring</changelogtext>
-        <changelogtext>fix recently viewed fling performance</changelogtext>
-        <changelogtext>fix recently viewed needs delay before enter transition</changelogtext>
-        <changelogtext>fix recently viewed return transition did not work after going to next book
-        </changelogtext>
-        <changelogtext>increase glide memory utilization target by 50%</changelogtext>
-        <changelogtext>update anko to 0.10.6 from 0.10.5</changelogtext>
-        <changelogtext>update gradle to 4.6 from 4.4</changelogtext>
-        <changelogtext>update kotlin gradle plugin to 1.2.71 from 1.2.70</changelogtext>
-        <changelogtext>update support library to 28.0.0 from 28.0.0-rc01</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Sep 21, 2018"
-        versionName="1.1.2">
-        <changelogtext>add korean translation</changelogtext>
-        <changelogtext>fix crash after entering split screen mode</changelogtext>
-        <changelogtext>fix download list pulls cover image from local file instead of network
-        </changelogtext>
-        <changelogtext>fix reader preview image did not hit cache</changelogtext>
-        <changelogtext>update fetch to 2.2.0-RC12 from 2.2.0-RC11</changelogtext>
-        <changelogtext>update kotlin to 1.2.70 from 1.2.61</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Sep 12, 2018"
-        versionName="1.1.1">
-        <changelogtext>add spanish translation</changelogtext>
-        <changelogtext>add french translation</changelogtext>
-        <changelogtext>fix download error missing text update</changelogtext>
-        <changelogtext>fix preview play fab now uses correct icon</changelogtext>
-        <changelogtext>fix search browser did not show title as query</changelogtext>
-        <changelogtext>refactor pdf activity</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Sep 4, 2018"
-        versionName="1.1.0_v3">
-        <changelogtext>fix shared prefs moved to base application level instead of splash preload
-        </changelogtext>
-        <changelogtext>update android-maven-gradle-plugin to 2.1 from 2.0</changelogtext>
-        <changelogtext>update kotlin-gradle-plugin to 1.8.1 from 1.7.3</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Sep 4, 2018"
-        versionName="1.1.0_v2">
-        <changelogtext>fix download now checks for valid save path</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Sep 4, 2018"
-        versionName="1.1.0">
-        <changelogtext>add application preload tasking</changelogtext>
-        <changelogtext>add google play rate button to changelog dialog</changelogtext>
-        <changelogtext>add notification for file download completion and bug fixes</changelogtext>
-        <changelogtext>add setting finished download notification toggle</changelogtext>
-        <changelogtext>change reader overlay seekbar length</changelogtext>
-        <changelogtext>fix animations</changelogtext>
-        <changelogtext>fix browser did not update finished items on resume</changelogtext>
-        <changelogtext>fix browser fragment regression</changelogtext>
-        <changelogtext>fix browser item badge to use gone instead of invisible since nothing is
-            anchored to it
-        </changelogtext>
-        <changelogtext>fix browser media as list selection bug</changelogtext>
-        <changelogtext>fix browser media as list toggle did not restore on new instance
-        </changelogtext>
-        <changelogtext>fix browser media menu toggle sometimes showed during selection mode
-        </changelogtext>
-        <changelogtext>fix browser media unnecessary delay</changelogtext>
-        <changelogtext>fix browser menu state regression</changelogtext>
-        <changelogtext>fix browser star icon size bug in android 9</changelogtext>
-        <changelogtext>fix crash at download adapter on invalid data</changelogtext>
-        <changelogtext>fix crash during fragment transaction</changelogtext>
-        <changelogtext>fix download fragment did not reset before populate</changelogtext>
-        <changelogtext>fix download fragment now updates downloads faster</changelogtext>
-        <changelogtext>fix download fragment regression</changelogtext>
-        <changelogtext>fix download tracking badge was still visible after view holder is recycled
-        </changelogtext>
-        <changelogtext>fix download tracking enqueue same item multiple times after changing save
-            path
-        </changelogtext>
-        <changelogtext>fix download tracking no longer requires app to be open</changelogtext>
-        <changelogtext>fix downloaded items will no longer keep bookmark</changelogtext>
-        <changelogtext>fix downloads deletion is reactionary and more reliable</changelogtext>
-        <changelogtext>fix https secure menu icon did not show</changelogtext>
-        <changelogtext>fix network fail to connect on android 9</changelogtext>
-        <changelogtext>fix notification selection intent did not create new task</changelogtext>
-        <changelogtext>fix notification selection intent to target splashActivity instead of
-            mainActivity
-        </changelogtext>
-        <changelogtext>fix notification selection intent was not reliable</changelogtext>
-        <changelogtext>fix reader finish action was missing exit transition</changelogtext>
-        <changelogtext>fix save path change now resets all download tracking to prevent corruption
-        </changelogtext>
-        <changelogtext>fix slow fragment transition</changelogtext>
-        <changelogtext>fix splash lower case letters and icon size</changelogtext>
-        <changelogtext>refactor browser fragments</changelogtext>
-        <changelogtext>refactor downloads fragment to use listadapter</changelogtext>
-        <changelogtext>refactor splash preload</changelogtext>
-        <changelogtext>update constraint-layout to 1.1.3 from 1.1.2</changelogtext>
-        <changelogtext>update fetch to 2.2.0-RC11 from 2.0.0-RC22</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Aug 28, 2018"
-        versionName="1.0.10">
-        <changelogtext>add browser option to show media as a list</changelogtext>
-        <changelogtext>fix preview activity can't preload epub or pdf asset</changelogtext>
-        <changelogtext>fix out of memory crashes</changelogtext>
-        <changelogtext>remove intent filter for epublibdroid</changelogtext>
-        <changelogtext>remove permission READ_EXTERNAL_STORAGE</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Aug 23, 2018"
-        versionName="1.0.9">
-        <changelogtext>add local comic reader support for comicinfo.xml chapter jump</changelogtext>
-        <changelogtext>add setting wifi only</changelogtext>
-        <changelogtext>fix browser favorite only shows if on correct server</changelogtext>
-        <changelogtext>fix epub reader cover animation no longer applies manga mode direction
-        </changelogtext>
-        <changelogtext>fix failed to find next book due to pagination</changelogtext>
-        <changelogtext>fix glide simple targets are deprecated, remove fade animation, remove
-            progressbar
-        </changelogtext>
-        <changelogtext>fix gradle okhttp integration update</changelogtext>
-        <changelogtext>fix local input stream error handling</changelogtext>
-        <changelogtext>fix overlay guidelines did not adjust on orientation change</changelogtext>
-        <changelogtext>fix reader crash on android 5.0</changelogtext>
-        <changelogtext>fix reader did not update title after loading new book</changelogtext>
-        <changelogtext>fix reader overlay persists when it should not</changelogtext>
-        <changelogtext>fix splash screen low resolution</changelogtext>
-        <changelogtext>fix string resource</changelogtext>
-        <changelogtext>fix typo</changelogtext>
-        <changelogtext>update apache commons text to 1.4 from 1.1</changelogtext>
-        <changelogtext>update glide to 4.8.0 from 4.7.1</changelogtext>
-        <changelogtext>update kotlin to 1.2.61 from 1.2.60</changelogtext>
-        <changelogtext>update sdk target to 28 from 27</changelogtext>
-        <changelogtext>update timber to 4.7.1 from 4.6.1</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Aug 14, 2018"
-        versionName="1.0.8">
-        <changelogtext>add server example prefill</changelogtext>
-        <changelogtext>fix critical crash on comic load</changelogtext>
-        <changelogtext>settings refactor</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Aug 10, 2018"
-        versionName="1.0.7">
-        <changelogtext>add download screen shows free storage space</changelogtext>
-        <changelogtext>add setting keep screen alive</changelogtext>
-        <changelogtext>add setting version click shows changelog</changelogtext>
-        <changelogtext>fix download notification selection goes to download screen</changelogtext>
-        <changelogtext>update dagger to 2.17 from 2.13</changelogtext>
-        <changelogtext>update gradle build tools to 3.1.4 from 3.1.3</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Aug 3, 2018"
-        versionName="1.0.6">
-        <changelogtext>add setting volume buttons turn page</changelogtext>
-        <changelogtext>change debug server</changelogtext>
-        <changelogtext>fix browser state after recycle</changelogtext>
-        <changelogtext>fix cbr out of memory crash</changelogtext>
-        <changelogtext>fix comic reader (local) did not measure dual pane condition correctly
-        </changelogtext>
-        <changelogtext>fix comic reader orientation change did not update image</changelogtext>
-        <changelogtext>fix comic reader slow switching of dual pane mode</changelogtext>
-        <changelogtext>fix comic reader slow switching of manga mode</changelogtext>
-        <changelogtext>fix comic reader slow switching of next book</changelogtext>
-        <changelogtext>fix comic reader slow switching of orientation change</changelogtext>
-        <changelogtext>fix reader transition jank</changelogtext>
-        <changelogtext>fix series pull not supposed to use cache</changelogtext>
-        <changelogtext>update jsoup to 1.11.3 from 1.11.2</changelogtext>
-        <changelogtext>update kotlin to 1.2.60 from 1.2.51</changelogtext>
-        <changelogtext>update okhttp to 3.11.0 from 3.10.0</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jul 13, 2018"
-        versionName="1.0.5">
-        <changelogtext>add server edit check for /opds-books/ or /opds-comics/</changelogtext>
-        <changelogtext>add server edit check for empty ip address</changelogtext>
-        <changelogtext>add setting for home layout</changelogtext>
-        <changelogtext>change glide cache size to 100mb from 250mb</changelogtext>
-        <changelogtext>change okhttp cache size to 20mb from 100mb</changelogtext>
-        <changelogtext>fix browser folder thumbnail did not cancel previous image pull
-        </changelogtext>
-        <changelogtext>fix browser missing folder thumbnail sometimes</changelogtext>
-        <changelogtext>fix browser search fragment crash</changelogtext>
-        <changelogtext>fix cbr performance</changelogtext>
-        <changelogtext>fix crash on fragment transition</changelogtext>
-        <changelogtext>fix crash on service start after app has been backgrounded</changelogtext>
-        <changelogtext>fix download and recent bookmark mixup</changelogtext>
-        <changelogtext>fix download resume all button now resumes download tracking</changelogtext>
-        <changelogtext>fix fetch update ui crash</changelogtext>
-        <changelogtext>fix home reset on bottom navigation reselect</changelogtext>
-        <changelogtext>fix isHiDpi is more accurate</changelogtext>
-        <changelogtext>fix latest list now uses memory buffer</changelogtext>
-        <changelogtext>fix missing titles</changelogtext>
-        <changelogtext>fix prevent certain books from being added to recent list</changelogtext>
-        <changelogtext>fix reader back press to exit did not work sometimes</changelogtext>
-        <changelogtext>fix reader info dialog broken for epub</changelogtext>
-        <changelogtext>fix reader transition from being interrupted with back press</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jul 6, 2018"
-        versionName="1.0.4">
-        <changelogtext>add progressbar to downloads</changelogtext>
-        <changelogtext>fix progressbar max</changelogtext>
-        <changelogtext>fix book adds to download list when it should not</changelogtext>
-        <changelogtext>fix crash on null pdf inputstream</changelogtext>
-        <changelogtext>fix crash with transition on android 8.0</changelogtext>
-        <changelogtext>fix onclearfromrecentservice missing super call</changelogtext>
-        <changelogtext>fix open book from browser did not show bookmark dialog</changelogtext>
-        <changelogtext>fix preload book into wrong directory</changelogtext>
-        <changelogtext>fix browse history remained after server change</changelogtext>
-        <changelogtext>update kotlin to 1.2.51 from 1.2.50</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jun 28, 2018"
-        versionName="1.0.3">
-        <changelogtext>add open series and copy to clipboard to reader info dialog</changelogtext>
-        <changelogtext>add version to settings</changelogtext>
-        <changelogtext>change download tracking trigger from reader start to reader end
-        </changelogtext>
-        <changelogtext>change settings title text format</changelogtext>
-        <changelogtext>fix browser use wrong content type</changelogtext>
-        <changelogtext>fix crash on browser view not available after async job</changelogtext>
-        <changelogtext>fix crash on menu item uninitialized</changelogtext>
-        <changelogtext>fix downloads sort method, first by series and then by book</changelogtext>
-        <changelogtext>fix menu item lateinit check</changelogtext>
-        <changelogtext>fix reader crash</changelogtext>
-        <changelogtext>fix recently viewed ordering bug</changelogtext>
-        <changelogtext>fix remote pull uses local cache instead of retrieving fresh data
-        </changelogtext>
-        <changelogtext>fix selection menu items unintended retention</changelogtext>
-        <changelogtext>fix series browser pagination failed to load</changelogtext>
-        <changelogtext>fix series browser pagination failed to load</changelogtext>
-        <changelogtext>fix show correct version</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jun 24, 2018"
-        versionName="1.0.2">
-        <changelogtext>Add tracking limit and interval setting for download
-        </changelogtext>
-        <changelogtext>Code cleanup</changelogtext>
-        <changelogtext>Fix pdf crash</changelogtext>
-        <changelogtext>Add save path setting for downloads</changelogtext>
-        <changelogtext>Change recent remove dialog to be more concise and text format
-        </changelogtext>
-        <changelogtext>Change download item bookmark strategy.</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jun 17, 2018"
-        versionName="1.0.1">
-        <changelogtext>Fix round icon</changelogtext>
-        <changelogtext>Fix changelog dialog width and height</changelogtext>
-        <changelogtext>Fix remote bookmark search</changelogtext>
-        <changelogtext>Fix remote book api pull would fail on blank result</changelogtext>
-        <changelogtext>Fix comic swipe would not register if near edge. Add comic previous
-            page and
-            next page single click action near edge.
-        </changelogtext>
-        <changelogtext>Fix not being able to select download item after order manipulation
-        </changelogtext>
-        <changelogtext>Fix multiple downloads enqueue only applying first request
-        </changelogtext>
-        <changelogtext>Consolidate multiple app executors into single one provided by
-            client
-        </changelogtext>
-        <changelogtext>Fix mock lengthy changelog</changelogtext>
-        <changelogtext>Fix changelog not showing on first startup of respected version
-        </changelogtext>
-        <changelogtext>Fix test dependencies and imports</changelogtext>
-    </changelogversion>
-
-    <changelogversion
-        changeDate="Jun 15, 2018"
-        versionName="1.0.0">
-        <changelogtext>Initial release.</changelogtext>
     </changelogversion>
 
 </changelog>
