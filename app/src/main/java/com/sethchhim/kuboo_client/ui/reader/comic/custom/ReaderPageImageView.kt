@@ -40,7 +40,7 @@ class ReaderPageImageView : AppCompatImageView {
     private var mOuterTouchListener: View.OnTouchListener? = null
     private var mOriginalScale: Float = 0.toFloat()
     private var mSkipScaling = false
-    private var mTranslateRightEdge = false
+    private var mTranslateRightEdge = true
 
     //0 = Both, 1 = Left, 2 = Right
     internal var navigationButtonType = 0
@@ -73,7 +73,7 @@ class ReaderPageImageView : AppCompatImageView {
         }
     }
 
-    internal fun setScaleType(init: Boolean = false) {
+    private fun setScaleType(init: Boolean = false) {
         when (Settings.SCALE_TYPE) {
             0 -> mViewMode = PageViewMode.ASPECT_FILL
             1 -> mViewMode = PageViewMode.ASPECT_FIT
@@ -130,8 +130,9 @@ class ReaderPageImageView : AppCompatImageView {
 
                 if (drawableWidth * height > width * dheight) {
                     scale = height.toFloat() / dheight.toFloat()
-                    if (mTranslateRightEdge)
+                    if (mTranslateRightEdge) {
                         dx = width - drawableWidth * scale
+                    }
                 } else {
                     scale = width.toFloat() / drawableWidth.toFloat()
                 }
@@ -419,37 +420,38 @@ class ReaderPageImageView : AppCompatImageView {
     override fun canScrollHorizontally(direction: Int): Boolean {
         if (drawable == null) return false
         val imageWidth = computeCurrentImageSize().x.toFloat()
-        val imageHeight = computeCurrentImageSize().y.toFloat()
+//        val imageHeight = computeCurrentImageSize().y.toFloat()
         val offsetX = computeCurrentOffset().x.toFloat()
-        val offsetY = computeCurrentOffset().y.toFloat()
+//        val offsetY = computeCurrentOffset().y.toFloat()
         val isDirectionLeft = direction < 0
         val isDirectionRight = direction > 0
-        val isScrollAtTop = offsetY >= 0
-        val isScrollAtBottomLandscape = Math.abs(offsetY) + height >= imageHeight
-        val isScrollAtBottomPortrait = Math.abs(offsetX) + width >= imageWidth
+//        val isScrollAtTop = offsetY >= 0
+//        val isScrollAtBottom = Math.abs(offsetY) + height >= imageHeight
+        val isScrollAtLeft = offsetX == 0.0f
+        val isScrollAtRight = Math.abs(offsetX) + width >= imageWidth
         if (isLandscape && !Settings.DUAL_PANE) {
             when (Settings.RTL) {
-                true -> if (isDirectionLeft && isScrollAtBottomLandscape) {
+                true -> if (isDirectionLeft) {
                     return onCanNotScrollLeft()
-                } else if (isDirectionRight && isScrollAtTop) {
+                } else if (isDirectionRight) {
                     return onCanNotScrollRight()
                 }
-                false -> if (isDirectionLeft && isScrollAtTop) {
+                false -> if (isDirectionLeft) {
                     return onCanNotScrollLeft()
-                } else if (isDirectionRight && isScrollAtBottomLandscape) {
+                } else if (isDirectionRight) {
                     return onCanNotScrollRight()
                 }
             }
         } else {
             when (Settings.RTL) {
-                true -> if (isDirectionLeft && isScrollAtBottomPortrait) {
+                true -> if (isDirectionLeft && isScrollAtLeft) {
                     return onCanNotScrollLeft()
-                } else if (isDirectionRight && isScrollAtTop) {
+                } else if (isDirectionRight && isScrollAtRight) {
                     return onCanNotScrollRight()
                 }
-                false -> if (isDirectionLeft && isScrollAtTop) {
+                false -> if (isDirectionLeft && isScrollAtLeft) {
                     return onCanNotScrollLeft()
-                } else if (isDirectionRight && isScrollAtBottomPortrait) {
+                } else if (isDirectionRight && isScrollAtRight) {
                     return onCanNotScrollRight()
                 }
             }
