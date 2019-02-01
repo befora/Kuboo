@@ -2,10 +2,11 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Jan 31, 2019"
-        versionName="1.2">
+        changeDate="Feb 1, 2019"
+        versionName="1.2.1">
         <changelogtext>androidx migration</changelogtext>
         <changelogtext>add browser select all</changelogtext>
+        <changelogtext>add reader next/previous action will trigger scroll if available</changelogtext>
         <changelogtext>add rounded corners to thumbnails</changelogtext>
         <changelogtext>change font from roboto to opensans</changelogtext>
         <changelogtext>fix bookmark dialog layout image fit and add content metadata</changelogtext>
