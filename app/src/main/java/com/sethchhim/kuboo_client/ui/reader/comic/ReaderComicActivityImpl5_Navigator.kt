@@ -46,7 +46,10 @@ open class ReaderComicActivityImpl5_Navigator : ReaderComicActivityImpl4_Content
                 val imageView1 = currentFragment.imageView
                 if (imageView1.zoomOut()) return true
                 return when (systemUtil.isOrientationPortrait()) {
-                    true -> imageView1.scrollToLeft()
+                    true -> when (Settings.RTL) {
+                        true -> imageView1.scrollToRight()
+                        false -> imageView1.scrollToLeft()
+                    }
                     false -> imageView1.scrollToTop()
                 }
             }
@@ -81,7 +84,10 @@ open class ReaderComicActivityImpl5_Navigator : ReaderComicActivityImpl4_Content
                 val imageView1 = currentFragment.imageView
                 if (imageView1.zoomOut()) return true
                 return when (systemUtil.isOrientationPortrait()) {
-                    true -> imageView1.scrollToRight()
+                    true -> when (Settings.RTL) {
+                        true -> imageView1.scrollToLeft()
+                        false -> imageView1.scrollToRight()
+                    }
                     false -> imageView1.scrollToBottom()
                 }
             }
