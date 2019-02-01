@@ -1,20 +1,22 @@
 package com.sethchhim.kuboo_client.ui.reader.comic.custom
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import androidx.core.view.ViewCompat
-import androidx.appcompat.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Interpolator
 import android.widget.ImageView
 import android.widget.OverScroller
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.view.ViewCompat
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
@@ -23,16 +25,22 @@ import timber.log.Timber
 class ReaderPageImageView : AppCompatImageView {
 
     private val ZOOM_DURATION = 200
-    private var mViewMode = PageViewMode.ASPECT_FIT
-    private val isLandscape = context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    private val SCROLL_DURATION = 300
+    private val SCROLL_OFFSET = 0.12
     private val SWIPE_THRESHOLD = 100
     private val SWIPE_VELOCITY_THRESHOLD = 100
+    private var mViewMode = PageViewMode.ASPECT_FIT
+    private val isLandscape = context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     private val m = FloatArray(9)
     private val mMatrix = Matrix()
     private val mScroller = OverScroller(context)
     private val mScaleGestureDetector = ScaleGestureDetector(context, PrivateScaleDetector())
     private val mDragGestureDetector = GestureDetector(context, PrivateDragListener())
+
+    private val mValueAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+        duration = SCROLL_DURATION.toLong()
+    }
 
     private var mHaveFrame = false
     private var mMaxScale: Float = 0.toFloat()
@@ -264,7 +272,6 @@ class ReaderPageImageView : AppCompatImageView {
 
         private fun onSwipeTop() {
             Timber.d("onSwipeTop")
-
         }
 
         private fun onSwipeBottom() {
@@ -328,7 +335,36 @@ class ReaderPageImageView : AppCompatImageView {
                 false -> (context as ReaderBaseActivity).goToNextPage()
             }
         }
+    }
 
+    internal fun scrollToLeft(): Boolean {
+        if (!canScrollHorizontallyLeft()) return false
+        val scrollValue = (width - (width * SCROLL_OFFSET)).toFloat()
+        return post(ScrollAnimation(scrollValue, 0f))
+    }
+
+    internal fun scrollToRight(): Boolean {
+        if (!canScrollHorizontallyRight()) return false
+        val scrollValue = (-(width - (width * SCROLL_OFFSET))).toFloat()
+        return post(ScrollAnimation(scrollValue, 0f))
+    }
+
+    internal fun scrollToTop(): Boolean {
+        if (!canScrollVerticallyTop()) return false
+        val scrollValue = (height - (height * SCROLL_OFFSET)).toFloat()
+        return post(ScrollAnimation(0f, scrollValue))
+    }
+
+    internal fun scrollToBottom(): Boolean {
+        if (!canScrollVerticallyBottom()) return false
+        val scrollValue = (-(height - (height * SCROLL_OFFSET))).toFloat()
+        return post(ScrollAnimation(0f, scrollValue))
+    }
+
+    internal fun zoomOut(): Boolean {
+        if (currentScale == mOriginalScale) return false
+        post(ZoomAnimation(0f, 0f, mOriginalScale))
+        return true
     }
 
     private fun zoomAnimated(e: MotionEvent, scale: Float) {
@@ -412,6 +448,10 @@ class ReaderPageImageView : AppCompatImageView {
         return matrix
     }
 
+    internal fun canScrollHorizontallyLeft() = canScrollHorizontally(-1)
+
+    internal fun canScrollHorizontallyRight() = canScrollHorizontally(1)
+
     override fun canScrollHorizontally(direction: Int): Boolean {
         if (drawable == null) return false
         val imageWidth = computeCurrentImageSize().x.toFloat()
@@ -454,6 +494,26 @@ class ReaderPageImageView : AppCompatImageView {
         return true
     }
 
+    internal fun canScrollVerticallyTop() = canScrollVertically(-1)
+
+    internal fun canScrollVerticallyBottom() = canScrollVertically(1)
+
+    override fun canScrollVertically(direction: Int): Boolean {
+        if (drawable == null) return false
+        val imageHeight = computeCurrentImageSize().y.toFloat()
+        val offsetY = computeCurrentOffset().y.toFloat()
+        val isDirectionUp = direction < 0
+        val isDirectionDown = direction > 0
+        val isScrollAtTop = offsetY == 0.0f
+        val isScrollAtBottom = Math.abs(offsetY) + height >= imageHeight
+        if (isDirectionUp && isScrollAtTop) {
+            return onCanNotScrollLeft()
+        } else if (isDirectionDown && isScrollAtBottom) {
+            return onCanNotScrollRight()
+        }
+        return true
+    }
+
     private fun onCanNotScrollLeft(): Boolean {
         return false
     }
@@ -462,17 +522,74 @@ class ReaderPageImageView : AppCompatImageView {
         return false
     }
 
+    private inner class ScrollAnimation internal constructor(internal var mX: Float, internal var mY: Float) : Runnable {
+        init {
+            mMatrix.getValues(m)
+        }
+
+        override fun run() {
+            if (mValueAnimator.isRunning) {
+                mValueAnimator.cancel()
+                mValueAnimator.removeAllUpdateListeners()
+            }
+
+            // Get values for the current image matrix
+            val srcValues = FloatArray(9)
+            val destValues = FloatArray(9)
+            mMatrix.getValues(srcValues)
+
+            val destMatrix = mMatrix
+            destMatrix.postTranslate(mX, mY)
+            destMatrix.getValues(destValues)
+
+            // Get translation values
+            val transX = destValues[2] - srcValues[2]
+            val transY = destValues[5] - srcValues[5]
+            val scaleX = destValues[0] - srcValues[0]
+            val scaleY = destValues[4] - srcValues[4]
+
+            // Listen to value animator changes
+            mValueAnimator.addUpdateListener { animation ->
+                val value = animation.animatedFraction
+                val currValues = srcValues.copyOf(srcValues.size)
+                currValues[2] = srcValues[2] + transX * value
+                currValues[5] = srcValues[5] + transY * value
+                currValues[0] = srcValues[0] + scaleX * value
+                currValues[4] = srcValues[4] + scaleY * value
+                mMatrix.setValues(currValues)
+                imageMatrix = mMatrix
+            }
+
+            // Save the newly set scale type after animation completes
+            mValueAnimator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                    super.onAnimationEnd(animation, isReverse)
+                }
+            })
+
+            // Start the animation
+            mValueAnimator.start()
+        }
+    }
+
+//    private inner class ScrollAnimation internal constructor(internal var mX: Float, internal var mY: Float) : Runnable {
+//        init {
+//            mMatrix.getValues(m)
+//        }
+//
+//        override fun run() {
+//            mMatrix.postTranslate(mX, mY)
+//            imageMatrix = mMatrix
+//        }
+//    }
+
     private inner class ZoomAnimation internal constructor(internal var mX: Float, internal var mY: Float, internal var mScale: Float) : Runnable {
-        internal var mInterpolator: Interpolator
-        internal var mStartScale: Float = 0.toFloat()
-        internal var mStartTime: Long = 0
+        internal var mInterpolator = AccelerateDecelerateInterpolator()
+        internal var mStartScale = currentScale
+        internal var mStartTime = System.currentTimeMillis()
 
         init {
             mMatrix.getValues(m)
-
-            mInterpolator = AccelerateDecelerateInterpolator()
-            mStartScale = currentScale
-            mStartTime = System.currentTimeMillis()
         }
 
         override fun run() {

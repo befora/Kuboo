@@ -23,6 +23,15 @@ class ReaderComicAdapter internal constructor(private val readerComicActivityImp
 
     @Inject lateinit var viewModel: ViewModel
 
+    internal var mCurrentFragment: ReaderComicFragment? = null
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+        if (mCurrentFragment !== `object`) {
+            mCurrentFragment = `object` as ReaderComicFragment
+        }
+        super.setPrimaryItem(container, position, `object`)
+    }
+
     override fun getItem(position: Int): ReaderComicFragment {
         val book = readerComicActivityImpl4Content.currentBook
         val isLocal = readerComicActivityImpl4Content.isLocal

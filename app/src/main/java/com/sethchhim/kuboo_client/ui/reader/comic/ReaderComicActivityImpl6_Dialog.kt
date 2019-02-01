@@ -5,7 +5,7 @@ import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_client.data.enum.Source
 
 @SuppressLint("Registered")
-open class ReaderComicActivityImpl5_Dialog : ReaderComicActivityImpl4_Content() {
+open class ReaderComicActivityImpl6_Dialog : ReaderComicActivityImpl5_Navigator() {
 
     override fun onSnackBarEndAction() {
         finishBook()

@@ -8,7 +8,7 @@ import android.view.MenuItem
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
 
-open class ReaderComicActivity : ReaderComicActivityImpl6_Hardware() {
+open class ReaderComicActivity : ReaderComicActivityImpl7_Hardware() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

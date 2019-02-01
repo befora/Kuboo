@@ -97,32 +97,6 @@ open class ReaderComicActivityImpl4_Content : ReaderComicActivityImpl3_Menu() {
         }
     }
 
-    override fun goToFirstPage() {
-        viewPager.currentItem = 0
-    }
-
-    override fun goToLastPage() {
-        viewPager.adapter?.let {
-            viewPager.currentItem = it.count - 1
-        }
-    }
-
-    override fun goToPreviousPage() {
-        when (viewPager.currentItem == 0) {
-            true -> onSwipeOutOfBoundsStart()
-            false -> viewPager.currentItem = viewPager.currentItem - 1
-        }
-    }
-
-    override fun goToNextPage() {
-        viewPager.adapter?.let {
-            when (viewPager.currentItem == it.count - 1) {
-                true -> onSwipeOutOfBoundsEnd()
-                false -> viewPager.currentItem = viewPager.currentItem + 1
-            }
-        }
-    }
-
     internal fun setPipDimensions(position: Int) {
         viewModel.getReaderDimensionAt(position)?.let {
             pipPosition = position

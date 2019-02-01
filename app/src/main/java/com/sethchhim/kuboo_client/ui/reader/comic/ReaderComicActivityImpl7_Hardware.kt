@@ -3,7 +3,7 @@ package com.sethchhim.kuboo_client.ui.reader.comic
 import android.annotation.SuppressLint
 
 @SuppressLint("Registered")
-open class ReaderComicActivityImpl6_Hardware : ReaderComicActivityImpl5_Dialog() {
+open class ReaderComicActivityImpl7_Hardware : ReaderComicActivityImpl6_Dialog() {
 
     override fun onVolumeDownLongPressed() {
         goToLastPage()
