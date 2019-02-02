@@ -85,9 +85,9 @@ class SystemUtil(private val context: Context) {
 
     internal fun isHardwareNavigation() = !isSoftwareNavigation()
 
-    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && !isMobileEnabled()
+    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && !isActiveNetworkMobile()
 
-    private fun isMobileEnabled(): Boolean {
+    private fun isActiveNetworkMobile(): Boolean {
         val connectivityManager = getConnectivityManager()
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isMobile = activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
