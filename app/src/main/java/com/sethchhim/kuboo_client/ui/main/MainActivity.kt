@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import butterknife.ButterKnife
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.sethchhim.kuboo_client.Extensions.getVisibleFragment
 import com.sethchhim.kuboo_client.Extensions.removeAllObservers
 import com.sethchhim.kuboo_client.R
+import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.AppTheme
 import com.sethchhim.kuboo_client.service.OnClearFromRecentService
 import com.sethchhim.kuboo_client.ui.main.browser.*
 import com.sethchhim.kuboo_client.ui.main.downloads.DownloadsFragment
@@ -20,7 +22,7 @@ import com.sethchhim.kuboo_client.ui.main.login.browser.LoginBrowserFragment
 import com.sethchhim.kuboo_client.ui.main.login.edit.LoginEditFragment
 import com.sethchhim.kuboo_client.ui.main.settings.SettingsFragment
 import com.sethchhim.kuboo_client.ui.main.settings.advanced.SettingsAdvancedFragment
-
+import org.jetbrains.anko.backgroundColor
 
 open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
 
@@ -31,9 +33,12 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
         setTitle(R.string.title_home)
         setSupportActionBar(toolbar)
 
-        bottomNav.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
         bottomNav.setOnNavigationItemSelectedListener(this)
         bottomNav.setOnNavigationItemReselectedListener(this)
+        bottomNav.backgroundColor = when (Settings.APP_THEME) {
+            AppTheme.OLED.value -> ContextCompat.getColor(this, R.color.oledColorPrimary)
+            else -> ContextCompat.getColor(this, R.color.darkWindowBackground)
+        }
 
         if (systemUtil.isFirstRunOfThisVersion()) showChangeLog()
 
