@@ -14,13 +14,15 @@ class Task_RemoteUserApiUpdate(kubooRemote: KubooRemote, login: Login, list: Lis
     private var resultSize = 0
 
     init {
-        list.forEach { book ->
-            Task_RemoteUserApiPut(kubooRemote, login, book).liveData.observeForever {
-                resultSize += 1
-                Timber.d("size: $resultSize")
-                if (resultSize == listSize) {
-                    Timber.d("UserApi successfully updated list: size[$listSize]")
-                    liveData.value = true
+        kubooRemote.mainThread.execute {
+            list.forEach { book ->
+                Task_RemoteUserApiPut(kubooRemote, login, book).liveData.observeForever {
+                    resultSize += 1
+                    Timber.d("size: $resultSize")
+                    if (resultSize == listSize) {
+                        Timber.d("UserApi successfully updated list: size[$listSize]")
+                        liveData.value = true
+                    }
                 }
             }
         }

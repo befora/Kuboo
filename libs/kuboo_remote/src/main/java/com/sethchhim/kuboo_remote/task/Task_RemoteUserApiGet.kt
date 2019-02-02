@@ -59,10 +59,12 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
         }
     }
 
-    private fun handleAuthentication(call: Call) = Task_Authenticate(kubooRemote, login).liveData.observeForever { result ->
-        if (result == true) {
-            val secondCall = call.clone()
-            secondCall.retry()
+    private fun handleAuthentication(call: Call) = kubooRemote.mainThread.execute {
+        Task_Authenticate(kubooRemote, login).liveData.observeForever { result ->
+            if (result == true) {
+                val secondCall = call.clone()
+                secondCall.retry()
+            }
         }
     }
 
