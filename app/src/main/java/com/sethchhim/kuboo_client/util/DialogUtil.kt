@@ -53,7 +53,11 @@ class DialogUtil(val context: Context) {
     }.create()
 
     internal fun getDialogAppTheme(context: Context, onDialogSelect1: OnDialogSelect1) = getAlertDialogBuilder(context).apply {
-        setSingleChoiceItems(context.resources.getStringArray(R.array.settings_theme_entries), Settings.APP_THEME) { dialog, which ->
+        val selectedValue = when (Settings.APP_THEME) {
+            2 -> 1 //oled
+            else -> 0 //dark
+        }
+        setSingleChoiceItems(context.resources.getStringArray(R.array.settings_theme_entries), selectedValue) { dialog, which ->
             when (which) {
                 0 -> onDialogSelect1.onSelect0()
                 1 -> onDialogSelect1.onSelect1()
