@@ -119,17 +119,17 @@ class FetchRepository : FetchListener {
 
     internal fun resumeDownload(download: Download): Any = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.resume(download)
-        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isNetworkAllowed[${systemUtil.isNetworkAllowed()}]")
     }
 
     internal fun retryDownload(download: Download): Any = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.retry(download)
-        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isNetworkAllowed[${systemUtil.isNetworkAllowed()}]")
     }
 
     internal fun startDownloads(login: Login, list: List<Book>, savePath: String) = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.startDownloads(login, list, savePath)
-        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]")
+        false -> Timber.w("Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isNetworkAllowed[${systemUtil.isNetworkAllowed()}]")
     }
 
 }

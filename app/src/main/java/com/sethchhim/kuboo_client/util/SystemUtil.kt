@@ -85,14 +85,18 @@ class SystemUtil(private val context: Context) {
 
     internal fun isHardwareNavigation() = !isSoftwareNavigation()
 
-    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && isWifiEnabled()
+    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && !isMobileEnabled()
 
-    internal fun isNetworkAvailable(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected)
+    private fun isMobileEnabled(): Boolean {
+        val connectivityManager = getConnectivityManager()
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        val isMobile = activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
+        return isMobile && activeNetworkInfo.isConnected
     }
 
-    internal fun isWifiEnabled() = (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager).isWifiEnabled
+    private fun getConnectivityManager() = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    private fun getWifiManager() = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     //==============================================================================================
 

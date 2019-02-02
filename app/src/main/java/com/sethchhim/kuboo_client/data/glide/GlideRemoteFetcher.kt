@@ -123,7 +123,7 @@ class GlideRemoteFetcher internal constructor(private val client: Call.Factory, 
 
             })
         } else {
-            val message = "Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isWifiEnabled[${systemUtil.isWifiEnabled()}]"
+            val message = "Network is not allowed! wifiOnly[${Settings.WIFI_ONLY}] isNetworkAllowed[${systemUtil.isNetworkAllowed()}]"
             Timber.w(message)
             throw (NetworkErrorException(message))
         }
