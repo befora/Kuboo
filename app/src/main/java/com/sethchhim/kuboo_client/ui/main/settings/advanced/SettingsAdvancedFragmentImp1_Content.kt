@@ -24,9 +24,7 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
 
         setOnPreferenceClickListener {
             dialogUtil.getDialogRecentlyViewedHeightOffset(mainActivity).apply {
-                setOnDismissListener { sharedPrefsHelper.saveDownloadTrackingLimit() }
                 show()
-
                 val textView = findViewById<TextView>(R.id.dialog_layout_settings_recently_viewed_height_offset_textView0)!!
                 val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_recently_viewed_height_offset_button0)!!
                 val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_recently_viewed_height_offset_button1)!!
