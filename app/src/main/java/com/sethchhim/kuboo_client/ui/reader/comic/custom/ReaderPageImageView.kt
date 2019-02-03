@@ -27,7 +27,6 @@ class ReaderPageImageView : AppCompatImageView {
 
     private val ZOOM_DURATION = 200
     private val SCROLL_DURATION = 300
-    private val SCROLL_OFFSET = 0.12
     private val SWIPE_THRESHOLD = 100
     private val SWIPE_VELOCITY_THRESHOLD = 100
     private var mViewMode = PageViewMode.ASPECT_FIT
@@ -340,26 +339,35 @@ class ReaderPageImageView : AppCompatImageView {
 
     internal fun scrollToLeft(): Boolean {
         if (!canScrollHorizontallyLeft()) return false
-        val scrollValue = (width - (width * SCROLL_OFFSET)).toFloat()
+        val scrollValue = getOffsetValue(width, false)
         return post(ScrollAnimation(scrollValue, 0f))
     }
 
     internal fun scrollToRight(): Boolean {
         if (!canScrollHorizontallyRight()) return false
-        val scrollValue = (-(width - (width * SCROLL_OFFSET))).toFloat()
+        val scrollValue = getOffsetValue(width, true)
         return post(ScrollAnimation(scrollValue, 0f))
     }
 
     internal fun scrollToTop(): Boolean {
         if (!canScrollVerticallyTop()) return false
-        val scrollValue = (height - (height * SCROLL_OFFSET)).toFloat()
+        val scrollValue = getOffsetValue(height, false)
         return post(ScrollAnimation(0f, scrollValue))
     }
 
     internal fun scrollToBottom(): Boolean {
         if (!canScrollVerticallyBottom()) return false
-        val scrollValue = (-(height - (height * SCROLL_OFFSET))).toFloat()
+        val scrollValue = getOffsetValue(height, true)
         return post(ScrollAnimation(0f, scrollValue))
+    }
+
+    private fun getOffsetValue(value: Int, requestNegative: Boolean): Float {
+        val offsetValue = Settings.READER_SCROLL_OFFSET / 100.toDouble()
+        val result = (value + (value * offsetValue)).toFloat()
+        return when (requestNegative) {
+            true -> -result
+            false -> result
+        }
     }
 
     internal fun zoomOut(): Boolean {

@@ -253,6 +253,7 @@ Panel doble"</string>
     <string name="settings_protect_your_mobile_data_limit">"Permite proteger el uso de datos móviles"</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"Lee dos páginas simultáneamente en modo horizontal"</string>
     <string name="settings_reader">"Lector"</string>
+    <string name="settings_reader_scroll_offset">Desplazamiento de desplazamiento del lector</string>
     <string name="settings_reader_screen_will_keep_the_device_awake">"La pantalla del lector mantendrá el dispositivo activo"</string>
     <string name="settings_recent_viewed_plus_latest">"Vistos recientemente + Últimos añadidos"</string>
     <string name="settings_recently_viewed_only">"Solo vistos recientemente"</string>

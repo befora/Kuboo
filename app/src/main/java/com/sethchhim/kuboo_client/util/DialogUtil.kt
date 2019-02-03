@@ -151,7 +151,11 @@ class DialogUtil(val context: Context) {
         setView(context.layoutInflater.inflate(R.layout.dialog_layout_settings_recently_viewed_height_offset, null))
         setPositiveButton(context.getString(R.string.dialog_default)) { dialog, which -> }
         setMessage(context.getString(R.string.settings_adjust_height_offset_of_the_recently_viewed_row))
+    }.create()
 
+    internal fun getDialogReaderScrollOffset(context: Context) = getAlertDialogBuilder(context).apply {
+        setView(context.layoutInflater.inflate(R.layout.dialog_layout_settings_reader_scroll_offset, null))
+        setPositiveButton(context.getString(R.string.dialog_default)) { dialog, which -> }
     }.create()
 
     internal fun getDialogRequestRestart(context: Context, onDialogSelect0: OnDialogSelect0) = getAlertDialogBuilder(context).apply {

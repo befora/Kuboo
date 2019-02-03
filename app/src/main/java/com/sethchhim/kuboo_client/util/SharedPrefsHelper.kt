@@ -23,6 +23,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_LOGIN_LIST
 import com.sethchhim.kuboo_client.Constants.KEY_MARK_FINISHED
 import com.sethchhim.kuboo_client.Constants.KEY_MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Constants.KEY_PREVIEW
+import com.sethchhim.kuboo_client.Constants.KEY_READER_SCROLL_OFFSET
 import com.sethchhim.kuboo_client.Constants.KEY_RECENTLY_VIEWED_HEIGHT_OFFSET
 import com.sethchhim.kuboo_client.Constants.KEY_REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Constants.KEY_RTL
@@ -44,6 +45,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_EPUB_TEXT_ZOOM
 import com.sethchhim.kuboo_client.Settings.DEFAULT_HOME_LAYOUT
 import com.sethchhim.kuboo_client.Settings.DEFAULT_KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Settings.DEFAULT_MAX_PAGE_WIDTH
+import com.sethchhim.kuboo_client.Settings.DEFAULT_READER_SCROLL_OFFSET
 import com.sethchhim.kuboo_client.Settings.DEFAULT_RECENTLY_VIEWED_HEIGHT_OFFSET
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCREEN_ORIENTATION
@@ -64,6 +66,7 @@ import com.sethchhim.kuboo_client.Settings.KEEP_SCREEN_ON
 import com.sethchhim.kuboo_client.Settings.MARK_FINISHED
 import com.sethchhim.kuboo_client.Settings.MAX_PAGE_WIDTH
 import com.sethchhim.kuboo_client.Settings.PREVIEW
+import com.sethchhim.kuboo_client.Settings.READER_SCROLL_OFFSET
 import com.sethchhim.kuboo_client.Settings.RECENTLY_VIEWED_HEIGHT_OFFSET
 import com.sethchhim.kuboo_client.Settings.REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Settings.RTL
@@ -100,6 +103,7 @@ class SharedPrefsHelper(val context: Context) {
         MARK_FINISHED = sharedPreferences.getBoolean(KEY_MARK_FINISHED, true)
         MAX_PAGE_WIDTH = sharedPreferences.getInt(KEY_MAX_PAGE_WIDTH, DEFAULT_MAX_PAGE_WIDTH)
         PREVIEW = sharedPreferences.getBoolean(KEY_PREVIEW, true)
+        READER_SCROLL_OFFSET = sharedPreferences.getInt(KEY_READER_SCROLL_OFFSET, DEFAULT_READER_SCROLL_OFFSET)
         RTL = sharedPreferences.getBoolean(KEY_RTL, false)
         REVERSE_LAYOUT = sharedPreferences.getBoolean(KEY_REVERSE_LAYOUT, false)
         SCALE_TYPE = sharedPreferences.getInt(KEY_SCALE_TYPE, DEFAULT_SCALE_TYPE)
@@ -120,6 +124,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading KEEP_SCREEN_ON: $KEEP_SCREEN_ON")
             Timber.i("Loading SCALE_TYPE: $SCALE_TYPE")
             Timber.i("Loading PREVIEW: $PREVIEW")
+            Timber.i("Loading READER_SCROLL_OFFSET: $READER_SCROLL_OFFSET")
             Timber.i("Loading RTL: $RTL")
             Timber.i("Loading REVERSE_LAYOUT: $REVERSE_LAYOUT")
             Timber.i("Loading MAX_PAGE_WIDTH: $MAX_PAGE_WIDTH")
@@ -325,6 +330,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveRecentlyViewedHeightOffset() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving RECENTLY_VIEWED_HEIGHT_OFFSET: $RECENTLY_VIEWED_HEIGHT_OFFSET")
         sharedPreferences.edit().putInt(KEY_RECENTLY_VIEWED_HEIGHT_OFFSET, RECENTLY_VIEWED_HEIGHT_OFFSET).apply()
+    }
+
+    fun saveReaderScrollOffset() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving READER_SCROLL_OFFSET: $READER_SCROLL_OFFSET")
+        sharedPreferences.edit().putInt(KEY_READER_SCROLL_OFFSET, READER_SCROLL_OFFSET).apply()
     }
 
     private fun Any.toJson() = Gson().toJson(this)

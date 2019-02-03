@@ -30,11 +30,13 @@ open class SettingsAdvancedFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var mainActivity: MainActivity
 
     protected lateinit var homeRecentlyViewedHeightOffset: Preference
+    protected lateinit var readerScrollOffset: Preference
     protected lateinit var systemForceDownsizing: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_advanced)
         homeRecentlyViewedHeightOffset = findPreference("settings_home_recently_viewed_height_offset")
+        readerScrollOffset = findPreference("settings_reader_scroll_offset")
         systemForceDownsizing = findPreference("settings_force_downsizing")
     }
 

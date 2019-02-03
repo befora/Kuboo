@@ -266,6 +266,7 @@ HTTP NON TROUVÉ
     <string name="settings_protect_your_mobile_data_limit">"Protégez votre limite de données mobiles"</string>
     <string name="settings_read_two_pages_simultaneously_in_landscape_mode">"Lire deux pages simultanément en mode paysage"</string>
     <string name="settings_reader">"Lecteur"</string>
+    <string name="settings_reader_scroll_offset">Lecteur Scroll Offset</string>
     <string name="settings_reader_screen_will_keep_the_device_awake">"La lecture gardera l'appareil éveillé"</string>
     <string name="settings_force_downsizing">"Réduction des effectifs"</string>
     <string name="settings_force_downsizing_summary">"Résolution inférieure des images pour éviter les erreurs de mémoire insuffisante"</string>

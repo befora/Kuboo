@@ -13,6 +13,7 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
     override fun onResume() {
         super.onResume()
         setRecentlyViewedHeightOffset()
+        setReaderScrollOffset()
         setSystemForceDownsizing()
     }
 
@@ -63,6 +64,53 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
             false -> ""
         }
         return "$plus${Settings.RECENTLY_VIEWED_HEIGHT_OFFSET}%"
+    }
+
+    private fun setReaderScrollOffset() = readerScrollOffset.apply {
+        val minValue = -50
+        val maxValue = 50
+        summary = getReaderScrollOffsetSummary()
+
+        setOnPreferenceClickListener {
+            dialogUtil.getDialogReaderScrollOffset(mainActivity).apply {
+                show()
+                val textView = findViewById<TextView>(R.id.dialog_layout_settings_reader_scroll_offset_textView0)!!
+                val buttonDecrease = findViewById<TextView>(R.id.dialog_layout_settings_reader_scroll_offset_button0)!!
+                val buttonIncrease = findViewById<TextView>(R.id.dialog_layout_settings_reader_scroll_offset_button1)!!
+                getButton(Dialog.BUTTON_POSITIVE).onClick {
+                    Settings.READER_SCROLL_OFFSET = Settings.DEFAULT_READER_SCROLL_OFFSET
+                    sharedPrefsHelper.saveReaderScrollOffset()
+                    textView.text = getReaderScrollOffsetSummary()
+                    summary = getReaderScrollOffsetSummary()
+                }
+                textView.text = getReaderScrollOffsetSummary()
+                buttonDecrease.setOnClickListener {
+                    Settings.READER_SCROLL_OFFSET -= 1
+                    if (Settings.READER_SCROLL_OFFSET < minValue) Settings.READER_SCROLL_OFFSET = minValue
+                    sharedPrefsHelper.saveReaderScrollOffset()
+                    textView.text = getReaderScrollOffsetSummary()
+                    summary = getReaderScrollOffsetSummary()
+                }
+                buttonIncrease.setOnClickListener {
+                    Settings.READER_SCROLL_OFFSET += 1
+                    if (Settings.READER_SCROLL_OFFSET > maxValue) Settings.READER_SCROLL_OFFSET = maxValue
+                    sharedPrefsHelper.saveReaderScrollOffset()
+                    textView.text = getReaderScrollOffsetSummary()
+                    summary = getReaderScrollOffsetSummary()
+                }
+
+                findViewById<TextView>(android.R.id.message)?.apply { textSize = 10F }
+            }
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun getReaderScrollOffsetSummary(): String {
+        val plus = when (Settings.READER_SCROLL_OFFSET >= 0) {
+            true -> "+"
+            false -> ""
+        }
+        return "$plus${Settings.READER_SCROLL_OFFSET}%"
     }
 
     private fun setSystemForceDownsizing() = systemForceDownsizing.apply {

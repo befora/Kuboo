@@ -12,6 +12,10 @@
             android:summary="@string/settings_adjust_height_offset_of_the_recently_viewed_row"
             android:title="@string/settings_home_recently_viewed_height_offset"/>
         <androidx.preference.Preference
+            android:key="settings_reader_scroll_offset"
+            android:layout="@layout/settings_item_preference_normal"
+            android:title="@string/settings_reader_scroll_offset"/>
+        <androidx.preference.Preference
             android:key="settings_force_downsizing"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_force_downsizing_summary"
