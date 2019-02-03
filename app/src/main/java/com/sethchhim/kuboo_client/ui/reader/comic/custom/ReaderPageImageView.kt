@@ -18,6 +18,7 @@ import android.widget.OverScroller
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_client.data.enum.ScaleType.ASPECT_FIT
 import com.sethchhim.kuboo_client.ui.reader.base.ReaderBaseActivity
 import com.sethchhim.kuboo_client.ui.reader.pdf.ReaderPdfActivity
 import timber.log.Timber
@@ -454,6 +455,11 @@ class ReaderPageImageView : AppCompatImageView {
 
     override fun canScrollHorizontally(direction: Int): Boolean {
         if (drawable == null) return false
+
+        val isZoomedOut = currentScale == mOriginalScale
+        val isAspectFit = Settings.SCALE_TYPE == ASPECT_FIT.value
+        if (isAspectFit && isZoomedOut) return false
+
         val imageWidth = computeCurrentImageSize().x.toFloat()
 //        val imageHeight = computeCurrentImageSize().y.toFloat()
         val offsetX = computeCurrentOffset().x.toFloat()
