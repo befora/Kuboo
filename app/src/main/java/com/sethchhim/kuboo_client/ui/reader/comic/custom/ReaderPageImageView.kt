@@ -500,9 +500,9 @@ class ReaderPageImageView : AppCompatImageView {
         return true
     }
 
-    internal fun canScrollVerticallyTop() = canScrollVertically(-1)
+    private fun canScrollVerticallyTop() = canScrollVertically(-1)
 
-    internal fun canScrollVerticallyBottom() = canScrollVertically(1)
+    private fun canScrollVerticallyBottom() = canScrollVertically(1)
 
     override fun canScrollVertically(direction: Int): Boolean {
         if (drawable == null) return false
