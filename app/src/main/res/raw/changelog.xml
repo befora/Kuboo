@@ -2,8 +2,9 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Feb 2, 2019"
-        versionName="1.2.3">
+        changeDate="Feb 3, 2019"
+        versionName="1.2.4">
+        <changelogtext>add advanced setting reader scroll offset</changelogtext>
         <changelogtext>add browser select all</changelogtext>
         <changelogtext>add reader next/previous action will trigger scroll if available
         </changelogtext>
@@ -33,6 +34,7 @@
         <changelogtext>fix setting theme initial selection</changelogtext>
         <changelogtext>fix settings advanced backpress did not work</changelogtext>
         <changelogtext>fix splash icon was too small</changelogtext>
+        <changelogtext>fix unnecessary dismiss listener</changelogtext>
         <changelogtext>remove light theme</changelogtext>
         <changelogtext>update baserecyclerviewadapterhelper from 2.9.40 to 2.9.46</changelogtext>
         <changelogtext>update dagger from 2.19 to 2.21</changelogtext>
