@@ -5,6 +5,8 @@ import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
+import com.tonyodev.fetch2.Download
+import com.tonyodev.fetch2.Status
 import org.jetbrains.anko.collections.forEachWithIndex
 import timber.log.Timber
 
@@ -15,17 +17,21 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
     private val neighbors = Neighbors().apply { currentBook = book }
 
     init {
-        viewModel.getDownloadListLiveData().observeForever {
-            it?.let { searchForNeighbors(it.downloadListToBookList()) }
+        viewModel.getFetchDownloads().observeForever { fetchList ->
+            viewModel.getDownloadListLiveData().observeForever { downloadList ->
+                downloadList?.let {
+                    searchForNeighbors(fetchList, downloadList.downloadListToBookList())
+                }
+            }
         }
     }
 
-    private fun searchForNeighbors(result: List<Book>) {
+    private fun searchForNeighbors(fetchList: List<Download>, downloadList: List<Book>) {
         var position = -2
 
-        val downloadList = result.filter { it.getXmlId() == book.getXmlId() }
+        val list = downloadList.filter { it.getXmlId() == book.getXmlId() }
 
-        downloadList.forEachWithIndex { i, b ->
+        list.forEachWithIndex { i, b ->
             if (b.isMatch(book)) {
                 position = i
                 return@forEachWithIndex
@@ -34,7 +40,7 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
 
         try {
             val previousPosition = position - 1
-            val previousDownload = downloadList[previousPosition]
+            val previousDownload = list[previousPosition]
             neighbors.previousBook = previousDownload
             Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}]")
         } catch (e: IndexOutOfBoundsException) {
@@ -43,9 +49,12 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
 
         try {
             val nextPosition = position + 1
-            val nextDownload = downloadList[nextPosition]
-            neighbors.nextBook = nextDownload
-            Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}]")
+            val nextDownload = list[nextPosition]
+            val isNextDownloadFinished = fetchList.singleOrNull { it.url == nextDownload.getAcquisitionUrl() }?.status == Status.COMPLETED
+            if (isNextDownloadFinished) {
+                neighbors.nextBook = nextDownload
+                Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}] isNextDownloadFinished[$isNextDownloadFinished]")
+            }
         } catch (e: IndexOutOfBoundsException) {
             Timber.e("Failed to find next download neighbor!")
         }
