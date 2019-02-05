@@ -147,7 +147,7 @@ class SharedPrefsHelper(val context: Context) {
 
     fun getLoginLastAccessed(): Login? {
         val serverList = getServerList()
-        val sortedList = serverList.sortedWith(compareByDescending({ it.timeAccessed }))
+        val sortedList = serverList.sortedWith(compareByDescending { it.timeAccessed })
         return when (sortedList.isNotEmpty()) {
             true -> sortedList[0]
             false -> null
