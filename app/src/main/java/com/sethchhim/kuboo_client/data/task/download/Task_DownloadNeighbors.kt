@@ -41,8 +41,11 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
         try {
             val previousPosition = position - 1
             val previousDownload = list[previousPosition]
-            neighbors.previousBook = previousDownload
-            Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}]")
+            val isPreviousDownloadFinished = fetchList.singleOrNull { it.url == previousDownload.getAcquisitionUrl() }?.status == Status.COMPLETED
+            if (isPreviousDownloadFinished) {
+                neighbors.previousBook = previousDownload
+                Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}] isPreviousDownloadFinished[$isPreviousDownloadFinished]")
+            }
         } catch (e: IndexOutOfBoundsException) {
             Timber.e("Failed to find previous download neighbor!")
         }
