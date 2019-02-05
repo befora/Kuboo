@@ -9,6 +9,7 @@ import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Status
 import org.jetbrains.anko.collections.forEachWithIndex
 import timber.log.Timber
+import java.lang.Exception
 
 class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
 
@@ -46,7 +47,7 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
                 neighbors.previousBook = previousDownload
                 Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}] isPreviousDownloadFinished[$isPreviousDownloadFinished]")
             }
-        } catch (e: IndexOutOfBoundsException) {
+        } catch (e: Exception) {
             Timber.e("Failed to find previous download neighbor!")
         }
 
@@ -58,7 +59,7 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
                 neighbors.nextBook = nextDownload
                 Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}] isNextDownloadFinished[$isNextDownloadFinished]")
             }
-        } catch (e: IndexOutOfBoundsException) {
+        } catch (e: Exception) {
             Timber.e("Failed to find next download neighbor!")
         }
 
