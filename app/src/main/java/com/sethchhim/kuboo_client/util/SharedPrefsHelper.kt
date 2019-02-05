@@ -78,6 +78,7 @@ import com.sethchhim.kuboo_client.Settings.WIFI_ONLY
 import com.sethchhim.kuboo_remote.model.Login
 import org.jetbrains.anko.defaultSharedPreferences
 import timber.log.Timber
+import java.lang.Exception
 
 @SuppressLint("ApplySharedPref")
 class SharedPrefsHelper(val context: Context) {
@@ -141,9 +142,7 @@ class SharedPrefsHelper(val context: Context) {
 
     fun getServerList(): MutableList<Login> {
         val json = sharedPreferences.getString(KEY_LOGIN_LIST, null)
-        val type = object : TypeToken<MutableList<Login>>() {}.type
-        val serverList = Gson().fromJson<MutableList<Login>>(json, type)
-        return serverList ?: mutableListOf()
+        return json?.fromJson() ?: mutableListOf()
     }
 
     fun getLoginLastAccessed(): Login? {
@@ -337,6 +336,20 @@ class SharedPrefsHelper(val context: Context) {
         sharedPreferences.edit().putInt(KEY_READER_SCROLL_OFFSET, READER_SCROLL_OFFSET).apply()
     }
 
-    private fun Any.toJson() = Gson().toJson(this)
+    private fun MutableList<Login>.toJson(): String = try {
+        Gson().toJson(this)
+    } catch (e: Exception) {
+        ""
+    }
+
+    private fun String.fromJson(): MutableList<Login> {
+        val type = object : TypeToken<MutableList<Login>>() {}.type
+        return try {
+            Gson().fromJson(this, type)
+        } catch (e: Exception) {
+            mutableListOf()
+        }
+    }
 
 }
+
