@@ -2,8 +2,9 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Feb 3, 2019"
-        versionName="1.2.4">
+        changeDate="Feb 6, 2019"
+        versionName="1.2.5">
+        <changelogtext>add advanced setting allow vpn through wifi only setting</changelogtext>
         <changelogtext>add advanced setting reader scroll offset</changelogtext>
         <changelogtext>add browser select all</changelogtext>
         <changelogtext>add reader next/previous action will trigger scroll if available
@@ -15,6 +16,7 @@
         <changelogtext>fix browser did not clear glide request on recycle</changelogtext>
         <changelogtext>fix browser update use iterator is much cleaner</changelogtext>
         <changelogtext>fix cannot invoke observeforever on a background thread</changelogtext>
+        <changelogtext>fix crash if json parse fails</changelogtext>
         <changelogtext>fix download delete sometimes left a blank item behind</changelogtext>
         <changelogtext>fix download icon did not recycle properly</changelogtext>
         <changelogtext>fix download list did not update progress upon return</changelogtext>
@@ -28,6 +30,11 @@
         <changelogtext>fix reader aspect fill position accounts for rtl</changelogtext>
         <changelogtext>fix reader buttons did not account rtl</changelogtext>
         <changelogtext>fix reader can scroll horizontal bug</changelogtext>
+        <changelogtext>fix reader download next book did not check if status was finished
+        </changelogtext>
+        <changelogtext>fix reader download previous book did not check if status was finished
+        </changelogtext>
+        <changelogtext>fix reader next book end of series bug</changelogtext>
         <changelogtext>fix reader overlay seekbar width and padding</changelogtext>
         <changelogtext>fix reader seekbar missing in rtl mode</changelogtext>
         <changelogtext>fix reader viewpager refresh bug</changelogtext>
@@ -43,7 +50,8 @@
         <changelogtext>update kotlin from 1.3.11 to 1.3.20</changelogtext>
         <changelogtext>update material components from 1.1.0-alpha02 to 1.1.0-alpha03
         </changelogtext>
-        <changelogtext>update workmanager from 1.0.0-alpha11 to 1.0.0-beta03</changelogtext>
+        <changelogtext>update recyclerview from 1.1.0-alpha01 to 1.1.0-alpha02</changelogtext>
+        <changelogtext>update workmanager from 1.0.0-alpha11 to 1.0.0-beta04</changelogtext>
     </changelogversion>
 
 </changelog>
