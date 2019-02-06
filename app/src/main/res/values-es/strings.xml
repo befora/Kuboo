@@ -287,6 +287,7 @@ Panel doble"</string>
     <string name="settings_volume_buttons_will_turn_page">"Los botones de volumen permiten cambiar de página"</string>
     <string name="settings_volume_page_turn">"Usar botón de volumen para pasar la página"</string>
     <string name="settings_wifi_only">"Sólo wifi"</string>
+    <string name="settings_allow_vpn_through_wifi_only">Permitir VPN a través de la configuración Sólo Wifi</string>
 
     <string name="title_browse">"Explorar"</string>
     <string name="title_downloads">"Descargas"</string>

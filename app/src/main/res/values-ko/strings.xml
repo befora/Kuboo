@@ -293,6 +293,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
     <string name="settings_volume_buttons_will_turn_page">"볼륨버튼을 통해 페이지 이동을 합니다"</string>
     <string name="settings_volume_page_turn">"볼륨버튼 페이징"</string>
     <string name="settings_wifi_only">"Wifi 로만 다운로드"</string>
+    <string name="settings_allow_vpn_through_wifi_only">Wi-Fi 전용 설정을 통한 VPN 허용</string>
 
     <string name="title_browse">"탐색"</string>
     <string name="title_downloads">"다운로드"</string>

@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.ViewModel
@@ -31,12 +33,14 @@ open class SettingsAdvancedFragmentImp0_View : PreferenceFragmentCompat() {
 
     protected lateinit var homeRecentlyViewedHeightOffset: Preference
     protected lateinit var readerScrollOffset: Preference
+    protected lateinit var systemAllowVpnThroughWifiOnly: SwitchPreferenceCompat
     protected lateinit var systemForceDownsizing: Preference
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_advanced)
         homeRecentlyViewedHeightOffset = findPreference("settings_home_recently_viewed_height_offset")
         readerScrollOffset = findPreference("settings_reader_scroll_offset")
+        systemAllowVpnThroughWifiOnly = findPreference("settings_allow_vpn_through_wifi_only")
         systemForceDownsizing = findPreference("settings_force_downsizing")
     }
 

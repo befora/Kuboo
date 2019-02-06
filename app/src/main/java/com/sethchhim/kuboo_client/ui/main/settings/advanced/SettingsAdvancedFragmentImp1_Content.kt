@@ -14,6 +14,7 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
         super.onResume()
         setRecentlyViewedHeightOffset()
         setReaderScrollOffset()
+        setSystemAllowVpnThroughWifiOnly()
         setSystemForceDownsizing()
     }
 
@@ -109,6 +110,15 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
             false -> ""
         }
         return "$plus${Settings.READER_SCROLL_OFFSET}%"
+    }
+
+    private fun setSystemAllowVpnThroughWifiOnly() = systemAllowVpnThroughWifiOnly.apply {
+        isChecked = Settings.ALLOW_VPN_THROUGH_WIFI_ONLY
+        setOnPreferenceClickListener {
+            Settings.ALLOW_VPN_THROUGH_WIFI_ONLY = !Settings.ALLOW_VPN_THROUGH_WIFI_ONLY
+            sharedPrefsHelper.saveAllowVpnThroughWifiOnly()
+            return@setOnPreferenceClickListener true
+        }
     }
 
     private fun setSystemForceDownsizing() = systemForceDownsizing.apply {

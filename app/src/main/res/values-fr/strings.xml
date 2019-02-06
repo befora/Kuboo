@@ -302,6 +302,7 @@ HTTP NON TROUVÉ
     <string name="settings_volume_buttons_will_turn_page">"Les boutons de volume tourneront la page"</string>
     <string name="settings_volume_page_turn">"Tourner la page avec boutons de volume"</string>
     <string name="settings_wifi_only">"Wifi Seulement"</string>
+    <string name="settings_allow_vpn_through_wifi_only">Autoriser le VPN via le paramètre Wifi-Only</string>
 
     <string name="title_browse">"Parcourir"</string>
     <string name="title_downloads">"Téléchargements"</string>

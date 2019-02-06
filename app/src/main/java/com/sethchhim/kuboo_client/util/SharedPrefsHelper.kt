@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.sethchhim.kuboo_client.Constants.KEY_ALLOW_VPN_THROUGH_WIFI_ONLY
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_MEDIA_FORCE_LIST
@@ -32,6 +33,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Constants.KEY_START_TAB
 import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
+import com.sethchhim.kuboo_client.Settings.ALLOW_VPN_THROUGH_WIFI_ONLY
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
@@ -88,6 +90,7 @@ class SharedPrefsHelper(val context: Context) {
 
     fun restoreSettings() {
         APP_THEME = sharedPreferences.getInt(KEY_APP_THEME, DEFAULT_APP_THEME)
+        ALLOW_VPN_THROUGH_WIFI_ONLY = sharedPreferences.getBoolean(KEY_ALLOW_VPN_THROUGH_WIFI_ONLY, false)
         BROWSER_MEDIA_FORCE_LIST = sharedPreferences.getBoolean(KEY_BROWSER_MEDIA_FORCE_LIST, DEFAULT_BROWSER_MEDIA_FORCE_LIST)
         DOWNLOAD_TRACKING_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_LIMIT, DEFAULT_DOWNLOAD_TRACKING_LIMIT)
         DOWNLOAD_TRACKING_INTERVAL = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DEFAULT_DOWNLOAD_TRACKING_INTERVAL)
@@ -334,6 +337,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveReaderScrollOffset() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving READER_SCROLL_OFFSET: $READER_SCROLL_OFFSET")
         sharedPreferences.edit().putInt(KEY_READER_SCROLL_OFFSET, READER_SCROLL_OFFSET).apply()
+    }
+
+    fun saveAllowVpnThroughWifiOnly() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving ALLOW_VPN_THROUGH_WIFI_ONLY: $ALLOW_VPN_THROUGH_WIFI_ONLY")
+        sharedPreferences.edit().putBoolean(KEY_ALLOW_VPN_THROUGH_WIFI_ONLY, ALLOW_VPN_THROUGH_WIFI_ONLY).apply()
     }
 
     private fun MutableList<Login>.toJson(): String = try {

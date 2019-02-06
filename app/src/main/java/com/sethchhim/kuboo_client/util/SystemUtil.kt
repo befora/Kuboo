@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.Typeface
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.TRANSPORT_VPN
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.Uri
 import android.net.wifi.WifiManager
@@ -93,7 +94,10 @@ class SystemUtil(private val context: Context) {
         val connectivityManager = getConnectivityManager()
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            networkCapabilities.hasTransport(TRANSPORT_WIFI)
+            when (Settings.ALLOW_VPN_THROUGH_WIFI_ONLY) {
+                true -> networkCapabilities.hasTransport(TRANSPORT_WIFI) || networkCapabilities.hasTransport(TRANSPORT_VPN)
+                false -> networkCapabilities.hasTransport(TRANSPORT_WIFI)
+            }
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
