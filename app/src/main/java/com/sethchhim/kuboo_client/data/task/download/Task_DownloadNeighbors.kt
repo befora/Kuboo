@@ -42,7 +42,8 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
         try {
             val previousPosition = position - 1
             val previousDownload = list[previousPosition]
-            val isPreviousDownloadFinished = fetchList.singleOrNull { it.url == previousDownload.getAcquisitionUrl() }?.status == Status.COMPLETED
+            val previousBook = fetchList.singleOrNull { it.url == previousDownload.getAcquisitionUrl() }
+            val isPreviousDownloadFinished = previousBook?.status == Status.COMPLETED
             if (isPreviousDownloadFinished) {
                 neighbors.previousBook = previousDownload
                 Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}] isPreviousDownloadFinished[$isPreviousDownloadFinished]")
@@ -54,7 +55,8 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
         try {
             val nextPosition = position + 1
             val nextDownload = list[nextPosition]
-            val isNextDownloadFinished = fetchList.singleOrNull { it.url == nextDownload.getAcquisitionUrl() }?.status == Status.COMPLETED
+            val nextBook = fetchList.singleOrNull { it.url == nextDownload.getAcquisitionUrl() }
+            val isNextDownloadFinished = nextBook?.status == Status.COMPLETED
             if (isNextDownloadFinished) {
                 neighbors.nextBook = nextDownload
                 Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}] isNextDownloadFinished[$isNextDownloadFinished]")
