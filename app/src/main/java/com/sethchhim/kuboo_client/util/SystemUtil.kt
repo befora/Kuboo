@@ -7,8 +7,10 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.Typeface
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.Uri
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import androidx.core.content.ContextCompat
@@ -85,13 +87,17 @@ class SystemUtil(private val context: Context) {
 
     internal fun isHardwareNavigation() = !isSoftwareNavigation()
 
-    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && !isActiveNetworkMobile()
+    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && isActiveNetworkWifi()
 
-    private fun isActiveNetworkMobile(): Boolean {
+    private fun isActiveNetworkWifi(): Boolean {
         val connectivityManager = getConnectivityManager()
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        val isMobile = activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
-        return isMobile && activeNetworkInfo.isConnected
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            networkCapabilities.hasTransport(TRANSPORT_WIFI)
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
+        }
     }
 
     private fun getConnectivityManager() = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
