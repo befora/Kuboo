@@ -42,11 +42,11 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
         try {
             val previousPosition = position - 1
             val previousDownload = list[previousPosition]
-            val previousBook = fetchList.singleOrNull { it.url == previousDownload.getAcquisitionUrl() }
-            val isPreviousDownloadFinished = previousBook?.status == Status.COMPLETED
-            if (isPreviousDownloadFinished) {
+            val previousFetch = fetchList.singleOrNull { it.url == previousDownload.getAcquisitionUrl() }
+            val isPreviousDownloadValid = isFetchValid(previousFetch)
+            if (isPreviousDownloadValid) {
                 neighbors.previousBook = previousDownload
-                Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}] isPreviousDownloadFinished[$isPreviousDownloadFinished]")
+                Timber.i("Found previousBook! position[$previousPosition] title[${neighbors.previousBook?.title}] isPreviousDownloadValid[$isPreviousDownloadValid]")
             }
         } catch (e: Exception) {
             Timber.e("Failed to find previous download neighbor!")
@@ -55,17 +55,21 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
         try {
             val nextPosition = position + 1
             val nextDownload = list[nextPosition]
-            val nextBook = fetchList.singleOrNull { it.url == nextDownload.getAcquisitionUrl() }
-            val isNextDownloadFinished = nextBook?.status == Status.COMPLETED
-            if (isNextDownloadFinished) {
+            val nextFetch = fetchList.singleOrNull { it.url == nextDownload.getAcquisitionUrl() }
+            val isNextDownloadValid = isFetchValid(nextFetch)
+            if (isNextDownloadValid) {
                 neighbors.nextBook = nextDownload
-                Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}] isNextDownloadFinished[$isNextDownloadFinished]")
+                Timber.i("Found nextBook! position[$nextPosition] title[${neighbors.nextBook?.title}] isNextDownloadValid[$isNextDownloadValid]")
             }
         } catch (e: Exception) {
             Timber.e("Failed to find next download neighbor!")
         }
 
         liveData.value = neighbors
+    }
+
+    private fun isFetchValid(fetchItem: Download?): Boolean {
+        return fetchItem?.status == Status.COMPLETED
     }
 
 }

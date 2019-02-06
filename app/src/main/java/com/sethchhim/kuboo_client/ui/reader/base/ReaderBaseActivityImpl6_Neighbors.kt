@@ -3,6 +3,7 @@ package com.sethchhim.kuboo_client.ui.reader.base
 import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Settings
+import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
 import timber.log.Timber
 
@@ -41,8 +42,8 @@ open class ReaderBaseActivityImpl6_Neighbors : ReaderBaseActivityImpl5_Bookmark(
     }
 
     private fun handlePopulateNeighborResult(result: Neighbors) {
-        result.previousBook?.let { previousBook = it }
-        result.nextBook?.let { nextBook = it }
+        previousBook = result.previousBook ?: Book()
+        nextBook = result.nextBook ?: Book()
 
         if (!nextBook.isEmpty()) {
             when (isLocal) {
