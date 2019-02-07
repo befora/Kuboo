@@ -79,7 +79,6 @@
             android:layout_marginEnd="4dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/browser_item_content_folder_sparkButton"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
+                android:scrollbars="none"
                 android:text="@{item.title}"
                 android:textSize="14sp" />
 
