@@ -2,6 +2,7 @@ package com.sethchhim.kuboo_client.ui.reader.base
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
+import com.sethchhim.kuboo_client.Extensions.observeOnce
 import com.sethchhim.kuboo_client.Settings
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
@@ -16,7 +17,7 @@ open class ReaderBaseActivityImpl6_Neighbors : ReaderBaseActivityImpl5_Bookmark(
     }
 
     private fun populateNeighborsDownload() {
-        viewModel.getNeighborsDownload(currentBook).observe(this, Observer {
+        viewModel.getNeighborsDownload(currentBook).observeOnce(Observer {
             it?.let { handlePopulateNeighborResult(it) }
         })
     }

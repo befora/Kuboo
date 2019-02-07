@@ -27,6 +27,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -235,6 +236,15 @@ object Extensions {
         this >= 1024 * 1024 * 1024 -> "${(((this / 1024) / 1024) / 1024.00).limitDecimalTwo()} GB"
         this >= 1024 * 1024 -> "${((this / 1024) / 1024.00).limitDecimalTwo()} MB"
         else -> "${(this / 1024.00).limitDecimalTwo()} KB"
+    }
+
+    internal fun <T> LiveData<T>.observeOnce(observer: Observer<T>) {
+        observeForever(object : Observer<T> {
+            override fun onChanged(t: T?) {
+                observer.onChanged(t)
+                removeObserver(this)
+            }
+        })
     }
 
     internal fun <T> LiveData<T>.removeAllObservers(lifecycleOwner: LifecycleOwner) {

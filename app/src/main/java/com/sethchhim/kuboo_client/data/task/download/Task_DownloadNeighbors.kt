@@ -1,7 +1,9 @@
 package com.sethchhim.kuboo_client.data.task.download
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.Extensions.downloadListToBookList
+import com.sethchhim.kuboo_client.Extensions.observeOnce
 import com.sethchhim.kuboo_client.data.task.base.Task_LocalBase
 import com.sethchhim.kuboo_remote.model.Book
 import com.sethchhim.kuboo_remote.model.Neighbors
@@ -9,7 +11,7 @@ import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Status
 import org.jetbrains.anko.collections.forEachWithIndex
 import timber.log.Timber
-import java.lang.Exception
+
 
 class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
 
@@ -18,13 +20,11 @@ class Task_DownloadNeighbors(val book: Book) : Task_LocalBase() {
     private val neighbors = Neighbors().apply { currentBook = book }
 
     init {
-        viewModel.getFetchDownloads().observeForever { fetchList ->
-            viewModel.getDownloadListLiveData().observeForever { downloadList ->
-                downloadList?.let {
-                    searchForNeighbors(fetchList, downloadList.downloadListToBookList())
-                }
-            }
-        }
+        viewModel.getFetchDownloads().observeOnce(Observer { fetchList ->
+            viewModel.getDownloadListLiveData().observeOnce(Observer { downloadList ->
+                searchForNeighbors(fetchList, downloadList.downloadListToBookList())
+            })
+        })
     }
 
     private fun searchForNeighbors(fetchList: List<Download>, downloadList: List<Book>) {
