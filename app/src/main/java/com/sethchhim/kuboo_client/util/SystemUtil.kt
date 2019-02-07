@@ -94,9 +94,12 @@ class SystemUtil(private val context: Context) {
         val connectivityManager = getConnectivityManager()
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            when (Settings.ALLOW_VPN_THROUGH_WIFI_ONLY) {
-                true -> networkCapabilities.hasTransport(TRANSPORT_WIFI) || networkCapabilities.hasTransport(TRANSPORT_VPN)
-                false -> networkCapabilities.hasTransport(TRANSPORT_WIFI)
+            when (networkCapabilities == null) {
+                true -> return false
+                false -> when (Settings.ALLOW_VPN_THROUGH_WIFI_ONLY) {
+                    true -> networkCapabilities.hasTransport(TRANSPORT_WIFI) || networkCapabilities.hasTransport(TRANSPORT_VPN)
+                    false -> networkCapabilities.hasTransport(TRANSPORT_WIFI)
+                }
             }
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
