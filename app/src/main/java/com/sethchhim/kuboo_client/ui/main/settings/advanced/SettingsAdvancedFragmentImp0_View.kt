@@ -36,12 +36,14 @@ open class SettingsAdvancedFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var browserReverseLayoutPreference: SwitchPreferenceCompat
     protected lateinit var readerScrollOffset: Preference
     protected lateinit var systemForceDownsizing: Preference
+    protected lateinit var sharedElementTransition: SwitchPreferenceCompat
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_advanced)
         homeRecentlyViewedHeightOffset = findPreference("settings_home_recently_viewed_height_offset")
         browserPreviewPreference = findPreference("settings_browser_preview") as SwitchPreferenceCompat
         browserReverseLayoutPreference = findPreference("settings_browser_reverse_layout") as SwitchPreferenceCompat
+        sharedElementTransition = findPreference("settings_shared_element_transition") as SwitchPreferenceCompat
         readerScrollOffset = findPreference("settings_reader_scroll_offset")
         systemForceDownsizing = findPreference("settings_force_downsizing")
     }

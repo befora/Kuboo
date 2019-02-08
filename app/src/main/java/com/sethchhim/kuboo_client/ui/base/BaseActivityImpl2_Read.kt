@@ -97,7 +97,7 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
 
                     val isNotBannedFromTransition = !book.isBannedFromTransition()
                     val isSharedElementValid = sharedElement?.isVisible() ?: false
-                    when (isNotBannedFromTransition && isSharedElementValid) {
+                    when (Settings.SHARED_ELEMENT_TRANSITION && isNotBannedFromTransition && isSharedElementValid) {
                         true -> GlobalScope.launch(Dispatchers.Main) {
                             delay(300)
                             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl2_Read, sharedElement!!, sharedElement!!.transitionName)
@@ -124,10 +124,13 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
                 putExtra(Constants.ARG_TRANSITION_URL, sharedElement?.transitionName)
             }
 
-            sharedElement?.let {
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl2_Read, it, it.transitionName)
-                startActivity(intent, options.toBundle())
-            } ?: this@BaseActivityImpl2_Read.startActivity(intent)
+            when (Settings.SHARED_ELEMENT_TRANSITION && sharedElement != null) {
+                true -> sharedElement?.let {
+                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@BaseActivityImpl2_Read, it, it.transitionName)
+                    startActivity(intent, options.toBundle())
+                }
+                false -> this@BaseActivityImpl2_Read.startActivity(intent)
+            }
         }
     }
 

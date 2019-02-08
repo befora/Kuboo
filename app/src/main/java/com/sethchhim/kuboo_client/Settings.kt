@@ -46,6 +46,7 @@ object Settings {
     var SCREEN_ORIENTATION = DEFAULT_SCREEN_ORIENTATION
     val ROUNDED_CORNERS_VALUE = 8
 
+    var SHARED_ELEMENT_TRANSITION = true
     var FAVORITE = true
     var IMMERSIVE_BROWSER = false
     var MARK_FINISHED = false

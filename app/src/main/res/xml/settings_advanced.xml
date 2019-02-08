@@ -30,6 +30,11 @@
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_content_starts_from_the_bottom_towards_top"
             android:title="@string/settings_reverse_layout"/>
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="settings_shared_element_transition"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_show_transition_animations"
+            android:title="@string/settings_shared_element_transition"/>
     </androidx.preference.PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

@@ -277,6 +277,8 @@
     <string name="settings_volume_buttons_will_turn_page">Volume buttons will turn the page</string>
     <string name="settings_volume_page_turn">Volume Page Turn</string>
     <string name="settings_disable_cellular">Disable Cellular</string>
+    <string name="settings_shared_element_transition">Shared Element Transition</string>
+    <string name="settings_show_transition_animations">Show transition animations</string>
 
     <string name="title_browse">Browse</string>
     <string name="title_downloads">Downloads</string>

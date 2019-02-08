@@ -30,6 +30,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Constants.KEY_RTL
 import com.sethchhim.kuboo_client.Constants.KEY_SCALE_TYPE
 import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Constants.KEY_SHARED_ELEMENT_TRANSITION
 import com.sethchhim.kuboo_client.Constants.KEY_START_TAB
 import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_client.Settings.DISABLE_CELLULAR
@@ -73,6 +74,7 @@ import com.sethchhim.kuboo_client.Settings.REVERSE_LAYOUT
 import com.sethchhim.kuboo_client.Settings.RTL
 import com.sethchhim.kuboo_client.Settings.SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.SCREEN_ORIENTATION
+import com.sethchhim.kuboo_client.Settings.SHARED_ELEMENT_TRANSITION
 import com.sethchhim.kuboo_client.Settings.START_TAB
 import com.sethchhim.kuboo_client.Settings.VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_remote.model.Login
@@ -113,6 +115,7 @@ class SharedPrefsHelper(val context: Context) {
         START_TAB = sharedPreferences.getInt(KEY_START_TAB, DEFAULT_START_TAB)
         VOLUME_PAGE_TURN = sharedPreferences.getBoolean(KEY_VOLUME_PAGE_TURN, DEFAULT_VOLUME_PAGE_TURN)
         RECENTLY_VIEWED_HEIGHT_OFFSET = sharedPreferences.getInt(KEY_RECENTLY_VIEWED_HEIGHT_OFFSET, DEFAULT_RECENTLY_VIEWED_HEIGHT_OFFSET)
+        SHARED_ELEMENT_TRANSITION = sharedPreferences.getBoolean(KEY_SHARED_ELEMENT_TRANSITION, true)
 
         if (isDebugSharedPreferencesHelper) {
             Timber.i("Loading APP_THEME: $APP_THEME")
@@ -137,6 +140,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading DOWNLOAD_TRACKING_LIMIT: $DOWNLOAD_TRACKING_LIMIT")
             Timber.i("Loading RECENTLY_VIEWED_HEIGHT_OFFSET: $RECENTLY_VIEWED_HEIGHT_OFFSET")
             Timber.i("Loading DISABLE_CELLULAR: $DISABLE_CELLULAR")
+            Timber.i("Loading SHARED_ELEMENT_TRANSITION: $SHARED_ELEMENT_TRANSITION")
         }
     }
 
@@ -334,6 +338,11 @@ class SharedPrefsHelper(val context: Context) {
     fun saveDisableCellular() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving DISABLE_CELLULAR: $DISABLE_CELLULAR")
         sharedPreferences.edit().putBoolean(KEY_DISABLE_CELLULAR, DISABLE_CELLULAR).apply()
+    }
+
+    fun saveSharedElementTransition() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving SHARED_ELEMENT_TRANSITION: $SHARED_ELEMENT_TRANSITION")
+        sharedPreferences.edit().putBoolean(KEY_SHARED_ELEMENT_TRANSITION, SHARED_ELEMENT_TRANSITION).apply()
     }
 
     private fun MutableList<Login>.toJson(): String = try {

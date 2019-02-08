@@ -17,6 +17,7 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
         setBrowserPreviewPreference()
         setBrowserReverseLayoutPreference()
         setSystemForceDownsizing()
+        setSharedElementTransition()
     }
 
     private fun setRecentlyViewedHeightOffset() = homeRecentlyViewedHeightOffset.apply {
@@ -176,6 +177,15 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
         setOnPreferenceClickListener {
             Settings.REVERSE_LAYOUT = !Settings.REVERSE_LAYOUT
             sharedPrefsHelper.saveReverseLayout()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setSharedElementTransition() = sharedElementTransition.apply {
+        isChecked = Settings.SHARED_ELEMENT_TRANSITION
+        setOnPreferenceClickListener {
+            Settings.SHARED_ELEMENT_TRANSITION = !Settings.SHARED_ELEMENT_TRANSITION
+            sharedPrefsHelper.saveSharedElementTransition()
             return@setOnPreferenceClickListener true
         }
     }
