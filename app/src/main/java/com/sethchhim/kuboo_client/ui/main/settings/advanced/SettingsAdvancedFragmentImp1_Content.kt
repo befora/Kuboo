@@ -14,6 +14,8 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
         super.onResume()
         setRecentlyViewedHeightOffset()
         setReaderScrollOffset()
+        setBrowserPreviewPreference()
+        setBrowserReverseLayoutPreference()
         setSystemForceDownsizing()
     }
 
@@ -156,6 +158,24 @@ open class SettingsAdvancedFragmentImp1_Content : SettingsAdvancedFragmentImp0_V
                     }
                 }
             }
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setBrowserPreviewPreference() = browserPreviewPreference.apply {
+        isChecked = Settings.PREVIEW
+        setOnPreferenceClickListener {
+            Settings.PREVIEW = !Settings.PREVIEW
+            sharedPrefsHelper.savePreview()
+            return@setOnPreferenceClickListener true
+        }
+    }
+
+    private fun setBrowserReverseLayoutPreference() = browserReverseLayoutPreference.apply {
+        isChecked = Settings.REVERSE_LAYOUT
+        setOnPreferenceClickListener {
+            Settings.REVERSE_LAYOUT = !Settings.REVERSE_LAYOUT
+            sharedPrefsHelper.saveReverseLayout()
             return@setOnPreferenceClickListener true
         }
     }

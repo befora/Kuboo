@@ -14,8 +14,6 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
         setBrowserFavoritePreference()
         setBrowserMarkFinishedPreference()
-        setBrowserPreviewPreference()
-        setBrowserReverseLayoutPreference()
 
         setDownloadFinishedNotification()
         setDownloadSavePath()
@@ -67,24 +65,6 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         setOnPreferenceClickListener {
             Settings.MARK_FINISHED = !Settings.MARK_FINISHED
             sharedPrefsHelper.saveMarkFinished()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setBrowserPreviewPreference() = browserPreviewPreference.apply {
-        isChecked = Settings.PREVIEW
-        setOnPreferenceClickListener {
-            Settings.PREVIEW = !Settings.PREVIEW
-            sharedPrefsHelper.savePreview()
-            return@setOnPreferenceClickListener true
-        }
-    }
-
-    private fun setBrowserReverseLayoutPreference() = browserReverseLayoutPreference.apply {
-        isChecked = Settings.REVERSE_LAYOUT
-        setOnPreferenceClickListener {
-            Settings.REVERSE_LAYOUT = !Settings.REVERSE_LAYOUT
-            sharedPrefsHelper.saveReverseLayout()
             return@setOnPreferenceClickListener true
         }
     }

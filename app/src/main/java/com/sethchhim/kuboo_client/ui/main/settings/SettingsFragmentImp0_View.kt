@@ -33,8 +33,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var aboutVersionPreference: Preference
     protected lateinit var browserFavoritePreference: SwitchPreferenceCompat
     protected lateinit var browserMarkFinishedPreference: SwitchPreferenceCompat
-    protected lateinit var browserPreviewPreference: SwitchPreferenceCompat
-    protected lateinit var browserReverseLayoutPreference: SwitchPreferenceCompat
+
     protected lateinit var downloadFinishedNotification: SwitchPreferenceCompat
     protected lateinit var downloadSavePath: Preference
     protected lateinit var downloadTrackingLimit: Preference
@@ -55,8 +54,6 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         aboutVersionPreference = findPreference("settings_about_version")
         browserFavoritePreference = findPreference("settings_browser_favorite") as SwitchPreferenceCompat
         browserMarkFinishedPreference = findPreference("settings_browser_mark_finished") as SwitchPreferenceCompat
-        browserPreviewPreference = findPreference("settings_browser_preview") as SwitchPreferenceCompat
-        browserReverseLayoutPreference = findPreference("settings_browser_reverse_layout") as SwitchPreferenceCompat
         downloadFinishedNotification = findPreference("settings_download_show_finished_notification") as SwitchPreferenceCompat
         downloadSavePath = findPreference("settings_download_save_path")
         downloadTrackingLimit = findPreference("settings_download_tracking_limit")
