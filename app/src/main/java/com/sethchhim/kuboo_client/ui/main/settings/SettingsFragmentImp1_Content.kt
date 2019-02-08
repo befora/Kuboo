@@ -32,7 +32,7 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
 
         setSystemThemePreference()
         setSystemOrientationPreference()
-        setSystemWifiOnlyPreference()
+        setSystemDisableCellularPreference()
         setSystemStartTab()
 
         setAdvancedPreference()
@@ -333,11 +333,11 @@ open class SettingsFragmentImp1_Content : SettingsFragmentImp0_View() {
         }
     }
 
-    private fun setSystemWifiOnlyPreference() = systemWifiOnlyPreference.apply {
-        isChecked = Settings.WIFI_ONLY
+    private fun setSystemDisableCellularPreference() = systemDisableCellularPreference.apply {
+        isChecked = Settings.DISABLE_CELLULAR
         setOnPreferenceClickListener {
-            Settings.WIFI_ONLY = !Settings.WIFI_ONLY
-            sharedPrefsHelper.saveWifiOnly()
+            Settings.DISABLE_CELLULAR = !Settings.DISABLE_CELLULAR
+            sharedPrefsHelper.saveDisableCellular()
             return@setOnPreferenceClickListener true
         }
     }

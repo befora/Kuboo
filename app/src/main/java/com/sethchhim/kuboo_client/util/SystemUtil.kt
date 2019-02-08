@@ -7,8 +7,7 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.Typeface
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities.TRANSPORT_VPN
-import android.net.NetworkCapabilities.TRANSPORT_WIFI
+import android.net.NetworkCapabilities.*
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -88,22 +87,16 @@ class SystemUtil(private val context: Context) {
 
     internal fun isHardwareNavigation() = !isSoftwareNavigation()
 
-    internal fun isNetworkAllowed() = !Settings.WIFI_ONLY || Settings.WIFI_ONLY && isActiveNetworkWifi()
+    internal fun isNetworkAllowed() = !Settings.DISABLE_CELLULAR || Settings.DISABLE_CELLULAR && !isActiveNetworkCellular()
 
-    private fun isActiveNetworkWifi(): Boolean {
+    private fun isActiveNetworkCellular(): Boolean {
         val connectivityManager = getConnectivityManager()
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            when (networkCapabilities == null) {
-                true -> return false
-                false -> when (Settings.ALLOW_VPN_THROUGH_WIFI_ONLY) {
-                    true -> networkCapabilities.hasTransport(TRANSPORT_WIFI) || networkCapabilities.hasTransport(TRANSPORT_VPN)
-                    false -> networkCapabilities.hasTransport(TRANSPORT_WIFI)
-                }
-            }
+            networkCapabilities != null && networkCapabilities.hasTransport(TRANSPORT_CELLULAR)
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
+            activeNetworkInfo != null && activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
         }
     }
 

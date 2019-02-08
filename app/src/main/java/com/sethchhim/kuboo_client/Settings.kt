@@ -59,7 +59,7 @@ object Settings {
 
     //-----------------------------------CONNECTION_PREFERENCES-------------------------------------
     var WIFI_ONLY = false
-    var ALLOW_VPN_THROUGH_WIFI_ONLY = false
+    var DISABLE_CELLULAR = false
 
     //-----------------------------------DOWNLOAD_PREFERENCES-------------------------------------
     var DOWNLOAD_FINISHED_NOTIFICATION = DEFAULT_DOWNLOAD_FINISHED_NOTIFICATION

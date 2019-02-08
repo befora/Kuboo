@@ -15,10 +15,6 @@
             android:key="settings_reader_scroll_offset"
             android:layout="@layout/settings_item_preference_normal"
             android:title="@string/settings_reader_scroll_offset" />
-        <androidx.preference.SwitchPreferenceCompat
-            android:key="settings_allow_vpn_through_wifi_only"
-            android:layout="@layout/settings_item_preference_normal"
-            android:title="@string/settings_allow_vpn_through_wifi_only" />
         <androidx.preference.Preference
             android:key="settings_force_downsizing"
             android:layout="@layout/settings_item_preference_normal"

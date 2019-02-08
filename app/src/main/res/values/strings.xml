@@ -276,8 +276,7 @@
     <string name="settings_version">Version</string>
     <string name="settings_volume_buttons_will_turn_page">Volume buttons will turn the page</string>
     <string name="settings_volume_page_turn">Volume Page Turn</string>
-    <string name="settings_wifi_only">Wifi Only</string>
-    <string name="settings_allow_vpn_through_wifi_only">Allow VPN through the Wifi-Only setting</string>
+    <string name="settings_disable_cellular">Disable Cellular</string>
 
     <string name="title_browse">Browse</string>
     <string name="title_downloads">Downloads</string>

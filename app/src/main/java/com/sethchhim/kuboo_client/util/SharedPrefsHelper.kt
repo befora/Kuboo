@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sethchhim.kuboo_client.Constants.KEY_ALLOW_VPN_THROUGH_WIFI_ONLY
+import com.sethchhim.kuboo_client.Constants.KEY_DISABLE_CELLULAR
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_MEDIA_FORCE_LIST
@@ -32,8 +32,7 @@ import com.sethchhim.kuboo_client.Constants.KEY_SCALE_TYPE
 import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Constants.KEY_START_TAB
 import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
-import com.sethchhim.kuboo_client.Constants.KEY_WIFI_ONLY
-import com.sethchhim.kuboo_client.Settings.ALLOW_VPN_THROUGH_WIFI_ONLY
+import com.sethchhim.kuboo_client.Settings.DISABLE_CELLULAR
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
@@ -76,7 +75,6 @@ import com.sethchhim.kuboo_client.Settings.SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Settings.START_TAB
 import com.sethchhim.kuboo_client.Settings.VOLUME_PAGE_TURN
-import com.sethchhim.kuboo_client.Settings.WIFI_ONLY
 import com.sethchhim.kuboo_remote.model.Login
 import org.jetbrains.anko.defaultSharedPreferences
 import timber.log.Timber
@@ -90,7 +88,7 @@ class SharedPrefsHelper(val context: Context) {
 
     fun restoreSettings() {
         APP_THEME = sharedPreferences.getInt(KEY_APP_THEME, DEFAULT_APP_THEME)
-        ALLOW_VPN_THROUGH_WIFI_ONLY = sharedPreferences.getBoolean(KEY_ALLOW_VPN_THROUGH_WIFI_ONLY, false)
+        DISABLE_CELLULAR = sharedPreferences.getBoolean(KEY_DISABLE_CELLULAR, false)
         BROWSER_MEDIA_FORCE_LIST = sharedPreferences.getBoolean(KEY_BROWSER_MEDIA_FORCE_LIST, DEFAULT_BROWSER_MEDIA_FORCE_LIST)
         DOWNLOAD_TRACKING_LIMIT = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_LIMIT, DEFAULT_DOWNLOAD_TRACKING_LIMIT)
         DOWNLOAD_TRACKING_INTERVAL = sharedPreferences.getInt(KEY_DOWNLOAD_TRACKING_INTERVAL, DEFAULT_DOWNLOAD_TRACKING_INTERVAL)
@@ -114,12 +112,10 @@ class SharedPrefsHelper(val context: Context) {
         SCREEN_ORIENTATION = sharedPreferences.getInt(KEY_SCREEN_ORIENTATION, DEFAULT_SCREEN_ORIENTATION)
         START_TAB = sharedPreferences.getInt(KEY_START_TAB, DEFAULT_START_TAB)
         VOLUME_PAGE_TURN = sharedPreferences.getBoolean(KEY_VOLUME_PAGE_TURN, DEFAULT_VOLUME_PAGE_TURN)
-        WIFI_ONLY = sharedPreferences.getBoolean(KEY_WIFI_ONLY, false)
         RECENTLY_VIEWED_HEIGHT_OFFSET = sharedPreferences.getInt(KEY_RECENTLY_VIEWED_HEIGHT_OFFSET, DEFAULT_RECENTLY_VIEWED_HEIGHT_OFFSET)
 
         if (isDebugSharedPreferencesHelper) {
             Timber.i("Loading APP_THEME: $APP_THEME")
-            Timber.i("Loading WIFI_ONLY: $WIFI_ONLY")
             Timber.i("Loading MARK_FINISHED: $MARK_FINISHED")
             Timber.i("Loading FAVORITE: $FAVORITE")
             Timber.i("Loading IMMERSIVE_BROWSER: $IMMERSIVE_BROWSER")
@@ -140,6 +136,7 @@ class SharedPrefsHelper(val context: Context) {
             Timber.i("Loading DOWNLOAD_TRACKING_INTERVAL: $DOWNLOAD_TRACKING_INTERVAL")
             Timber.i("Loading DOWNLOAD_TRACKING_LIMIT: $DOWNLOAD_TRACKING_LIMIT")
             Timber.i("Loading RECENTLY_VIEWED_HEIGHT_OFFSET: $RECENTLY_VIEWED_HEIGHT_OFFSET")
+            Timber.i("Loading DISABLE_CELLULAR: $DISABLE_CELLULAR")
         }
     }
 
@@ -217,11 +214,6 @@ class SharedPrefsHelper(val context: Context) {
     fun saveFavorite() {
         if (isDebugSharedPreferencesHelper) Timber.i("Saving FAVORITE: $FAVORITE")
         sharedPreferences.edit().putBoolean(KEY_FAVORITE, FAVORITE).apply()
-    }
-
-    fun saveWifiOnly() {
-        if (isDebugSharedPreferencesHelper) Timber.i("Saving WIFI_ONLY: $WIFI_ONLY")
-        sharedPreferences.edit().putBoolean(KEY_WIFI_ONLY, WIFI_ONLY).apply()
     }
 
     internal fun saveHomeLayout() {
@@ -339,9 +331,9 @@ class SharedPrefsHelper(val context: Context) {
         sharedPreferences.edit().putInt(KEY_READER_SCROLL_OFFSET, READER_SCROLL_OFFSET).apply()
     }
 
-    fun saveAllowVpnThroughWifiOnly() {
-        if (isDebugSharedPreferencesHelper) Timber.i("Saving ALLOW_VPN_THROUGH_WIFI_ONLY: $ALLOW_VPN_THROUGH_WIFI_ONLY")
-        sharedPreferences.edit().putBoolean(KEY_ALLOW_VPN_THROUGH_WIFI_ONLY, ALLOW_VPN_THROUGH_WIFI_ONLY).apply()
+    fun saveDisableCellular() {
+        if (isDebugSharedPreferencesHelper) Timber.i("Saving DISABLE_CELLULAR: $DISABLE_CELLULAR")
+        sharedPreferences.edit().putBoolean(KEY_DISABLE_CELLULAR, DISABLE_CELLULAR).apply()
     }
 
     private fun MutableList<Login>.toJson(): String = try {

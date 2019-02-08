@@ -45,7 +45,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
     protected lateinit var systemOrientationPreference: Preference
     protected lateinit var systemThemePreference: Preference
     protected lateinit var systemVolumePageTurnPreference: SwitchPreferenceCompat
-    protected lateinit var systemWifiOnlyPreference: SwitchPreferenceCompat
+    protected lateinit var systemDisableCellularPreference: SwitchPreferenceCompat
     protected lateinit var systemKeepScreenOn: SwitchPreferenceCompat
     protected lateinit var systemStartTab: Preference
     protected lateinit var advancedPreference: Preference
@@ -68,7 +68,7 @@ open class SettingsFragmentImp0_View : PreferenceFragmentCompat() {
         systemThemePreference = findPreference("settings_system_theme")
         systemKeepScreenOn = findPreference("settings_keep_screen_on") as SwitchPreferenceCompat
         systemVolumePageTurnPreference = findPreference("settings_volume_page_turn") as SwitchPreferenceCompat
-        systemWifiOnlyPreference = findPreference("settings_wifi_only") as SwitchPreferenceCompat
+        systemDisableCellularPreference = findPreference("settings_disable_cellular") as SwitchPreferenceCompat
         systemStartTab = findPreference("settings_start_tab")
         advancedPreference = findPreference("settings_advanced")
     }

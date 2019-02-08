@@ -26,7 +26,7 @@ object Constants {
     internal const val ARG_TRANSITION_URL = "ARG_TRANSITION_URL"
 
     internal const val KEY_APP_THEME = "KEY_APP_THEME"
-    internal const val KEY_ALLOW_VPN_THROUGH_WIFI_ONLY = "KEY_ALLOW_VPN_THROUGH_WIFI_ONLY"
+    internal const val KEY_DISABLE_CELLULAR = "KEY_DISABLE_CELLULAR"
     internal const val KEY_BROWSER_MEDIA_FORCE_LIST = "KEY_BROWSER_MEDIA_FORCE_LIST"
     internal const val KEY_BROWSER_IMMERSIVE = "KEY_BROWSER_IMMERSIVE"
     internal const val KEY_DOWNLOAD_FINISHED_NOTIFICATION = "KEY_DOWNLOAD_FINISHED_NOTIFICATION"
@@ -59,7 +59,6 @@ object Constants {
     internal const val KEY_START_TAB = "KEY_START_TAB"
     internal const val KEY_TASK_PING = "KEY_TASK_PING"
     internal const val KEY_VOLUME_PAGE_TURN = "KEY_VOLUME_PAGE_TURN"
-    internal const val KEY_WIFI_ONLY = "KEY_SHAREDPREFS_WIFI_ONLY"
 
     internal const val URL_PATH_ROOT = "all?groupByFolder=true"
     internal const val URL_PATH_SEARCH = "?search=true&searchstring="
