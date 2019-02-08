@@ -58,7 +58,6 @@ object Settings {
     const val RECYCLER_VIEW_DELAY = 350L
 
     //-----------------------------------CONNECTION_PREFERENCES-------------------------------------
-    var WIFI_ONLY = false
     var DISABLE_CELLULAR = false
 
     //-----------------------------------DOWNLOAD_PREFERENCES-------------------------------------
