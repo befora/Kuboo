@@ -2,18 +2,19 @@
 <changelog bulletedList="true">
 
     <changelogversion
-        changeDate="Feb 6, 2019"
-        versionName="1.2.5">
+        changeDate="Feb 9, 2019"
+        versionName="1.2.6">
         <changelogtext>add advanced setting allow vpn through wifi only setting</changelogtext>
         <changelogtext>add advanced setting reader scroll offset</changelogtext>
+        <changelogtext>add advanced setting shared element transition</changelogtext>
         <changelogtext>add browser select all</changelogtext>
-        <changelogtext>add reader next/previous action will trigger scroll if available
-        </changelogtext>
+        <changelogtext>add reader next/previous action will trigger scroll if available</changelogtext>
         <changelogtext>add rounded corners to thumbnails</changelogtext>
         <changelogtext>androidx migration</changelogtext>
         <changelogtext>change font from roboto to opensans</changelogtext>
         <changelogtext>fix bookmark dialog layout image fit and add content metadata</changelogtext>
         <changelogtext>fix browser did not clear glide request on recycle</changelogtext>
+        <changelogtext>fix browser item sometimes has unintended scrollbar</changelogtext>
         <changelogtext>fix browser update use iterator is much cleaner</changelogtext>
         <changelogtext>fix cannot invoke observeforever on a background thread</changelogtext>
         <changelogtext>fix crash if json parse fails</changelogtext>
@@ -30,10 +31,9 @@
         <changelogtext>fix reader aspect fill position accounts for rtl</changelogtext>
         <changelogtext>fix reader buttons did not account rtl</changelogtext>
         <changelogtext>fix reader can scroll horizontal bug</changelogtext>
-        <changelogtext>fix reader download next book did not check if status was finished
-        </changelogtext>
-        <changelogtext>fix reader download previous book did not check if status was finished
-        </changelogtext>
+        <changelogtext>fix reader download neighbor observes multiple times causing unexpected behavior</changelogtext>
+        <changelogtext>fix reader download next book did not check if status was finished</changelogtext>
+        <changelogtext>fix reader download previous book did not check if status was finished</changelogtext>
         <changelogtext>fix reader next book end of series bug</changelogtext>
         <changelogtext>fix reader overlay seekbar width and padding</changelogtext>
         <changelogtext>fix reader seekbar missing in rtl mode</changelogtext>
@@ -42,14 +42,17 @@
         <changelogtext>fix settings advanced backpress did not work</changelogtext>
         <changelogtext>fix splash icon was too small</changelogtext>
         <changelogtext>fix unnecessary dismiss listener</changelogtext>
+        <changelogtext>refactor preview and reverse layout settings to the advanced settings fragment</changelogtext>
+        <changelogtext>refactor wifi only into disable cellular</changelogtext>
         <changelogtext>remove light theme</changelogtext>
+        <changelogtext>update android tools build from 3.3.0 to 3.3.1</changelogtext>
         <changelogtext>update baserecyclerviewadapterhelper from 2.9.40 to 2.9.46</changelogtext>
         <changelogtext>update dagger from 2.19 to 2.21</changelogtext>
         <changelogtext>update fetch from 2.3.1 to 2.3.6</changelogtext>
         <changelogtext>update gradle from 3.2.1 to 3.3.0</changelogtext>
-        <changelogtext>update kotlin from 1.3.11 to 1.3.20</changelogtext>
-        <changelogtext>update material components from 1.1.0-alpha02 to 1.1.0-alpha03
-        </changelogtext>
+        <changelogtext>update kotlin from 1.3.11 to 1.3.21</changelogtext>
+        <changelogtext>update livedata from 2.1.0-alpha01 to 2.1.0-alpha02</changelogtext>
+        <changelogtext>update material components from 1.1.0-alpha02 to 1.1.0-alpha03</changelogtext>
         <changelogtext>update recyclerview from 1.1.0-alpha01 to 1.1.0-alpha02</changelogtext>
         <changelogtext>update workmanager from 1.0.0-alpha11 to 1.0.0-beta04</changelogtext>
     </changelogversion>
