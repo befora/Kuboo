@@ -345,6 +345,7 @@ class SharedPrefsHelper(val context: Context) {
     }
 
     private fun MutableList<Login>.toJson(): String = try {
+        if (isEmpty()) throw Exception("List is empty!")
         Gson().toJson(this)
     } catch (e: Exception) {
         ""
@@ -352,6 +353,7 @@ class SharedPrefsHelper(val context: Context) {
 
     private fun String.fromJson(): MutableList<Login> {
         return try {
+            if (isBlank()) throw Exception("Json is blank!")
             val type = object : TypeToken<MutableList<Login>>() {}.type
             Gson().fromJson(this, type)
         } catch (e: Exception) {
