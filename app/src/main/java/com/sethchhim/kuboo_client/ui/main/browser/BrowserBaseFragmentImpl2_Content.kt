@@ -140,7 +140,7 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     }
 
     protected fun handleNeededAdapterUpdate() {
-        when (isDownloadContent) {
+        when (Temporary.USER_API_UPDATE_LIST.isNotEmpty() && isDownloadContent) {
             true -> handleNeedAdapterUpdateDownload()
             false -> handleNeedAdapterUpdateBrowser()
         }
