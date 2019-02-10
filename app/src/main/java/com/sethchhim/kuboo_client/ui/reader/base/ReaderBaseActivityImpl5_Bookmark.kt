@@ -50,12 +50,13 @@ open class ReaderBaseActivityImpl5_Bookmark : ReaderBaseActivityImpl4_Content() 
 
         try {
             var isMatchFound = false
-            val iterator = Temporary.USER_API_UPDATE_LIST.listIterator()
-            iterator.forEach {
+            Temporary.USER_API_UPDATE_LIST.map {
                 val isMatch = it.isMatch(currentBook)
                 if (isMatch) {
                     isMatchFound = true
-                    iterator.set(currentBook)
+                    currentBook
+                } else {
+                    it
                 }
             }
             if (!isMatchFound) Temporary.USER_API_UPDATE_LIST.add(currentBook)

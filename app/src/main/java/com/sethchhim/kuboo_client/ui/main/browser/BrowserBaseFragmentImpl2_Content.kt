@@ -166,20 +166,21 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     private fun handleNeedAdapterUpdateDownload() {
         val adapter = contentRecyclerView.adapter as? DownloadListAdapter
         adapter?.let {
+            val newList = mutableListOf<Book>()
             Temporary.USER_API_UPDATE_LIST.forEach { queueBook ->
                 try {
-                    val iterator = adapter.list.listIterator()
-                    while (iterator.hasNext()) {
-                        val oldValue = iterator.next()
-                        val isMatch = oldValue.isMatch(queueBook)
-                        if (isMatch) iterator.set(queueBook)
+                    adapter.list.mapTo(newList) {
+                        when (it.isMatch(queueBook)) {
+                            true -> queueBook
+                            false -> it
+                        }
                     }
-                    adapter.notifyDataSetChanged()
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    //do nothing
                 }
             }
+            adapter.submitList(newList)
+            adapter.notifyDataSetChanged()
             Temporary.USER_API_UPDATE_LIST.clear()
         }
     }
