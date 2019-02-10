@@ -2,6 +2,16 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Feb 10, 2019"
+        versionName="1.2.7">
+        <changelogtext>fix sharedprefs require json empty or blank check</changelogtext>
+        <changelogtext>refactor splash preload</changelogtext>
+        <changelogtext>update appcompat from 1.0.2 to 1.1.0-alpha02</changelogtext>
+        <changelogtext>update preference from 1.1.0-alpha02 to 1.1.0-alpha03</changelogtext>
+        <changelogtext>update workmanager from 1.0.0-beta04 to 1.0.0-beta05</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Feb 9, 2019"
         versionName="1.2.6">
         <changelogtext>add advanced setting allow vpn through wifi only setting</changelogtext>
