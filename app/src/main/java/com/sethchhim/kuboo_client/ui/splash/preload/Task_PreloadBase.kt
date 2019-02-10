@@ -17,8 +17,14 @@ open class Task_PreloadBase(val splashActivity: SplashActivity) {
 
     private val startTime = System.currentTimeMillis()
 
-    internal open fun doPreload() {}
+    internal open fun doPreload() {
+        //override in children
+    }
 
-    protected fun getElapsedTime() = System.currentTimeMillis() - startTime
+    private fun getElapsedTime() = System.currentTimeMillis() - startTime
+
+    protected fun onFinished(className: String) {
+        splashActivity.onPreloadTaskFinished(className, -1, getElapsedTime())
+    }
 
 }

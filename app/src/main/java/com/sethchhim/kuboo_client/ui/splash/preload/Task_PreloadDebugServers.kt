@@ -9,21 +9,19 @@ class Task_PreloadDebugServers(splashActivity: SplashActivity) : Task_PreloadBas
 
     override fun doPreload() {
         if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
             if (viewModel.isLoginListEmpty()) {
                 viewModel.addLogin(Login(nickname = "Books Server",
-                        server = "https://192.168.1.100:2202/opds-books/",
-                        username = "abcd",
-                        password = "abcd"))
+                        server = "http://192.168.1.100:2202/opds-books/",
+                        username = "asdf",
+                        password = "asdf"))
 
                 viewModel.addLogin(Login(nickname = "Comics Server",
-                        server = "https://192.168.1.100:2202/opds-comics/",
-                        username = "abcd",
-                        password = "abcd"))
+                        server = "http://192.168.1.100:2202/opds-comics/",
+                        username = "asdf",
+                        password = "asdf"))
             }
         }
-        splashActivity.onPreloadTaskFinished(javaClass.simpleName, -1, getElapsedTime())
-
+        onFinished(javaClass.simpleName)
     }
 
 }

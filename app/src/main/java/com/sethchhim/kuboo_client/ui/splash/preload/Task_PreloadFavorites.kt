@@ -9,7 +9,7 @@ class Task_PreloadFavorites(splashActivity: SplashActivity) : Task_PreloadBase(s
             it?.let {
                 viewModel.setFavoriteList(it)
             }
-            splashActivity.onPreloadTaskFinished(javaClass.simpleName, -1, getElapsedTime())
+            onFinished(javaClass.simpleName)
         }
     }
 

@@ -5,9 +5,7 @@ import android.os.Bundle
 import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.ui.base.BaseActivity
 import com.sethchhim.kuboo_client.ui.main.MainActivity
-import com.sethchhim.kuboo_client.ui.splash.preload.Task_PreloadBase
-import com.sethchhim.kuboo_client.ui.splash.preload.Task_PreloadDebugServers
-import com.sethchhim.kuboo_client.ui.splash.preload.Task_PreloadFavorites
+import com.sethchhim.kuboo_client.ui.splash.preload.*
 import timber.log.Timber
 
 class SplashActivity : BaseActivity() {
@@ -31,6 +29,9 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun MutableList<Task_PreloadBase>.populate() {
+        clear()
+        add(Task_InitTimber(this@SplashActivity))
+        add(Task_PreloadSharedPrefs(this@SplashActivity))
         add(Task_PreloadDebugServers(this@SplashActivity))
         add(Task_PreloadFavorites(this@SplashActivity))
     }
