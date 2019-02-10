@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sethchhim.kuboo_client.Constants.KEY_DISABLE_CELLULAR
 import com.sethchhim.kuboo_client.Constants.KEY_APP_THEME
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_IMMERSIVE
 import com.sethchhim.kuboo_client.Constants.KEY_BROWSER_MEDIA_FORCE_LIST
+import com.sethchhim.kuboo_client.Constants.KEY_DISABLE_CELLULAR
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Constants.KEY_DOWNLOAD_TRACKING_HIDE_FINISHED
@@ -33,7 +33,6 @@ import com.sethchhim.kuboo_client.Constants.KEY_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Constants.KEY_SHARED_ELEMENT_TRANSITION
 import com.sethchhim.kuboo_client.Constants.KEY_START_TAB
 import com.sethchhim.kuboo_client.Constants.KEY_VOLUME_PAGE_TURN
-import com.sethchhim.kuboo_client.Settings.DISABLE_CELLULAR
 import com.sethchhim.kuboo_client.Settings.APP_THEME
 import com.sethchhim.kuboo_client.Settings.BROWSER_MEDIA_FORCE_LIST
 import com.sethchhim.kuboo_client.Settings.DEFAULT_APP_THEME
@@ -53,6 +52,7 @@ import com.sethchhim.kuboo_client.Settings.DEFAULT_SCALE_TYPE
 import com.sethchhim.kuboo_client.Settings.DEFAULT_SCREEN_ORIENTATION
 import com.sethchhim.kuboo_client.Settings.DEFAULT_START_TAB
 import com.sethchhim.kuboo_client.Settings.DEFAULT_VOLUME_PAGE_TURN
+import com.sethchhim.kuboo_client.Settings.DISABLE_CELLULAR
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_FINISHED_NOTIFICATION
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_SAVE_PATH
 import com.sethchhim.kuboo_client.Settings.DOWNLOAD_TRACKING_HIDE_FINISHED
@@ -80,7 +80,6 @@ import com.sethchhim.kuboo_client.Settings.VOLUME_PAGE_TURN
 import com.sethchhim.kuboo_remote.model.Login
 import org.jetbrains.anko.defaultSharedPreferences
 import timber.log.Timber
-import java.lang.Exception
 
 @SuppressLint("ApplySharedPref")
 class SharedPrefsHelper(val context: Context) {
@@ -352,8 +351,8 @@ class SharedPrefsHelper(val context: Context) {
     }
 
     private fun String.fromJson(): MutableList<Login> {
-        val type = object : TypeToken<MutableList<Login>>() {}.type
         return try {
+            val type = object : TypeToken<MutableList<Login>>() {}.type
             Gson().fromJson(this, type)
         } catch (e: Exception) {
             mutableListOf()
