@@ -3,7 +3,8 @@
 
     <changelogversion
         changeDate="Feb 10, 2019"
-        versionName="1.2.7">
+        versionName="1.2.8">
+        <changelogtext>fix regression iterator stopped working</changelogtext>
         <changelogtext>fix sharedprefs require json empty or blank check</changelogtext>
         <changelogtext>refactor splash preload</changelogtext>
         <changelogtext>update appcompat from 1.0.2 to 1.1.0-alpha02</changelogtext>
