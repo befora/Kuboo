@@ -45,17 +45,23 @@ class Task_RemoteUserApiGet(kubooRemote: KubooRemote, login: Login, book: Book) 
             Timber.d("UserApiData has no data: title[${book.title}] stringUrl[$stringUrl]")
             kubooRemote.mainThread.execute { liveData.value = null }
         } else {
-            val jsonObject = JSONObject(result)
+            try {
+                val jsonObject = JSONObject(result)
 
-            val mark = jsonObject.getMark()
-            if (mark[0].isNotEmpty()) book.currentPage = mark[0].toInt()
+                val mark = jsonObject.getMark()
+                if (mark[0].isNotEmpty()) book.currentPage = mark[0].toInt()
 
-            val isFinished = jsonObject.getIsFinished()
-            book.isFinished = isFinished
+                val isFinished = jsonObject.getIsFinished()
+                book.isFinished = isFinished
 
-            val elapsedTime = System.currentTimeMillis() - startTime
-            Timber.d("UserApi get is successful: title[${book.title}] savedPage[${book.currentPage} of ${book.totalPages}] savedPosition[] isFinished[${book.isFinished}] stringUrl[$stringUrl] time[$elapsedTime milliseconds]")
-            kubooRemote.mainThread.execute { liveData.value = book }
+                val elapsedTime = System.currentTimeMillis() - startTime
+                Timber.d("UserApi get is successful: title[${book.title}] savedPage[${book.currentPage} of ${book.totalPages}] savedPosition[] isFinished[${book.isFinished}] stringUrl[$stringUrl] time[$elapsedTime milliseconds]")
+                kubooRemote.mainThread.execute { liveData.value = book }
+            } catch (e: Exception) {
+                val elapsedTime = System.currentTimeMillis() - startTime
+                Timber.e("UserApi get failed: title[${book.title}] error[${e.message}] time[$elapsedTime milliseconds]")
+                kubooRemote.mainThread.execute { liveData.value = null }
+            }
         }
     }
 
