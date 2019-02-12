@@ -2,6 +2,12 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Feb 11, 2019"
+        versionName="1.2.10">
+        <changelogtext>fix user api pull requires error checking</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Feb 10, 2019"
         versionName="1.2.9">
         <changelogtext>fix regression iterator stopped working</changelogtext>
