@@ -1,15 +1,14 @@
 package com.sethchhim.kuboo_client.ui.main
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.Observer
-import androidx.appcompat.app.AlertDialog
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.Settings
-import com.sethchhim.kuboo_client.ui.main.browser.*
+import com.sethchhim.kuboo_client.ui.main.browser.BrowserBaseFragment
 import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_remote.model.Book
-import java.lang.Exception
 
 @SuppressLint("Registered")
 open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
@@ -108,7 +107,11 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
 
     private fun loadColorState(holder: BrowserContentAdapter.BrowserHolder, book: Book) = (getCurrentFragment() as? BrowserBaseFragment)?.contentAdapter?.loadColorState(holder, book)
 
-    private fun getBrowserContentType() = (getCurrentFragment() as? BrowserBaseFragment)?.contentRecyclerView?.contentType
+    private fun getBrowserContentType() = try {
+        (getCurrentFragment() as? BrowserBaseFragment)?.contentRecyclerView?.contentType
+    } catch (e: UninitializedPropertyAccessException) {
+        null
+    }
 
     private fun setSelectionMenuStateSelected(changeTitle: Boolean = false) {
         if (changeTitle) title = getSelectedBrowserTitle()
