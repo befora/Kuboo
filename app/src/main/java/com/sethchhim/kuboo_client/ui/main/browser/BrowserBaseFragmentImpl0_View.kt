@@ -16,6 +16,7 @@ import com.sethchhim.kuboo_client.R
 import com.sethchhim.kuboo_client.data.AppDatabaseDao
 import com.sethchhim.kuboo_client.data.ViewModel
 import com.sethchhim.kuboo_client.ui.main.MainActivity
+import com.sethchhim.kuboo_client.ui.main.browser.adapter.BrowserContentAdapter
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentRecyclerView
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentSwipeRefreshLayout
 import com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserContentType
@@ -49,7 +50,10 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
 
     protected fun resetRecyclerView() {
         viewModel.clearContentList()
-        contentRecyclerView.adapter?.notifyDataSetChanged()
+        (contentRecyclerView.adapter as? BrowserContentAdapter)?.let {
+            it.resetAllGlide()
+            it.notifyDataSetChanged()
+        }
     }
 
     protected fun saveRecyclerViewState() {

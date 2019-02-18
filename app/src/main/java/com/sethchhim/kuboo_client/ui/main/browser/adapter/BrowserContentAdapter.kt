@@ -449,6 +449,20 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
         }
     }
 
+    internal fun resetAllGlide() = try {
+        (0 until browserContentRecyclerView.childCount)
+                .mapNotNull { browserContentRecyclerView.getChildViewHolder(browserContentRecyclerView.getChildAt(it)) as BrowserContentAdapter.BrowserHolder }
+                .forEachWithIndex { _, viewHolder ->
+                    when (viewHolder.itemViewType) {
+                        Browser.FOLDER -> Glide.with(browserFragment).clear(viewHolder.itemView.browser_item_content_folder_imageView3)
+                        Browser.MEDIA -> Glide.with(browserFragment).clear(viewHolder.itemView.browser_item_content_media_imageView)
+                        Browser.MEDIA_FORCE_LIST -> Glide.with(browserFragment).clear(viewHolder.itemView.browser_item_content_media_force_list_imageView3)
+                    }
+                }
+    } catch (e: Exception) {
+        Timber.e("$e")
+    }
+
     private fun setMediaColorState(holder: BrowserHolder, book: Book) {
         //set color state locally
         loadColorState(holder, book)
