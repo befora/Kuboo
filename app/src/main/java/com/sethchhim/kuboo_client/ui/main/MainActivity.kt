@@ -30,7 +30,6 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout_base)
         ButterKnife.bind(this)
-        setTitle(R.string.title_home)
         setSupportActionBar(toolbar)
 
         bottomNav.setOnNavigationItemSelectedListener(this)

@@ -44,6 +44,7 @@ class HomeFragment : HomeFragmentImpl1_Content() {
 
     override fun onResume() {
         super.onResume()
+        mainActivity.setTitle(R.string.title_home)
         populateRecent()
         if (isHomeRequireLatest()) populateLatest()
     }
