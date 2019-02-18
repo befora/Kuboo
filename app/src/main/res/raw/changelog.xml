@@ -2,6 +2,16 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Feb 18, 2019"
+        versionName="1.2.11">
+        <changelogtext>fix crash after a search</changelogtext>
+        <changelogtext>fix title did not change after pop search fragment</changelogtext>
+        <changelogtext>fix title did not change after selection download</changelogtext>
+        <changelogtext>update glide from 4.8.0 to 4.9.0</changelogtext>
+        <changelogtext>update workmanager from 1.0.0-beta05 to 1.0.0-rc01</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Feb 11, 2019"
         versionName="1.2.10">
         <changelogtext>fix user api pull requires error checking</changelogtext>
