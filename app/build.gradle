@@ -90,7 +90,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //butterknife
-    final butterknife_version = "10.0.0"
+    final butterknife_version = "10.1.0"
     implementation "com.jakewharton:butterknife:$butterknife_version"
     kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
 
