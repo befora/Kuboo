@@ -123,7 +123,7 @@ open class BrowserBaseFragmentImpl2_Content : BrowserBaseFragmentImpl1_Paginatio
     /** populate pagination content*/
     internal fun populatePaginationContent(book: Book) {
         viewModel.updatePathLinkSubsection(book)
-        populateContent(book, addPath = false)
+        populateContent(book, loadState = false, addPath = false)
     }
 
     protected fun enableSelection(isCustomImplementation: Boolean) {

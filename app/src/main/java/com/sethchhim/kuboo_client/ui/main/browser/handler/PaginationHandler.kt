@@ -104,7 +104,6 @@ class PaginationHandler(private val browserFragment: BrowserBaseFragmentImpl2_Co
         button.setOnClickListener {
             val paginationBook = book.apply { linkSubsection = pageUrl }
             browserFragment.populatePaginationContent(paginationBook)
-            contentRecyclerView.scrollToPosition(0)
         }
     }
 
