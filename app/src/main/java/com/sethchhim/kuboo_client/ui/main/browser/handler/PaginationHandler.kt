@@ -84,14 +84,8 @@ class PaginationHandler(private val browserFragment: BrowserBaseFragmentImpl2_Co
     }
 
     private fun getPaginationIndex(string: String): String {
-        if (string.contains(URL_PATH_FOLDER_INDEX)) {
-            val startIndex = string.indexOf("=") + 1
-            val endIndex = string.indexOf("&")
-            return string.substring(startIndex, endIndex)
-        } else if (string.contains(URL_PATH_GRID_INDEX)) {
-            val startIndex = string.lastIndexOf("=") + 1
-            val endIndex = string.length
-            return string.substring(startIndex, endIndex)
+        Uri.parse(string)?.let {
+            it.getQueryParameter("index")?.let { return it }
         }
         return ""
     }
