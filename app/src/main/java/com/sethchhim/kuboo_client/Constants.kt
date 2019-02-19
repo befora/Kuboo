@@ -62,7 +62,8 @@ object Constants {
     internal const val KEY_VOLUME_PAGE_TURN = "KEY_VOLUME_PAGE_TURN"
 
     internal const val URL_PATH_ROOT = "all?groupByFolder=true"
-    internal const val URL_PATH_SEARCH = "?search=true&searchstring="
+    internal const val URL_PATH_SEARCH = "search=true"
+    internal const val URL_PATH_SEARCH_STRING = "?search=true&searchstring="
     internal const val URL_PATH_GRID_DIRECTORY = "?displayFiles=true"
     internal const val URL_PATH_GRID_DIRECTORY_INDEX = "?displayFiles=true&index="
     internal const val URL_PATH_LATEST = "?latest=true"

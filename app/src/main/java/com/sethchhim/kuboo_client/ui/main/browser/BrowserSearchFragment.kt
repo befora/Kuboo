@@ -34,7 +34,7 @@ class BrowserSearchFragment : BrowserBaseFragment() {
         resetRecyclerView()
         paginationHandler.reset()
         viewModel.getListByQuery(stringQuery).observe(this, Observer { result ->
-            val book = Book().apply { linkSubsection = "${Constants.URL_PATH_SEARCH}$stringQuery" }
+            val book = Book().apply { linkSubsection = "${Constants.URL_PATH_SEARCH_STRING}$stringQuery" }
             handleMediaResult(book, result)
             mainActivity.title = stringQuery
         })
