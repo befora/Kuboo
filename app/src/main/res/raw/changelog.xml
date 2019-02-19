@@ -2,6 +2,26 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Feb 19, 2019"
+        versionName="1.2.12">
+        <changelogtext>change advanced setting order</changelogtext>
+        <changelogtext>fix browser did not clear glide requests properly</changelogtext>
+        <changelogtext>fix browser media content did not cancel correctly</changelogtext>
+        <changelogtext>fix browser media remove crossfade because its too heavy</changelogtext>
+        <changelogtext>fix browser pagination disable saved rv state</changelogtext>
+        <changelogtext>fix browser path sometimes missing items</changelogtext>
+        <changelogtext>fix overflow select all should not be visible as default</changelogtext>
+        <changelogtext>fix search icon should only be visible on home and browse fragment
+        </changelogtext>
+        <changelogtext>fix search pagination browser content type bug</changelogtext>
+        <changelogtext>fix search pagination start index showed incorrect value</changelogtext>
+        <changelogtext>fix title change did not consider selection count</changelogtext>
+        <changelogtext>fix title did not change after menu reselection</changelogtext>
+        <changelogtext>fix vector images not visible in oled theme</changelogtext>
+        <changelogtext>update butterknife from 10.0.0 to 10.1.0</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Feb 18, 2019"
         versionName="1.2.11">
         <changelogtext>fix crash after a search</changelogtext>
