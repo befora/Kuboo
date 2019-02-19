@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.sethchhim.kuboo_client.BR
@@ -50,7 +51,7 @@ class BrowserPathAdapter(private val browserFragment: BrowserBaseFragmentImpl2_C
                 itemView.browser_item_path_textView.textSize = 14F
                 itemView.browser_item_path_textView.setTextColor(ContextCompat.getColor(context, R.color.lightColorAccent))
                 itemView.browser_item_path_textView.animateGrow()
-                browserFragment.pathHorizontalScrollView.smoothScrollTo(helper.itemView.left, 0)
+                (browserFragment.pathRecyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(helper.adapterPosition, 100)
             }
         } else {
             itemView.browser_item_path_textView.setTypeface(null, Typeface.NORMAL)

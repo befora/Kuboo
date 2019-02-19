@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView
+<com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserPathRecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/browser_layout_path_horizontalScrollView"
+    android:id="@+id/browser_layout_path_recyclerView"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    android:animateLayoutChanges="true"
+    android:layout_marginEnd="8dp"
     android:gravity="center_vertical"
     android:scrollbars="none"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <com.sethchhim.kuboo_client.ui.main.browser.custom.BrowserPathRecyclerView
-        android:id="@+id/browser_layout_path_recyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</HorizontalScrollView>
+    app:layout_constraintTop_toTopOf="parent" />

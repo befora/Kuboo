@@ -8,7 +8,7 @@
         app:layout_constraintBottom_toTopOf="@id/browser_layout_pagination_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/browser_layout_path_horizontalScrollView">
+        app:layout_constraintTop_toBottomOf="@id/browser_layout_path_recyclerView">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -33,6 +33,6 @@
         app:layout_constraintBottom_toTopOf="@id/browser_layout_pagination_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/browser_layout_path_horizontalScrollView"/>
+        app:layout_constraintTop_toBottomOf="@id/browser_layout_path_recyclerView"/>
 
 </merge>

@@ -43,7 +43,6 @@ open class BrowserBaseFragmentImpl0_View : DaggerFragment() {
     @BindView(R.id.browser_layout_content_swipeRefreshLayout) lateinit var contentSwipeRefreshLayout: BrowserContentSwipeRefreshLayout
     @BindView(R.id.browser_layout_download_numberProgressBar) lateinit var downloadsNumberProgressBar: NumberProgressBar
     @BindView(R.id.browser_layout_downloads_tabLayout) lateinit var downloadsTabLayout: DownloadsTabLayout
-    @BindView(R.id.browser_layout_path_horizontalScrollView) lateinit var pathHorizontalScrollView: HorizontalScrollView
     @BindView(R.id.browser_layout_path_recyclerView) lateinit var pathRecyclerView: BrowserPathRecyclerView
     @BindView(R.id.state_empty_constraintLayout) lateinit var emptyLayout: ConstraintLayout
     @BindView(R.id.state_error_constraintLayout) lateinit var errorLayout: ConstraintLayout
