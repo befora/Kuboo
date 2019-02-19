@@ -1,7 +1,6 @@
 package com.sethchhim.kuboo_client.ui.state
 
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ class FailFragment : DaggerFragment() {
     @Inject lateinit var dialogUtil: DialogUtil
     @Inject lateinit var mainActivity: MainActivity
 
-    @BindView(R.id.state_error_constraintLayout) lateinit var errorConstraintLayout: ConstraintLayout
     @BindView(R.id.home_layout_fail_textView2) lateinit var reasonTextView: TextView
     @BindView(R.id.home_layout_fail_textView3) lateinit var retryTextView: TextView
 

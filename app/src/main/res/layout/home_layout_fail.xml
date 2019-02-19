@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="false"
-        android:src="@drawable/ic_error_outline_black_24dp"
+        android:src="@drawable/ic_error_outline_light_grey_24dp"
         app:layout_constraintBottom_toTopOf="@+id/state_error_guideLine4"
         app:layout_constraintEnd_toStartOf="@+id/state_error_guideLine2"
         app:layout_constraintStart_toStartOf="@+id/state_error_guideLine1"

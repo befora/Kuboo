@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -151,6 +152,10 @@ object Extensions {
     internal fun ImageView.colorFilterWhite() = setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY)
 
     internal fun ImageView.colorFilterBlack() = setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY)
+
+    internal fun ImageView.tintLightGrey() = this.drawable?.let { DrawableCompat.setTint(it, ContextCompat.getColor(context, R.color.md_grey_500)) }
+
+    internal fun ImageView.tintWhite() = this.drawable?.let { DrawableCompat.setTint(it, Color.WHITE) }
 
     internal fun Int.isEven() = (this % 2) == 0
 
