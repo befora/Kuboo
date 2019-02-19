@@ -21,15 +21,15 @@
             android:summary="@string/settings_force_downsizing_summary"
             android:title="@string/settings_force_downsizing" />
         <androidx.preference.SwitchPreferenceCompat
-            android:key="settings_browser_preview"
-            android:layout="@layout/settings_item_preference_normal"
-            android:summary="@string/settings_show_preview_page_before_reading"
-            android:title="@string/settings_preview"/>
-        <androidx.preference.SwitchPreferenceCompat
             android:key="settings_browser_reverse_layout"
             android:layout="@layout/settings_item_preference_normal"
             android:summary="@string/settings_content_starts_from_the_bottom_towards_top"
             android:title="@string/settings_reverse_layout"/>
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="settings_browser_preview"
+            android:layout="@layout/settings_item_preference_normal"
+            android:summary="@string/settings_show_preview_page_before_reading"
+            android:title="@string/settings_preview"/>
         <androidx.preference.SwitchPreferenceCompat
             android:key="settings_shared_element_transition"
             android:layout="@layout/settings_item_preference_normal"
