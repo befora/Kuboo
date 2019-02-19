@@ -373,7 +373,6 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                 Glide.with(browserFragment)
                         .load(stringUrl)
                         .apply(requestOptions)
-                        .transition(withCrossFade())
                         .listener(object : RequestListener<Drawable> {
                             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                                 Timber.e("Thumbnail failed to load! ${book.server}${book.linkThumbnail}")
