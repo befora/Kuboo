@@ -261,7 +261,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         if (::httpsMenuItem.isInitialized && !httpsMenuItem.isVisible) httpsMenuItem.isVisible = true
     }
 
-    protected fun hideMenuItemHttps() {
+    internal fun hideMenuItemHttps() {
         if (::httpsMenuItem.isInitialized && httpsMenuItem.isVisible) httpsMenuItem.isVisible = false
     }
 
@@ -269,7 +269,7 @@ open class MainActivityImpl0_View : BaseActivity() {
         if (::searchMenuItem.isInitialized && !searchMenuItem.isVisible) searchMenuItem.isVisible = true
     }
 
-    protected fun hideMenuItemSearch() {
+    internal fun hideMenuItemSearch() {
         if (::searchMenuItem.isInitialized && searchMenuItem.isVisible) searchMenuItem.isVisible = false
     }
 
