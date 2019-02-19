@@ -11,6 +11,7 @@
         <item
             android:id="@+id/main_overflow_select_all"
             android:title="@string/main_select_all"
+            android:visible="false"
             app:showAsAction="never"/>
         <item
             android:id="@+id/main_overflow_log"
