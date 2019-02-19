@@ -152,9 +152,9 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
 
     override fun onNavigationItemReselected(item: MenuItem) {
         val currentFragment = supportFragmentManager.getVisibleFragment()
-
         when (item.itemId) {
             R.id.navigation_home -> {
+                title = getString(R.string.title_home)
                 when (currentFragment) {
                     is HomeFragment -> homeFragment.resetHome()
                     else -> {
@@ -165,6 +165,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 }
             }
             R.id.navigation_browse -> {
+                title = getString(R.string.title_browse)
                 when (currentFragment) {
                     is BrowserRemoteFragment -> browserRemoteFragment.resetBrowser()
                     else -> {
@@ -175,6 +176,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 }
             }
             R.id.navigation_downloads -> {
+                title = getString(R.string.title_downloads)
                 when (currentFragment) {
                     is DownloadsFragment -> downloadFragment.scrollToTop()
                     else -> {
@@ -185,6 +187,7 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 }
             }
             R.id.navigation_settings -> {
+                title = getString(R.string.title_settings)
                 when (currentFragment) {
                     is SettingsFragment -> settingsFragment.scrollToTop()
                     else -> {
