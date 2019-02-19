@@ -118,12 +118,6 @@ class HandlerOpds(private val login: Login, private val saxList: MutableList<Boo
         }
     }
 
-    private fun stripHtml(html: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString().replace("\n".toRegex(), "").trim { it <= ' ' }
-    } else {
-        fromHtml(html).toString().replace("\n".toRegex(), "").trim { it <= ' ' }
-    }
-
     private fun OpdsEntity.toBook(): Book {
         val isBook = LinkAcquisition.isNotEmpty()
                 && LinkAcquisition.endsWith(".epub", ignoreCase = true)
@@ -243,6 +237,12 @@ class HandlerOpds(private val login: Login, private val saxList: MutableList<Boo
             }
         }
         return string
+    }
+
+    private fun stripHtml(html: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString().replace("\n".toRegex(), "").trim { it <= ' ' }
+    } else {
+        fromHtml(html).toString().replace("\n".toRegex(), "").trim { it <= ' ' }
     }
 
     private fun String.unescape() = unescapeAmpersand().unescapeXml()

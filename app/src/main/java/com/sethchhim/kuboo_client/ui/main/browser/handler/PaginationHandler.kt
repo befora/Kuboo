@@ -1,5 +1,6 @@
 package com.sethchhim.kuboo_client.ui.main.browser.handler
 
+import android.net.Uri
 import android.view.View
 import android.widget.Button
 import com.sethchhim.kuboo_client.Constants.URL_PATH_FOLDER_INDEX
