@@ -356,7 +356,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
             val itemView = holder.itemView
             val book = item.book
 
-            itemView.browser_item_content_media_imageView.apply {
+            itemView.browser_item_content_media_imageView?.apply {
                 transitionName = item.book.getPreviewUrl(Settings.THUMBNAIL_SIZE_RECENT)
                 setMediaColorState(holder, book)
 
@@ -384,11 +384,7 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                                 return false
                             }
                         })
-                        .into(object : SimpleTarget<Drawable>() {
-                            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                                (this@apply as ImageView).image = resource
-                            }
-                        })
+                        .into(this)
             }
         }
 
