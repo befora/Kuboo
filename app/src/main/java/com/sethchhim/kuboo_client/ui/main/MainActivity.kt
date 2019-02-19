@@ -135,7 +135,10 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 pingShowHomeFragment()
             }
             R.id.navigation_browse -> {
-                title = getString(R.string.title_browse)
+                title = when (viewModel.isSelectedListEmpty()) {
+                    true -> getString(R.string.title_browse)
+                    false -> getSelectedBrowserTitle()
+                }
                 pingShowBrowserRemoteFragment()
             }
             R.id.navigation_downloads -> {
@@ -165,7 +168,10 @@ open class MainActivity : MainActivityImpl2_Selection(), BottomNavigationView.On
                 }
             }
             R.id.navigation_browse -> {
-                title = getString(R.string.title_browse)
+                title = when (viewModel.isSelectedListEmpty()) {
+                    true -> getString(R.string.title_browse)
+                    false -> getSelectedBrowserTitle()
+                }
                 when (currentFragment) {
                     is BrowserRemoteFragment -> browserRemoteFragment.resetBrowser()
                     else -> {
