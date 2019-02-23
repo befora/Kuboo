@@ -12,6 +12,8 @@ open class BaseActivity : BaseActivityImpl2_Read() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPrefsHelper.restoreSettings()
+
         setTransitionDuration()
         setTheme(getAppTheme())
 

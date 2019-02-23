@@ -31,7 +31,6 @@ class SplashActivity : BaseActivity() {
     private fun MutableList<Task_PreloadBase>.populate() {
         clear()
         add(Task_InitTimber(this@SplashActivity))
-        add(Task_PreloadSharedPrefs(this@SplashActivity))
         add(Task_PreloadDebugServers(this@SplashActivity))
         add(Task_PreloadFavorites(this@SplashActivity))
     }
