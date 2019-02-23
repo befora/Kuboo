@@ -90,7 +90,10 @@ class DialogUtil(val context: Context) {
         val fileName = book.getAcquisitionUrl().guessFilename()
         val filePath = book.filePath
         val fileSize = File(filePath).length().toReadable()
-        val message = "File Size: $fileSize\nLocation: $filePath\n"
+        val message =
+                "File Size: $fileSize\n" +
+                "Location: $filePath\n" +
+                "Source: ${book.server}\n"
         setTitle(fileName)
         setMessage(message)
         setView(context.layoutInflater.inflate(R.layout.dialog_layout_download_item_settings, null))
