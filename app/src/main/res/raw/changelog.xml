@@ -2,6 +2,14 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Feb 24, 2019"
+        versionName="1.2.13">
+        <changelogtext>add source to download dialog</changelogtext>
+        <changelogtext>fix settings not reloaded after app is destroyed by os</changelogtext>
+        <changelogtext>update workmanager from 1.0.0-rc01 to 1.0.0-rc02</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Feb 19, 2019"
         versionName="1.2.12">
         <changelogtext>change advanced setting order</changelogtext>
