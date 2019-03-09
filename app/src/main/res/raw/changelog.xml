@@ -2,6 +2,16 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Mar 9, 2019"
+        versionName="1.2.14">
+        <changelogtext>end of active development</changelogtext>
+        <changelogtext>update annotation from 1.0.1 to 1.0.2</changelogtext>
+        <changelogtext>update gradle from 3.3.1 to 3.3.2</changelogtext>
+        <changelogtext>update material components from 1.1.0-alpha03 to 1.1.0-alpha04</changelogtext>
+        <changelogtext>update workmanager from 1.0.0-rc02 to 1.0.0</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Feb 24, 2019"
         versionName="1.2.13">
         <changelogtext>add source to download dialog</changelogtext>
