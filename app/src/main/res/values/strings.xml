@@ -26,8 +26,7 @@
     <string name="about_info">• Powered by the love of reading.
     \n \n• Free and open source.
     \n \n• No Ads, No Special Permissions.
-    \n \n• Designed and tested for Ubooquity %1$s.
-    \n \n• Feedback and bug reports are welcome.</string>
+    \n \n• Designed and tested for Ubooquity %1$s.</string>
     <string name="about_library">Library</string>
     <string name="about_license">License</string>
     <string name="about_question1">Why can\'t I connect to a Ubooquity server?</string>

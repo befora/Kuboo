@@ -50,10 +50,7 @@ Un merci spécial à Tom pour avoir créé Ubooquity."</string>
 • Aucune publicité, aucune autorisation spéciale.
     
  
-• Conçu et testé pour Ubooquity %1$s.
-    
- 
-• Les commentaires et les rapports de bug sont les bienvenus"</string>
+• Conçu et testé pour Ubooquity %1$s."</string>
     <string name="about_library">"Bibliotheque"</string>
     <string name="about_license">"license"</string>
     <string name="about_question1">"Pourquoi je n'arrive pas à me connecter au serveur d'Ubooquity"</string>

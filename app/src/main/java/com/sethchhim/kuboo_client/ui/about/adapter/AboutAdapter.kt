@@ -5,14 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.net.Uri
-import androidx.viewpager.widget.PagerAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sethchhim.kuboo_client.*
 import com.sethchhim.kuboo_client.Settings.UBOOQUITY_VERSION
@@ -142,31 +140,19 @@ class AboutPagerAdapter(val context: Context) : androidx.viewpager.widget.PagerA
             false -> (width / 35).toFloat()
         })
         textAboutDeveloperName.typeface = systemUtil.robotoCondensedBold
-        val textAboutDeveloperEmail = itemView.findViewById<TextView>(R.id.about_developer_textView2)!!
-        textAboutDeveloperEmail.setText(R.string.about_developer_email)
-        textAboutDeveloperEmail.setTextColor(Color.BLUE)
-        textAboutDeveloperEmail.paintFlags = textAboutDeveloperEmail.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        val textAboutDeveloperLink = itemView.findViewById<TextView>(R.id.about_developer_textView2)!!
+        textAboutDeveloperLink.text = Constants.DEV_URL
+        textAboutDeveloperLink.setTextColor(Color.BLUE)
+        textAboutDeveloperLink.paintFlags = textAboutDeveloperLink.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         if (systemUtil.isOrientationPortrait()) {
-            textAboutDeveloperEmail.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 30).toFloat())
+            textAboutDeveloperLink.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 30).toFloat())
         } else {
-            textAboutDeveloperEmail.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 50).toFloat())
+            textAboutDeveloperLink.setTextSize(TypedValue.COMPLEX_UNIT_PX, (width / 50).toFloat())
         }
 
-        textAboutDeveloperEmail.setOnClickListener {
-            val deviceName = android.os.Build.MODEL
-            val deviceBrand = android.os.Build.BRAND
-            val deviceOS = android.os.Build.VERSION.RELEASE
-            val deviceSDK = android.os.Build.VERSION.SDK_INT
-
-            val deviceInfo = "| Kuboo " + systemUtil.getVersionName() + "\n" +
-                    "| " + deviceBrand + " " + deviceName + "\n" +
-                    "| Android  " + deviceOS + " " + "SDK" + deviceSDK + "\n"
-            val data = Uri.parse("mailto:sethchhim@gmail.com?subject=" + "Kuboo on Android" + "&body=" + deviceInfo)
-            val emailIntent = Intent(Intent.ACTION_VIEW)
-            emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            emailIntent.data = data
-            context.startActivity(emailIntent)
+        textAboutDeveloperLink.setOnClickListener {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.DEV_URL)))
         }
 
         val textAboutDeveloperMessage1 = itemView.findViewById<TextView>(R.id.about_developer_textView3)!!

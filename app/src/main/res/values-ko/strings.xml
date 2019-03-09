@@ -48,10 +48,7 @@ Epub 파일형식의 경우 원격(서버) 책갈피 기능을 지원하지 않�
 • 광고나 불필요한 권한요구가 없음
 
 
-• Ubooquity %1$s 에 최적화 되어 있습니다.
-
-
-• 제안과 버그레포트를 언제나 환영합니다."</string>
+• Ubooquity %1$s 에 최적화 되어 있습니다."</string>
     <string name="about_library">"라이브러리"</string>
     <string name="about_license">"라이센스"</string>
     <string name="about_question1">"왜 Ubooquity 서버에 접속할 수 없나요?"</string>
