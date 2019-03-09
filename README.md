@@ -6,7 +6,6 @@ This lightweight Android application can load books for the [Ubooquity](https://
  * Free and open source.
  * No Ads, No Special Permissions.
  * Designed and tested for Ubooquity 2.1.1.
- * Feedback and bug reports are welcome.
 
 This is <b>NOT</b> a stand-alone comic viewer.
 
