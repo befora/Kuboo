@@ -29,7 +29,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    implementation 'androidx.annotation:annotation:1.0.1'
+    implementation 'androidx.annotation:annotation:1.0.2'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.1.0-alpha02'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.tukaani:xz:1.8'
