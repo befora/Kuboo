@@ -6,6 +6,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.sethchhim.kuboo_client.BaseApplication
 import com.sethchhim.kuboo_client.Constants
+import com.sethchhim.kuboo_client.util.SharedPrefsHelper
 import com.sethchhim.kuboo_remote.model.Login
 import javax.inject.Inject
 
@@ -16,9 +17,11 @@ class TrackingWorker(context: Context, workerParams: WorkerParameters) : Worker(
         BaseApplication.appComponent.inject(this)
     }
 
+    @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
     @Inject lateinit var trackingService: TrackingService
 
     override fun doWork(): ListenableWorker.Result {
+        sharedPrefsHelper.restoreSettings()
         val login = Login().apply {
             nickname = inputData.getString(Constants.KEY_LOGIN_NICKNAME) ?: ""
             server = inputData.getString(Constants.KEY_LOGIN_SERVER) ?: ""
