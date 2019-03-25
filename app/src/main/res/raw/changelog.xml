@@ -2,6 +2,18 @@
 <changelog bulletedList="true">
 
     <changelogversion
+        changeDate="Mar 25, 2019"
+        versionName="1.2.15">
+        <changelogtext>end of active development (again)</changelogtext>
+        <changelogtext>fix download tracking sometimes does not use setting DOWNLOAD_TRACKING_LIMIT</changelogtext>
+        <changelogtext>remove legacy-support unnecessary dependency</changelogtext>
+        <changelogtext>update livedata from 2.1.0-alpha02 to 2.1.0-alpha03</changelogtext>
+        <changelogtext>update okhttp from 3.12.0 to 3.14.0</changelogtext>
+        <changelogtext>update recyclerview from 1.1.0-alpha02 to 1.1.0-alpha03</changelogtext>
+        <changelogtext>update room from 2.1.0-alpha04 to 2.1.0-alpha06</changelogtext>
+    </changelogversion>
+
+    <changelogversion
         changeDate="Mar 9, 2019"
         versionName="1.2.14">
         <changelogtext>end of active development</changelogtext>
